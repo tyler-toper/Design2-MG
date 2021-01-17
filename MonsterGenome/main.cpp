@@ -1,20 +1,34 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include <map>
+
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <sstream>
 #include <fstream>
+
 #include "Weapon.cpp"
+#include "Armor.cpp"
+
 using namespace std;
 using namespace sf;
 
-vector<Weapon> Weapons;
+// Global path macros for files
+#define WeaponStats "../../Assets/WeaponStats/Weapons.csv"
+#define WeaponTextures "../../Assets/WeaponTextures/"
+#define ArmorStats "../../Assets/ArmorStats/Armors.csv"
+#define ArmorTextures "../../Assets/ArmorTextures/"
 
-void loadWeapons(){
-    ifstream inFS("../../Assets/WeaponStats/Weapons.csv");
+
+vector<Weapon> Weapons;
+vector<Armor> Armors;
+
+void loadAssets(){
+    ifstream inFS;
     string line;
+
+    // Load Weapons
+    inFS.open(WeaponStats);
     if(inFS.is_open()){
         int index = 0;
         while(getline(inFS, line)){
@@ -26,9 +40,8 @@ void loadWeapons(){
                 temp.push_back(word);
             }
 
-            string filename = "../../Assets/WeaponSprites/";
-            filename += to_string(index);
-            filename += ".png";
+            string filename = WeaponTextures;
+            filename += to_string(index) + ".png";
 
             Texture texture;
             texture.loadFromFile(filename);
@@ -42,15 +55,39 @@ void loadWeapons(){
     else{
         cout << "Unable to open file" << endl;
     }
+
+    // Load Armors
+    inFS.open(ArmorStats);
+    if(inFS.is_open()){
+        int index = 0;
+        while(getline(inFS,line)){
+            stringstream ss(line);
+            string word;
+            vector<string> temp;
+
+            while(getline(ss, word, ',')){
+                temp.push_back(word);
+            }
+
+            string filename = ArmorTextures;
+            filename += to_string(index) + ".png";
+
+            Texture texture;
+            texture.loadFromFile(filename);
+
+            Armor armor(stoi(temp[0]), temp[1], stoi(temp[2]), texture);
+            Armors.push_back(armor);
+            index++;
+        }
+    }
+
 }
 
-void openWindow(){
-    RenderWindow window(VideoMode(1920, 1080), "The Monster Genome");
-
+void openWindow(RenderWindow &window){
     while(window.isOpen()){
         window.clear(Color::White);
         Sprite knife(Weapons[2].texture);
-        knife.setPosition(512, 512);
+        knife.setPosition(0, 0);
         window.draw(knife);
 
         Event event;
@@ -65,7 +102,12 @@ void openWindow(){
 }
 
 int main() {
-    loadWeapons();
-    openWindow();
+    RenderWindow window(VideoMode(1920, 1080), "The Monster Genome");
+    loadAssets();
+    openWindow(window);
     return 0;
 }
+
+
+// NOTE: The OpenGL glFlush() fail in Texture.cpp(98) occurs when allocating Texture objects without having
+// a RenderWindow in the same scope. Everything still works fine with the error.

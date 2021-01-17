@@ -230,6 +230,7 @@ CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/Vid
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
+CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Armor.cpp
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Weapon.cpp
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../main.cpp
 

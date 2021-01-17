@@ -721,13 +721,11 @@ SFML/OpenGL.hpp
 -
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/main.cpp
-iostream
--
 SFML/Graphics.hpp
 -
 SFML/OpenGL.hpp
 -
-map
+iostream
 -
 vector
 -
@@ -739,4 +737,6 @@ fstream
 -
 Weapon.cpp
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.cpp
+Armor.cpp
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.cpp
 
