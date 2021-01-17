@@ -13,31 +13,35 @@ using namespace sf;
 vector<Weapon> Weapons;
 
 void loadWeapons(){
-    ifstream inFS("../WeaponStats/Weapons.csv");
+    ifstream inFS("../../WeaponStats/Weapons.csv");
     string line;
-
-    while(getline(inFS, line)){
+    if(inFS.is_open()){
         int index = 0;
-        stringstream ss(line);
-        string word;
-        vector<string> temp;
+        while(getline(inFS, line)){
+            stringstream ss(line);
+            string word;
+            vector<string> temp;
 
-        while(getline(ss, word, ',')){
-            temp.push_back(word);
+            while(getline(ss, word, ',')){
+                temp.push_back(word);
+            }
+
+            string filename = "../../WeaponSprites/";
+            filename += to_string(index);
+            filename += ".png";
+
+            Texture texture;
+            texture.loadFromFile(filename);
+
+            Weapon weapon(stoi(temp[0]), temp[1], stoi(temp[2]), texture);
+            Weapons.push_back(weapon);
+            index++;
         }
-
-        string filename = "../WeaponSprites/";
-        filename += to_string(index);
-        filename += ".png";
-
-        Texture texture;
-        texture.loadFromFile(filename);
-
-        Weapon weapon(stoi(temp[0]), temp[1], stoi(temp[2]), texture);
-        Weapons.push_back(weapon);
-        index++;
+        inFS.close();
     }
-
+    else{
+        cout << "Unable to open file" << endl;
+    }
 }
 
 void openWindow(){
@@ -45,6 +49,9 @@ void openWindow(){
 
     while(window.isOpen()){
         window.clear(Color::White);
+        Sprite knife(Weapons[2].texture);
+        knife.setPosition(512, 512);
+        window.draw(knife);
 
         Event event;
         while(window.pollEvent(event)){
@@ -59,6 +66,6 @@ void openWindow(){
 
 int main() {
     loadWeapons();
-    //openWindow();
+    openWindow();
     return 0;
 }

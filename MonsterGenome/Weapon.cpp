@@ -8,9 +8,10 @@ private:
     string name;
     int damage;
     int ID;
-    Texture texture;
+
 
 public:
+    Texture texture;
     // Constructor
     Weapon(int id, string &Name, int Damage, Texture &t){
         ID = id;
@@ -31,11 +32,6 @@ public:
     int getDamage() const{
         return damage;
     }
-
-    Texture getTexture() const{
-        return texture;
-    }
-
 };
 
 
