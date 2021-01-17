@@ -13,7 +13,7 @@ using namespace sf;
 vector<Weapon> Weapons;
 
 void loadWeapons(){
-    ifstream inFS("../../WeaponStats/Weapons.csv");
+    ifstream inFS("../../Assets/WeaponStats/Weapons.csv");
     string line;
     if(inFS.is_open()){
         int index = 0;
@@ -26,7 +26,7 @@ void loadWeapons(){
                 temp.push_back(word);
             }
 
-            string filename = "../../WeaponSprites/";
+            string filename = "../../Assets/WeaponSprites/";
             filename += to_string(index);
             filename += ".png";
 

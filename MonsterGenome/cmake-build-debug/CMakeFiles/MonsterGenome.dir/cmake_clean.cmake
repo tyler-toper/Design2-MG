@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/MonsterGenome.dir/Armor.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/main.cpp.obj"
   "MonsterGenome.exe"

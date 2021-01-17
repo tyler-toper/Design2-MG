@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Armor.cpp.obj"
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj"
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/main.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/main.cpp.obj"
   )

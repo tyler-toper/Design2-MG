@@ -3,7 +3,7 @@ project(MonsterGenome)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(MonsterGenome main.cpp Weapon.cpp)
+add_executable(MonsterGenome main.cpp Weapon.cpp Armor.cpp)
 
 include_directories(headers /usr/include c:/SFML/include)
 

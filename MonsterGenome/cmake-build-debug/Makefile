@@ -142,6 +142,33 @@ MonsterGenome/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/build
 .PHONY : MonsterGenome/fast
 
+Armor.obj: Armor.cpp.obj
+
+.PHONY : Armor.obj
+
+# target to build an object file
+Armor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.obj
+.PHONY : Armor.cpp.obj
+
+Armor.i: Armor.cpp.i
+
+.PHONY : Armor.i
+
+# target to preprocess a source file
+Armor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.i
+.PHONY : Armor.cpp.i
+
+Armor.s: Armor.cpp.s
+
+.PHONY : Armor.s
+
+# target to generate assembly for a file
+Armor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.s
+.PHONY : Armor.cpp.s
+
 Weapon.obj: Weapon.cpp.obj
 
 .PHONY : Weapon.obj
@@ -205,6 +232,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... MonsterGenome
+	@echo ... Armor.obj
+	@echo ... Armor.i
+	@echo ... Armor.s
 	@echo ... Weapon.obj
 	@echo ... Weapon.i
 	@echo ... Weapon.s

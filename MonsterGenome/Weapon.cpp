@@ -1,14 +1,13 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-using namespace sf;
 using namespace std;
+using namespace sf;
 class Weapon{
 private:
+    int ID;
     string name;
     int damage;
-    int ID;
-
 
 public:
     Texture texture;
