@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 
-#include "Hero.cpp"
-#include "Enemy.cpp"
-#include "LoadAssets.cpp"
+#include "Weapon.h"
+#include "Armor.h"
+#include "LoadAssets.h"
 
 vector<Weapon> Weapons;
 vector<Armor> Armors;

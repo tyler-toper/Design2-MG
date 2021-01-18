@@ -6,6 +6,8 @@ class Enemy{
 private:
     int ID;
     string name;
-    int maxHealth;
+    int health;
+    int armor;
+    int xpDrop;
 
 };

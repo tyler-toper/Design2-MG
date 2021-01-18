@@ -1,39 +1,22 @@
-#include <string>
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
-using namespace std;
-using namespace sf;
+#include "Armor.h"
 
-class Armor{
-private:
-    int ID;
-    string name;
-    int armorValue;
+// Constructor
+Armor::Armor(int id, string &Name, int armor, Texture &t){
+    ID = id;
+    name = Name;
+    armorValue = armor;
+    texture = t;
+}
 
-public:
-    Texture texture;
+// Getters
+int Armor::getID() const{
+    return ID;
+}
 
-    // Constructor
-    Armor(int id, string &Name, int armor, Texture &t){
-        ID = id;
-        name = Name;
-        armorValue = armor;
-        texture = t;
-    }
+string Armor::getName() const{
+    return name;
+}
 
-    // Getters
-    int getID() const{
-        return ID;
-    }
-
-    string getName() const{
-        return name;
-    }
-
-    int getArmorValue() const{
-        return armorValue;
-    }
-
-
-};
-
+int Armor::getArmorValue() const{
+    return armorValue;
+}

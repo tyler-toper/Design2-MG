@@ -704,7 +704,7 @@ SFML/Config.hpp
 
 C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
 
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.cpp
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.h
 string
 -
 SFML/Graphics.hpp
@@ -712,15 +712,11 @@ SFML/Graphics.hpp
 SFML/OpenGL.hpp
 -
 
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Enemy.cpp
-string
--
-
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp
-string
--
-
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.cpp
+LoadAssets.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.h
+
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.h
 sstream
 -
 fstream
@@ -735,28 +731,16 @@ SFML/Graphics.hpp
 -
 SFML/OpenGL.hpp
 -
-Weapon.cpp
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.cpp
-Armor.cpp
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.cpp
+Weapon.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
+Armor.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.h
 
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.cpp
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
 string
 -
 SFML/Graphics.hpp
 -
 SFML/OpenGL.hpp
 -
-
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/main.cpp
-iostream
--
-vector
--
-Hero.cpp
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp
-Enemy.cpp
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Enemy.cpp
-LoadAssets.cpp
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.cpp
 
