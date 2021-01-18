@@ -239,6 +239,7 @@ CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/Win
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../Menu.cpp
+CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../Menu.h
 
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: C:/SFML-2.5.1/include/SFML/Config.hpp
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: C:/SFML-2.5.1/include/SFML/Graphics.hpp
@@ -395,6 +396,7 @@ CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/Win
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Armor.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../LoadAssets.h
+CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Menu.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Weapon.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../main.cpp
 
