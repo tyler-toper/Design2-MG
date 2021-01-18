@@ -91,6 +91,15 @@
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Enemy.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>

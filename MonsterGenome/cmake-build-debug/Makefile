@@ -169,6 +169,87 @@ Armor.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.s
 .PHONY : Armor.cpp.s
 
+Enemy.obj: Enemy.cpp.obj
+
+.PHONY : Enemy.obj
+
+# target to build an object file
+Enemy.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj
+.PHONY : Enemy.cpp.obj
+
+Enemy.i: Enemy.cpp.i
+
+.PHONY : Enemy.i
+
+# target to preprocess a source file
+Enemy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.i
+.PHONY : Enemy.cpp.i
+
+Enemy.s: Enemy.cpp.s
+
+.PHONY : Enemy.s
+
+# target to generate assembly for a file
+Enemy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.s
+.PHONY : Enemy.cpp.s
+
+Hero.obj: Hero.cpp.obj
+
+.PHONY : Hero.obj
+
+# target to build an object file
+Hero.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Hero.cpp.obj
+.PHONY : Hero.cpp.obj
+
+Hero.i: Hero.cpp.i
+
+.PHONY : Hero.i
+
+# target to preprocess a source file
+Hero.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Hero.cpp.i
+.PHONY : Hero.cpp.i
+
+Hero.s: Hero.cpp.s
+
+.PHONY : Hero.s
+
+# target to generate assembly for a file
+Hero.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Hero.cpp.s
+.PHONY : Hero.cpp.s
+
+LoadAssets.obj: LoadAssets.cpp.obj
+
+.PHONY : LoadAssets.obj
+
+# target to build an object file
+LoadAssets.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj
+.PHONY : LoadAssets.cpp.obj
+
+LoadAssets.i: LoadAssets.cpp.i
+
+.PHONY : LoadAssets.i
+
+# target to preprocess a source file
+LoadAssets.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.i
+.PHONY : LoadAssets.cpp.i
+
+LoadAssets.s: LoadAssets.cpp.s
+
+.PHONY : LoadAssets.s
+
+# target to generate assembly for a file
+LoadAssets.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.s
+.PHONY : LoadAssets.cpp.s
+
 Weapon.obj: Weapon.cpp.obj
 
 .PHONY : Weapon.obj
@@ -235,6 +316,15 @@ help:
 	@echo ... Armor.obj
 	@echo ... Armor.i
 	@echo ... Armor.s
+	@echo ... Enemy.obj
+	@echo ... Enemy.i
+	@echo ... Enemy.s
+	@echo ... Hero.obj
+	@echo ... Hero.i
+	@echo ... Hero.s
+	@echo ... LoadAssets.obj
+	@echo ... LoadAssets.i
+	@echo ... LoadAssets.s
 	@echo ... Weapon.obj
 	@echo ... Weapon.i
 	@echo ... Weapon.s

@@ -9,6 +9,8 @@
 
 #include "Weapon.cpp"
 #include "Armor.cpp"
+#include "Hero.cpp"
+#include "Enemy.cpp"
 
 using namespace std;
 using namespace sf;
@@ -53,7 +55,7 @@ void loadAssets(){
         inFS.close();
     }
     else{
-        cout << "Unable to open file" << endl;
+        cout << "Unable to load weapons" << endl;
     }
 
     // Load Armors
@@ -79,6 +81,10 @@ void loadAssets(){
             Armors.push_back(armor);
             index++;
         }
+        inFS.close();
+    }
+    else{
+        cout << "Unable to load armor" << endl;
     }
 
 }
@@ -102,7 +108,7 @@ void openWindow(RenderWindow &window){
 }
 
 int main() {
-    RenderWindow window(VideoMode(1920, 1080), "The Monster Genome");
+    RenderWindow window(VideoMode(1920, 1440), "The Monster Genome");
     loadAssets();
     openWindow(window);
     return 0;
