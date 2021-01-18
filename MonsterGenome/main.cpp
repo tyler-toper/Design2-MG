@@ -20,6 +20,13 @@ void openWindow(RenderWindow &window){
         while(window.pollEvent(event)){
             if(event.type == Event::Closed){
                 window.close();
+                break;
+            }
+            if(event.type == Event::LostFocus){
+                // When the window is out of focus (not the active window). Pause game
+            }
+            if(event.type == Event::GainedFocus){
+                // When the window regains focus (active window again). Resume game
             }
         }
 
