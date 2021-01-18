@@ -3,6 +3,7 @@
 #include <SFML/OpenGL.hpp>
 using namespace std;
 using namespace sf;
+
 class Weapon{
 private:
     int ID;
@@ -11,6 +12,7 @@ private:
 
 public:
     Texture texture;
+
     // Constructor
     Weapon(int id, string &Name, int Damage, Texture &t){
         ID = id;

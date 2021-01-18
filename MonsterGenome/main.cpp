@@ -1,93 +1,13 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
-
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <sstream>
-#include <fstream>
 
-#include "Weapon.cpp"
-#include "Armor.cpp"
 #include "Hero.cpp"
 #include "Enemy.cpp"
-
-using namespace std;
-using namespace sf;
-
-// Global path macros for files
-#define WeaponStats "../../Assets/WeaponStats/Weapons.csv"
-#define WeaponTextures "../../Assets/WeaponTextures/"
-#define ArmorStats "../../Assets/ArmorStats/Armors.csv"
-#define ArmorTextures "../../Assets/ArmorTextures/"
-
+#include "LoadAssets.cpp"
 
 vector<Weapon> Weapons;
 vector<Armor> Armors;
 
-void loadAssets(){
-    ifstream inFS;
-    string line;
-
-    // Load Weapons
-    inFS.open(WeaponStats);
-    if(inFS.is_open()){
-        int index = 0;
-        while(getline(inFS, line)){
-            stringstream ss(line);
-            string word;
-            vector<string> temp;
-
-            while(getline(ss, word, ',')){
-                temp.push_back(word);
-            }
-
-            string filename = WeaponTextures;
-            filename += to_string(index) + ".png";
-
-            Texture texture;
-            texture.loadFromFile(filename);
-
-            Weapon weapon(stoi(temp[0]), temp[1], stoi(temp[2]), texture);
-            Weapons.push_back(weapon);
-            index++;
-        }
-        inFS.close();
-    }
-    else{
-        cout << "Unable to load weapons" << endl;
-    }
-
-    // Load Armors
-    inFS.open(ArmorStats);
-    if(inFS.is_open()){
-        int index = 0;
-        while(getline(inFS,line)){
-            stringstream ss(line);
-            string word;
-            vector<string> temp;
-
-            while(getline(ss, word, ',')){
-                temp.push_back(word);
-            }
-
-            string filename = ArmorTextures;
-            filename += to_string(index) + ".png";
-
-            Texture texture;
-            texture.loadFromFile(filename);
-
-            Armor armor(stoi(temp[0]), temp[1], stoi(temp[2]), texture);
-            Armors.push_back(armor);
-            index++;
-        }
-        inFS.close();
-    }
-    else{
-        cout << "Unable to load armor" << endl;
-    }
-
-}
 
 void openWindow(RenderWindow &window){
     while(window.isOpen()){
@@ -109,7 +29,9 @@ void openWindow(RenderWindow &window){
 
 int main() {
     RenderWindow window(VideoMode(1920, 1440), "The Monster Genome");
-    loadAssets();
+    LoadAssets loader;
+    loader.LoadWeapons(Weapons);
+    loader.LoadArmor(Armors);
     openWindow(window);
     return 0;
 }
