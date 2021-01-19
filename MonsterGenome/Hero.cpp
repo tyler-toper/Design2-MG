@@ -1,5 +1,10 @@
 #include <string>
+#include <iostream>
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include "Platforms.h"
 using namespace std;
+using namespace sf;
 
 class Hero{
 private:
@@ -8,34 +13,83 @@ private:
     int vitality;
     int health;
     int strength;
-    int experience;
-    int armor;
-    int levelUpXP;
+    bool jumping;
+    float jumpvel;
+    Texture text;
+    Sprite sprite;
 
-    void checkLevel(){
-        if(experience > levelUpXP){
-            int carry = experience - levelUpXP;
-            experience = carry;
-            level++;
-        }
-    }
 
 public:
+    int experience;
 
     Hero(){
         name = "player";
-        level = 1;
+        level = 0;
         experience = 0;
         vitality = 0;
         strength = 0;
         health = 100;
-        armor = 0;
-        levelUpXP = level * 2 * 1000;
+        jumping = false;
+        jumpvel = 0;
+        text.loadFromFile("../Images/example.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(400.f, 300.f));
     }
 
-    void addXP(int xp){
-        experience += xp;
-        checkLevel();
+    bool checkCollison(vector<Platforms>& borders){
+        for(int i=0; i < borders.size(); i++){
+            if(sprite.getGlobalBounds().intersects(borders[i].getSprite().getGlobalBounds())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void updatePostion(vector<Platforms>& borders){
+        //Gravity and collision when jumping
+        jumpvel += .01; // Vertical Acceleration
+        sprite.move(Vector2f(0, jumpvel));
+        if(checkCollison(borders)){
+            sprite.move(Vector2f(0, -1.f * jumpvel));
+            if(jumpvel > 0){
+                jumping = false;
+            }
+            jumpvel = 0;
+        }
+
+        //Moving Left and Right with Collision
+        if(Keyboard::isKeyPressed(Keyboard::Left)){
+            sprite.move(Vector2f(-.15, 0));
+            if(checkCollison(borders)){
+                sprite.move(Vector2f(.15, 0));
+            }
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Right)){
+            sprite.move(Vector2f(.15, 0));
+            if(checkCollison(borders)){
+                sprite.move(Vector2f(-.15, 0));
+            }
+        }
+        if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
+            jumping = true;
+            jumpvel = -2;
+            sprite.move(Vector2f(0, jumpvel));
+            if(checkCollison(borders)){
+                sprite.move(Vector2f(0, 1/10.f));
+            }
+        }
+
+        //Unfinsihed, will be ducking or something
+        if(Keyboard::isKeyPressed(Keyboard::Down)){
+
+            if(checkCollison(borders)){
+                sprite.move(Vector2f(0.f, -.15));
+            }
+        }
+    }
+
+    Sprite& getSprite(){
+        return this->sprite;
     }
 
 };

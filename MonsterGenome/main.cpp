@@ -5,6 +5,7 @@
 #include "Armor.h"
 #include "LoadAssets.h"
 #include "Menu.h"
+#include "Hero.cpp"
 
 #define windowWidth 1920
 #define windowHeight 1440
@@ -19,11 +20,13 @@ void openWindow(RenderWindow &window){
     while(window.isOpen()){
         window.clear(Color::White);
 
+
         Texture texture;
         texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
         Sprite background(texture);
         background.setPosition(0, 0);
         window.draw(background);
+
 
 
         Sprite sword(Weapons[2].texture);
@@ -44,6 +47,8 @@ void openWindow(RenderWindow &window){
             if(event.type == Event::GainedFocus){
                 // When the window regains focus (active window again). Resume game
             }
+
+
             if(event.type == Event::KeyPressed){
                 if(event.key.code == Keyboard::Up){
                     menu.MoveUp();
@@ -64,6 +69,8 @@ void openWindow(RenderWindow &window){
                     }
                 }
             }
+
+
         }
 
         menu.Draw(window);

@@ -712,6 +712,18 @@ SFML/Graphics.hpp
 SFML/OpenGL.hpp
 -
 
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp
+string
+-
+iostream
+-
+vector
+-
+SFML/Graphics.hpp
+-
+Platforms.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Platforms.h
+
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.h
 sstream
 -
@@ -732,10 +744,6 @@ C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
 Armor.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.h
 
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.cpp
-Menu.h
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
-
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
 SFML/Graphics.hpp
 -
@@ -744,6 +752,16 @@ SFML/OpenGL.hpp
 string
 -
 iostream
+-
+
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Platforms.h
+string
+-
+iostream
+-
+vector
+-
+SFML/Graphics.hpp
 -
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
@@ -767,4 +785,6 @@ LoadAssets.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.h
 Menu.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
+Hero.cpp
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp
 

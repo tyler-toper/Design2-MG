@@ -277,6 +277,33 @@ Menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Menu.cpp.s
 .PHONY : Menu.cpp.s
 
+Platforms.obj: Platforms.cpp.obj
+
+.PHONY : Platforms.obj
+
+# target to build an object file
+Platforms.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj
+.PHONY : Platforms.cpp.obj
+
+Platforms.i: Platforms.cpp.i
+
+.PHONY : Platforms.i
+
+# target to preprocess a source file
+Platforms.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.i
+.PHONY : Platforms.cpp.i
+
+Platforms.s: Platforms.cpp.s
+
+.PHONY : Platforms.s
+
+# target to generate assembly for a file
+Platforms.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.s
+.PHONY : Platforms.cpp.s
+
 Weapon.obj: Weapon.cpp.obj
 
 .PHONY : Weapon.obj
@@ -355,6 +382,9 @@ help:
 	@echo ... Menu.obj
 	@echo ... Menu.i
 	@echo ... Menu.s
+	@echo ... Platforms.obj
+	@echo ... Platforms.i
+	@echo ... Platforms.s
 	@echo ... Weapon.obj
 	@echo ... Weapon.i
 	@echo ... Weapon.s
