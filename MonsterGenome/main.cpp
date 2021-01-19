@@ -3,7 +3,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Hero.cpp"
+#include "Hero.h"
 
 using namespace std;
 using namespace sf;

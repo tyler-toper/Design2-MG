@@ -1,28 +1,8 @@
-#include <string>
-#include <iostream>
-#include <vector>
-#include <SFML/Graphics.hpp>
-#include "Platforms.h"
+#include "Hero.h"
 using namespace std;
 using namespace sf;
 
-class Hero{
-private:
-    string name;
-    int level;
-    int vitality;
-    int health;
-    int strength;
-    bool jumping;
-    float jumpvel;
-    Texture text;
-    Sprite sprite;
-
-
-public:
-    int experience;
-
-    Hero(){
+    Hero::Hero(){
         name = "player";
         level = 0;
         experience = 0;
@@ -36,7 +16,7 @@ public:
         sprite.setPosition(Vector2f(400.f, 300.f));
     }
 
-    bool checkCollison(vector<Platforms>& borders){
+    bool Hero::checkCollison(vector<Platforms>& borders){
         for(int i=0; i < borders.size(); i++){
             if(sprite.getGlobalBounds().intersects(borders[i].getSprite().getGlobalBounds())){
                 return true;
@@ -45,7 +25,7 @@ public:
         return false;
     }
 
-    void updatePostion(vector<Platforms>& borders){
+    void Hero::updatePostion(vector<Platforms>& borders){
             //Gravity and collision when jumping
             jumpvel += .01; // Vertical Acceleration 
             sprite.move(Vector2f(0, jumpvel));
@@ -88,8 +68,7 @@ public:
             }
     }
 
-    Sprite& getSprite(){
+    Sprite& Hero::getSprite(){
         return this->sprite;
     }
 
-};
