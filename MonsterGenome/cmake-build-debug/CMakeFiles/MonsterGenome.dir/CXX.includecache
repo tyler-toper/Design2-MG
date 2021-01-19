@@ -732,12 +732,18 @@ C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
 Armor.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.h
 
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.cpp
+Menu.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
+
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
 SFML/Graphics.hpp
 -
 SFML/OpenGL.hpp
 -
 string
+-
+iostream
 -
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h

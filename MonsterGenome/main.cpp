@@ -26,9 +26,9 @@ void openWindow(RenderWindow &window){
         window.draw(background);
 
 
-        Sprite knife(Weapons[2].texture);
-        knife.setPosition(0, 0);
-        window.draw(knife);
+        Sprite sword(Weapons[2].texture);
+        sword.setPosition(0, 0);
+        window.draw(sword);
 
 
 
