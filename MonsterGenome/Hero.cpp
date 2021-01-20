@@ -16,16 +16,16 @@ Hero::Hero(){
     sprite.setPosition(Vector2f(400.f, 300.f));
 }
 
-bool Hero::checkCollision(vector<Platforms>& borders){
+bool Hero::checkCollision(vector<Platforms*>& borders){
     for(int i=0; i < borders.size(); i++){
-        if(sprite.getGlobalBounds().intersects(borders[i].getSprite().getGlobalBounds())){
+        if(sprite.getGlobalBounds().intersects(borders[i]->getSprite().getGlobalBounds())){
             return true;
         }
     }
     return false;
 }
 
-void Hero::updatePosition(vector<Platforms>& borders){
+void Hero::updatePosition(vector<Platforms*>& borders){
     //Gravity and collision when jumping
     jumpvel += .01; // Vertical Acceleration
     sprite.move(Vector2f(0, jumpvel));

@@ -13,7 +13,7 @@ class Game {
 private:
     bool state;
     Hero hero;
-    vector<Platforms> borders;
+    vector<Platforms*> borders;
 
 public:
     explicit Game(RenderWindow &window);
