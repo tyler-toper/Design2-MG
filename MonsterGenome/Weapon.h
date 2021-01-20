@@ -1,5 +1,4 @@
-#ifndef MAIN_CPP_WEAPON_H
-#define MAIN_CPP_WEAPON_H
+#pragma once
 
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -49,4 +48,3 @@ public:
  * Maybe elements: Fire, poison, energy, radiation, etc.
  */
 
-#endif //MAIN_CPP_WEAPON_H

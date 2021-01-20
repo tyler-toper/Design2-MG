@@ -1,10 +1,10 @@
-#ifndef MAIN_CPP_MENU_H
-#define MAIN_CPP_MENU_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <string>
 #include <iostream>
+#include "Game.h"
 using namespace std;
 using namespace sf;
 
@@ -26,7 +26,6 @@ public:
     int GetSelected() const;
 
     bool GetState() const;
-    void PollMenu(Event &event, RenderWindow &window);
+    void SetState(bool NewState);
+    void PollMenu(Event &event, RenderWindow &window, Game &game);
 };
-
-#endif //MAIN_CPP_MENU_H

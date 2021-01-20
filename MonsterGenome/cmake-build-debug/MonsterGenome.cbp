@@ -97,7 +97,16 @@
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Enemy.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Game.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Game.h">
+			<Option target="MonsterGenome"/>
+		</Unit>
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.cpp">

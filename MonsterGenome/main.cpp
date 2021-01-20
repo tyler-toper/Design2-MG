@@ -5,6 +5,7 @@
 #include "Armor.h"
 #include "LoadAssets.h"
 #include "Menu.h"
+#include "Game.h"
 #include "Hero.cpp"
 
 #define windowWidth 1920
@@ -16,6 +17,7 @@ vector<Armor> Armors;
 
 void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
+    Game game(window);
 
     while(window.isOpen()){
         window.clear(Color::White);
@@ -49,31 +51,18 @@ void openWindow(RenderWindow &window){
             }
 
 
-            if(event.type == Event::KeyPressed){
-                if(event.key.code == Keyboard::Up){
-                    menu.MoveUp();
-                }
-                if(event.key.code == Keyboard::Down){
-                    menu.MoveDown();
-                }
-                if(event.key.code == Keyboard::Return){
-                    if(menu.GetSelected() == 0){
-                        cout << "Play has been selected." << endl;
-                    }
-                    else if(menu.GetSelected() == 1){
-                        cout << "Settings has been selected." << endl;
-                    }
-                    else if(menu.GetSelected() == 2){
-                        window.close();
-                        break;
-                    }
-                }
-            }
-
 
         }
 
-        menu.Draw(window);
+        if(menu.GetState()){
+            menu.PollMenu(event, window, game);
+            menu.Draw(window);
+        }
+        if(game.GetState()){
+            
+        }
+
+
         window.display();
     }
 }

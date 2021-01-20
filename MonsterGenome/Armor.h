@@ -1,6 +1,4 @@
-#ifndef MAIN_CPP_ARMOR_H
-#define MAIN_CPP_ARMOR_H
-
+#pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
@@ -25,4 +23,3 @@ public:
     int getArmorValue() const;
 };
 
-#endif //MAIN_CPP_ARMOR_H

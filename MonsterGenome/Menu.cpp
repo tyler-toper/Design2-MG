@@ -25,7 +25,50 @@ Menu::Menu(float width, float height){
     text[selected].setStyle(Text::Underlined);
 }
 
-void Menu::PollMenu(Event &event, RenderWindow &window) {
+void Menu::PollMenu(Event &event, RenderWindow &window, Game &game) {
+    // TODO: See which one is better. Both have a little bit of delay
+
+    if(Keyboard::isKeyPressed(Keyboard::Up)){
+        MoveUp();
+    }
+    if(Keyboard::isKeyPressed(Keyboard::Down)){
+        MoveDown();
+    }
+    if(Keyboard::isKeyPressed(Keyboard::Return)){
+        if(GetSelected() == 0){
+            SetState(false);
+            game.SetState(true);
+        }
+        else if(GetSelected() == 1){
+            cout << "Settings has been selected." << endl;
+        }
+        else if(GetSelected() == 2){
+            window.close();
+        }
+    }
+
+
+    /*
+    if(event.type == Event::KeyPressed){
+        if(event.key.code == Keyboard::Up){
+            MoveUp();
+        }
+        if(event.key.code == Keyboard::Down){
+            MoveDown();
+        }
+        if(event.key.code == Keyboard::Return){
+            if(GetSelected() == 0){
+                cout << "Play has been selected." << endl;
+            }
+            else if(GetSelected() == 1){
+                cout << "Settings has been selected." << endl;
+            }
+            else if(GetSelected() == 2){
+                window.close();
+            }
+        }
+    }
+     */
 
 }
 
@@ -57,6 +100,10 @@ void Menu::MoveUp(){
 
 bool Menu::GetState() const{
     return state;
+}
+
+void Menu::SetState(bool NewState) {
+    state = NewState;
 }
 
 int Menu::GetSelected() const{

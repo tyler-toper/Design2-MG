@@ -196,6 +196,33 @@ Enemy.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.s
 .PHONY : Enemy.cpp.s
 
+Game.obj: Game.cpp.obj
+
+.PHONY : Game.obj
+
+# target to build an object file
+Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Game.cpp.obj
+.PHONY : Game.cpp.obj
+
+Game.i: Game.cpp.i
+
+.PHONY : Game.i
+
+# target to preprocess a source file
+Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Game.cpp.i
+.PHONY : Game.cpp.i
+
+Game.s: Game.cpp.s
+
+.PHONY : Game.s
+
+# target to generate assembly for a file
+Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Game.cpp.s
+.PHONY : Game.cpp.s
+
 Hero.obj: Hero.cpp.obj
 
 .PHONY : Hero.obj
@@ -373,6 +400,9 @@ help:
 	@echo ... Enemy.obj
 	@echo ... Enemy.i
 	@echo ... Enemy.s
+	@echo ... Game.obj
+	@echo ... Game.i
+	@echo ... Game.s
 	@echo ... Hero.obj
 	@echo ... Hero.i
 	@echo ... Hero.s

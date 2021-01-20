@@ -1,5 +1,4 @@
-#ifndef MAIN_CPP_LOADASSETS_H
-#define MAIN_CPP_LOADASSETS_H
+#pragma once
 
 #include <sstream>
 #include <fstream>
@@ -28,5 +27,3 @@ public:
     void LoadWeapons(vector<Weapon> &Weapons);
     void LoadArmor(vector<Armor> &Armors);
 };
-
-#endif //MAIN_CPP_LOADASSETS_H
