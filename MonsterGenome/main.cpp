@@ -14,16 +14,17 @@ void runGame(){
     Clock clock;
     Time time;
     // Create an example level, We can probably load these from a file later
-    vector<Platforms> borders;
+    vector<Platforms*> borders;
+    vector<Projectile*> proj;
     //Invisible Borders
-    Platforms plat(1, 600, 800, 0);
-    Platforms plat1(1, 600, 0, 0);
+    Platforms* plat = new Platforms(1, 600, 800, 0);
+    Platforms* plat1 = new Platforms(1, 600, 0, 0);
     //The ground
-    Platforms plat2("Images/platform.png", 0, 500);
+    Platforms* plat2 = new Platforms("Images/platform.png", 0, 500);
     //Platforms in air
-    Platforms plat3("Images/platform2.png", 0, 350);
-    Platforms plat4("Images/platform2.png", 500, 400);
-    Platforms plat5("Images/platform2.png", 270, 200);
+    Platforms* plat3 = new Platforms("Images/platform2.png", 0, 350);
+    Platforms* plat4 = new Platforms("Images/platform2.png", 500, 400);
+    Platforms* plat5 = new Platforms("Images/platform2.png", 270, 200);
     borders.push_back(plat);
     borders.push_back(plat1);
     borders.push_back(plat2);
@@ -41,15 +42,21 @@ void runGame(){
             }
         }
         time = clock.restart();
-        hero.updatePostion(borders, time);
+        hero.updatePostion(borders, proj, time);
+        
+        for(int i=0; i < proj.size(); i++){
+            if(!proj[i]->update(borders, time)){
+                window.draw(proj[i]->getSprite());
+            }
+            else{
+                delete proj[i]; 
+                proj.erase(proj.begin() + i);
+            }
+        }
 
-        //Put these in an array and make a function
-        window.draw(plat.getSprite());
-        window.draw(plat1.getSprite());
-        window.draw(plat2.getSprite());
-        window.draw(plat3.getSprite());
-        window.draw(plat4.getSprite());
-        window.draw(plat5.getSprite());
+        for(int i=0; i < borders.size(); i++){
+            window.draw(borders[i]->getSprite());
+        }
         window.draw(hero.getSprite());
 
         window.display();

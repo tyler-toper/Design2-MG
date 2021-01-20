@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "Platforms.h"
+#include "Projectile.h"
 
 class Hero{
 private:
@@ -14,15 +14,20 @@ private:
     bool jumping;
     float jumpvel;
     float horizontalvel;
+    float facing = 1.f;
     Texture text;
     Sprite sprite;
+
+    //should be in weapons firerate
+    float weapontimer;
 
 public:
     int experience;
 
     Hero();
 
-    bool checkCollison(vector<Platforms>& borders);
-    void updatePostion(vector<Platforms>& borders, Time& time);
+    bool checkCollison(vector<Platforms*>& borders);
+    void updatePostion(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time);
+    void attack(vector<Projectile*>& borders);
     Sprite& getSprite();
 };
