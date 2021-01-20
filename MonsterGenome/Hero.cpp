@@ -11,7 +11,7 @@ Hero::Hero(){
     health = 100;
     jumping = false;
     jumpvel = 0;
-    text.loadFromFile("Images/example.png");
+    text.loadFromFile("../Images/example.png");
     sprite.setTexture(text);
     sprite.setPosition(Vector2f(400.f, 300.f));
 }

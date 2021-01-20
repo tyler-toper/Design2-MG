@@ -13,7 +13,7 @@ Menu::Menu(float width, float height){
     for(int i = 0; i < options; i++){
         text[i].setFont(font);
         text[i].setFillColor(Color::Yellow);
-        text[i].setCharacterSize(100);
+        text[i].setCharacterSize(75);
 
         FloatRect box = text[i].getGlobalBounds();
         float offset = box.width / 2;

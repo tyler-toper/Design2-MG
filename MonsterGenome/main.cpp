@@ -6,10 +6,10 @@
 #include "LoadAssets.h"
 #include "Menu.h"
 #include "Game.h"
-#include "Hero.cpp"
+#include "Hero.h"
 
-#define windowWidth 1920
-#define windowHeight 1440
+#define windowWidth 1024
+#define windowHeight 768
 
 vector<Weapon> Weapons;
 vector<Armor> Armors;
@@ -18,23 +18,10 @@ vector<Armor> Armors;
 void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
     Game game(window);
+    Hero hero;
 
     while(window.isOpen()){
         window.clear(Color::White);
-
-
-        Texture texture;
-        texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
-        Sprite background(texture);
-        background.setPosition(0, 0);
-        window.draw(background);
-
-
-
-        Sprite sword(Weapons[2].texture);
-        sword.setPosition(0, 0);
-        window.draw(sword);
-
 
 
         Event event;
@@ -55,11 +42,22 @@ void openWindow(RenderWindow &window){
         }
 
         if(menu.GetState()){
+            Texture texture;
+            texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
+            Sprite background(texture);
+            background.setPosition(0, 0);
+            window.draw(background);
+
+            Sprite sword(Weapons[2].texture);
+            sword.setPosition(0, 0);
+            window.draw(sword);
+
             menu.PollMenu(event, window, game);
             menu.Draw(window);
         }
         if(game.GetState()){
-            
+            game.PollGame(window);
+            game.Draw(window);
         }
 
 
