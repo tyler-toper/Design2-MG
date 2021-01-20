@@ -13,9 +13,9 @@ private:
     int strength;
     bool jumping;
     float jumpvel;
+    float horizontalvel;
     Texture text;
     Sprite sprite;
-
 
 public:
     int experience;
@@ -23,6 +23,6 @@ public:
     Hero();
 
     bool checkCollison(vector<Platforms>& borders);
-    void updatePostion(vector<Platforms>& borders);
+    void updatePostion(vector<Platforms>& borders, Time& time);
     Sprite& getSprite();
 };

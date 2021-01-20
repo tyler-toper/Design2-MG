@@ -11,6 +11,8 @@ using namespace sf;
 void runGame(){
     RenderWindow window(VideoMode(800, 600), "The Monster Genome");
     Hero hero;
+    Clock clock;
+    Time time;
     // Create an example level, We can probably load these from a file later
     vector<Platforms> borders;
     //Invisible Borders
@@ -31,14 +33,15 @@ void runGame(){
 
     while(window.isOpen()){
         window.clear(Color::White);
-        
+    
         Event event;
         while(window.pollEvent(event)){
             if(event.type == Event::Closed){
                 window.close();
             }
         }
-        hero.updatePostion(borders);
+        time = clock.restart();
+        hero.updatePostion(borders, time);
 
         //Put these in an array and make a function
         window.draw(plat.getSprite());
