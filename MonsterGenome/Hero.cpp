@@ -29,7 +29,7 @@ using namespace sf;
     void Hero::updatePostion(vector<Platforms>& borders, Time& timein){
             //Gravity and collision when jumpin
             float time = timein.asSeconds();
-            jumpvel += 200.f * time; // Vertical Acceleration 
+            jumpvel += 1100.f * time; // Vertical Acceleration 
             sprite.move(Vector2f(0, jumpvel * time));
             if(checkCollison(borders)){
                 sprite.move(Vector2f(0, -1.f * jumpvel * time));
@@ -54,7 +54,7 @@ using namespace sf;
             }
             if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
                 jumping = true;
-                jumpvel = -150.f;
+                jumpvel = -400.f;
                 sprite.move(Vector2f(0, jumpvel * time));
                 if(checkCollison(borders)){
                     sprite.move(Vector2f(0, -1.f * jumpvel * time));
