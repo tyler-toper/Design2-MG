@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/LoadAssets.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj"
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Menu.cpp.obj"
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Platforms.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj"
+  "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj"
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj"
   "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/main.cpp" "C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/main.cpp.obj"
   )

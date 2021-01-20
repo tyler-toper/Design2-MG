@@ -4,7 +4,8 @@
 #include <SFML/OpenGL.hpp>
 #include <string>
 #include <iostream>
-#include "Game.h"
+#include <stack>
+#include "StateManager.h"
 using namespace std;
 using namespace sf;
 
@@ -16,7 +17,6 @@ private:
     int selected;
     Font font;
     Text text[options];
-    bool state;
 
 public:
     Menu(float width, float height);
@@ -25,7 +25,5 @@ public:
     void MoveDown();
     int GetSelected() const;
 
-    bool GetState() const;
-    void SetState(bool NewState);
-    void PollMenu(Event &event, RenderWindow &window, Game &game);
+    void PollMenu(Event &event, RenderWindow &window, StateManager &state);
 };

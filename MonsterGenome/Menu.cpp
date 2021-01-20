@@ -1,8 +1,6 @@
 #include "Menu.h"
 
 Menu::Menu(float width, float height){
-    state = true;
-
     font.loadFromFile(pixelFont);
     selected = 0;
 
@@ -25,7 +23,7 @@ Menu::Menu(float width, float height){
     text[selected].setStyle(Text::Underlined);
 }
 
-void Menu::PollMenu(Event &event, RenderWindow &window, Game &game) {
+void Menu::PollMenu(Event &event, RenderWindow &window, StateManager &state) {
     // TODO: See which one is better. Both have a little bit of delay
 
     if(Keyboard::isKeyPressed(Keyboard::Up)){
@@ -36,8 +34,8 @@ void Menu::PollMenu(Event &event, RenderWindow &window, Game &game) {
     }
     if(Keyboard::isKeyPressed(Keyboard::Return)){
         if(GetSelected() == 0){
-            SetState(false);
-            game.SetState(true);
+            state.RemoveState();
+            state.AddState(StateManager::PLAY);
         }
         else if(GetSelected() == 1){
             cout << "Settings has been selected." << endl;
@@ -98,13 +96,6 @@ void Menu::MoveUp(){
     }
 }
 
-bool Menu::GetState() const{
-    return state;
-}
-
-void Menu::SetState(bool NewState) {
-    state = NewState;
-}
 
 int Menu::GetSelected() const{
     return selected;

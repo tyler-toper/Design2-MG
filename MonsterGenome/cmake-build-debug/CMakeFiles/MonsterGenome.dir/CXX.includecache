@@ -727,10 +727,8 @@ Hero.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.h
 Platforms.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Platforms.h
-
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.cpp
-Hero.h
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.h
+StateManager.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.h
 string
@@ -777,8 +775,10 @@ string
 -
 iostream
 -
-Game.h
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Game.h
+stack
+-
+StateManager.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Platforms.h
 string
@@ -788,6 +788,14 @@ iostream
 vector
 -
 SFML/Graphics.hpp
+-
+
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.cpp
+StateManager.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
+
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
+stack
 -
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
@@ -815,4 +823,6 @@ Game.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Game.h
 Hero.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Hero.h
+StateManager.h
+C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
 

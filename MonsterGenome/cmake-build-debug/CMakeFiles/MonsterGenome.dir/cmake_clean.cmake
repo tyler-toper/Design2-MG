@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Menu.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj"
+  "CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/main.cpp.obj"
   "MonsterGenome.exe"

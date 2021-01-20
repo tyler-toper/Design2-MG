@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <stack>
 
 #include "Weapon.h"
 #include "Armor.h"
@@ -8,6 +7,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Hero.h"
+#include "StateManager.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -15,13 +15,12 @@
 vector<Weapon> Weapons;
 vector<Armor> Armors;
 
-enum State{PLAY, SETTINGS, MENU};
-extern stack<State> state;
 
 void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
     Game game(window);
     Hero hero;
+    StateManager state;
 
     while(window.isOpen()){
         window.clear(Color::White);
@@ -44,7 +43,7 @@ void openWindow(RenderWindow &window){
 
         }
 
-        if(menu.GetState()){
+        if(state.GetState() == StateManager::MENU){
             Texture texture;
             texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
             Sprite background(texture);
@@ -55,10 +54,10 @@ void openWindow(RenderWindow &window){
             sword.setPosition(0, 0);
             window.draw(sword);
 
-            menu.PollMenu(event, window, game);
+            menu.PollMenu(event, window, state);
             menu.Draw(window);
         }
-        if(game.GetState()){
+        if(state.GetState() == StateManager::PLAY){
             game.PollGame(window);
             game.Draw(window);
         }
@@ -73,9 +72,6 @@ int main() {
     LoadAssets loader;
     loader.LoadWeapons(Weapons);
     loader.LoadArmor(Armors);
-
-    State st = MENU;
-    state.push(st);
 
     openWindow(window);
     return 0;

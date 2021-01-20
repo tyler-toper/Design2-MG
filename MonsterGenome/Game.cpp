@@ -1,8 +1,6 @@
 #include "Game.h"
 
 Game::Game(RenderWindow &window) {
-    state = false;
-
     //Invisible Borders
     Platforms* plat = new Platforms(1, 600, 800, 0);
     Platforms* plat1 = new Platforms(1, 600, 0, 0);
@@ -29,12 +27,4 @@ void Game::Draw(RenderWindow &window){
         window.draw(borders[i]->getSprite());
     }
     window.draw(hero.getSprite());
-}
-
-bool Game::GetState() const {
-    return state;
-}
-
-void Game::SetState(bool NewState) {
-    state = NewState;
 }
