@@ -762,10 +762,6 @@ C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Weapon.h
 Armor.h
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Armor.h
 
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.cpp
-Menu.h
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
-
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Menu.h
 SFML/Graphics.hpp
 -
@@ -789,10 +785,6 @@ vector
 -
 SFML/Graphics.hpp
 -
-
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.cpp
-StateManager.h
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
 
 C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.h
 stack

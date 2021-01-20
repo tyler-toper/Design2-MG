@@ -18,7 +18,7 @@ vector<Armor> Armors;
 
 void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
-    Game game(window);
+    Game game;
     Hero hero;
     StateManager state;
 
@@ -58,7 +58,7 @@ void openWindow(RenderWindow &window){
             menu.Draw(window);
         }
         if(state.GetState() == StateManager::PLAY){
-            game.PollGame(window);
+            game.PollGame();
             game.Draw(window);
         }
 
@@ -72,7 +72,6 @@ int main() {
     LoadAssets loader;
     loader.LoadWeapons(Weapons);
     loader.LoadArmor(Armors);
-
     openWindow(window);
     return 0;
 }

@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(RenderWindow &window) {
+Game::Game() {
     //Invisible Borders
     Platforms* plat = new Platforms(1, 600, 800, 0);
     Platforms* plat1 = new Platforms(1, 600, 0, 0);
@@ -18,7 +18,7 @@ Game::Game(RenderWindow &window) {
     borders.push_back(plat5);
 }
 
-void Game::PollGame(RenderWindow &window) {
+void Game::PollGame() {
     hero.updatePosition(borders);
 }
 

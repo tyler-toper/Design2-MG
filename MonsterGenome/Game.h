@@ -16,9 +16,9 @@ private:
     vector<Platforms*> borders;
 
 public:
-    explicit Game(RenderWindow &window);
+    explicit Game();
 
-    void PollGame(RenderWindow &window);
+    void PollGame();
     void Draw(RenderWindow &window);
 
 };
