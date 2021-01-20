@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <stack>
 
 #include "Weapon.h"
 #include "Armor.h"
@@ -14,6 +15,8 @@
 vector<Weapon> Weapons;
 vector<Armor> Armors;
 
+enum State{PLAY, SETTINGS, MENU};
+extern stack<State> state;
 
 void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
@@ -70,6 +73,10 @@ int main() {
     LoadAssets loader;
     loader.LoadWeapons(Weapons);
     loader.LoadArmor(Armors);
+
+    State st = MENU;
+    state.push(st);
+
     openWindow(window);
     return 0;
 }

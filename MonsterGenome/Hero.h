@@ -24,7 +24,7 @@ public:
 
     Hero();
 
-    bool checkCollision(vector<Platforms>& borders);
-    void updatePosition(vector<Platforms>& borders);
+    bool checkCollision(vector<Platforms*>& borders);
+    void updatePosition(vector<Platforms*>& borders);
     Sprite& getSprite();
 };
