@@ -47,14 +47,12 @@ using namespace sf;
             
             //Moving Left and Right with Collision
             if(Keyboard::isKeyPressed(Keyboard::Left)){
-                facing = -1.f;
                 sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
                 if(checkCollison(borders)){
                     sprite.move(Vector2f(horizontalvel * time, 0));
                 }
             }
             if(Keyboard::isKeyPressed(Keyboard::Right)){
-                facing = 1.f;
                 sprite.move(Vector2f(horizontalvel * time, 0));
                 if(checkCollison(borders)){
                     sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
@@ -87,7 +85,7 @@ using namespace sf;
 
     void Hero::attack(vector<Projectile*>& proj, Vector2i loc){
         if(weapontimer <= 0.f){
-            proj.push_back(new Projectile("Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y, facing));
+            proj.push_back(new Projectile("Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y));
             weapontimer = 1.f;
         }
     }    

@@ -17,7 +17,7 @@ private:
     float yvel;
 
 public:
-    Projectile(String path, float col, float row, float colend, float rowend, float dir);
+    Projectile(String path, float col, float row, float colend, float rowend);
     Sprite& getSprite();
     bool update(vector<Platforms*>& borders, Time& timein);
     bool checkCollision(vector<Platforms*>& borders);

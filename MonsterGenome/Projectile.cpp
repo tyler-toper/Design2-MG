@@ -2,7 +2,7 @@
 using namespace std;
 using namespace sf;
 
-Projectile::Projectile(String path, float col, float row, float colend, float rowend, float dir){
+Projectile::Projectile(String path, float col, float row, float colend, float rowend){
         name = "nogo";
         text.loadFromFile(path);
         sprite.setTexture(text);

@@ -14,7 +14,6 @@ private:
     bool jumping;
     float jumpvel;
     float horizontalvel;
-    float facing = 1.f;
     Texture text;
     Sprite sprite;
 
