@@ -27,7 +27,7 @@ public:
     Hero();
 
     bool checkCollison(vector<Platforms*>& borders);
-    void updatePostion(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time);
-    void attack(vector<Projectile*>& borders);
+    void updatePostion(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
+    void attack(vector<Projectile*>& borders, Vector2i loc);
     Sprite& getSprite();
 };

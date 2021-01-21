@@ -1,3 +1,4 @@
+#include <math.h>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -16,7 +17,7 @@ private:
     float yvel;
 
 public:
-    Projectile(String path, float col, float row, float dir);
+    Projectile(String path, float col, float row, float colend, float rowend, float dir);
     Sprite& getSprite();
     bool update(vector<Platforms*>& borders, Time& timein);
     bool checkCollision(vector<Platforms*>& borders);

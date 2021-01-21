@@ -2,13 +2,14 @@
 using namespace std;
 using namespace sf;
 
-Projectile::Projectile(String path, float col, float row, float dir){
+Projectile::Projectile(String path, float col, float row, float colend, float rowend, float dir){
         name = "nogo";
         text.loadFromFile(path);
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(col, row));
-        xvel = 100 * dir;
-        yvel = 0;
+        float totaldist = sqrt(pow((colend - col),2) + pow((rowend - row),2)); 
+        xvel = 100 * (colend - col) / totaldist;
+        yvel = 100 * (rowend - row) / totaldist;
 }
 
 bool Projectile::update(vector<Platforms*>& borders, Time& timein){

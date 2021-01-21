@@ -30,7 +30,7 @@ using namespace sf;
         return false;
     }
 
-    void Hero::updatePostion(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein){
+    void Hero::updatePostion(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window){
             //Gravity and collision when jumpin
             float time = timein.asSeconds();
             weapontimer = weapontimer - time;
@@ -77,7 +77,7 @@ using namespace sf;
             }
             //Attacking
             if(Keyboard::isKeyPressed(Keyboard::Z)){
-                attack(proj);
+                attack(proj, Mouse::getPosition(window));
             }
     }
 
@@ -85,9 +85,9 @@ using namespace sf;
         return this->sprite;
     }
 
-    void Hero::attack(vector<Projectile*>& proj){
+    void Hero::attack(vector<Projectile*>& proj, Vector2i loc){
         if(weapontimer <= 0.f){
-            proj.push_back(new Projectile("Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, facing));
+            proj.push_back(new Projectile("Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y, facing));
             weapontimer = 1.f;
         }
     }    

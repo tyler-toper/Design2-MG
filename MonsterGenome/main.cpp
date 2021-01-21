@@ -42,7 +42,7 @@ void runGame(){
             }
         }
         time = clock.restart();
-        hero.updatePostion(borders, proj, time);
+        hero.updatePostion(borders, proj, time, window);
         
         for(int i=0; i < proj.size(); i++){
             if(!proj[i]->update(borders, time)){
@@ -58,7 +58,7 @@ void runGame(){
             window.draw(borders[i]->getSprite());
         }
         window.draw(hero.getSprite());
-
+        
         window.display();
     }
 }
