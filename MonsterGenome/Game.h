@@ -14,11 +14,12 @@ class Game {
 private:
     Hero hero;
     vector<Platforms*> borders;
+    vector<Projectile*> projs;
 
 public:
     explicit Game();
 
-    void PollGame();
-    void Draw(RenderWindow &window);
+    void PollGame(RenderWindow &window, Time& time);
+    void Draw(RenderWindow &window, Time& time);
 
 };

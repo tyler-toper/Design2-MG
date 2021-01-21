@@ -6,7 +6,6 @@
 #include "LoadAssets.h"
 #include "Menu.h"
 #include "Game.h"
-#include "Hero.h"
 #include "StateManager.h"
 
 #define windowWidth 1024
@@ -20,10 +19,13 @@ void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
     Game game;
     Hero hero;
+    Clock clock;
+    Time time;
     StateManager state;
 
     while(window.isOpen()){
         window.clear(Color::White);
+        time = clock.restart();
 
 
         Event event;
@@ -58,8 +60,8 @@ void openWindow(RenderWindow &window){
             menu.Draw(window);
         }
         if(state.GetState() == StateManager::PLAY){
-            game.PollGame();
-            game.Draw(window);
+            game.PollGame(window, time);
+            game.Draw(window, time);
         }
 
 

@@ -18,12 +18,22 @@ Game::Game() {
     borders.push_back(plat5);
 }
 
-void Game::PollGame() {
-    hero.updatePosition(borders);
+void Game::PollGame(RenderWindow &window, Time& time) {
+    hero.updatePosition(borders, projs, time, window);
 }
 
-void Game::Draw(RenderWindow &window){
-    for(int i = 0; i < 5; i++){
+void Game::Draw(RenderWindow &window, Time& time){
+    for(int i=0; i < projs.size(); i++){
+            if(!projs[i]->update(borders, time)){
+                window.draw(projs[i]->getSprite());
+            }
+            else{
+                delete projs[i]; 
+                projs.erase(projs.begin() + i);
+            }
+        }
+
+    for(int i = 0; i < borders.size(); i++){
         window.draw(borders[i]->getSprite());
     }
     window.draw(hero.getSprite());
