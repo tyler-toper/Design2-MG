@@ -1,5 +1,17 @@
 "C:\Program Files (x86)\JetBrains\CLion 2020.1.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\wwwgu\Documents\Design2-MG\MonsterGenome
 -- Found SFML .. in C:/SFML-2.5.1/include
 -- Configuring done
--- Generating done
--- Build files have been written to: C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug
+CMake Error at CMakeLists.txt:6 (add_executable):
+  Cannot find source file:
+
+    *.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
+  .hpp .hxx .in .txx
+
+
+CMake Error at CMakeLists.txt:6 (add_executable):
+  No SOURCES given to target: MonsterGenome
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

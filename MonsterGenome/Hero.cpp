@@ -12,7 +12,7 @@ using namespace sf;
         jumping = false;
         jumpvel = 0;
         horizontalvel = 100.f;
-        text.loadFromFile("Images/example.png");
+        text.loadFromFile("../Images/example.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
 
@@ -85,7 +85,7 @@ using namespace sf;
 
     void Hero::attack(vector<Projectile*>& proj, Vector2i loc){
         if(weapontimer <= 0.f){
-            proj.push_back(new Projectile("Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y));
+            proj.push_back(new Projectile("../Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y));
             weapontimer = 1.f;
         }
     }    

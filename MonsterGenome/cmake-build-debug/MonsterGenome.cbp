@@ -127,6 +127,12 @@
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Platforms.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Projectile.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/Projectile.h">
+			<Option target="MonsterGenome"/>
+		</Unit>
 		<Unit filename="C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/StateManager.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>

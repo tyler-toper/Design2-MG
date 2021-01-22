@@ -331,6 +331,33 @@ Platforms.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.s
 .PHONY : Platforms.cpp.s
 
+Projectile.obj: Projectile.cpp.obj
+
+.PHONY : Projectile.obj
+
+# target to build an object file
+Projectile.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj
+.PHONY : Projectile.cpp.obj
+
+Projectile.i: Projectile.cpp.i
+
+.PHONY : Projectile.i
+
+# target to preprocess a source file
+Projectile.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.i
+.PHONY : Projectile.cpp.i
+
+Projectile.s: Projectile.cpp.s
+
+.PHONY : Projectile.s
+
+# target to generate assembly for a file
+Projectile.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.s
+.PHONY : Projectile.cpp.s
+
 StateManager.obj: StateManager.cpp.obj
 
 .PHONY : StateManager.obj
@@ -442,6 +469,9 @@ help:
 	@echo ... Platforms.obj
 	@echo ... Platforms.i
 	@echo ... Platforms.s
+	@echo ... Projectile.obj
+	@echo ... Projectile.i
+	@echo ... Projectile.s
 	@echo ... StateManager.obj
 	@echo ... StateManager.i
 	@echo ... StateManager.s
