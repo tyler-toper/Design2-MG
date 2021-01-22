@@ -1,3 +1,3 @@
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir
-C:/Users/wwwgu/Documents/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir
+C:/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/rebuild_cache.dir
