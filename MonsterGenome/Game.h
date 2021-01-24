@@ -19,7 +19,7 @@ private:
 public:
     explicit Game();
 
-    void PollGame(RenderWindow &window, Time& time);
+    void PollGame(RenderWindow &window, Time& time, GameState &state);
     void Draw(RenderWindow &window, Time& time);
 
 };

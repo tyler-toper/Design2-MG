@@ -331,6 +331,33 @@ Menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Menu.cpp.s
 .PHONY : Menu.cpp.s
 
+Pause.obj: Pause.cpp.obj
+
+.PHONY : Pause.obj
+
+# target to build an object file
+Pause.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Pause.cpp.obj
+.PHONY : Pause.cpp.obj
+
+Pause.i: Pause.cpp.i
+
+.PHONY : Pause.i
+
+# target to preprocess a source file
+Pause.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Pause.cpp.i
+.PHONY : Pause.cpp.i
+
+Pause.s: Pause.cpp.s
+
+.PHONY : Pause.s
+
+# target to generate assembly for a file
+Pause.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Pause.cpp.s
+.PHONY : Pause.cpp.s
+
 Platforms.obj: Platforms.cpp.obj
 
 .PHONY : Platforms.obj
@@ -384,6 +411,33 @@ Projectile.s: Projectile.cpp.s
 Projectile.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.s
 .PHONY : Projectile.cpp.s
+
+Settings.obj: Settings.cpp.obj
+
+.PHONY : Settings.obj
+
+# target to build an object file
+Settings.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Settings.cpp.obj
+.PHONY : Settings.cpp.obj
+
+Settings.i: Settings.cpp.i
+
+.PHONY : Settings.i
+
+# target to preprocess a source file
+Settings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Settings.cpp.i
+.PHONY : Settings.cpp.i
+
+Settings.s: Settings.cpp.s
+
+.PHONY : Settings.s
+
+# target to generate assembly for a file
+Settings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Settings.cpp.s
+.PHONY : Settings.cpp.s
 
 Weapon.obj: Weapon.cpp.obj
 
@@ -469,12 +523,18 @@ help:
 	@echo ... Menu.obj
 	@echo ... Menu.i
 	@echo ... Menu.s
+	@echo ... Pause.obj
+	@echo ... Pause.i
+	@echo ... Pause.s
 	@echo ... Platforms.obj
 	@echo ... Platforms.i
 	@echo ... Platforms.s
 	@echo ... Projectile.obj
 	@echo ... Projectile.i
 	@echo ... Projectile.s
+	@echo ... Settings.obj
+	@echo ... Settings.i
+	@echo ... Settings.s
 	@echo ... Weapon.obj
 	@echo ... Weapon.i
 	@echo ... Weapon.s

@@ -1,17 +1,20 @@
-#include "Menu.h"
+#include "Pause.h"
 
-Menu::Menu(float width, float height){
+
+Pause::Pause(float width, float height) {
     font.loadFromFile(pixelFont);
     selected = 0;
 
-    text[0].setString("Play");
-    text[1].setString("Settings");
-    text[2].setString("Quit");
+    text[0].setString("Resume");
+    text[1].setString("Save");
+    text[2].setString("Load");
+    text[3].setString("Settings");
+    text[4].setString("Quit to Main Menu");
 
     for(int i = 0; i < options; i++){
         text[i].setFont(font);
         text[i].setFillColor(Color::Yellow);
-        text[i].setCharacterSize(75);
+        text[i].setCharacterSize(50);
 
         FloatRect box = text[i].getGlobalBounds();
         float offset = box.width / 2;
@@ -23,7 +26,8 @@ Menu::Menu(float width, float height){
     text[selected].setStyle(Text::Underlined);
 }
 
-void Menu::PollMenu(Event &event, RenderWindow &window, GameState &state) {
+
+void Pause::PollMenu(Event &event, RenderWindow &window, GameState &state) {
     // TODO: See which one is better. Both have a little bit of delay
 
     if(Keyboard::isKeyPressed(Keyboard::Up)){
@@ -34,50 +38,31 @@ void Menu::PollMenu(Event &event, RenderWindow &window, GameState &state) {
     }
     if(Keyboard::isKeyPressed(Keyboard::Return)){
         if(GetSelected() == 0){
-            state.SetState(GameState::PLAY);
-            state.SetPlaying(true);
+
         }
         else if(GetSelected() == 1){
-            cout << "Settings has been selected." << endl;
+
         }
         else if(GetSelected() == 2){
-            window.close();
+
+        }
+        else if(GetSelected() == 3){
+            state.SetState(GameState::SETTINGS)
+        }
+        else if(GetSelected() == 4){
+            state.SetPlaying(false);
+            state.SetPlaying(GameState::MENU);
         }
     }
-
-
-    /*
-    if(event.type == Event::KeyPressed){
-        if(event.key.code == Keyboard::Up){
-            MoveUp();
-        }
-        if(event.key.code == Keyboard::Down){
-            MoveDown();
-        }
-        if(event.key.code == Keyboard::Return){
-            if(GetSelected() == 0){
-                state.SetState(GameState::PLAY);
-                state.SetPlaying(true);
-            }
-            else if(GetSelected() == 1){
-                cout << "Settings has been selected." << endl;
-            }
-            else if(GetSelected() == 2){
-                window.close();
-            }
-        }
-    }
-*/
-
 }
 
-void Menu::Draw(RenderWindow &window){
+void Pause::Draw(RenderWindow &window){
     for(int i = 0; i < options; i++){
         window.draw(text[i]);
     }
 }
 
-void Menu::MoveDown(){
+void Pause::MoveDown(){
     if(selected + 1 < options){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
@@ -87,7 +72,7 @@ void Menu::MoveDown(){
     }
 }
 
-void Menu::MoveUp(){
+void Pause::MoveUp(){
     if(selected - 1 >= 0){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
@@ -98,6 +83,6 @@ void Menu::MoveUp(){
 }
 
 
-int Menu::GetSelected() const{
+int Pause::GetSelected() const{
     return selected;
 }

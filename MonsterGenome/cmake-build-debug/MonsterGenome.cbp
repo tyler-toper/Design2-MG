@@ -127,6 +127,12 @@
 		<Unit filename="C:/Design2-MG/MonsterGenome/Menu.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
+		<Unit filename="C:/Design2-MG/MonsterGenome/Pause.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Design2-MG/MonsterGenome/Pause.h">
+			<Option target="MonsterGenome"/>
+		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/Platforms.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
@@ -137,6 +143,12 @@
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/Projectile.h">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Design2-MG/MonsterGenome/Settings.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Design2-MG/MonsterGenome/Settings.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/Weapon.cpp">

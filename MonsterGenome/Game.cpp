@@ -18,7 +18,10 @@ Game::Game() {
     borders.push_back(plat5);
 }
 
-void Game::PollGame(RenderWindow &window, Time& time) {
+void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
+    if(Keyboard::isKeyPressed(Keyboard::Escape)){
+        state.Pause();
+    }
     hero.updatePosition(borders, projs, time, window);
 }
 

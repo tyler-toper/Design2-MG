@@ -2,6 +2,7 @@
 
 GameState::GameState() {
     playing = false;
+    paused = false;
     state = GameState::MENU;
 }
 
@@ -19,4 +20,16 @@ void GameState::SetPlaying(bool cond){
 
 void GameState::SetState(GameState::State NewState){
     state = NewState;
+}
+
+bool GameState::isPaused() const{
+    return paused;
+}
+
+void GameState::Pause() {
+    paused = true;
+}
+
+void GameState::Resume() {
+    paused = false;
 }

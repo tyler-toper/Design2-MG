@@ -3,14 +3,18 @@
 class GameState {
 private:
     bool playing;
+    bool paused;
 public:
     enum State {PLAY, SETTINGS, MENU, PAUSE};
     State state;
 
     GameState();
     State GetState();
+    void SetState(State NewState);
     bool IsPlaying() const;
     void SetPlaying(bool cond);
-    void SetState(State NewState);
+    bool isPaused() const;
+    void Pause();
+    void Resume();
 };
 

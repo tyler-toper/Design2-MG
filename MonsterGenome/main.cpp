@@ -45,24 +45,31 @@ void openWindow(RenderWindow &window){
 
         }
 
-        if(state.GetState() == GameState::MENU){
+        if(state.GetState() == GameState::PLAY){
+            game.PollGame(window, time, state);
+            game.Draw(window, time);
+        }
+        else if(state.GetState() == GameState::MENU){
             Texture texture;
             texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
             Sprite background(texture);
             background.setPosition(0, 0);
             window.draw(background);
 
-            Sprite sword(Weapons[2].texture);
-            sword.setPosition(0, 0);
-            window.draw(sword);
-
             menu.PollMenu(event, window, state);
             menu.Draw(window);
         }
-        if(state.GetState() == GameState::PLAY){
-            game.PollGame(window, time);
-            game.Draw(window, time);
+        else if(state.GetState() == GameState::SETTINGS){
+            Texture texture;
+            texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
+            Sprite background(texture);
+            background.setPosition(0, 0);
+            window.draw(background);
         }
+        else if(state.GetState() == GameState::PAUSE){
+
+        }
+
 
 
         window.display();
