@@ -103,6 +103,12 @@
 		<Unit filename="C:/Design2-MG/MonsterGenome/Game.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
+		<Unit filename="C:/Design2-MG/MonsterGenome/GameState.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="C:/Design2-MG/MonsterGenome/GameState.h">
+			<Option target="MonsterGenome"/>
+		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/Hero.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
@@ -131,12 +137,6 @@
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/Projectile.h">
-			<Option target="MonsterGenome"/>
-		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/StateManager.cpp">
-			<Option target="MonsterGenome"/>
-		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/StateManager.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/Weapon.cpp">

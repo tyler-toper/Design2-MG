@@ -216,19 +216,19 @@ CMakeFiles/MonsterGenome.dir/Game.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/Game.cpp.s"
 	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Design2-MG\MonsterGenome\Game.cpp -o CMakeFiles\MonsterGenome.dir\Game.cpp.s
 
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj: ../StateManager.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj"
-	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\StateManager.cpp.obj -c C:\Design2-MG\MonsterGenome\StateManager.cpp
+CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
+CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
+CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: ../GameState.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MonsterGenome.dir/GameState.cpp.obj"
+	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\GameState.cpp.obj -c C:\Design2-MG\MonsterGenome\GameState.cpp
 
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MonsterGenome.dir/StateManager.cpp.i"
-	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Design2-MG\MonsterGenome\StateManager.cpp > CMakeFiles\MonsterGenome.dir\StateManager.cpp.i
+CMakeFiles/MonsterGenome.dir/GameState.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MonsterGenome.dir/GameState.cpp.i"
+	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Design2-MG\MonsterGenome\GameState.cpp > CMakeFiles\MonsterGenome.dir\GameState.cpp.i
 
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/StateManager.cpp.s"
-	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Design2-MG\MonsterGenome\StateManager.cpp -o CMakeFiles\MonsterGenome.dir\StateManager.cpp.s
+CMakeFiles/MonsterGenome.dir/GameState.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/GameState.cpp.s"
+	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Design2-MG\MonsterGenome\GameState.cpp -o CMakeFiles\MonsterGenome.dir\GameState.cpp.s
 
 # Object files for target MonsterGenome
 MonsterGenome_OBJECTS = \
@@ -242,7 +242,7 @@ MonsterGenome_OBJECTS = \
 "CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Game.cpp.obj" \
-"CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj"
+"CMakeFiles/MonsterGenome.dir/GameState.cpp.obj"
 
 # External object files for target MonsterGenome
 MonsterGenome_EXTERNAL_OBJECTS =
@@ -257,7 +257,7 @@ MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Menu.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Game.cpp.obj
-MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj
+MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/GameState.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/build.make
 MonsterGenome.exe: C:/SFML-2.5.1/lib/libsfml-system-d.a
 MonsterGenome.exe: C:/SFML-2.5.1/lib/libsfml-window-d.a

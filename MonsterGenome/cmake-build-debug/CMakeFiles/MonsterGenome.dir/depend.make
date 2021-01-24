@@ -83,10 +83,10 @@ CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj: ../Enemy.cpp
 
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../Game.cpp
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../Game.h
+CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../GameState.h
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../Hero.h
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../Platforms.h
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../Projectile.h
-CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../StateManager.h
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Config.hpp
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Graphics.hpp
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp
@@ -162,6 +162,9 @@ CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/Vid
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/Window.hpp
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
+
+CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: ../GameState.cpp
+CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: ../GameState.h
 
 CMakeFiles/MonsterGenome.dir/Hero.cpp.obj: ../Hero.cpp
 CMakeFiles/MonsterGenome.dir/Hero.cpp.obj: ../Hero.h
@@ -322,9 +325,9 @@ CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj: C:/SFML-2.5.1/include/SFML/Wind
 CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
 
+CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../GameState.h
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../Menu.cpp
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../Menu.h
-CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../StateManager.h
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: C:/SFML-2.5.1/include/SFML/Config.hpp
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: C:/SFML-2.5.1/include/SFML/Graphics.hpp
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: C:/SFML-2.5.1/include/SFML/Graphics/BlendMode.hpp
@@ -556,9 +559,6 @@ CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj: C:/SFML-2.5.1/include/SFML/Wind
 CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowHandle.hpp
 CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
 
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj: ../StateManager.cpp
-CMakeFiles/MonsterGenome.dir/StateManager.cpp.obj: ../StateManager.h
-
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: ../Weapon.cpp
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: ../Weapon.h
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: C:/SFML-2.5.1/include/SFML/Config.hpp
@@ -639,12 +639,12 @@ CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: C:/SFML-2.5.1/include/SFML/Window/W
 
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Armor.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Game.h
+CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../GameState.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Hero.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../LoadAssets.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Menu.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Platforms.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Projectile.h
-CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../StateManager.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../Weapon.h
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: ../main.cpp
 CMakeFiles/MonsterGenome.dir/main.cpp.obj: C:/SFML-2.5.1/include/SFML/Config.hpp

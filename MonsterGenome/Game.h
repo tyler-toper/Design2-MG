@@ -5,7 +5,7 @@
 #include <SFML/OpenGL.hpp>
 #include "Hero.h"
 #include "Platforms.h"
-#include "StateManager.h"
+#include "GameState.h"
 using namespace std;
 using namespace sf;
 

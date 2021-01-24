@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <stack>
-#include "StateManager.h"
+#include "GameState.h"
 using namespace std;
 using namespace sf;
 
@@ -25,5 +25,5 @@ public:
     void MoveDown();
     int GetSelected() const;
 
-    void PollMenu(Event &event, RenderWindow &window, StateManager &state);
+    void PollMenu(Event &event, RenderWindow &window, GameState &state);
 };

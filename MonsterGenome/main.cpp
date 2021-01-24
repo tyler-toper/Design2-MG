@@ -6,7 +6,7 @@
 #include "LoadAssets.h"
 #include "Menu.h"
 #include "Game.h"
-#include "StateManager.h"
+#include "GameState.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -21,7 +21,7 @@ void openWindow(RenderWindow &window){
     Hero hero;
     Clock clock;
     Time time;
-    StateManager state;
+    GameState state;
 
     while(window.isOpen()){
         window.clear(Color::White);
@@ -45,7 +45,7 @@ void openWindow(RenderWindow &window){
 
         }
 
-        if(state.GetState() == StateManager::MENU){
+        if(state.GetState() == GameState::MENU){
             Texture texture;
             texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
             Sprite background(texture);
@@ -59,7 +59,7 @@ void openWindow(RenderWindow &window){
             menu.PollMenu(event, window, state);
             menu.Draw(window);
         }
-        if(state.GetState() == StateManager::PLAY){
+        if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time);
             game.Draw(window, time);
         }
