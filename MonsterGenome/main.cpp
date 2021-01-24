@@ -33,6 +33,7 @@ void openWindow(RenderWindow &window){
 
 
         Event event;
+        /*
         while(window.pollEvent(event)){
             if(event.type == Event::Closed){
                 window.close();
@@ -44,11 +45,8 @@ void openWindow(RenderWindow &window){
             if(event.type == Event::GainedFocus){
                 // When the window regains focus (active window again). Resume game
             }
-
-
-
         }
-
+*/
         if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
             game.Draw(window, time);
@@ -60,7 +58,7 @@ void openWindow(RenderWindow &window){
             background.setPosition(0, 0);
             window.draw(background);
 
-            menu.PollMenu(event, window, state);
+            menu.PollMenu(window, state);
             menu.Draw(window);
         }
         else if(state.GetState() == GameState::PAUSE){

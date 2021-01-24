@@ -23,53 +23,32 @@ Menu::Menu(float width, float height){
     text[selected].setStyle(Text::Underlined);
 }
 
-void Menu::PollMenu(Event &event, RenderWindow &window, GameState &state) {
-    window.setKeyRepeatEnabled(false);
-    // TODO: See which one is better. Both have a little bit of delay
-/*
-    if(Keyboard::isKeyPressed(Keyboard::Up)){
-        MoveUp();
-    }
-    if(Keyboard::isKeyPressed(Keyboard::Down)){
-        MoveDown();
-    }
-    if(Keyboard::isKeyPressed(Keyboard::Return)){
-        if(GetSelected() == 0){
-            state.SetState(GameState::PLAY);
-            state.SetPlaying(true);
-        }
-        else if(GetSelected() == 1){
-            cout << "Settings has been selected." << endl;
-        }
-        else if(GetSelected() == 2){
+void Menu::PollMenu(RenderWindow &window, GameState &state) {
+
+    Event event;
+    while(window.pollEvent(event)) {
+        if(event.type == Event::Closed){
             window.close();
         }
-    }
-
-*/
-
-    if(event.type == Event::KeyReleased){
-        if(event.key.code == Keyboard::Up){
-            MoveUp();
-        }
-        if(event.key.code == Keyboard::Down){
-            MoveDown();
-        }
-        if(event.key.code == Keyboard::Return){
-            if(GetSelected() == 0){
-                state.SetState(GameState::PLAY);
-                state.SetPlaying(true);
+        if (event.type == Event::KeyPressed) {
+            if (event.key.code == Keyboard::Up) {
+                MoveUp();
             }
-            else if(GetSelected() == 1){
-                cout << "Settings has been selected." << endl;
+            if (event.key.code == Keyboard::Down) {
+                MoveDown();
             }
-            else if(GetSelected() == 2){
-                window.close();
+            if (event.key.code == Keyboard::Return) {
+                if (GetSelected() == 0) {
+                    state.SetState(GameState::PLAY);
+                    state.SetPlaying(true);
+                } else if (GetSelected() == 1) {
+                    cout << "Settings has been selected." << endl;
+                } else if (GetSelected() == 2) {
+                    window.close();
+                }
             }
         }
     }
-
-
 }
 
 void Menu::Draw(RenderWindow &window){
