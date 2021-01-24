@@ -8,14 +8,14 @@ Menu::Menu(float width, float height){
     text[1].setString("Settings");
     text[2].setString("Quit");
 
-    for(int i = 0; i < options; i++){
+    for(int i = 0; i < MenuOptions; i++){
         text[i].setFont(font);
         text[i].setFillColor(Color::Yellow);
         text[i].setCharacterSize(75);
 
         FloatRect box = text[i].getGlobalBounds();
         float offset = box.width / 2;
-        text[i].setPosition((width / 2) - offset, (height / (options + 1) * (i + 1)));
+        text[i].setPosition((width / 2) - offset, (height / (MenuOptions + 1) * (i + 1)));
 
     }
 
@@ -24,8 +24,9 @@ Menu::Menu(float width, float height){
 }
 
 void Menu::PollMenu(Event &event, RenderWindow &window, GameState &state) {
+    window.setKeyRepeatEnabled(false);
     // TODO: See which one is better. Both have a little bit of delay
-
+/*
     if(Keyboard::isKeyPressed(Keyboard::Up)){
         MoveUp();
     }
@@ -45,9 +46,9 @@ void Menu::PollMenu(Event &event, RenderWindow &window, GameState &state) {
         }
     }
 
+*/
 
-    /*
-    if(event.type == Event::KeyPressed){
+    if(event.type == Event::KeyReleased){
         if(event.key.code == Keyboard::Up){
             MoveUp();
         }
@@ -67,18 +68,18 @@ void Menu::PollMenu(Event &event, RenderWindow &window, GameState &state) {
             }
         }
     }
-*/
+
 
 }
 
 void Menu::Draw(RenderWindow &window){
-    for(int i = 0; i < options; i++){
+    for(int i = 0; i < MenuOptions; i++){
         window.draw(text[i]);
     }
 }
 
 void Menu::MoveDown(){
-    if(selected + 1 < options){
+    if(selected + 1 < MenuOptions){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
         selected++;

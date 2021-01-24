@@ -19,8 +19,10 @@ Game::Game() {
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
+    window.setKeyRepeatEnabled(true);
     if(Keyboard::isKeyPressed(Keyboard::Escape)){
         state.Pause();
+        state.SetState(GameState::PAUSE);
     }
     hero.updatePosition(borders, projs, time, window);
 }

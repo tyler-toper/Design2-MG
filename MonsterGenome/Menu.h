@@ -10,13 +10,13 @@ using namespace std;
 using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
-#define options 3
+#define MenuOptions 3
 
 class Menu{
 private:
     int selected;
     Font font;
-    Text text[options];
+    Text text[MenuOptions];
 
 public:
     Menu(float width, float height);

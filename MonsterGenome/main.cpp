@@ -6,22 +6,26 @@
 #include "LoadAssets.h"
 #include "Menu.h"
 #include "Game.h"
+#include "Pause.h"
 #include "GameState.h"
 
 #define windowWidth 1024
 #define windowHeight 768
+// To get a proper window size, maybe we can have an initial window to prompt the user to choose a resolution
 
 vector<Weapon> Weapons;
 vector<Armor> Armors;
 
 
 void openWindow(RenderWindow &window){
+    // TODO: Scale everything when changing window size
     Menu menu(windowWidth, windowHeight);
     Game game;
     Hero hero;
     Clock clock;
     Time time;
     GameState state;
+    Pause pause(windowWidth, windowHeight);
 
     while(window.isOpen()){
         window.clear(Color::White);
@@ -59,6 +63,10 @@ void openWindow(RenderWindow &window){
             menu.PollMenu(event, window, state);
             menu.Draw(window);
         }
+        else if(state.GetState() == GameState::PAUSE){
+            pause.PollMenu(event, window, state);
+            pause.Draw(window);
+        }
         else if(state.GetState() == GameState::SETTINGS){
             Texture texture;
             texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
@@ -66,9 +74,7 @@ void openWindow(RenderWindow &window){
             background.setPosition(0, 0);
             window.draw(background);
         }
-        else if(state.GetState() == GameState::PAUSE){
 
-        }
 
 
 
