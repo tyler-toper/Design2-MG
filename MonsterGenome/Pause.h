@@ -24,7 +24,7 @@ public:
     void MoveDown();
     int GetSelected() const;
 
-    void PollMenu(Event &event, RenderWindow &window, GameState &state);
+    void PollMenu(RenderWindow &window, GameState &state);
 
 };
 

@@ -27,36 +27,44 @@ Pause::Pause(float width, float height) {
 }
 
 
-void Pause::PollMenu(Event &event, RenderWindow &window, GameState &state) {
-    window.setKeyRepeatEnabled(false);
-    if(Keyboard::isKeyPressed(Keyboard::Escape)){
-        state.SetState(GameState::PLAY);
-        state.Resume();
-    }
-    if(Keyboard::isKeyPressed(Keyboard::Up)){
-        MoveUp();
-    }
-    if(Keyboard::isKeyPressed(Keyboard::Down)){
-        MoveDown();
-    }
-    if(Keyboard::isKeyPressed(Keyboard::Return)){
-        if(GetSelected() == 0){
-            state.SetState(GameState::PLAY);
-            state.Resume();
+void Pause::PollMenu(RenderWindow &window, GameState &state) {
+    Event event;
+    while(window.pollEvent(event)){
+        if(event.type == Event::Closed){
+            window.close();
         }
-        else if(GetSelected() == 1){
-            // TODO: Connect save system
-        }
-        else if(GetSelected() == 2){
-            // TODO: Connect load system
-        }
-        else if(GetSelected() == 3){
-            state.SetState(GameState::SETTINGS);
-        }
-        else if(GetSelected() == 4){
-            // TODO: Not going to menu
-            state.SetPlaying(false);
-            state.SetState(GameState::MENU);
+        if (event.type == Event::KeyPressed){
+            auto pressed = event.key.code;
+
+            if(pressed == Keyboard::Escape){
+                state.SetState(GameState::PLAY);
+                state.Resume();
+            }
+            if (pressed == Keyboard::Up) {
+                MoveUp();
+            }
+            if(pressed == Keyboard::Down){
+                MoveDown();
+            }
+            if(pressed == Keyboard::Return){
+                if(GetSelected() == 0){
+                    state.SetState(GameState::PLAY);
+                    state.Resume();
+                }
+                else if(GetSelected() == 1){
+                    // TODO: Connect save system
+                }
+                else if(GetSelected() == 2){
+                    // TODO: Connect load system
+                }
+                else if(GetSelected() == 3){
+                    state.SetState(GameState::SETTINGS);
+                }
+                else if(GetSelected() == 4){
+                    state.SetPlaying(false);
+                    state.SetState(GameState::MENU);
+                }
+            }
         }
     }
 }

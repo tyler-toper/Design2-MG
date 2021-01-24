@@ -62,7 +62,13 @@ void openWindow(RenderWindow &window){
             menu.Draw(window);
         }
         else if(state.GetState() == GameState::PAUSE){
-            pause.PollMenu(event, window, state);
+            Texture texture;
+            texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
+            Sprite background(texture);
+            background.setPosition(0, 0);
+            window.draw(background);
+
+            pause.PollMenu(window, state);
             pause.Draw(window);
         }
         else if(state.GetState() == GameState::SETTINGS){
