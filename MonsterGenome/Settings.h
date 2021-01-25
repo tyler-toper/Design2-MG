@@ -13,21 +13,26 @@ using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
 #define SettingsOptions 7
+#define controls "../../Settings/Controls.csv"
 
 class Settings {
 private:
     int selected;
     Font font;
-    Text text[SettingsOptions];
+    Text options[SettingsOptions];
+    Text UserControls[SettingsOptions];
     Text title;
 
     // TODO: For reading and writing to csv files to store controls
+    string line;
     ifstream inFS;
     ofstream outFS;
-    stringstream ss;
     vector<string> function;
-    vector<string> control;
     vector<string> defaults;
+    vector<string> control;
+
+    void LoadControls();
+    void ResetControls();
 
 public:
     Settings(float width, float height);
@@ -37,7 +42,5 @@ public:
     int GetSelected() const;
 
     void PollMenu(RenderWindow &window, GameState &state);
-
-
 };
 
