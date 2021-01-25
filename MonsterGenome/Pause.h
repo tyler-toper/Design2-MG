@@ -16,6 +16,7 @@ private:
     int selected;
     Font font;
     Text text[PauseOptions];
+    Text title;
 
 public:
     Pause(float width, float height);

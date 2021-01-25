@@ -17,6 +17,7 @@ private:
     int selected;
     Font font;
     Text text[MenuOptions];
+    Text title;
 
 public:
     Menu(float width, float height);

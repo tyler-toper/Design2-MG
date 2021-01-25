@@ -5,6 +5,14 @@ Pause::Pause(float width, float height) {
     font.loadFromFile(pixelFont);
     selected = 0;
 
+    title.setString("PAUSED");
+    title.setFont(font);
+    title.setFillColor(Color::Yellow);
+    title.setCharacterSize(100);
+    FloatRect titleBox = title.getGlobalBounds();
+    float titleOffset = titleBox.width / 2;
+    title.setPosition((width / 2) - titleOffset, 0);
+
     text[0].setString("Resume");
     text[1].setString("Save");
     text[2].setString("Load");
@@ -70,6 +78,14 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
 }
 
 void Pause::Draw(RenderWindow &window){
+    Texture texture;
+    texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
+    Sprite background(texture);
+    background.setPosition(0, 0);
+    window.draw(background);
+
+    window.draw(title);
+
     for(int i = 0; i < PauseOptions; i++){
         window.draw(text[i]);
     }

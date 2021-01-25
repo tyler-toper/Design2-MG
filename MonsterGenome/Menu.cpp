@@ -8,6 +8,7 @@ Menu::Menu(float width, float height){
     text[1].setString("Settings");
     text[2].setString("Quit");
 
+
     for(int i = 0; i < MenuOptions; i++){
         text[i].setFont(font);
         text[i].setFillColor(Color::Yellow);
@@ -52,6 +53,12 @@ void Menu::PollMenu(RenderWindow &window, GameState &state) {
 }
 
 void Menu::Draw(RenderWindow &window){
+    Texture texture;
+    texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
+    Sprite background(texture);
+    background.setPosition(0, 0);
+    window.draw(background);
+
     for(int i = 0; i < MenuOptions; i++){
         window.draw(text[i]);
     }
