@@ -4,7 +4,7 @@
 #include <SFML/OpenGL.hpp>
 #include <string>
 #include <iostream>
-#include <stack>
+#include <vector>
 #include "GameState.h"
 using namespace std;
 using namespace sf;

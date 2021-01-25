@@ -7,6 +7,7 @@
 #include "Menu.h"
 #include "Game.h"
 #include "Pause.h"
+#include "Settings.h"
 #include "GameState.h"
 
 #define windowWidth 1024
@@ -16,6 +17,7 @@
 vector<Weapon> Weapons;
 vector<Armor> Armors;
 
+// TODO: Can make some functions for menus inherited
 
 void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
@@ -26,6 +28,8 @@ void openWindow(RenderWindow &window){
     Time time;
     GameState state;
     Pause pause(windowWidth, windowHeight);
+    Settings settings(windowWidth, windowHeight);
+
 
     while(window.isOpen()){
         window.clear(Color::White);
@@ -65,6 +69,9 @@ void openWindow(RenderWindow &window){
             Sprite background(texture);
             background.setPosition(0, 0);
             window.draw(background);
+
+            settings.PollMenu(window, state);
+            settings.Draw(window);
         }
 
 

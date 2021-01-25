@@ -4,6 +4,16 @@ Menu::Menu(float width, float height){
     font.loadFromFile(pixelFont);
     selected = 0;
 
+    // TODO: Make game logo
+    title.setString("The Monster Genome");
+    title.setFont(font);
+    title.setFillColor(Color::Blue);
+    title.setCharacterSize(100);
+    FloatRect titleBox = title.getGlobalBounds();
+    float titleOffset = titleBox.width / 2;
+    title.setPosition((width / 2) - titleOffset, 0);
+    title.setStyle(Text::Underlined);
+
     text[0].setString("Play");
     text[1].setString("Settings");
     text[2].setString("Quit");
@@ -25,26 +35,28 @@ Menu::Menu(float width, float height){
 }
 
 void Menu::PollMenu(RenderWindow &window, GameState &state) {
-
     Event event;
     while(window.pollEvent(event)) {
         if(event.type == Event::Closed){
             window.close();
         }
         if (event.type == Event::KeyPressed) {
-            if (event.key.code == Keyboard::Up) {
+            auto pressed = event.key.code;
+            if (pressed == Keyboard::Up) {
                 MoveUp();
             }
-            if (event.key.code == Keyboard::Down) {
+            if (pressed == Keyboard::Down) {
                 MoveDown();
             }
-            if (event.key.code == Keyboard::Return) {
+            if (pressed == Keyboard::Return) {
                 if (GetSelected() == 0) {
                     state.SetState(GameState::PLAY);
                     state.SetPlaying(true);
-                } else if (GetSelected() == 1) {
-                    cout << "Settings has been selected." << endl;
-                } else if (GetSelected() == 2) {
+                }
+                else if (GetSelected() == 1) {
+                    state.SetState(GameState::SETTINGS);
+                }
+                else if (GetSelected() == 2) {
                     window.close();
                 }
             }
@@ -58,6 +70,8 @@ void Menu::Draw(RenderWindow &window){
     Sprite background(texture);
     background.setPosition(0, 0);
     window.draw(background);
+
+    window.draw(title);
 
     for(int i = 0; i < MenuOptions; i++){
         window.draw(text[i]);
