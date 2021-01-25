@@ -49,14 +49,14 @@ void Menu::PollMenu(RenderWindow &window, GameState &state) {
                 MoveDown();
             }
             if (pressed == Keyboard::Return) {
-                if (GetSelected() == 0) {
+                if (selected == 0) {
                     state.SetState(GameState::PLAY);
                     state.SetPlaying(true);
                 }
-                else if (GetSelected() == 1) {
+                else if (selected == 1) {
                     state.SetState(GameState::SETTINGS);
                 }
-                else if (GetSelected() == 2) {
+                else if (selected == 2) {
                     window.close();
                 }
             }
@@ -96,9 +96,4 @@ void Menu::MoveUp(){
         text[selected].setFillColor(Color::Red);
         text[selected].setStyle(Text::Underlined);
     }
-}
-
-
-int Menu::GetSelected() const{
-    return selected;
 }

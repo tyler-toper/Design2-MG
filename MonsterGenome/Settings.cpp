@@ -65,7 +65,11 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 MoveDown();
             }
             if (pressed == Keyboard::Return) {
+                UserControls[selected].setFillColor(Color::Blue);
+                UserControls[selected].setStyle(Text::Underlined);
+                if(event.type == Event::TextEntered && event.text.unicode < 128){
 
+                }
             }
         }
     }
@@ -105,10 +109,6 @@ void Settings::MoveUp(){
         UserControls[selected].setFillColor(Color::Red);
         UserControls[selected].setStyle(Text::Underlined);
     }
-}
-
-int Settings::GetSelected() const{
-    return selected;
 }
 
 void Settings::LoadControls() {

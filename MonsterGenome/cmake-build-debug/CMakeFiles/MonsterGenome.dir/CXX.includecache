@@ -8,11 +8,11 @@
 
 C:/Design2-MG/MonsterGenome/GameState.h
 
-C:/Design2-MG/MonsterGenome/Settings.cpp
-Settings.h
-C:/Design2-MG/MonsterGenome/Settings.h
+C:/Design2-MG/MonsterGenome/Menu.cpp
+Menu.h
+C:/Design2-MG/MonsterGenome/Menu.h
 
-C:/Design2-MG/MonsterGenome/Settings.h
+C:/Design2-MG/MonsterGenome/Menu.h
 SFML/Graphics.hpp
 -
 SFML/OpenGL.hpp
@@ -23,9 +23,23 @@ iostream
 -
 vector
 -
-fstream
+GameState.h
+C:/Design2-MG/MonsterGenome/GameState.h
+
+C:/Design2-MG/MonsterGenome/Pause.cpp
+Pause.h
+C:/Design2-MG/MonsterGenome/Pause.h
+
+C:/Design2-MG/MonsterGenome/Pause.h
+SFML/Graphics.hpp
 -
-sstream
+SFML/OpenGL.hpp
+-
+string
+-
+iostream
+-
+stack
 -
 GameState.h
 C:/Design2-MG/MonsterGenome/GameState.h

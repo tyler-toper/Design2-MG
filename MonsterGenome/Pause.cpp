@@ -55,20 +55,20 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
                 MoveDown();
             }
             if(pressed == Keyboard::Return){
-                if(GetSelected() == 0){
+                if(selected == 0){
                     state.SetState(GameState::PLAY);
                     state.Resume();
                 }
-                else if(GetSelected() == 1){
+                else if(selected == 1){
                     // TODO: Connect save system
                 }
-                else if(GetSelected() == 2){
+                else if(selected == 2){
                     // TODO: Connect load system
                 }
-                else if(GetSelected() == 3){
+                else if(selected == 3){
                     state.SetState(GameState::SETTINGS);
                 }
-                else if(GetSelected() == 4){
+                else if(selected == 4){
                     state.SetPlaying(false);
                     state.SetState(GameState::MENU);
                 }
@@ -109,9 +109,4 @@ void Pause::MoveUp(){
         text[selected].setFillColor(Color::Red);
         text[selected].setStyle(Text::Underlined);
     }
-}
-
-
-int Pause::GetSelected() const{
-    return selected;
 }

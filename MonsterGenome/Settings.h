@@ -39,7 +39,6 @@ public:
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
-    int GetSelected() const;
 
     void PollMenu(RenderWindow &window, GameState &state);
 };
