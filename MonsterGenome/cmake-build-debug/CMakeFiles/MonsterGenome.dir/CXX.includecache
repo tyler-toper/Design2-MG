@@ -346,34 +346,6 @@ SFML/Graphics/Transform.hpp
 SFML/System/Vector2.hpp
 -
 
-C:/SFML-2.5.1/include/SFML/OpenGL.hpp
-SFML/Config.hpp
--
-windows.h
--
-GL/gl.h
--
-GLES/gl.h
--
-GLES/glext.h
--
-GL/gl.h
--
-OpenGL/gl.h
--
-OpenGLES/ES1/gl.h
--
-OpenGLES/ES1/glext.h
--
-GLES/gl.h
--
-GLES/glext.h
--
-GLES2/gl2platform.h
--
-GLES2/gl2ext.h
--
-
 C:/SFML-2.5.1/include/SFML/System.hpp
 SFML/Config.hpp
 -
@@ -704,40 +676,6 @@ SFML/Config.hpp
 
 C:/SFML-2.5.1/include/SFML/Window/WindowStyle.hpp
 
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Armor.cpp
-Armor.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Armor.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Armor.h
-string
--
-SFML/Graphics.hpp
--
-SFML/OpenGL.hpp
--
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Enemy.cpp
-string
--
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Game.cpp
-Game.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Game.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Game.h
-string
--
-SFML/Graphics.hpp
--
-SFML/OpenGL.hpp
--
-Hero.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Hero.h
-Platforms.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Platforms.h
-StateManager.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/StateManager.h
-
 C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Hero.cpp
 Hero.h
 C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Hero.h
@@ -754,56 +692,6 @@ SFML/Graphics.hpp
 Projectile.h
 C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Projectile.h
 
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/LoadAssets.cpp
-LoadAssets.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/LoadAssets.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/LoadAssets.h
-sstream
--
-fstream
--
-vector
--
-iostream
--
-string
--
-SFML/Graphics.hpp
--
-SFML/OpenGL.hpp
--
-Weapon.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Weapon.h
-Armor.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Armor.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Menu.cpp
-Menu.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Menu.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Menu.h
-SFML/Graphics.hpp
--
-SFML/OpenGL.hpp
--
-string
--
-iostream
--
-stack
--
-StateManager.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/StateManager.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Platforms.cpp
-vector
--
-SFML/Graphics.hpp
--
-Platforms.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Platforms.h
-
 C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Platforms.h
 string
 -
@@ -813,10 +701,6 @@ vector
 -
 SFML/Graphics.hpp
 -
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Projectile.cpp
-Projectile.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Projectile.h
 
 C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Projectile.h
 math.h
@@ -831,42 +715,4 @@ SFML/Graphics.hpp
 -
 Platforms.h
 C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Platforms.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/StateManager.cpp
-StateManager.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/StateManager.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/StateManager.h
-stack
--
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Weapon.cpp
-Weapon.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Weapon.h
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Weapon.h
-string
--
-SFML/Graphics.hpp
--
-SFML/OpenGL.hpp
--
-
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/main.cpp
-iostream
--
-vector
--
-Weapon.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Weapon.h
-Armor.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Armor.h
-LoadAssets.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/LoadAssets.h
-Menu.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Menu.h
-Game.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/Game.h
-StateManager.h
-C:/Users/Tyler Toper/Documents/GitHub/Design2-MG/MonsterGenome/StateManager.h
 
