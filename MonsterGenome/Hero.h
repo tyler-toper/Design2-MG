@@ -19,13 +19,18 @@ private:
 
     //should be in weapons firerate
     float weapontimer;
+    enum State
+    {
+        STATE_STANDING,
+        STATE_JUMPING
+    };
 
 public:
     int experience;
 
     Hero();
 
-    bool checkCollison(vector<Platforms*>& borders);
+    bool checkCollision(vector<Platforms*>& borders);
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
     void attack(vector<Projectile*>& borders, Vector2i loc);
     Sprite& getSprite();

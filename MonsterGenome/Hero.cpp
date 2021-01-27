@@ -21,7 +21,7 @@ using namespace sf;
 
     }
 
-    bool Hero::checkCollison(vector<Platforms*>& borders){
+    bool Hero::checkCollision(vector<Platforms*>& borders){
         for(int i=0; i < borders.size(); i++){
             if(sprite.getGlobalBounds().intersects(borders[i]->getSprite().getGlobalBounds())){
                 return true;
@@ -37,7 +37,7 @@ using namespace sf;
             jumpvel += 1100.f * time; // Vertical Acceleration 
 
             sprite.move(Vector2f(0, jumpvel * time));
-            if(checkCollison(borders)){
+            if(checkCollision(borders)){
                 sprite.move(Vector2f(0, -1.f * jumpvel * time));
                 if(jumpvel > 0){
                     jumping = false;
@@ -48,13 +48,13 @@ using namespace sf;
             //Moving Left and Right with Collision
             if(Keyboard::isKeyPressed(Keyboard::Left)){
                 sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
-                if(checkCollison(borders)){
+                if(checkCollision(borders)){
                     sprite.move(Vector2f(horizontalvel * time, 0));
                 }
             }
             if(Keyboard::isKeyPressed(Keyboard::Right)){
                 sprite.move(Vector2f(horizontalvel * time, 0));
-                if(checkCollison(borders)){
+                if(checkCollision(borders)){
                     sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
                 }
             }
@@ -62,14 +62,14 @@ using namespace sf;
                 jumping = true;
                 jumpvel = -400.f;
                 sprite.move(Vector2f(0, jumpvel * time));
-                if(checkCollison(borders)){
+                if(checkCollision(borders)){
                     sprite.move(Vector2f(0, -1.f * jumpvel * time));
                 }
             }
             //Unfinsihed, will be ducking or something
             if(Keyboard::isKeyPressed(Keyboard::Down)){
                 
-                if(checkCollison(borders)){
+                if(checkCollision(borders)){
                     sprite.move(Vector2f(0.f, -.15));
                 }
             }
