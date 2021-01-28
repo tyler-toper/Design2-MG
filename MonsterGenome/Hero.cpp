@@ -15,7 +15,7 @@ using namespace sf;
         text.loadFromFile("../Images/animation.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
-        sprite.setTextureRect(IntRect(57, 11, 53, 60));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
         //remove soon
         ene = ene;
         float timepass = .05;
@@ -52,10 +52,10 @@ using namespace sf;
 
     void Hero::hAnimation(){
         if(sprite.getTextureRect().top != 242 | sprite.getTextureRect().left == 396){
-                    sprite.setTextureRect(IntRect(36, 242, 53, 60));
+                    sprite.setTextureRect(IntRect(36, 242, 50, 60));
                 }
                 else{
-                    sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 53, 60));                    
+                    sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));                    
                 }
     }
 
@@ -88,7 +88,6 @@ using namespace sf;
     void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window){
             //Gravity and collision when jumpin
             float time = timein.asSeconds();
-            cout << weapontimer << endl;
             weapontimer = weapontimer - time;
             timepass = timepass - time;
             jumpvel += 1100.f * time; // Vertical Acceleration 
