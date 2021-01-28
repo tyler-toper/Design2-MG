@@ -20,6 +20,7 @@ Game::Game() {
 
 void Game::PollGame(RenderWindow &window, Time& time) {
     hero.updatePosition(borders, projs, time, window);
+    enemy.checkProjectile(projs);
 }
 
 void Game::Draw(RenderWindow &window, Time& time){
@@ -37,4 +38,5 @@ void Game::Draw(RenderWindow &window, Time& time){
         window.draw(borders[i]->getSprite());
     }
     window.draw(hero.getSprite());
+    window.draw(enemy.getSprite());
 }

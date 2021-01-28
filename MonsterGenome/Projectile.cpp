@@ -2,8 +2,9 @@
 using namespace std;
 using namespace sf;
 
-Projectile::Projectile(String path, float col, float row, float colend, float rowend){
+Projectile::Projectile(String path, float col, float row, float colend, float rowend, bool ene){
         name = "nogo";
+        ene = ene;
         text.loadFromFile(path);
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(col, row));
@@ -30,3 +31,7 @@ bool Projectile::checkCollision(vector<Platforms*>& borders){
 Sprite& Projectile::getSprite(){
         return this->sprite;
     }
+
+bool Projectile::getEnemy(){
+    return this->ene;
+}

@@ -10,6 +10,7 @@ using namespace sf;
 class Projectile {
 private:
     string name;
+    bool ene;
     Texture text;
     Sprite sprite;
 
@@ -17,8 +18,9 @@ private:
     float yvel;
 
 public:
-    Projectile(String path, float col, float row, float colend, float rowend);
+    Projectile(String path, float col, float row, float colend, float rowend, bool ene);
     Sprite& getSprite();
+    bool getEnemy();
     bool update(vector<Platforms*>& borders, Time& timein);
     bool checkCollision(vector<Platforms*>& borders);
 };

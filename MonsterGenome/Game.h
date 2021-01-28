@@ -13,6 +13,7 @@ using namespace sf;
 class Game {
 private:
     Hero hero;
+    Hero enemy = Hero(false);
     vector<Platforms*> borders;
     vector<Projectile*> projs;
 
