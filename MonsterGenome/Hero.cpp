@@ -101,10 +101,6 @@ void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj
     }
 }
 
-void Hero::updateState(){
-
-}
-
 void Hero::attack(vector<Projectile*>& proj, Vector2i loc){
     if(weapontimer <= 0.f){
         proj.push_back(new Projectile("../Images/shot.png", sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y));

@@ -39,8 +39,8 @@ public:
     bool checkCollision(vector<Platforms*>& borders);
 
     /// Setters
+
     /// Mutators
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
-    void updateState();
     void attack(vector<Projectile*>& borders, Vector2i loc);
 };
