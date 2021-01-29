@@ -25,7 +25,7 @@ private:
     Texture text;
     Sprite sprite;
 
-    //should be in weapons firerate
+    //should be in weapons fire rate
     float weapontimer;
 
 public:
@@ -41,7 +41,6 @@ public:
     /// Setters
     /// Mutators
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
+    void updateState();
     void attack(vector<Projectile*>& borders, Vector2i loc);
-
-
 };

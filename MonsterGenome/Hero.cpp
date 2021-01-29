@@ -12,7 +12,7 @@ Hero::Hero(){
     health = 100;
     jumping = false;
     jumpvel = 0;
-    horizontalvel = 100.f;
+    horizontalvel = 200.f;
     text.loadFromFile("../Images/example.png");
     sprite.setTexture(text);
     sprite.setPosition(Vector2f(400.f, 300.f));
@@ -47,10 +47,11 @@ bool Hero::checkCollision(vector<Platforms*>& borders){
 
 /// Setters
 /// Mutators
-// Could be expanded to check for
 void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window){
     //Gravity and collision when jumping
+    //TODO: Should this be in milliseconds?
     float time = timein.asSeconds();
+    //TODO: I feel this should be moved to its own function. It's weird to have the weapon state be messed with in the updatePosition function - Tyler
     weapontimer = weapontimer - time;
     jumpvel += 1100.f * time; // Vertical Acceleration
 
@@ -58,20 +59,20 @@ void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj
     if(checkCollision(borders)){
         sprite.move(Vector2f(0, -1.f * jumpvel * time));
         if(jumpvel > 0){
-            jumping = false;
+            state_ = STATE_STANDING;
         }
         jumpvel = 0;
     }
 
-    /// Movement
-    //Moving Left with Collision
+    // Movement
+    // Moving Left with Collision
     if(Keyboard::isKeyPressed(Keyboard::Left)){
         sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
         if(checkCollision(borders)){
             sprite.move(Vector2f(horizontalvel * time, 0));
         }
     }
-    //Moving Right with Collision
+    // Moving Right with Collision
     if(Keyboard::isKeyPressed(Keyboard::Right)){
         sprite.move(Vector2f(horizontalvel * time, 0));
         if(checkCollision(borders)){
@@ -79,25 +80,29 @@ void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj
         }
     }
     // Jumping
-    if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
-        jumping = true;
+    if(Keyboard::isKeyPressed(Keyboard::Up) && state_ != STATE_JUMPING){
+        state_ = STATE_JUMPING;
         jumpvel = -800.f;
         sprite.move(Vector2f(0, jumpvel * time));
         if(checkCollision(borders)){
             sprite.move(Vector2f(0, -1.f * jumpvel * time));
         }
     }
-    //Unfinished, will be ducking or something
+    // Unfinished, will be ducking or something
     if(Keyboard::isKeyPressed(Keyboard::Down)){
 
         if(checkCollision(borders)){
             sprite.move(Vector2f(0.f, -.15));
         }
     }
-    //Attacking
+    // Attacking
     if(Keyboard::isKeyPressed(Keyboard::Z)){
         attack(proj, Mouse::getPosition(window));
     }
+}
+
+void Hero::updateState(){
+
 }
 
 void Hero::attack(vector<Projectile*>& proj, Vector2i loc){
