@@ -5,7 +5,9 @@
 Settings::Settings(float width, float height){
     font.loadFromFile(pixelFont);
     selected = 0;
-    s = "";
+    EnterPressed = false;
+    this->width = width;
+    this->height = height;
 
     LoadControls();
 
@@ -51,25 +53,31 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
         if(event.type == Event::Closed){
             window.close();
         }
-        // FIXME: Can still change without pressing enter
-        if(event.type == Event::TextEntered){
-            if(event.text.unicode >= 32 && event.text.unicode <= 127){
+        // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
+        // TODO: Make prompts for controls to navigate this menu
+        if(event.type == Event::TextEntered && EnterPressed){
+            if(event.text.unicode >= 33 && event.text.unicode <= 127){
                 char entered = static_cast<char>(event.text.unicode);
                 control[selected] = entered;
                 UserControls[selected].setString(entered);
+                UserControls[selected].setFillColor(Color::Red);
+                EnterPressed = false;
             }
             else if(event.text.unicode == 32){
                 control[selected] = "SPACE";
                 UserControls[selected].setString("SPACE");
+                UserControls[selected].setFillColor(Color::Red);
+                EnterPressed = false;
             }
-
         }
         if (event.type == Event::KeyPressed) {
             auto pressed = event.key.code;
             if(pressed == Keyboard::Escape && state.IsPlaying()){
+                Save();
                 state.SetState(GameState::PAUSE);
             }
             if(pressed == Keyboard::Escape && !state.IsPlaying()){
+                Save();
                 state.SetState(GameState::MENU);
             }
             if (pressed == Keyboard::Up) {
@@ -81,6 +89,10 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             if (pressed == Keyboard::Return) {
                 UserControls[selected].setFillColor(Color::Blue);
                 UserControls[selected].setStyle(Text::Underlined);
+                EnterPressed = true;
+            }
+            if(pressed == Keyboard::Q){
+                ResetControls();
             }
         }
     }
@@ -96,6 +108,11 @@ void Settings::Draw(RenderWindow &window){
     window.draw(title);
 
     for(int i = 0; i < SettingsOptions; i++){
+        FloatRect controlBox = UserControls[i].getGlobalBounds();
+        float controlOffset = controlBox.width / 2;
+        float controlWidth = this->width * 1.5;
+        UserControls[i].setPosition((controlWidth / 2) - controlOffset, (height / (SettingsOptions + 1) * (i + 1)));
+
         window.draw(options[i]);
         window.draw(UserControls[i]);
     }
@@ -122,6 +139,7 @@ void Settings::MoveUp(){
 }
 
 void Settings::LoadControls() {
+    // CSV file is in format of: Name of action, default controls, current controls
     inFS.open(controls);
     if(inFS.is_open()){
         while(getline(inFS, line)){
@@ -143,6 +161,22 @@ void Settings::LoadControls() {
     }
 }
 
+void Settings::Save() {
+    outFS.open(controls, ofstream::trunc);
+    if(outFS.is_open()){
+        for(int i = 0; i < SettingsOptions; i++){
+            outFS << function[i] << "," << defaults[i] << "," << control[i] << "\n";
+        }
+        outFS.close();
+    }
+    else{
+        cout << "Unable to open controls" << endl;
+    }
+}
+
 void Settings::ResetControls() {
-    control = defaults;
+    for(int i = 0; i < SettingsOptions; i++){
+        control[i] = defaults[i];
+        UserControls[i].setString(control[i]);
+    }
 }

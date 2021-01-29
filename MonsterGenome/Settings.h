@@ -25,9 +25,11 @@ private:
     Text UserControls[SettingsOptions];
     Text title;
 
-    string s;
+    bool EnterPressed;
+    float width;
+    float height;
 
-    // TODO: For reading and writing to csv files to store controls
+    // For reading and writing to csv files to store controls
     string line;
     ifstream inFS;
     ofstream outFS;
@@ -39,6 +41,7 @@ private:
     vector<string> control;
 
     void LoadControls();
+    void Save();
     void ResetControls();
 
 public:
