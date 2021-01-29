@@ -19,16 +19,23 @@ class Settings {
 private:
     int selected;
     Font font;
+    // Name of action. Corresponds to the function vector, but is a Text object to draw to screen
     Text options[SettingsOptions];
+    // User selected keys. Corresponds to the control vector, but is a Text object to draw to screen
     Text UserControls[SettingsOptions];
     Text title;
+
+    string s;
 
     // TODO: For reading and writing to csv files to store controls
     string line;
     ifstream inFS;
     ofstream outFS;
+    // Name of action
     vector<string> function;
+    // Default keys
     vector<string> defaults;
+    // User selected keys
     vector<string> control;
 
     void LoadControls();

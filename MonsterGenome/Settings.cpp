@@ -5,6 +5,7 @@
 Settings::Settings(float width, float height){
     font.loadFromFile(pixelFont);
     selected = 0;
+    s = "";
 
     LoadControls();
 
@@ -50,6 +51,19 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
         if(event.type == Event::Closed){
             window.close();
         }
+        // FIXME: Can still change without pressing enter
+        if(event.type == Event::TextEntered){
+            if(event.text.unicode >= 32 && event.text.unicode <= 127){
+                char entered = static_cast<char>(event.text.unicode);
+                control[selected] = entered;
+                UserControls[selected].setString(entered);
+            }
+            else if(event.text.unicode == 32){
+                control[selected] = "SPACE";
+                UserControls[selected].setString("SPACE");
+            }
+
+        }
         if (event.type == Event::KeyPressed) {
             auto pressed = event.key.code;
             if(pressed == Keyboard::Escape && state.IsPlaying()){
@@ -67,14 +81,10 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             if (pressed == Keyboard::Return) {
                 UserControls[selected].setFillColor(Color::Blue);
                 UserControls[selected].setStyle(Text::Underlined);
-                if(event.type == Event::TextEntered && event.text.unicode < 128){
-
-                }
             }
         }
     }
 }
-
 
 void Settings::Draw(RenderWindow &window){
     Texture texture;
@@ -134,7 +144,5 @@ void Settings::LoadControls() {
 }
 
 void Settings::ResetControls() {
-    for(int i = 0; i < SettingsOptions; i++){
-        control[i] = defaults[i];
-    }
+    control = defaults;
 }
