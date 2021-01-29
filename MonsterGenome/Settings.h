@@ -24,6 +24,7 @@ private:
     // User selected keys. Corresponds to the control vector, but is a Text object to draw to screen
     Text UserControls[SettingsOptions];
     Text title;
+    Text directions;
 
     bool EnterPressed;
     float width;

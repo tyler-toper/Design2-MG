@@ -7,10 +7,10 @@ Settings::Settings(float width, float height){
     selected = 0;
     EnterPressed = false;
     this->width = width;
-    this->height = height;
-
+    this->height = 0.8 * height;
     LoadControls();
 
+    // Configure title text
     title.setString("SETTINGS");
     title.setFont(font);
     title.setFillColor(Color::Yellow);
@@ -19,7 +19,15 @@ Settings::Settings(float width, float height){
     float titleOffset = titleBox.width / 2;
     title.setPosition((width / 2) - titleOffset, 0);
 
+    directions.setString("Press Q to set controls back to defaults\nPress Esc to save and quit");
+    directions.setFont(font);
+    directions.setFillColor(Color::Yellow);
+    directions.setCharacterSize(35);
+    FloatRect directionBox = directions.getGlobalBounds();
+    float directionOffset = directionBox.width / 2;
+    directions.setPosition((width / 2) - directionOffset, height * 0.88);
 
+    // Configure control action and user control text
     for(int i = 0; i < SettingsOptions; i++){
         options[i].setString(function[i]);
         options[i].setFont(font);
@@ -29,20 +37,16 @@ Settings::Settings(float width, float height){
         FloatRect optionBox = options[i].getGlobalBounds();
         float optionOffset = optionBox.width / 2;
         float optionWidth = width / 2;
-        options[i].setPosition((optionWidth / 2) - optionOffset, (height / (SettingsOptions + 1) * (i + 1)));
+        options[i].setPosition((optionWidth / 2) - optionOffset, (this->height / (SettingsOptions + 1) * (i + 1)) + 50);
 
 
         UserControls[i].setString(control[i]);
         UserControls[i].setFont(font);
         UserControls[i].setFillColor(Color::Yellow);
         UserControls[i].setCharacterSize(50);
-
-        FloatRect controlBox = UserControls[i].getGlobalBounds();
-        float controlOffset = controlBox.width / 2;
-        float controlWidth = width * 1.5;
-        UserControls[i].setPosition((controlWidth / 2) - controlOffset, (height / (SettingsOptions + 1) * (i + 1)));
     }
 
+    // Configure selected text
     UserControls[selected].setFillColor(Color::Red);
     UserControls[selected].setStyle(Text::Underlined);
 }
@@ -54,7 +58,6 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             window.close();
         }
         // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
-        // TODO: Make prompts for controls to navigate this menu
         if(event.type == Event::TextEntered && EnterPressed){
             if(event.text.unicode >= 33 && event.text.unicode <= 127){
                 char entered = static_cast<char>(event.text.unicode);
@@ -106,12 +109,13 @@ void Settings::Draw(RenderWindow &window){
     window.draw(background);
 
     window.draw(title);
+    window.draw(directions);
 
     for(int i = 0; i < SettingsOptions; i++){
         FloatRect controlBox = UserControls[i].getGlobalBounds();
         float controlOffset = controlBox.width / 2;
         float controlWidth = this->width * 1.5;
-        UserControls[i].setPosition((controlWidth / 2) - controlOffset, (height / (SettingsOptions + 1) * (i + 1)));
+        UserControls[i].setPosition((controlWidth / 2) - controlOffset, (height / (SettingsOptions + 1) * (i + 1)) + 50);
 
         window.draw(options[i]);
         window.draw(UserControls[i]);
