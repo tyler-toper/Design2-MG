@@ -20,6 +20,6 @@ public:
     explicit Game();
 
     void PollGame(RenderWindow &window, Time& time, GameState &state);
-    void Draw(RenderWindow &window, Time& time);
+    void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
 
 };

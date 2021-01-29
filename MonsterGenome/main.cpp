@@ -22,6 +22,9 @@ vector<Armor> Armors;
 void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
     Menu menu(windowWidth, windowHeight);
+    View mapView;
+    View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
+    window.setView(playerView);
     Game game;
     Hero hero;
     Clock clock;
@@ -35,33 +38,37 @@ void openWindow(RenderWindow &window){
         window.clear(Color::White);
         time = clock.restart();
 
-
-        Event event;
         /*
-        while(window.pollEvent(event)){
-            if(event.type == Event::Closed){
+        Event e;
+        while(window.pollEvent(e)){
+            if(e.type == Event::Closed){
                 window.close();
                 break;
             }
-            if(event.type == Event::LostFocus){
+            if(e.type == Event::LostFocus){
                 // When the window is out of focus (not the active window). Pause game
             }
-            if(event.type == Event::GainedFocus){
+            if(e.type == Event::GainedFocus){
                 // When the window regains focus (active window again). Resume game
             }
         }
-*/
+        */
+
         if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
-            game.Draw(window, time);
+            game.Draw(window, time, playerView, mapView);
         }
         else if(state.GetState() == GameState::MENU){
             menu.PollMenu(window, state);
             menu.Draw(window);
         }
         else if(state.GetState() == GameState::PAUSE){
+            playerView.setSize(window.getSize().x, window.getSize().y);
+            playerView.setCenter((float)windowWidth/2, (float)windowHeight/2);
+            window.setView(playerView);
             pause.PollMenu(window, state);
             pause.Draw(window);
+
         }
         else if(state.GetState() == GameState::SETTINGS){
             Texture texture;
@@ -73,10 +80,6 @@ void openWindow(RenderWindow &window){
             settings.PollMenu(window, state);
             settings.Draw(window);
         }
-
-
-
-
         window.display();
     }
 }

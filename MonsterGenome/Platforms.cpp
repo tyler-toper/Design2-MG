@@ -19,7 +19,7 @@ Platforms::Platforms(float col, float row, float col2, float row2){
     Uint8* pixels = new Uint8(col * row * 4);
     text.update(pixels);
     sprite.setTexture(text);
-    sprite.setColor(sf::Color(255, 255, 255, 255));
+    sprite.setColor(sf::Color::Transparent);
     sprite.setPosition(Vector2f(col2, row2));
 }
 

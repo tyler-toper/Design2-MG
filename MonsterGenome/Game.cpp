@@ -35,7 +35,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
     hero.updatePosition(borders, projs, time, window);
 }
 
-void Game::Draw(RenderWindow &window, Time& time){
+void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapView){
     for(int i=0; i < projs.size(); i++){
             if(!projs[i]->update(borders, time)){
                 window.draw(projs[i]->getSprite());
@@ -50,4 +50,7 @@ void Game::Draw(RenderWindow &window, Time& time){
         window.draw(borders[i]->getSprite());
     }
     window.draw(hero.getSprite());
+    playerView.setCenter(hero.getSprite().getPosition());
+    playerView.setSize(window.getSize().x, window.getSize().y);
+    window.setView(playerView);
 }
