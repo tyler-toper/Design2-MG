@@ -18,7 +18,7 @@ vector<Armor> Armors;
 void openWindow(RenderWindow &window){
     Menu menu(windowWidth, windowHeight);
     Game game;
-    Hero hero;
+    //Hero hero;
     Clock clock;
     Time time;
     StateManager state;

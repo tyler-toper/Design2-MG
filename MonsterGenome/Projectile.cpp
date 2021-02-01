@@ -4,7 +4,7 @@ using namespace sf;
 
 Projectile::Projectile(String path, float col, float row, float colend, float rowend, bool ene){
         name = "nogo";
-        ene = ene;
+        this->ene = ene;
         text.loadFromFile(path);
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(col, row));

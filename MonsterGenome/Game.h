@@ -3,7 +3,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Hero.h"
+#include "Character.h"
 #include "Platforms.h"
 #include "StateManager.h"
 using namespace std;
@@ -12,8 +12,7 @@ using namespace sf;
 
 class Game {
 private:
-    Hero hero;
-    Hero enemy = Hero(false);
+    vector<Character*> players;
     vector<Platforms*> borders;
     vector<Projectile*> projs;
 
