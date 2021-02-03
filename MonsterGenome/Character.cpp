@@ -33,18 +33,33 @@ using namespace sf;
         int xpDrop = 100;
     }
 
+    void Character::setAdditions(float v, float h){
+        this->vertadd = v;
+        this->horizadd = h;
+    }
+
     void Character::checkCollison(vector<Platforms*>& borders){
+        setAdditions(0.f, 0.f);
         for(int i=0; i < borders.size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[i]->getSprite().getGlobalBounds(), intersection)){
                 removeCollision(borders[i], intersection);
+                if(borders[i]->getName() == "M"){
+                    MovePlatform *d = static_cast<MovePlatform *>(borders[i]);
+                    if((sprite.getPosition().y > borders[i]->getSprite().getPosition().y) && (d->getYspeed() > 0) && (abs(sprite.getPosition().x > ((borders[i]->getSprite().getPosition().x) - 53)))){
+                        d->reverse();
+                    }
+                    else{
+                        setAdditions(d->getXspeed(), abs(d->getYspeed()));
+                    }
+                }
             }
         }
     }
 
     void Character::removeCollision(Platforms* borders, FloatRect& intersection){
         if(intersection.width > intersection.height){
-            sprite.move(0, intersection.height * -1.f * pow(-1, jumpvel <= 0));
+            sprite.move(0, intersection.height * -1.f * pow(-1, jumpvel < 0));
             if(intersection.width >= 1){
                     if(jumpvel > 0){
                         jumping = false;
@@ -74,11 +89,11 @@ using namespace sf;
 
     void Character::hAnimation(){
         if(sprite.getTextureRect().top != 242 | sprite.getTextureRect().left == 396){
-                    sprite.setTextureRect(IntRect(36, 242, 50, 60));
-                }
-                else{
-                    sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));                    
-                }
+            sprite.setTextureRect(IntRect(36, 242, 50, 60));
+        }
+        else{
+            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));              
+        }
     }
 
     void Character::setAnimation(){
@@ -101,8 +116,8 @@ using namespace sf;
             }
             timepass = .1;
             if(noaction){
-            sprite.setTextureRect(IntRect(57, 11, 53, 60));
-        }
+                sprite.setTextureRect(IntRect(57, 11, 53, 60));
+            }
         }
         flip(sprite);
     }
@@ -110,7 +125,7 @@ using namespace sf;
     void Enemy::setAnimation(vector<int>& actions){
         bool noaction = true;
         if(timepass <= 0){
-            if(actions[0] | actions[1]){
+            if(actions[0] || actions[1]){
                 hAnimation();
                 noaction = false;
             }
@@ -123,12 +138,12 @@ using namespace sf;
             }
             //Attacking
             if(actions[4]){
-                noaction = false;
+                //noaction = false;
             }
             timepass = .1;
             if(noaction){
-            sprite.setTextureRect(IntRect(57, 11, 53, 60));
-        }
+                sprite.setTextureRect(IntRect(57, 11, 53, 60));
+            }
         }
         flip(sprite);
     }
@@ -147,7 +162,7 @@ using namespace sf;
                 faceright = false;
                 sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
             }
-            if(Keyboard::isKeyPressed(Keyboard::Right)){
+            else if(Keyboard::isKeyPressed(Keyboard::Right)){
                 faceright = true;
                 sprite.move(Vector2f(horizontalvel * time, 0));
             }
@@ -164,6 +179,7 @@ using namespace sf;
             if(Keyboard::isKeyPressed(Keyboard::Z)){
                 attack(proj, Mouse::getPosition(window));
             }
+            sprite.move(Vector2f(vertadd * time, horizadd * time));
             checkCollison(borders);
             checkProjectile(proj);
             setAnimation();
@@ -194,7 +210,7 @@ using namespace sf;
                 faceright = false;
                 sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
             }
-            if(actions[1]){
+            else if(actions[1]){
                 faceright = true;
                 sprite.move(Vector2f(horizontalvel * time, 0));
             }

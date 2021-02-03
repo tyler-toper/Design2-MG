@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <iostream>
 #include <vector>
@@ -17,11 +18,13 @@ class Character{
         bool faceright = true;
         float jumpvel;
         float horizontalvel;
+        float vertadd = 0.f;
+        float horizadd = 0.f;
         Texture text;
         Sprite sprite;
         int experience; 
 
-        float timepass;
+        float timepass = .5f;
         //make enemy
         bool ene;
         //should be in weapons firerate
@@ -36,9 +39,10 @@ class Character{
     void checkProjectile(vector<Projectile*>& proj);
     virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
     void attack(vector<Projectile*>& borders, Vector2i loc);
-    void setAnimation();
+    virtual void setAnimation();
     void flip(Sprite& sprite);
     void hAnimation();
+    void setAdditions(float v, float h);
     Sprite& getSprite();
 };
 

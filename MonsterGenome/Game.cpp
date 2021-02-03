@@ -7,23 +7,28 @@ Game::Game() {
     //The ground
     Platforms* plat2 = new Platforms("../Images/platform.png", 0, 500);
     //Platforms in air
-    Platforms* plat3 = new Platforms("../Images/platform2.png", 0, 350);
-    Platforms* plat4 = new Platforms("../Images/platform2.png", 500, 450);
-    Platforms* plat5 = new Platforms("../Images/platform2.png", 270, 200);
-    Character* play = new Hero();
+    Platforms* plat3 = new Platforms("../Images/platform2.png", 250, 375);
+    //Moving
+    Platforms* plat6 = new MovePlatform("../Images/platform2.png", 400, 100, 500, 500, 75);
+    Platforms* plat7 = new MovePlatform("../Images/platform2.png", 0, 500, 0, 100, 75);
+
     Character* play2 = new Enemy();
+    Character* play = new Hero();
     players.push_back(play);
     players.push_back(play2);
     borders.push_back(plat);
     borders.push_back(plat1);
     borders.push_back(plat2);
     borders.push_back(plat3);
-    borders.push_back(plat4);
-    borders.push_back(plat5);
+    borders.push_back(plat6);
+    borders.push_back(plat7);
     
 }
 
 void Game::PollGame(RenderWindow &window, Time& time) {
+    for(int i = 0; i < borders.size(); i++){
+        borders[i]->update(time);
+    }
     for(int i = 0; i < players.size(); i++){
         players[i]->updatePosition(borders, projs, time, window);
     }
