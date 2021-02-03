@@ -50,3 +50,7 @@ MonsterGenome/cmake-build-debug/CMakeFiles/3.17.5/CMakeDetermineCompilerABI_CXX.
 MonsterGenome/cmake-build-debug/CMakeFiles/3.17.5/CMakeDetermineCompilerABI_C.bin
 MonsterGenome/cmake-build-debug/CMakeCache.txt
 MonsterGenome/cmake-build-debug/cmake_install.cmake
+*.log
+*.cbp
+MonsterGenome/cmake-build-debug/Makefile
+*.cbp
