@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "Platforms.h"
+#include "../HeaderFiles/Platforms.h"
 using namespace std;
 using namespace sf;
 

@@ -2,9 +2,9 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Character.h"
-#include "Platforms.h"
-#include "GameState.h"
+#include "../HeaderFiles/Character.h"
+#include "../HeaderFiles/Platforms.h"
+#include "../HeaderFiles/GameState.h"
 using namespace std;
 using namespace sf;
 

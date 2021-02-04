@@ -12,16 +12,20 @@ add_executable(MonsterGenome main.cpp
         HeaderFiles/Menu.h
         SourceFiles/LoadAssets.cpp
         HeaderFiles/LoadAssets.h
+        SourceFiles/Platforms.cpp
         HeaderFiles/Platforms.h
         SourceFiles/Game.cpp
         HeaderFiles/Game.h
         SourceFiles/GameState.cpp
         HeaderFiles/GameState.h
+        SourceFiles/Projectile.cpp
         HeaderFiles/Projectile.h
         SourceFiles/Settings.cpp
         HeaderFiles/Settings.h
         SourceFiles/Pause.cpp
-        HeaderFiles/Pause.h)
+        HeaderFiles/Pause.h
+        SourceFiles/Character.cpp
+        HeaderFiles/Character.h)
 
 include_directories(headers /usr/include c:/SFML/include)
 
