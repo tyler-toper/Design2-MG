@@ -1,9 +1,8 @@
 #pragma once
-
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
-#include "Hero.h"
+#include "Character.h"
 #include "Platforms.h"
 #include "GameState.h"
 using namespace std;
@@ -12,7 +11,7 @@ using namespace sf;
 
 class Game {
 private:
-    Hero hero;
+    vector<Character*> players;
     vector<Platforms*> borders;
     vector<Projectile*> projs;
 

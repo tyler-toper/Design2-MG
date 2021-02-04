@@ -1,5 +1,5 @@
 #pragma once
-
+#include <math.h>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -9,8 +9,9 @@ using namespace sf;
 
 // Create Boundries and such
 class Platforms{
-private:
+protected:
     string name;
+private:    
     Texture text;
     Sprite sprite;
 
@@ -18,5 +19,23 @@ private:
 public:
     Platforms(String path, float col, float row);
     Platforms(float col, float row, float col2, float row2);
+    virtual void update(Time& timein);
     Sprite& getSprite();
+    string getName();
+};
+
+class MovePlatform : public Platforms{
+    private:
+    float totaldist = 0.f;
+    float speed = 0.f;
+    float xspeed;
+    float yspeed;
+    float fliptime = 0.f;
+
+    public:
+    MovePlatform(String path, float col, float row, float endcol, float endrow, float speed);
+    void update(Time& timein);
+    void reverse();
+    float getXspeed();
+    float getYspeed();
 };
