@@ -45,6 +45,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
     for(int i = 0; i < players.size(); i++){
         players[i]->updatePosition(borders, projs, time, window);
     }
+}
 
 
 void Game::Draw(RenderWindow &window, Time& time){
