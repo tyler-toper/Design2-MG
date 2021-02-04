@@ -90,10 +90,24 @@ CMakeFiles/MonsterGenome.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/main.cpp.s"
 	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\main.cpp -o CMakeFiles\MonsterGenome.dir\main.cpp.s
 
+CMakeFiles/MonsterGenome.dir/Character.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
+CMakeFiles/MonsterGenome.dir/Character.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
+CMakeFiles/MonsterGenome.dir/Character.cpp.obj: ../Character.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MonsterGenome.dir/Character.cpp.obj"
+	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Character.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Character.cpp
+
+CMakeFiles/MonsterGenome.dir/Character.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MonsterGenome.dir/Character.cpp.i"
+	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Character.cpp > CMakeFiles\MonsterGenome.dir\Character.cpp.i
+
+CMakeFiles/MonsterGenome.dir/Character.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/Character.cpp.s"
+	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Character.cpp -o CMakeFiles\MonsterGenome.dir\Character.cpp.s
+
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj: ../Weapon.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Weapon.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Weapon.cpp
 
 CMakeFiles/MonsterGenome.dir/Weapon.cpp.i: cmake_force
@@ -107,7 +121,7 @@ CMakeFiles/MonsterGenome.dir/Weapon.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/Armor.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Armor.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Armor.cpp.obj: ../Armor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MonsterGenome.dir/Armor.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MonsterGenome.dir/Armor.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Armor.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Armor.cpp
 
 CMakeFiles/MonsterGenome.dir/Armor.cpp.i: cmake_force
@@ -121,7 +135,7 @@ CMakeFiles/MonsterGenome.dir/Armor.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj: ../LoadAssets.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\LoadAssets.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\LoadAssets.cpp
 
 CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.i: cmake_force
@@ -132,38 +146,10 @@ CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.s"
 	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\LoadAssets.cpp -o CMakeFiles\MonsterGenome.dir\LoadAssets.cpp.s
 
-CMakeFiles/MonsterGenome.dir/Hero.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
-CMakeFiles/MonsterGenome.dir/Hero.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
-CMakeFiles/MonsterGenome.dir/Hero.cpp.obj: ../Hero.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MonsterGenome.dir/Hero.cpp.obj"
-	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Hero.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Hero.cpp
-
-CMakeFiles/MonsterGenome.dir/Hero.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MonsterGenome.dir/Hero.cpp.i"
-	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Hero.cpp > CMakeFiles\MonsterGenome.dir\Hero.cpp.i
-
-CMakeFiles/MonsterGenome.dir/Hero.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/Hero.cpp.s"
-	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Hero.cpp -o CMakeFiles\MonsterGenome.dir\Hero.cpp.s
-
-CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
-CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
-CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj: ../Enemy.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj"
-	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Enemy.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Enemy.cpp
-
-CMakeFiles/MonsterGenome.dir/Enemy.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MonsterGenome.dir/Enemy.cpp.i"
-	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Enemy.cpp > CMakeFiles\MonsterGenome.dir\Enemy.cpp.i
-
-CMakeFiles/MonsterGenome.dir/Enemy.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MonsterGenome.dir/Enemy.cpp.s"
-	C:\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Enemy.cpp -o CMakeFiles\MonsterGenome.dir\Enemy.cpp.s
-
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Menu.cpp.obj: ../Menu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MonsterGenome.dir/Menu.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MonsterGenome.dir/Menu.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Menu.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Menu.cpp
 
 CMakeFiles/MonsterGenome.dir/Menu.cpp.i: cmake_force
@@ -177,7 +163,7 @@ CMakeFiles/MonsterGenome.dir/Menu.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj: ../Projectile.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Projectile.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Projectile.cpp
 
 CMakeFiles/MonsterGenome.dir/Projectile.cpp.i: cmake_force
@@ -191,7 +177,7 @@ CMakeFiles/MonsterGenome.dir/Projectile.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj: ../Platforms.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Platforms.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Platforms.cpp
 
 CMakeFiles/MonsterGenome.dir/Platforms.cpp.i: cmake_force
@@ -205,7 +191,7 @@ CMakeFiles/MonsterGenome.dir/Platforms.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Game.cpp.obj: ../Game.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MonsterGenome.dir/Game.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/MonsterGenome.dir/Game.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Game.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Game.cpp
 
 CMakeFiles/MonsterGenome.dir/Game.cpp.i: cmake_force
@@ -219,7 +205,7 @@ CMakeFiles/MonsterGenome.dir/Game.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/GameState.cpp.obj: ../GameState.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MonsterGenome.dir/GameState.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/MonsterGenome.dir/GameState.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\GameState.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\GameState.cpp
 
 CMakeFiles/MonsterGenome.dir/GameState.cpp.i: cmake_force
@@ -233,7 +219,7 @@ CMakeFiles/MonsterGenome.dir/GameState.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/Settings.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Settings.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Settings.cpp.obj: ../Settings.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MonsterGenome.dir/Settings.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/MonsterGenome.dir/Settings.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Settings.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Settings.cpp
 
 CMakeFiles/MonsterGenome.dir/Settings.cpp.i: cmake_force
@@ -247,7 +233,7 @@ CMakeFiles/MonsterGenome.dir/Settings.cpp.s: cmake_force
 CMakeFiles/MonsterGenome.dir/Pause.cpp.obj: CMakeFiles/MonsterGenome.dir/flags.make
 CMakeFiles/MonsterGenome.dir/Pause.cpp.obj: CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
 CMakeFiles/MonsterGenome.dir/Pause.cpp.obj: ../Pause.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/MonsterGenome.dir/Pause.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/MonsterGenome.dir/Pause.cpp.obj"
 	C:\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\MonsterGenome.dir\Pause.cpp.obj -c D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\Pause.cpp
 
 CMakeFiles/MonsterGenome.dir/Pause.cpp.i: cmake_force
@@ -261,11 +247,10 @@ CMakeFiles/MonsterGenome.dir/Pause.cpp.s: cmake_force
 # Object files for target MonsterGenome
 MonsterGenome_OBJECTS = \
 "CMakeFiles/MonsterGenome.dir/main.cpp.obj" \
+"CMakeFiles/MonsterGenome.dir/Character.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Armor.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj" \
-"CMakeFiles/MonsterGenome.dir/Hero.cpp.obj" \
-"CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Menu.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj" \
 "CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj" \
@@ -278,11 +263,10 @@ MonsterGenome_OBJECTS = \
 MonsterGenome_EXTERNAL_OBJECTS =
 
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/main.cpp.obj
+MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Character.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Armor.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj
-MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Hero.cpp.obj
-MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Menu.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj
@@ -299,7 +283,7 @@ MonsterGenome.exe: C:/SFML-2.5.1/lib/libsfml-audio-d.a
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/linklibs.rsp
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/objects1.rsp
 MonsterGenome.exe: CMakeFiles/MonsterGenome.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking CXX executable MonsterGenome.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Documents\School\Design\MG\Design2-MG\MonsterGenome\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable MonsterGenome.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\MonsterGenome.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

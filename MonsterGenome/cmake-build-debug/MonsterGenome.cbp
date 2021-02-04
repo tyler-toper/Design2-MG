@@ -94,7 +94,10 @@
 		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Armor.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Enemy.cpp">
+		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Character.cpp">
+			<Option target="MonsterGenome"/>
+		</Unit>
+		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Character.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Game.cpp">
@@ -107,12 +110,6 @@
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/GameState.h">
-			<Option target="MonsterGenome"/>
-		</Unit>
-		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Hero.cpp">
-			<Option target="MonsterGenome"/>
-		</Unit>
-		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Hero.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/LoadAssets.cpp">

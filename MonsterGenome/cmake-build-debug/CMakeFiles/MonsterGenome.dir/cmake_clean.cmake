@@ -1,9 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MonsterGenome.dir/Armor.cpp.obj"
-  "CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj"
+  "CMakeFiles/MonsterGenome.dir/Character.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Game.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/GameState.cpp.obj"
-  "CMakeFiles/MonsterGenome.dir/Hero.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Menu.cpp.obj"
   "CMakeFiles/MonsterGenome.dir/Pause.cpp.obj"

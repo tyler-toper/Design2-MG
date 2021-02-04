@@ -5,10 +5,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Armor.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Armor.cpp.obj"
-  "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Enemy.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj"
+  "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Character.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Character.cpp.obj"
   "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Game.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Game.cpp.obj"
   "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/GameState.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/GameState.cpp.obj"
-  "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Hero.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Hero.cpp.obj"
   "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/LoadAssets.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj"
   "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Menu.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Menu.cpp.obj"
   "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/Pause.cpp" "D:/Documents/School/Design/MG/Design2-MG/MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/Pause.cpp.obj"
