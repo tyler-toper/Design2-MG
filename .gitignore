@@ -30,23 +30,13 @@
 *.exe
 *.out
 *.app
-MonsterGenome/cmake-build-debug/Testing/Temporary/LastTest.log
-MonsterGenome/cmake-build-debug/MonsterGenome.cbp
-MonsterGenome/cmake-build-debug/Makefile
-MonsterGenome/cmake-build-debug/CMakeFiles/TargetDirectories.txt
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/link.txt
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/includes_CXX.rsp
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/DependInfo.cmake
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/depend.make
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/depend.internal
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/CXX.includecache
-MonsterGenome/cmake-build-debug/CMakeFiles/MonsterGenome.dir/build.make
-MonsterGenome/cmake-build-debug/CMakeFiles/Makefile2
-MonsterGenome/cmake-build-debug/CMakeFiles/Makefile.cmake
-MonsterGenome/cmake-build-debug/CMakeFiles/CMakeOutput.log
-MonsterGenome/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake
-MonsterGenome/cmake-build-debug/CMakeFiles/clion-log.txt
-MonsterGenome/cmake-build-debug/CMakeFiles/3.17.5/CMakeDetermineCompilerABI_CXX.bin
-MonsterGenome/cmake-build-debug/CMakeFiles/3.17.5/CMakeDetermineCompilerABI_C.bin
-MonsterGenome/cmake-build-debug/CMakeCache.txt
-MonsterGenome/cmake-build-debug/cmake_install.cmake
+
+# CLion Files
+**/.idea
+**/cmake-build-debug
+**/CMakeFiles
+
+# 2nd layer of safety for CMake
+CMake*
+Makefile
+cmake*

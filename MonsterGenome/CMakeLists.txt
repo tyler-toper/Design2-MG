@@ -3,11 +3,29 @@ project(MonsterGenome)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(MonsterGenome main.cpp Character.cpp Weapon.cpp Armor.cpp LoadAssets.cpp Menu.cpp Projectile.cpp Weapon.h Armor.h Character.h LoadAssets.h Platforms.cpp Platforms.h Game.cpp Game.h GameState.cpp GameState.h Projectile.h Settings.cpp Settings.h Pause.cpp Pause.h)
+add_executable(MonsterGenome main.cpp
+        SourceFiles/Weapon.cpp
+        HeaderFiles/Weapon.h
+        SourceFiles/Armor.cpp
+        HeaderFiles/Armor.h
+        SourceFiles/Menu.cpp
+        HeaderFiles/Menu.h
+        SourceFiles/LoadAssets.cpp
+        HeaderFiles/LoadAssets.h
+        HeaderFiles/Platforms.h
+        SourceFiles/Game.cpp
+        HeaderFiles/Game.h
+        SourceFiles/GameState.cpp
+        HeaderFiles/GameState.h
+        HeaderFiles/Projectile.h
+        SourceFiles/Settings.cpp
+        HeaderFiles/Settings.h
+        SourceFiles/Pause.cpp
+        HeaderFiles/Pause.h)
 
 include_directories(headers /usr/include c:/SFML/include)
 
-set(SFML_ROOT "C:/SFML-2.5.1")
+set(SFML_ROOT "../Dependencies/SFML-2.5.1")
 
 if(POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)
@@ -18,7 +36,7 @@ find_package(SFML REQUIRED system window graphics network audio)
 
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
-    link_directories("C:/SFML-2.5.1")
+    link_directories("../Dependencies/SFML-2.5.1")
     target_link_libraries(MonsterGenome ${SFML_LIBRARIES})
 endif()
 
