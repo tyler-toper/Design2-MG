@@ -1,7 +1,5 @@
 #include "Settings.h"
 
-// TODO: Make controls changeable and savable
-
 Settings::Settings(float width, float height){
     font.loadFromFile(pixelFont);
     selected = 0;
