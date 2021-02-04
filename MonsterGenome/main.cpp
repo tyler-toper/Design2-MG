@@ -23,7 +23,7 @@ void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
     Menu menu(windowWidth, windowHeight);
     Game game;
-    Hero hero;
+    //Hero hero;
     Clock clock;
     Time time;
     GameState state;
