@@ -1,4 +1,4 @@
-#include "Menu.h"
+#include "../HeaderFiles/Menu.h"
 
 Menu::Menu(float width, float height){
     font.loadFromFile(pixelFont);

@@ -1,4 +1,4 @@
-#include "Pause.h"
+#include "../HeaderFiles/Pause.h"
 
 
 Pause::Pause(float width, float height) {

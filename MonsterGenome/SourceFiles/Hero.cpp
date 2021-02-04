@@ -1,4 +1,4 @@
-#include "Hero.h"
+#include "../HeaderFiles/Hero.h"
 using namespace std;
 using namespace sf;
 

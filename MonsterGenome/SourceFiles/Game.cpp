@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "../HeaderFiles/Game.h"
 
 Game::Game() {
     //Invisible Borders

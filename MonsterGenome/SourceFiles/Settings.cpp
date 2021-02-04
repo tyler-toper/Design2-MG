@@ -1,6 +1,7 @@
-#include "Settings.h"
+#include "../HeaderFiles/Settings.h"
 
 Settings::Settings(float width, float height){
+    // Initialize variables
     font.loadFromFile(pixelFont);
     selected = 0;
     EnterPressed = false;
@@ -17,6 +18,7 @@ Settings::Settings(float width, float height){
     float titleOffset = titleBox.width / 2;
     title.setPosition((width / 2) - titleOffset, 0);
 
+    // Configure directions on bottom of screen
     directions.setString("Press Q to set controls back to defaults\nPress Esc to save and quit");
     directions.setFont(font);
     directions.setFillColor(Color::Yellow);
@@ -37,7 +39,6 @@ Settings::Settings(float width, float height){
         float optionWidth = width / 2;
         options[i].setPosition((optionWidth / 2) - optionOffset, (this->height / (SettingsOptions + 1) * (i + 1)) + 50);
 
-
         UserControls[i].setString(control[i]);
         UserControls[i].setFont(font);
         UserControls[i].setFillColor(Color::Yellow);
@@ -56,6 +57,7 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             window.close();
         }
         // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
+        // The TextEntered must be here. It won't work inside other if statements
         if(event.type == Event::TextEntered && EnterPressed){
             if(event.text.unicode >= 33 && event.text.unicode <= 127){
                 char entered = static_cast<char>(event.text.unicode);
@@ -100,12 +102,14 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
 }
 
 void Settings::Draw(RenderWindow &window){
+    // Load background
     Texture texture;
     texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
     Sprite background(texture);
     background.setPosition(0, 0);
     window.draw(background);
 
+    // Draw
     window.draw(title);
     window.draw(directions);
 
@@ -163,6 +167,7 @@ void Settings::LoadControls() {
     }
 }
 
+// Saves the controls by writing vectors into CSV
 void Settings::Save() {
     outFS.open(controls, ofstream::trunc);
     if(outFS.is_open()){
@@ -176,6 +181,7 @@ void Settings::Save() {
     }
 }
 
+// Resets controls back to defaults and sets the on screen text
 void Settings::ResetControls() {
     for(int i = 0; i < SettingsOptions; i++){
         control[i] = defaults[i];

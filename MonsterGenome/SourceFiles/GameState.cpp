@@ -1,4 +1,4 @@
-#include "GameState.h"
+#include "../HeaderFiles/GameState.h"
 
 GameState::GameState() {
     playing = false;

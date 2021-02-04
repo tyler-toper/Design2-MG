@@ -88,73 +88,73 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Armor.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Armor.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Armor.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Game.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Enemy.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/GameState.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Game.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Hero.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Game.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/LoadAssets.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/GameState.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Menu.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/GameState.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Pause.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Hero.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Platforms.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Hero.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Projectile.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/LoadAssets.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Settings.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/LoadAssets.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/HeaderFiles/Weapon.h">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Menu.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Armor.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Menu.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Enemy.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Pause.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Game.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Pause.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/GameState.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Platforms.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Hero.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Platforms.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/LoadAssets.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Projectile.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Menu.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Projectile.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Pause.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Settings.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Platforms.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Settings.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Projectile.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Weapon.cpp">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Settings.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
-		<Unit filename="C:/Design2-MG/MonsterGenome/Weapon.h">
+		<Unit filename="C:/Design2-MG/MonsterGenome/SourceFiles/Weapon.cpp">
 			<Option target="MonsterGenome"/>
 		</Unit>
 		<Unit filename="C:/Design2-MG/MonsterGenome/main.cpp">

@@ -3,7 +3,30 @@ project(MonsterGenome)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(MonsterGenome main.cpp Weapon.cpp Armor.cpp LoadAssets.cpp Hero.cpp Enemy.cpp Menu.cpp Projectile.cpp Weapon.h Armor.h Menu.h LoadAssets.h Platforms.cpp Platforms.h Game.cpp Game.h Hero.h GameState.cpp GameState.h Projectile.h Settings.cpp Settings.h Pause.cpp Pause.h)
+add_executable(MonsterGenome main.cpp
+        SourceFiles/Enemy.cpp
+        SourceFiles/Weapon.cpp
+        HeaderFiles/Weapon.h
+        SourceFiles/Armor.cpp
+        HeaderFiles/Armor.h
+        SourceFiles/Menu.cpp
+        HeaderFiles/Menu.h
+        SourceFiles/LoadAssets.cpp
+        HeaderFiles/LoadAssets.h
+        SourceFiles/Platforms.cpp
+        HeaderFiles/Platforms.h
+        SourceFiles/Game.cpp
+        HeaderFiles/Game.h
+        SourceFiles/Hero.cpp
+        HeaderFiles/Hero.h
+        SourceFiles/GameState.cpp
+        HeaderFiles/GameState.h
+        SourceFiles/Projectile.cpp
+        HeaderFiles/Projectile.h
+        SourceFiles/Settings.cpp
+        HeaderFiles/Settings.h
+        SourceFiles/Pause.cpp
+        HeaderFiles/Pause.h)
 
 include_directories(headers /usr/include c:/SFML/include)
 

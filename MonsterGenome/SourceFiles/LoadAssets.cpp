@@ -1,4 +1,4 @@
-#include "LoadAssets.h"
+#include "../HeaderFiles/LoadAssets.h"
 
 void LoadAssets::LoadWeapons(vector<Weapon> &Weapons){
     inFS.open(WeaponStats);

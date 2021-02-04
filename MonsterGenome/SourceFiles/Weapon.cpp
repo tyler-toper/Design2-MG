@@ -1,4 +1,4 @@
-#include "Weapon.h"
+#include "../HeaderFiles/Weapon.h"
 
 // Constructor
 Weapon::Weapon(int id, string &Name, int Damage, Texture &t){

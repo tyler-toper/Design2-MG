@@ -1,14 +1,14 @@
 #include <iostream>
 #include <vector>
 
-#include "Weapon.h"
-#include "Armor.h"
-#include "LoadAssets.h"
-#include "Menu.h"
-#include "Game.h"
-#include "Pause.h"
-#include "Settings.h"
-#include "GameState.h"
+#include "HeaderFiles/Weapon.h"
+#include "HeaderFiles/Armor.h"
+#include "HeaderFiles/LoadAssets.h"
+#include "HeaderFiles/Menu.h"
+#include "HeaderFiles/Game.h"
+#include "HeaderFiles/Pause.h"
+#include "HeaderFiles/Settings.h"
+#include "HeaderFiles/GameState.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -17,10 +17,10 @@
 vector<Weapon> Weapons;
 vector<Armor> Armors;
 
-// TODO: Can make some functions for menus inherited
 
 void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
+    // Create objects
     Menu menu(windowWidth, windowHeight);
     Game game;
     Hero hero;
@@ -30,27 +30,12 @@ void openWindow(RenderWindow &window){
     Pause pause(windowWidth, windowHeight);
     Settings settings(windowWidth, windowHeight);
 
-
+    // Main game loop. While the window is open
     while(window.isOpen()){
         window.clear(Color::White);
         time = clock.restart();
 
-
-        Event event;
-        /*
-        while(window.pollEvent(event)){
-            if(event.type == Event::Closed){
-                window.close();
-                break;
-            }
-            if(event.type == Event::LostFocus){
-                // When the window is out of focus (not the active window). Pause game
-            }
-            if(event.type == Event::GainedFocus){
-                // When the window regains focus (active window again). Resume game
-            }
-        }
-*/
+        // Check which state the game is in and display corresponding UI
         if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
             game.Draw(window, time);
@@ -64,18 +49,9 @@ void openWindow(RenderWindow &window){
             pause.Draw(window);
         }
         else if(state.GetState() == GameState::SETTINGS){
-            Texture texture;
-            texture.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
-            Sprite background(texture);
-            background.setPosition(0, 0);
-            window.draw(background);
-
             settings.PollMenu(window, state);
             settings.Draw(window);
         }
-
-
-
 
         window.display();
     }

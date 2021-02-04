@@ -35,3 +35,8 @@
 **/.idea
 **/cmake-build-debug
 **/CMakeFiles
+
+# 2nd layer of safety for CMake
+CMake*
+Makefile
+cmake*

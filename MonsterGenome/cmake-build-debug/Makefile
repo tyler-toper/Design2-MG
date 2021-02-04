@@ -142,329 +142,329 @@ MonsterGenome/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/build
 .PHONY : MonsterGenome/fast
 
-Armor.obj: Armor.cpp.obj
+SourceFiles/Armor.obj: SourceFiles/Armor.cpp.obj
 
-.PHONY : Armor.obj
-
-# target to build an object file
-Armor.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.obj
-.PHONY : Armor.cpp.obj
-
-Armor.i: Armor.cpp.i
-
-.PHONY : Armor.i
-
-# target to preprocess a source file
-Armor.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.i
-.PHONY : Armor.cpp.i
-
-Armor.s: Armor.cpp.s
-
-.PHONY : Armor.s
-
-# target to generate assembly for a file
-Armor.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Armor.cpp.s
-.PHONY : Armor.cpp.s
-
-Enemy.obj: Enemy.cpp.obj
-
-.PHONY : Enemy.obj
+.PHONY : SourceFiles/Armor.obj
 
 # target to build an object file
-Enemy.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.obj
-.PHONY : Enemy.cpp.obj
+SourceFiles/Armor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Armor.cpp.obj
+.PHONY : SourceFiles/Armor.cpp.obj
 
-Enemy.i: Enemy.cpp.i
+SourceFiles/Armor.i: SourceFiles/Armor.cpp.i
 
-.PHONY : Enemy.i
+.PHONY : SourceFiles/Armor.i
 
 # target to preprocess a source file
-Enemy.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.i
-.PHONY : Enemy.cpp.i
+SourceFiles/Armor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Armor.cpp.i
+.PHONY : SourceFiles/Armor.cpp.i
 
-Enemy.s: Enemy.cpp.s
+SourceFiles/Armor.s: SourceFiles/Armor.cpp.s
 
-.PHONY : Enemy.s
+.PHONY : SourceFiles/Armor.s
 
 # target to generate assembly for a file
-Enemy.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Enemy.cpp.s
-.PHONY : Enemy.cpp.s
+SourceFiles/Armor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Armor.cpp.s
+.PHONY : SourceFiles/Armor.cpp.s
 
-Game.obj: Game.cpp.obj
+SourceFiles/Enemy.obj: SourceFiles/Enemy.cpp.obj
 
-.PHONY : Game.obj
+.PHONY : SourceFiles/Enemy.obj
 
 # target to build an object file
-Game.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Game.cpp.obj
-.PHONY : Game.cpp.obj
+SourceFiles/Enemy.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Enemy.cpp.obj
+.PHONY : SourceFiles/Enemy.cpp.obj
 
-Game.i: Game.cpp.i
+SourceFiles/Enemy.i: SourceFiles/Enemy.cpp.i
 
-.PHONY : Game.i
+.PHONY : SourceFiles/Enemy.i
 
 # target to preprocess a source file
-Game.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Game.cpp.i
-.PHONY : Game.cpp.i
+SourceFiles/Enemy.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Enemy.cpp.i
+.PHONY : SourceFiles/Enemy.cpp.i
 
-Game.s: Game.cpp.s
+SourceFiles/Enemy.s: SourceFiles/Enemy.cpp.s
 
-.PHONY : Game.s
+.PHONY : SourceFiles/Enemy.s
 
 # target to generate assembly for a file
-Game.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Game.cpp.s
-.PHONY : Game.cpp.s
+SourceFiles/Enemy.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Enemy.cpp.s
+.PHONY : SourceFiles/Enemy.cpp.s
 
-GameState.obj: GameState.cpp.obj
+SourceFiles/Game.obj: SourceFiles/Game.cpp.obj
 
-.PHONY : GameState.obj
+.PHONY : SourceFiles/Game.obj
 
 # target to build an object file
-GameState.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/GameState.cpp.obj
-.PHONY : GameState.cpp.obj
+SourceFiles/Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Game.cpp.obj
+.PHONY : SourceFiles/Game.cpp.obj
 
-GameState.i: GameState.cpp.i
+SourceFiles/Game.i: SourceFiles/Game.cpp.i
 
-.PHONY : GameState.i
+.PHONY : SourceFiles/Game.i
 
 # target to preprocess a source file
-GameState.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/GameState.cpp.i
-.PHONY : GameState.cpp.i
+SourceFiles/Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Game.cpp.i
+.PHONY : SourceFiles/Game.cpp.i
 
-GameState.s: GameState.cpp.s
+SourceFiles/Game.s: SourceFiles/Game.cpp.s
 
-.PHONY : GameState.s
+.PHONY : SourceFiles/Game.s
 
 # target to generate assembly for a file
-GameState.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/GameState.cpp.s
-.PHONY : GameState.cpp.s
+SourceFiles/Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Game.cpp.s
+.PHONY : SourceFiles/Game.cpp.s
 
-Hero.obj: Hero.cpp.obj
+SourceFiles/GameState.obj: SourceFiles/GameState.cpp.obj
 
-.PHONY : Hero.obj
+.PHONY : SourceFiles/GameState.obj
 
 # target to build an object file
-Hero.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Hero.cpp.obj
-.PHONY : Hero.cpp.obj
+SourceFiles/GameState.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/GameState.cpp.obj
+.PHONY : SourceFiles/GameState.cpp.obj
 
-Hero.i: Hero.cpp.i
+SourceFiles/GameState.i: SourceFiles/GameState.cpp.i
 
-.PHONY : Hero.i
+.PHONY : SourceFiles/GameState.i
 
 # target to preprocess a source file
-Hero.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Hero.cpp.i
-.PHONY : Hero.cpp.i
+SourceFiles/GameState.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/GameState.cpp.i
+.PHONY : SourceFiles/GameState.cpp.i
 
-Hero.s: Hero.cpp.s
+SourceFiles/GameState.s: SourceFiles/GameState.cpp.s
 
-.PHONY : Hero.s
+.PHONY : SourceFiles/GameState.s
 
 # target to generate assembly for a file
-Hero.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Hero.cpp.s
-.PHONY : Hero.cpp.s
+SourceFiles/GameState.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/GameState.cpp.s
+.PHONY : SourceFiles/GameState.cpp.s
 
-LoadAssets.obj: LoadAssets.cpp.obj
+SourceFiles/Hero.obj: SourceFiles/Hero.cpp.obj
 
-.PHONY : LoadAssets.obj
+.PHONY : SourceFiles/Hero.obj
 
 # target to build an object file
-LoadAssets.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.obj
-.PHONY : LoadAssets.cpp.obj
+SourceFiles/Hero.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Hero.cpp.obj
+.PHONY : SourceFiles/Hero.cpp.obj
 
-LoadAssets.i: LoadAssets.cpp.i
+SourceFiles/Hero.i: SourceFiles/Hero.cpp.i
 
-.PHONY : LoadAssets.i
+.PHONY : SourceFiles/Hero.i
 
 # target to preprocess a source file
-LoadAssets.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.i
-.PHONY : LoadAssets.cpp.i
+SourceFiles/Hero.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Hero.cpp.i
+.PHONY : SourceFiles/Hero.cpp.i
 
-LoadAssets.s: LoadAssets.cpp.s
+SourceFiles/Hero.s: SourceFiles/Hero.cpp.s
 
-.PHONY : LoadAssets.s
+.PHONY : SourceFiles/Hero.s
 
 # target to generate assembly for a file
-LoadAssets.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/LoadAssets.cpp.s
-.PHONY : LoadAssets.cpp.s
+SourceFiles/Hero.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Hero.cpp.s
+.PHONY : SourceFiles/Hero.cpp.s
 
-Menu.obj: Menu.cpp.obj
+SourceFiles/LoadAssets.obj: SourceFiles/LoadAssets.cpp.obj
 
-.PHONY : Menu.obj
+.PHONY : SourceFiles/LoadAssets.obj
 
 # target to build an object file
-Menu.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Menu.cpp.obj
-.PHONY : Menu.cpp.obj
+SourceFiles/LoadAssets.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/LoadAssets.cpp.obj
+.PHONY : SourceFiles/LoadAssets.cpp.obj
 
-Menu.i: Menu.cpp.i
+SourceFiles/LoadAssets.i: SourceFiles/LoadAssets.cpp.i
 
-.PHONY : Menu.i
+.PHONY : SourceFiles/LoadAssets.i
 
 # target to preprocess a source file
-Menu.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Menu.cpp.i
-.PHONY : Menu.cpp.i
+SourceFiles/LoadAssets.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/LoadAssets.cpp.i
+.PHONY : SourceFiles/LoadAssets.cpp.i
 
-Menu.s: Menu.cpp.s
+SourceFiles/LoadAssets.s: SourceFiles/LoadAssets.cpp.s
 
-.PHONY : Menu.s
+.PHONY : SourceFiles/LoadAssets.s
 
 # target to generate assembly for a file
-Menu.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Menu.cpp.s
-.PHONY : Menu.cpp.s
+SourceFiles/LoadAssets.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/LoadAssets.cpp.s
+.PHONY : SourceFiles/LoadAssets.cpp.s
 
-Pause.obj: Pause.cpp.obj
+SourceFiles/Menu.obj: SourceFiles/Menu.cpp.obj
 
-.PHONY : Pause.obj
+.PHONY : SourceFiles/Menu.obj
 
 # target to build an object file
-Pause.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Pause.cpp.obj
-.PHONY : Pause.cpp.obj
+SourceFiles/Menu.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Menu.cpp.obj
+.PHONY : SourceFiles/Menu.cpp.obj
 
-Pause.i: Pause.cpp.i
+SourceFiles/Menu.i: SourceFiles/Menu.cpp.i
 
-.PHONY : Pause.i
+.PHONY : SourceFiles/Menu.i
 
 # target to preprocess a source file
-Pause.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Pause.cpp.i
-.PHONY : Pause.cpp.i
+SourceFiles/Menu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Menu.cpp.i
+.PHONY : SourceFiles/Menu.cpp.i
 
-Pause.s: Pause.cpp.s
+SourceFiles/Menu.s: SourceFiles/Menu.cpp.s
 
-.PHONY : Pause.s
+.PHONY : SourceFiles/Menu.s
 
 # target to generate assembly for a file
-Pause.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Pause.cpp.s
-.PHONY : Pause.cpp.s
+SourceFiles/Menu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Menu.cpp.s
+.PHONY : SourceFiles/Menu.cpp.s
 
-Platforms.obj: Platforms.cpp.obj
+SourceFiles/Pause.obj: SourceFiles/Pause.cpp.obj
 
-.PHONY : Platforms.obj
+.PHONY : SourceFiles/Pause.obj
 
 # target to build an object file
-Platforms.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.obj
-.PHONY : Platforms.cpp.obj
+SourceFiles/Pause.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Pause.cpp.obj
+.PHONY : SourceFiles/Pause.cpp.obj
 
-Platforms.i: Platforms.cpp.i
+SourceFiles/Pause.i: SourceFiles/Pause.cpp.i
 
-.PHONY : Platforms.i
+.PHONY : SourceFiles/Pause.i
 
 # target to preprocess a source file
-Platforms.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.i
-.PHONY : Platforms.cpp.i
+SourceFiles/Pause.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Pause.cpp.i
+.PHONY : SourceFiles/Pause.cpp.i
 
-Platforms.s: Platforms.cpp.s
+SourceFiles/Pause.s: SourceFiles/Pause.cpp.s
 
-.PHONY : Platforms.s
+.PHONY : SourceFiles/Pause.s
 
 # target to generate assembly for a file
-Platforms.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Platforms.cpp.s
-.PHONY : Platforms.cpp.s
+SourceFiles/Pause.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Pause.cpp.s
+.PHONY : SourceFiles/Pause.cpp.s
 
-Projectile.obj: Projectile.cpp.obj
+SourceFiles/Platforms.obj: SourceFiles/Platforms.cpp.obj
 
-.PHONY : Projectile.obj
+.PHONY : SourceFiles/Platforms.obj
 
 # target to build an object file
-Projectile.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.obj
-.PHONY : Projectile.cpp.obj
+SourceFiles/Platforms.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Platforms.cpp.obj
+.PHONY : SourceFiles/Platforms.cpp.obj
 
-Projectile.i: Projectile.cpp.i
+SourceFiles/Platforms.i: SourceFiles/Platforms.cpp.i
 
-.PHONY : Projectile.i
+.PHONY : SourceFiles/Platforms.i
 
 # target to preprocess a source file
-Projectile.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.i
-.PHONY : Projectile.cpp.i
+SourceFiles/Platforms.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Platforms.cpp.i
+.PHONY : SourceFiles/Platforms.cpp.i
 
-Projectile.s: Projectile.cpp.s
+SourceFiles/Platforms.s: SourceFiles/Platforms.cpp.s
 
-.PHONY : Projectile.s
+.PHONY : SourceFiles/Platforms.s
 
 # target to generate assembly for a file
-Projectile.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Projectile.cpp.s
-.PHONY : Projectile.cpp.s
+SourceFiles/Platforms.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Platforms.cpp.s
+.PHONY : SourceFiles/Platforms.cpp.s
 
-Settings.obj: Settings.cpp.obj
+SourceFiles/Projectile.obj: SourceFiles/Projectile.cpp.obj
 
-.PHONY : Settings.obj
+.PHONY : SourceFiles/Projectile.obj
 
 # target to build an object file
-Settings.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Settings.cpp.obj
-.PHONY : Settings.cpp.obj
+SourceFiles/Projectile.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Projectile.cpp.obj
+.PHONY : SourceFiles/Projectile.cpp.obj
 
-Settings.i: Settings.cpp.i
+SourceFiles/Projectile.i: SourceFiles/Projectile.cpp.i
 
-.PHONY : Settings.i
+.PHONY : SourceFiles/Projectile.i
 
 # target to preprocess a source file
-Settings.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Settings.cpp.i
-.PHONY : Settings.cpp.i
+SourceFiles/Projectile.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Projectile.cpp.i
+.PHONY : SourceFiles/Projectile.cpp.i
 
-Settings.s: Settings.cpp.s
+SourceFiles/Projectile.s: SourceFiles/Projectile.cpp.s
 
-.PHONY : Settings.s
+.PHONY : SourceFiles/Projectile.s
 
 # target to generate assembly for a file
-Settings.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Settings.cpp.s
-.PHONY : Settings.cpp.s
+SourceFiles/Projectile.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Projectile.cpp.s
+.PHONY : SourceFiles/Projectile.cpp.s
 
-Weapon.obj: Weapon.cpp.obj
+SourceFiles/Settings.obj: SourceFiles/Settings.cpp.obj
 
-.PHONY : Weapon.obj
+.PHONY : SourceFiles/Settings.obj
 
 # target to build an object file
-Weapon.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Weapon.cpp.obj
-.PHONY : Weapon.cpp.obj
+SourceFiles/Settings.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Settings.cpp.obj
+.PHONY : SourceFiles/Settings.cpp.obj
 
-Weapon.i: Weapon.cpp.i
+SourceFiles/Settings.i: SourceFiles/Settings.cpp.i
 
-.PHONY : Weapon.i
+.PHONY : SourceFiles/Settings.i
 
 # target to preprocess a source file
-Weapon.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Weapon.cpp.i
-.PHONY : Weapon.cpp.i
+SourceFiles/Settings.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Settings.cpp.i
+.PHONY : SourceFiles/Settings.cpp.i
 
-Weapon.s: Weapon.cpp.s
+SourceFiles/Settings.s: SourceFiles/Settings.cpp.s
 
-.PHONY : Weapon.s
+.PHONY : SourceFiles/Settings.s
 
 # target to generate assembly for a file
-Weapon.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/Weapon.cpp.s
-.PHONY : Weapon.cpp.s
+SourceFiles/Settings.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Settings.cpp.s
+.PHONY : SourceFiles/Settings.cpp.s
+
+SourceFiles/Weapon.obj: SourceFiles/Weapon.cpp.obj
+
+.PHONY : SourceFiles/Weapon.obj
+
+# target to build an object file
+SourceFiles/Weapon.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Weapon.cpp.obj
+.PHONY : SourceFiles/Weapon.cpp.obj
+
+SourceFiles/Weapon.i: SourceFiles/Weapon.cpp.i
+
+.PHONY : SourceFiles/Weapon.i
+
+# target to preprocess a source file
+SourceFiles/Weapon.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Weapon.cpp.i
+.PHONY : SourceFiles/Weapon.cpp.i
+
+SourceFiles/Weapon.s: SourceFiles/Weapon.cpp.s
+
+.PHONY : SourceFiles/Weapon.s
+
+# target to generate assembly for a file
+SourceFiles/Weapon.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\MonsterGenome.dir\build.make CMakeFiles/MonsterGenome.dir/SourceFiles/Weapon.cpp.s
+.PHONY : SourceFiles/Weapon.cpp.s
 
 main.obj: main.cpp.obj
 
@@ -502,42 +502,42 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... MonsterGenome
-	@echo ... Armor.obj
-	@echo ... Armor.i
-	@echo ... Armor.s
-	@echo ... Enemy.obj
-	@echo ... Enemy.i
-	@echo ... Enemy.s
-	@echo ... Game.obj
-	@echo ... Game.i
-	@echo ... Game.s
-	@echo ... GameState.obj
-	@echo ... GameState.i
-	@echo ... GameState.s
-	@echo ... Hero.obj
-	@echo ... Hero.i
-	@echo ... Hero.s
-	@echo ... LoadAssets.obj
-	@echo ... LoadAssets.i
-	@echo ... LoadAssets.s
-	@echo ... Menu.obj
-	@echo ... Menu.i
-	@echo ... Menu.s
-	@echo ... Pause.obj
-	@echo ... Pause.i
-	@echo ... Pause.s
-	@echo ... Platforms.obj
-	@echo ... Platforms.i
-	@echo ... Platforms.s
-	@echo ... Projectile.obj
-	@echo ... Projectile.i
-	@echo ... Projectile.s
-	@echo ... Settings.obj
-	@echo ... Settings.i
-	@echo ... Settings.s
-	@echo ... Weapon.obj
-	@echo ... Weapon.i
-	@echo ... Weapon.s
+	@echo ... SourceFiles/Armor.obj
+	@echo ... SourceFiles/Armor.i
+	@echo ... SourceFiles/Armor.s
+	@echo ... SourceFiles/Enemy.obj
+	@echo ... SourceFiles/Enemy.i
+	@echo ... SourceFiles/Enemy.s
+	@echo ... SourceFiles/Game.obj
+	@echo ... SourceFiles/Game.i
+	@echo ... SourceFiles/Game.s
+	@echo ... SourceFiles/GameState.obj
+	@echo ... SourceFiles/GameState.i
+	@echo ... SourceFiles/GameState.s
+	@echo ... SourceFiles/Hero.obj
+	@echo ... SourceFiles/Hero.i
+	@echo ... SourceFiles/Hero.s
+	@echo ... SourceFiles/LoadAssets.obj
+	@echo ... SourceFiles/LoadAssets.i
+	@echo ... SourceFiles/LoadAssets.s
+	@echo ... SourceFiles/Menu.obj
+	@echo ... SourceFiles/Menu.i
+	@echo ... SourceFiles/Menu.s
+	@echo ... SourceFiles/Pause.obj
+	@echo ... SourceFiles/Pause.i
+	@echo ... SourceFiles/Pause.s
+	@echo ... SourceFiles/Platforms.obj
+	@echo ... SourceFiles/Platforms.i
+	@echo ... SourceFiles/Platforms.s
+	@echo ... SourceFiles/Projectile.obj
+	@echo ... SourceFiles/Projectile.i
+	@echo ... SourceFiles/Projectile.s
+	@echo ... SourceFiles/Settings.obj
+	@echo ... SourceFiles/Settings.i
+	@echo ... SourceFiles/Settings.s
+	@echo ... SourceFiles/Weapon.obj
+	@echo ... SourceFiles/Weapon.i
+	@echo ... SourceFiles/Weapon.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

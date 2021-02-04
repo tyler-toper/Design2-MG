@@ -1,4 +1,4 @@
-#include "Armor.h"
+#include "../HeaderFiles/Armor.h"
 
 // Constructor
 Armor::Armor(int id, string &Name, int armor, Texture &t){
