@@ -30,7 +30,7 @@ add_executable(MonsterGenome main.cpp
 
 include_directories(headers /usr/include c:/SFML/include)
 
-set(SFML_ROOT "C:/SFML-2.5.1")
+set(SFML_ROOT "../Dependencies/SFML-2.5.1")
 
 if(POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)
@@ -41,7 +41,7 @@ find_package(SFML REQUIRED system window graphics network audio)
 
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
-    link_directories("C:/SFML-2.5.1")
+    link_directories("../Dependencies/SFML-2.5.1")
     target_link_libraries(MonsterGenome ${SFML_LIBRARIES})
 endif()
 
