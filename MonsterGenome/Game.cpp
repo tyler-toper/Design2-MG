@@ -65,7 +65,7 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
     for(int i = 0; i < players.size(); i++){
         window.draw(players[i]->getSprite());
     }
-    playerView.setCenter(players[0].getSprite().getPosition());
+    playerView.setCenter(players[0]->getSprite().getPosition());
     playerView.setSize(window.getSize().x, window.getSize().y);
     window.setView(playerView);
 }
