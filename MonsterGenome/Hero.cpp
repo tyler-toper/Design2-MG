@@ -20,6 +20,17 @@ Hero::Hero(){
     //should be in weapons firerate
     float weapontimer = 0.f;
 
+    // TODO: Reminder that people need to be able to update there controls without restarting the game!!!
+    // TODO: Add controls being loading from file
+    // Maybe convert keys to char
+    // Load controls
+    controls["Right"] = Keyboard::Right;
+    controls["Left"] = Keyboard::Left;
+    controls["Jump"] = Keyboard::Up;
+    controls["Crouch"] = Keyboard::Down;
+    controls["Attack"] = Keyboard::Space;
+    controls["Reload"] = Keyboard::R;
+    controls["Pause"] = Keyboard::P;
 }
 
 /// Getters
@@ -66,21 +77,21 @@ void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj
 
     // Movement
     // Moving Left with Collision
-    if(Keyboard::isKeyPressed(Keyboard::Left)){
+    if(Keyboard::isKeyPressed(controls["Left"])){
         sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
         if(checkCollision(borders)){
             sprite.move(Vector2f(horizontalvel * time, 0));
         }
     }
     // Moving Right with Collision
-    if(Keyboard::isKeyPressed(Keyboard::Right)){
+    if(Keyboard::isKeyPressed(controls["Right"])){
         sprite.move(Vector2f(horizontalvel * time, 0));
         if(checkCollision(borders)){
             sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
         }
     }
     // Jumping
-    if(Keyboard::isKeyPressed(Keyboard::Up) && state_ != STATE_JUMPING){
+    if(Keyboard::isKeyPressed(controls["Jump"]) && state_ != STATE_JUMPING){
         state_ = STATE_JUMPING;
         jumpvel = -800.f;
         sprite.move(Vector2f(0, jumpvel * time));
@@ -89,14 +100,14 @@ void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj
         }
     }
     // Unfinished, will be ducking or something
-    if(Keyboard::isKeyPressed(Keyboard::Down)){
+    if(Keyboard::isKeyPressed(controls["Down"])){
 
         if(checkCollision(borders)){
             sprite.move(Vector2f(0.f, -.15));
         }
     }
     // Attacking
-    if(Keyboard::isKeyPressed(Keyboard::Z)){
+    if(Keyboard::isKeyPressed(controls["Attack"])){
         attack(proj, Mouse::getPosition(window));
     }
 }

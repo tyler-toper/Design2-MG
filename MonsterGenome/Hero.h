@@ -24,6 +24,7 @@ private:
     float horizontalvel;
     Texture text;
     Sprite sprite;
+    std::map<std::string, Keyboard::Key> controls;
 
     //should be in weapons fire rate
     float weapontimer;
