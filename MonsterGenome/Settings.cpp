@@ -142,6 +142,7 @@ void Settings::MoveUp(){
     }
 }
 
+// Handles the
 void Settings::LoadControls() {
     // CSV file is in format of: Name of action, default controls, current controls
     inFS.open(controls);
@@ -158,6 +159,7 @@ void Settings::LoadControls() {
             function.push_back(temp[0]);
             defaults.push_back(temp[1]);
             control.push_back(temp[2]);
+            keys.push_back(Keyboard::Escape);
         }
     }
     else{

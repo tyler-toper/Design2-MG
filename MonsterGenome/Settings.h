@@ -38,6 +38,7 @@ private:
     vector<string> function;
     // Default keys
     vector<string> defaults;
+    vector<Keyboard::Key> keys;
     // User selected keys
     vector<string> control;
 
