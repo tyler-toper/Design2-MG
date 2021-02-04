@@ -1,3 +1,0 @@
-C:\Users\wwwgu\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\203.7148.70\bin\cmake\win\bin\cmake.exe -E rm -f CMakeFiles\MonsterGenome.dir/objects.a
-C:\mingw64\bin\ar.exe cr CMakeFiles\MonsterGenome.dir/objects.a @CMakeFiles\MonsterGenome.dir\objects1.rsp
-C:\mingw64\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\MonsterGenome.dir/objects.a -Wl,--no-whole-archive  -o MonsterGenome.exe -Wl,--out-implib,libMonsterGenome.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\MonsterGenome.dir\linklibs.rsp
