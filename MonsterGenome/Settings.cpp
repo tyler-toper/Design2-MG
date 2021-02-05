@@ -77,10 +77,12 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             auto pressed = event.key.code;
             if(pressed == Keyboard::Escape && state.IsPlaying()){
                 Save();
+                // Update Player controls
                 state.SetState(GameState::PAUSE);
             }
             if(pressed == Keyboard::Escape && !state.IsPlaying()){
                 Save();
+                // Update Player controls
                 state.SetState(GameState::MENU);
             }
             if (pressed == Keyboard::Up) {
@@ -142,7 +144,7 @@ void Settings::MoveUp(){
     }
 }
 
-// Handles the
+// Handles loading the control into the game
 void Settings::LoadControls() {
     // CSV file is in format of: Name of action, default controls, current controls
     inFS.open(controls);

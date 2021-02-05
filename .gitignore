@@ -54,3 +54,4 @@ MonsterGenome/cmake-build-debug/cmake_install.cmake
 *.cbp
 MonsterGenome/cmake-build-debug/Makefile
 *.cbp
+MonsterGenome/cmake-build-debug/Testing/Temporary/LastTest.log
