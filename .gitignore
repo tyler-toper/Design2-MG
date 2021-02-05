@@ -38,3 +38,6 @@
 CMake*
 Makefile
 cmake*
+
+# Libraries
+**/Dependencies
