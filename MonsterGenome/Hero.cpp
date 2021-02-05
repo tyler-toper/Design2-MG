@@ -57,6 +57,17 @@ bool Hero::checkCollision(vector<Platforms*>& borders){
 }
 
 /// Setters
+// Could use a different structure than map, but need to settle on how controls are saved.
+void Hero::setControls(std::map<std::string, Keyboard::Key> newControls) {
+    controls["Right"] = newControls["Right"];
+    controls["Left"] = newControls["Left"];
+    controls["Jump"] = newControls["Jump"];
+    controls["Crouch"] = newControls["Crouch"];
+    controls["Attack"] = newControls["Attack"];
+    controls["Reload"] = newControls["Reload"];
+    controls["Pause"] = newControls["Pause"];
+}
+
 /// Mutators
 void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window){
     //Gravity and collision when jumping

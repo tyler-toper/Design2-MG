@@ -40,6 +40,9 @@ public:
     bool checkCollision(vector<Platforms*>& borders);
 
     /// Setters
+    // Could use a different structure than map, but need to settle on how controls are saved.
+    void setControls(std::map<std::string, Keyboard::Key> newControls);
+
     /// Mutators
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
     void updateState();
