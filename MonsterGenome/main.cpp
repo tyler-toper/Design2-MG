@@ -51,7 +51,10 @@ void openWindow(RenderWindow &window){
             window.setView(playerView);
             pause.PollMenu(window, state);
             pause.Draw(window);
-
+        }
+        else if(state.GetState() == GameState::SETTINGS){
+            settings.PollMenu(window, state);
+            settings.Draw(window);
         }
     
         window.display();

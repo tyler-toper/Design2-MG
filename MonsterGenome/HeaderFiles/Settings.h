@@ -7,7 +7,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "GameState.h"
+#include "../HeaderFiles/GameState.h"
 using namespace std;
 using namespace sf;
 

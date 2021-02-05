@@ -27,7 +27,7 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/Character.cpp
         HeaderFiles/Character.h)
 
-include_directories(headers /usr/include c:/SFML/include)
+include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
 
 set(SFML_ROOT "../Dependencies/SFML-2.5.1")
 
