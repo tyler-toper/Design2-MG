@@ -23,14 +23,16 @@ void openWindow(RenderWindow &window){
     // Create objects
     Menu menu(windowWidth, windowHeight);
     View mapView;
+    Settings settings(windowWidth, windowHeight);
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
-    Game game;
+    // Add Settings Controls Pointer/Reference
+    Game game(settings.getControlMapping());
     Clock clock;
     Time time;
     GameState state;
+    // Add Settings Controls Pointer/Reference
     Pause pause(windowWidth, windowHeight);
-    Settings settings(windowWidth, windowHeight);
 
     // Main game loop. While the window is open
     while(window.isOpen()){

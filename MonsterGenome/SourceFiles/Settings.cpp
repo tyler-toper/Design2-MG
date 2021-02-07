@@ -43,12 +43,27 @@ Settings::Settings(float width, float height){
         UserControls[i].setFont(font);
         UserControls[i].setFillColor(Color::Yellow);
         UserControls[i].setCharacterSize(50);
+
     }
 
     // Configure selected text
     UserControls[selected].setFillColor(Color::Red);
     UserControls[selected].setStyle(Text::Underlined);
+
+    // Load controlMapping
 }
+
+std::map<std::string, sf::Keyboard::Key>* Settings::getControlMapping() {
+    return &controlMapping;
+}
+
+sf::Keyboard::Key Settings::convertControls(std::string key) {
+    if(key == "A") {
+        return sf::Keyboard::A;
+    }
+    return sf::Keyboard::Key::Escape;
+}
+
 
 void Settings::PollMenu(RenderWindow &window, GameState &state){
     Event event;
@@ -160,6 +175,11 @@ void Settings::LoadControls() {
             function.push_back(temp[0]);
             defaults.push_back(temp[1]);
             control.push_back(temp[2]);
+            std::cout << temp[0] << ", ";
+            std::cout << temp[1] << ", ";
+            std::cout << temp[2] << std::endl;
+            controlMapping[temp[0]] = convertControls("B");
+
         }
     }
     else{

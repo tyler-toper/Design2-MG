@@ -40,17 +40,23 @@ private:
     vector<string> defaults;
     // User selected keys
     vector<string> control;
+    // The key mapping
+    std::map<std::string, sf::Keyboard::Key> controlMapping;
 
     void LoadControls();
     void Save();
     void ResetControls();
-
+    sf::Keyboard::Key convertControls(std::string key);
 public:
     Settings(float width, float height);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
 
+    std::map<std::string, sf::Keyboard::Key>* getControlMapping();
+
+    // HandleInput
+    // Takes in the raw keyboard input and converts it to relevant game text, like jump or left
     void PollMenu(RenderWindow &window, GameState &state);
 };
 

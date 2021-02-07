@@ -1,6 +1,8 @@
 #include "../HeaderFiles/Game.h"
 
-Game::Game() {
+Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping) {
+    this->controlMapping = controlMapping;
+
     //Invisible Borders
     Platforms* plat = new Platforms(1, 600, 800, 0);
     Platforms* plat1 = new Platforms(1, 600, 0, 0);
@@ -33,6 +35,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
             window.close();
         }
         if(event.type == Event::KeyPressed){
+            // Pass event into settings and compare its output
             if(event.key.code == Keyboard::Escape){
                 state.Pause();
                 state.SetState(GameState::PAUSE);
@@ -45,6 +48,10 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
     for(int i = 0; i < players.size(); i++){
         players[i]->updatePosition(borders, projs, time, window);
     }
+
+    // TODO: REMOVE TEST CODE
+    std::map<std::string, sf::Keyboard::Key> temp = *controlMapping;
+    cout << temp["Move Left"] << endl;
 }
 
 
