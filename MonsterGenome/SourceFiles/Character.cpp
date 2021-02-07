@@ -219,11 +219,11 @@ using namespace sf;
                 jumpvel = -400.f;
                 sprite.move(Vector2f(0, jumpvel * time));
             }
-            //Unfinsihed, will be ducking or something
+            // Unfinished, will be ducking or something
             if(actions[3]){
                 
             }
-            //Attacking
+            // Attacking
             if(actions[4]){
                 attack(proj, Mouse::getPosition(window));
             }

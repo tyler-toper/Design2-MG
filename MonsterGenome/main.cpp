@@ -27,7 +27,7 @@ void openWindow(RenderWindow &window){
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
     // Add Settings Controls Pointer/Reference
-    Game game(settings.getControlMapping());
+    Game game(settings.GetControlMapping());
     Clock clock;
     Time time;
     GameState state;

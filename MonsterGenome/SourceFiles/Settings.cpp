@@ -4,7 +4,7 @@ Settings::Settings(float width, float height){
     // Initialize variables
     font.loadFromFile(pixelFont);
     selected = 0;
-    EnterPressed = false;
+    selectPressed = false;
     this->width = width;
     this->height = 0.8 * height;
     LoadControls();
@@ -53,14 +53,16 @@ Settings::Settings(float width, float height){
     // Load controlMapping
 }
 
-std::map<std::string, sf::Keyboard::Key>* Settings::getControlMapping() {
+std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
     return &controlMapping;
 }
 
-sf::Keyboard::Key Settings::convertControls(std::string key) {
+sf::Keyboard::Key Settings::ConvertControls(std::string key) {
     if(key == "A") {
         return sf::Keyboard::A;
     }
+
+
     return sf::Keyboard::Key::Escape;
 }
 
@@ -68,51 +70,101 @@ sf::Keyboard::Key Settings::convertControls(std::string key) {
 void Settings::PollMenu(RenderWindow &window, GameState &state){
     Event event;
     while(window.pollEvent(event)) {
+        // Happens regardless of state
         if(event.type == Event::Closed){
             window.close();
         }
+
+        // When editing keys
+        if(selectPressed) {
+            // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
+            // The TextEntered must be here. It won't work inside other if statements
+            if(event.type == Event::TextEntered) {
+                if(event.text.unicode >= 33 && event.text.unicode <= 127){
+                    char entered = static_cast<char>(event.text.unicode);
+                    control[selected] = entered;
+                    UserControls[selected].setString(entered);
+                    UserControls[selected].setFillColor(Color::Red);
+                    selectPressed = false;
+                }
+                else if(event.text.unicode == 32){
+                    control[selected] = "SPACE";
+                    UserControls[selected].setString("SPACE");
+                    UserControls[selected].setFillColor(Color::Red);
+                    selectPressed = false;
+                }
+            }
+
+            // Read the input
+            // Saves the enum value
+            // Print has a conversion function that
+        }
+
+        // When navigating menu
+        else {
+            if (event.type == Event::KeyPressed) {
+                auto pressed = event.key.code;
+                if (pressed == Keyboard::Escape && state.IsPlaying()) {
+                    Save();
+                    state.SetState(GameState::PAUSE);
+                }
+                if (pressed == Keyboard::Escape && !state.IsPlaying()) {
+                    Save();
+                    state.SetState(GameState::MENU);
+                }
+                if (pressed == Keyboard::Up) { MoveUp(); }
+                if (pressed == Keyboard::Down) { MoveDown(); }
+                if (pressed == Keyboard::Q){ ResetControls(); }
+                if (pressed == Keyboard::Return) {
+                    UserControls[selected].setFillColor(Color::Blue);
+                    UserControls[selected].setStyle(Text::Underlined);
+                    selectPressed = true;
+                }
+            }
+        }
+
         // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
         // The TextEntered must be here. It won't work inside other if statements
-        if(event.type == Event::TextEntered && EnterPressed){
-            if(event.text.unicode >= 33 && event.text.unicode <= 127){
-                char entered = static_cast<char>(event.text.unicode);
-                control[selected] = entered;
-                UserControls[selected].setString(entered);
-                UserControls[selected].setFillColor(Color::Red);
-                EnterPressed = false;
-            }
-            else if(event.text.unicode == 32){
-                control[selected] = "SPACE";
-                UserControls[selected].setString("SPACE");
-                UserControls[selected].setFillColor(Color::Red);
-                EnterPressed = false;
-            }
-        }
-        if (event.type == Event::KeyPressed) {
-            auto pressed = event.key.code;
-            if(pressed == Keyboard::Escape && state.IsPlaying()){
-                Save();
-                state.SetState(GameState::PAUSE);
-            }
-            if(pressed == Keyboard::Escape && !state.IsPlaying()){
-                Save();
-                state.SetState(GameState::MENU);
-            }
-            if (pressed == Keyboard::Up) {
-                MoveUp();
-            }
-            if (pressed == Keyboard::Down) {
-                MoveDown();
-            }
-            if (pressed == Keyboard::Return) {
-                UserControls[selected].setFillColor(Color::Blue);
-                UserControls[selected].setStyle(Text::Underlined);
-                EnterPressed = true;
-            }
-            if(pressed == Keyboard::Q){
-                ResetControls();
-            }
-        }
+//        if(event.type == Event::TextEntered && EnterPressed){
+//            if(event.text.unicode >= 33 && event.text.unicode <= 127){
+//                char entered = static_cast<char>(event.text.unicode);
+//                control[selected] = entered;
+//                UserControls[selected].setString(entered);
+//                UserControls[selected].setFillColor(Color::Red);
+//                EnterPressed = false;
+//            }
+//            else if(event.text.unicode == 32){
+//                control[selected] = "SPACE";
+//                UserControls[selected].setString("SPACE");
+//                UserControls[selected].setFillColor(Color::Red);
+//                EnterPressed = false;
+//            }
+//        }
+//        if (event.type == Event::KeyPressed) {
+//            auto pressed = event.key.code;
+//            if(pressed == Keyboard::Escape && state.IsPlaying()){
+//                Save();
+//                state.SetState(GameState::PAUSE);
+//            }
+//            if(pressed == Keyboard::Escape && !state.IsPlaying()){
+//                Save();
+//                state.SetState(GameState::MENU);
+//            }
+//            if (pressed == Keyboard::Up) {
+//                MoveUp();
+//            }
+//            if (pressed == Keyboard::Down) {
+//                MoveDown();
+//            }
+//            if (pressed == Keyboard::Return) {
+//                UserControls[selected].setFillColor(Color::Blue);
+//                UserControls[selected].setStyle(Text::Underlined);
+//                EnterPressed = true;
+//            }
+//            if(pressed == Keyboard::Q){
+//                ResetControls();
+//            }
+//        }
     }
 }
 
@@ -178,7 +230,7 @@ void Settings::LoadControls() {
             std::cout << temp[0] << ", ";
             std::cout << temp[1] << ", ";
             std::cout << temp[2] << std::endl;
-            controlMapping[temp[0]] = convertControls("B");
+            controlMapping[temp[0]] = ConvertControls("B");
 
         }
     }

@@ -26,7 +26,7 @@ private:
     Text title;
     Text directions;
 
-    bool EnterPressed;
+    bool selectPressed;
     float width;
     float height;
 
@@ -46,14 +46,14 @@ private:
     void LoadControls();
     void Save();
     void ResetControls();
-    sf::Keyboard::Key convertControls(std::string key);
+    sf::Keyboard::Key ConvertControls(std::string key);
 public:
     Settings(float width, float height);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
 
-    std::map<std::string, sf::Keyboard::Key>* getControlMapping();
+    std::map<std::string, sf::Keyboard::Key>* GetControlMapping();
 
     // HandleInput
     // Takes in the raw keyboard input and converts it to relevant game text, like jump or left
