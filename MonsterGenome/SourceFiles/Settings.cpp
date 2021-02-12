@@ -19,6 +19,7 @@ Settings::Settings(float width, float height){
     title.setPosition((width / 2) - titleOffset, 0);
 
     // Configure directions on bottom of screen
+    // TODO: Change string to reflect new controls
     directions.setString("Press Q to set controls back to defaults\nPress Esc to save and quit");
     directions.setFont(font);
     directions.setFillColor(Color::Yellow);
@@ -51,6 +52,9 @@ Settings::Settings(float width, float height){
     UserControls[selected].setStyle(Text::Underlined);
 
     // Load controlMapping
+    for(int i = 0; i < SettingsOptions; i++) {
+        controlMapping[function[i]] = control[i];
+    }
 }
 
 std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
@@ -99,28 +103,29 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 auto pressed = event.key.code;
                 // Saves the enum value
                 control[selected] = pressed;
+                controlMapping[function[selected]] = pressed;
                 // Print the corresponding key for the enum
                 UserControls[selected].setString(ConvertControls(pressed));
                 UserControls[selected].setFillColor(Color::Red);
                 selectPressed = false;
             }
-
         }
 
         // When navigating menu
         else {
             if (event.type == Event::KeyPressed) {
                 auto pressed = event.key.code;
-                if (pressed == Keyboard::Escape && state.IsPlaying()) {
+                if (pressed == controlMapping["Pause"] && state.IsPlaying()) {
                     Save();
                     state.SetState(GameState::PAUSE);
                 }
-                if (pressed == Keyboard::Escape && !state.IsPlaying()) {
+                if (pressed == controlMapping["Pause"] && !state.IsPlaying()) {
                     Save();
                     state.SetState(GameState::MENU);
                 }
-                if (pressed == Keyboard::Up) { MoveUp(); }
-                if (pressed == Keyboard::Down) { MoveDown(); }
+                if (pressed == controlMapping["Jump"]) { MoveUp(); }
+                if (pressed == controlMapping["Crouch"]) { MoveDown(); }
+                // TODO: Determine what the relative controls for these two are
                 if (pressed == Keyboard::Q){ ResetControls(); }
                 if (pressed == Keyboard::Return) {
                     UserControls[selected].setFillColor(Color::Blue);
@@ -129,49 +134,6 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 }
             }
         }
-
-        // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
-        // The TextEntered must be here. It won't work inside other if statements
-//        if(event.type == Event::TextEntered && EnterPressed){
-//            if(event.text.unicode >= 33 && event.text.unicode <= 127){
-//                char entered = static_cast<char>(event.text.unicode);
-//                control[selected] = entered;
-//                UserControls[selected].setString(entered);
-//                UserControls[selected].setFillColor(Color::Red);
-//                EnterPressed = false;
-//            }
-//            else if(event.text.unicode == 32){
-//                control[selected] = "SPACE";
-//                UserControls[selected].setString("SPACE");
-//                UserControls[selected].setFillColor(Color::Red);
-//                EnterPressed = false;
-//            }
-//        }
-//        if (event.type == Event::KeyPressed) {
-//            auto pressed = event.key.code;
-//            if(pressed == Keyboard::Escape && state.IsPlaying()){
-//                Save();
-//                state.SetState(GameState::PAUSE);
-//            }
-//            if(pressed == Keyboard::Escape && !state.IsPlaying()){
-//                Save();
-//                state.SetState(GameState::MENU);
-//            }
-//            if (pressed == Keyboard::Up) {
-//                MoveUp();
-//            }
-//            if (pressed == Keyboard::Down) {
-//                MoveDown();
-//            }
-//            if (pressed == Keyboard::Return) {
-//                UserControls[selected].setFillColor(Color::Blue);
-//                UserControls[selected].setStyle(Text::Underlined);
-//                EnterPressed = true;
-//            }
-//            if(pressed == Keyboard::Q){
-//                ResetControls();
-//            }
-//        }
     }
 }
 
@@ -266,6 +228,6 @@ void Settings::ResetControls() {
     for(int i = 0; i < SettingsOptions; i++){
         // TODO: FIX THIS TO WORK WITH ENUM
         control[i] = defaults[i];
-//        UserControls[i].setString(control[i]);
+        //UserControls[i].setString(control[i]);
     }
 }
