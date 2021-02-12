@@ -3,19 +3,19 @@
 Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping) {
     this->controlMapping = controlMapping;
 
-    //Invisible Borders
+    // Invisible Borders
     Platforms* plat = new Platforms(1, 600, 800, 0);
     Platforms* plat1 = new Platforms(1, 600, 0, 0);
-    //The ground
+    // The ground
     Platforms* plat2 = new Platforms("../Images/platform.png", 0, 500);
-    //Platforms in air
+    // Platforms in air
     Platforms* plat3 = new Platforms("../Images/platform2.png", 250, 375);
-    //Moving
+    // Moving
     Platforms* plat6 = new MovePlatform("../Images/platform2.png", 400, 100, 500, 500, 75);
     Platforms* plat7 = new MovePlatform("../Images/platform2.png", 0, 500, 0, 100, 75);
 
     Character* play2 = new Enemy();
-    Character* play = new Hero();
+    Character* play = new Hero(controlMapping);
     players.push_back(play);
     players.push_back(play2);
     borders.push_back(plat);
@@ -35,8 +35,10 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
             window.close();
         }
         if(event.type == Event::KeyPressed){
+            // Needs to dereference controlMapping in order to read map
+            std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
             // Pass event into settings and compare its output
-            if(event.key.code == Keyboard::Escape){
+            if(event.key.code == controls["Pause"]){
                 state.Pause();
                 state.SetState(GameState::PAUSE);
             }
@@ -48,10 +50,6 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
     for(int i = 0; i < players.size(); i++){
         players[i]->updatePosition(borders, projs, time, window);
     }
-
-    // TODO: REMOVE TEST CODE
-    std::map<std::string, sf::Keyboard::Key> temp = *controlMapping;
-    cout << temp["Move Left"] << endl;
 }
 
 

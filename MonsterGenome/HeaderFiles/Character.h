@@ -48,9 +48,9 @@ class Character{
 
 class Hero : public Character {
 private:
-
+    std::map<std::string, sf::Keyboard::Key>* controlMapping;
 public:
-    Hero();
+    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
 };
 
 class Enemy : public Character{
