@@ -39,7 +39,7 @@ Settings::Settings(float width, float height){
         float optionWidth = width / 2;
         options[i].setPosition((optionWidth / 2) - optionOffset, (this->height / (SettingsOptions + 1) * (i + 1)) + 50);
 
-        UserControls[i].setString(control[i]);
+        UserControls[i].setString(ConvertControls(control[i]));
         UserControls[i].setFont(font);
         UserControls[i].setFillColor(Color::Yellow);
         UserControls[i].setCharacterSize(50);
@@ -57,13 +57,30 @@ std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
     return &controlMapping;
 }
 
-sf::Keyboard::Key Settings::ConvertControls(std::string key) {
-    if(key == "A") {
-        return sf::Keyboard::A;
+std::string Settings::ConvertControls(sf::Keyboard::Key key) {
+    // TODO FINISH ALL KEY MAPPINGS
+    // Should the letters be shifted to corresponding char values?
+    if(key == sf::Keyboard::A) {
+        return "A";
+    }
+    if(key == sf::Keyboard::B) {
+        return "B";
+    }
+    if(key == sf::Keyboard::C) {
+        return "C";
+    }
+    if(key == sf::Keyboard::D) {
+        return "D";
+    }
+    if(key == sf::Keyboard::E) {
+        return "E";
+    }
+    if(key == sf::Keyboard::F) {
+        return "F";
     }
 
 
-    return sf::Keyboard::Key::Escape;
+    return std::to_string(key);
 }
 
 
@@ -71,33 +88,23 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
     Event event;
     while(window.pollEvent(event)) {
         // Happens regardless of state
-        if(event.type == Event::Closed){
-            window.close();
-        }
+        if(event.type == Event::Closed) { window.close(); }
 
         // When editing keys
         if(selectPressed) {
             // TODO: Check for duplicate controls, pop up menu, ask to save, connect with controls
             // The TextEntered must be here. It won't work inside other if statements
-            if(event.type == Event::TextEntered) {
-                if(event.text.unicode >= 33 && event.text.unicode <= 127){
-                    char entered = static_cast<char>(event.text.unicode);
-                    control[selected] = entered;
-                    UserControls[selected].setString(entered);
-                    UserControls[selected].setFillColor(Color::Red);
-                    selectPressed = false;
-                }
-                else if(event.text.unicode == 32){
-                    control[selected] = "SPACE";
-                    UserControls[selected].setString("SPACE");
-                    UserControls[selected].setFillColor(Color::Red);
-                    selectPressed = false;
-                }
+            if(event.type == Event::KeyPressed) {
+                // Read the input
+                auto pressed = event.key.code;
+                // Saves the enum value
+                control[selected] = pressed;
+                // Print the corresponding key for the enum
+                UserControls[selected].setString(ConvertControls(pressed));
+                UserControls[selected].setFillColor(Color::Red);
+                selectPressed = false;
             }
 
-            // Read the input
-            // Saves the enum value
-            // Print has a conversion function that
         }
 
         // When navigating menu
@@ -218,20 +225,21 @@ void Settings::LoadControls() {
         while(getline(inFS, line)){
             stringstream ss(line);
             string word;
+            int hold = 0;
 
-            vector<string> temp;
-            while(getline(ss, word, ',')){
-                temp.push_back(word);
-            }
-
-            function.push_back(temp[0]);
-            defaults.push_back(temp[1]);
-            control.push_back(temp[2]);
-            std::cout << temp[0] << ", ";
-            std::cout << temp[1] << ", ";
-            std::cout << temp[2] << std::endl;
-            controlMapping[temp[0]] = ConvertControls("B");
-
+            // Get the name
+            getline(ss, word, ',');
+            function.push_back(word);
+            // Get the default controls
+            getline(ss, word, ',');
+            stringstream num1(word);
+            num1 >> hold;
+            defaults.push_back(static_cast<Keyboard::Key>(hold));
+            // Get the actual controls
+            getline(ss, word, ',');
+            stringstream num2(word);
+            num2 >> hold;
+            control.push_back(static_cast<Keyboard::Key>(hold));
         }
     }
     else{
@@ -256,7 +264,8 @@ void Settings::Save() {
 // Resets controls back to defaults and sets the on screen text
 void Settings::ResetControls() {
     for(int i = 0; i < SettingsOptions; i++){
+        // TODO: FIX THIS TO WORK WITH ENUM
         control[i] = defaults[i];
-        UserControls[i].setString(control[i]);
+//        UserControls[i].setString(control[i]);
     }
 }

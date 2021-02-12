@@ -1,7 +1,7 @@
-Move Right,D,D
-Move Left,A,A
-Jump,W,W
-Crouch,S,S
-Attack,Space,Space
-Reload,R,R
-Pause,P,P
+Move Right,4,4
+Move Left,0,0
+Jump,22,22
+Crouch,18,18
+Attack,59,59
+Reload,17,17
+Pause,15,15

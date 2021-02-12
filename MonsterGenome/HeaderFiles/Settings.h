@@ -37,16 +37,17 @@ private:
     // Name of action
     vector<string> function;
     // Default keys
-    vector<string> defaults;
+    std::vector<sf::Keyboard::Key> defaults;
     // User selected keys
-    vector<string> control;
+    std::vector<sf::Keyboard::Key> control;
     // The key mapping
     std::map<std::string, sf::Keyboard::Key> controlMapping;
 
     void LoadControls();
     void Save();
     void ResetControls();
-    sf::Keyboard::Key ConvertControls(std::string key);
+    std::string ConvertControls(sf::Keyboard::Key key);
+
 public:
     Settings(float width, float height);
     void Draw(RenderWindow &window);
