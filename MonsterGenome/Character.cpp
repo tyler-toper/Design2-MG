@@ -38,6 +38,46 @@ using namespace sf;
         this->horizadd = h;
     }
 
+    int aboveBelow(Sprite& first, Sprite& second){
+        float fypos = first.getPosition().y;
+        float fxpos = first.getPosition().x;
+        int fheight = first.getTextureRect().height;
+        int fwidth = first.getTextureRect().width;
+
+        float sypos = second.getPosition().y;
+        float sxpos = second.getPosition().x;
+        int sheight = second.getTextureRect().height;
+        int swidth = second.getTextureRect().width;
+
+        if(((fxpos + fwidth/2) > sxpos) && ((fxpos - fwidth/2) < (sxpos + swidth))){
+            if(fypos + fheight < sypos + sheight){
+                return 1;
+            }
+            else if(fypos > sypos){
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    int rightLeft(Sprite& first, Sprite& second){
+        float fxpos = first.getPosition().x;
+        int fwidth = first.getTextureRect().width;
+
+        float sxpos = second.getPosition().x;
+        int swidth = second.getTextureRect().width;
+
+        if((fxpos - fwidth/2) > sxpos){
+            return 1;
+        }
+        else if((fxpos + fwidth/2) < (sxpos + swidth)){
+            return -1;
+        }
+        else{
+            return 0;
+        }
+    }
+
     void Character::checkCollison(vector<Platforms*>& borders){
         setAdditions(0.f, 0.f);
         for(int i=0; i < borders.size(); i++){
@@ -46,10 +86,10 @@ using namespace sf;
                 removeCollision(borders[i], intersection);
                 if(borders[i]->getName() == "M"){
                     MovePlatform *d = static_cast<MovePlatform *>(borders[i]);
-                    if((sprite.getPosition().y > borders[i]->getSprite().getPosition().y) && (d->getYspeed() > 0) && (abs(sprite.getPosition().x > ((borders[i]->getSprite().getPosition().x) - 53)))){
+                    if(aboveBelow(sprite, d->getSprite()) == -1){
                         d->reverse();
                     }
-                    else{
+                    else if(aboveBelow(sprite, d->getSprite()) == 1){
                         setAdditions(d->getXspeed(), abs(d->getYspeed()));
                     }
                 }
@@ -58,17 +98,24 @@ using namespace sf;
     }
 
     void Character::removeCollision(Platforms* borders, FloatRect& intersection){
-        if(intersection.width > intersection.height){
-            sprite.move(0, intersection.height * -1.f * pow(-1, jumpvel < 0));
-            if(intersection.width >= 1){
-                    if(jumpvel > 0){
-                        jumping = false;
-                    }
-                    jumpvel = 0;
-                }
+        int relative = aboveBelow(sprite, borders->getSprite());
+        
+        if(relative == 1 || relative == -1){
+            if(intersection.width < intersection.height){
+                sprite.move(intersection.width * rightLeft(sprite, borders->getSprite()), 0);
+            }
+            else if(relative == 1){
+                sprite.move(0, intersection.height * -1.f);
+                jumping = false;
+                jumpvel = 0;
+            }
+            else{
+                sprite.move(0, intersection.height);
+                jumpvel = 0;
+            }
         }
         else{
-            sprite.move(intersection.width * pow(-1, faceright), 0);   
+            sprite.move(intersection.width * rightLeft(sprite, borders->getSprite()), 0);   
         }
     }
 
@@ -102,7 +149,7 @@ using namespace sf;
 
     void Character::flip(Sprite& sprite){
         sprite.setOrigin({ sprite.getGlobalBounds().width/2.0f, 0});
-        sprite.setScale({ pow(-1, int(!faceright)) , 1 });
+        sprite.setScale({ int(pow(-1, !faceright)) , 1 });
     }
 
     void Character::hAnimation(){

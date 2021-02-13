@@ -9,8 +9,8 @@ Game::Game() {
     //Platforms in air
     Platforms* plat3 = new Platforms("../Images/platform2.png", 250, 375);
     //Moving
-    Platforms* plat6 = new MovePlatform("../Images/platform2.png", 400, 100, 500, 500, 75);
-    Platforms* plat7 = new MovePlatform("../Images/platform2.png", 0, 500, 0, 100, 75);
+    Platforms* plat6 = new MovePlatform("../Images/platform2.png", 400, 100, 500, 500, 100);
+    Platforms* plat7 = new MovePlatform("../Images/platform2.png", 0, 500, 0, 100, 100);
 
     Character* play2 = new Enemy();
     Character* play = new Hero();
