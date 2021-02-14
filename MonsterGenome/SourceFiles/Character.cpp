@@ -95,24 +95,25 @@ using namespace sf;
             sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));              
         }
     }
-
-    // TODO: This needs to be put in the hero class
-    void Character::setAnimation(){
+    void Hero::setAnimation(){
         bool noaction = true;
+        // Needs to dereference controlMapping in order to read map
+        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
         if(timepass <= 0){
-            if(Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Right)){
+            if(Keyboard::isKeyPressed(controls["Left"]) || Keyboard::isKeyPressed(Keyboard::Right)){
                 hAnimation();
                 noaction = false;
             }
-            if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
+            if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
                 noaction = false;
             }
             // Unfinsihed, will be ducking or something
-            if(Keyboard::isKeyPressed(Keyboard::Down)){
+            if(Keyboard::isKeyPressed(controls["Crouch"])){
                 //noaction = false;
             }
             //Attacking
-            if(Keyboard::isKeyPressed(Keyboard::Z)){
+            if(Keyboard::isKeyPressed(controls["Attack"])){
                 noaction = false;
             }
             timepass = .1;
@@ -148,9 +149,8 @@ using namespace sf;
         }
         flip(sprite);
     }
-    // TODO: Move this to the hero class
-    void Character::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window){
 
+    void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window){
         //Gravity and collision when jumpin
         float time = timein.asSeconds();
         weapontimer = weapontimer - time;
@@ -159,26 +159,29 @@ using namespace sf;
 
         sprite.move(Vector2f(0, jumpvel * time));
 
+        // Needs to dereference controlMapping in order to read map
+        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
         //Moving Left and Right with Collision
-        if(Keyboard::isKeyPressed(Keyboard::Left)){
+        if(Keyboard::isKeyPressed(controls["Left"])){
             faceright = false;
             sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
         }
-        else if(Keyboard::isKeyPressed(Keyboard::Right)){
+        else if(Keyboard::isKeyPressed(controls["Right"])){
             faceright = true;
             sprite.move(Vector2f(horizontalvel * time, 0));
         }
-        if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
+        if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
             jumping = true;
             jumpvel = -400.f;
             sprite.move(Vector2f(0, jumpvel * time));
         }
         //Unfinsihed, will be ducking or something
-        if(Keyboard::isKeyPressed(Keyboard::Down)){
+        if(Keyboard::isKeyPressed(controls["Crouch"])){
 
         }
         //Attacking
-        if(Keyboard::isKeyPressed(Keyboard::Z)){
+        if(Keyboard::isKeyPressed(controls["Attack"])){
             attack(proj, Mouse::getPosition(window));
         }
         sprite.move(Vector2f(vertadd * time, horizadd * time));

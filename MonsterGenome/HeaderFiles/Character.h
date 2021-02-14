@@ -37,9 +37,9 @@ class Character{
     void checkCollison(vector<Platforms*>& borders);
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile(vector<Projectile*>& proj);
-    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
+    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window) = 0;
     void attack(vector<Projectile*>& borders, Vector2i loc);
-    virtual void setAnimation();
+    virtual void setAnimation() = 0;
     void flip(Sprite& sprite);
     void hAnimation();
     void setAdditions(float v, float h);
@@ -51,6 +51,8 @@ private:
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
 public:
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
+    void setAnimation();
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window);
 };
 
 class Enemy : public Character{
