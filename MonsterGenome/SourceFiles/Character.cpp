@@ -101,7 +101,7 @@ using namespace sf;
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
         if(timepass <= 0){
-            if(Keyboard::isKeyPressed(controls["Left"]) || Keyboard::isKeyPressed(Keyboard::Right)){
+            if(Keyboard::isKeyPressed(controls["Move Right"]) || Keyboard::isKeyPressed(Keyboard::Right)){
                 hAnimation();
                 noaction = false;
             }
@@ -163,11 +163,11 @@ using namespace sf;
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
         //Moving Left and Right with Collision
-        if(Keyboard::isKeyPressed(controls["Left"])){
+        if(Keyboard::isKeyPressed(controls["Move Left"])){
             faceright = false;
             sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
         }
-        else if(Keyboard::isKeyPressed(controls["Right"])){
+        else if(Keyboard::isKeyPressed(controls["Move Right"])){
             faceright = true;
             sprite.move(Vector2f(horizontalvel * time, 0));
         }
