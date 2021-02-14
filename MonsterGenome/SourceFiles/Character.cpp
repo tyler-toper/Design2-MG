@@ -20,7 +20,7 @@ using namespace sf;
         //remove soon
         this->ene = ene;
         float timepass = .05;
-        //should be in weapons firerate
+        //should be in weapons fireratea
 
     }
 
@@ -124,7 +124,7 @@ using namespace sf;
         flip(sprite);
     }
 
-    void Enemy::setAnimation(vector<int>& actions){
+    void Enemy::setAnimation(){
         bool noaction = true;
         if(timepass <= 0){
             if(actions[0] || actions[1]){
@@ -234,7 +234,7 @@ using namespace sf;
             }
             checkCollison(borders);
             checkProjectile(proj);
-            setAnimation(actions);
+            setAnimation();
     }
 
     Sprite& Character::getSprite(){

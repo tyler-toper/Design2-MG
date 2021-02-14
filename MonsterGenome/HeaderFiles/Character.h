@@ -65,5 +65,5 @@ private:
 
     Enemy();
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
-    void setAnimation(vector<int>& actions);
+    void setAnimation();
 };
