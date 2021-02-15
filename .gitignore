@@ -40,7 +40,3 @@ Makefile
 cmake*
 
 # Libraries
-**/Dependencies
-/Dependencies/mingw64
-/Dependencies/SFML-2.5.1
-*.pyc
