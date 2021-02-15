@@ -202,7 +202,7 @@ using namespace sf;
             
             timepass = .1;
             if(noaction){
-                sprite.setTextureRect(IntRect(57, 11, 53, 60));
+                sprite.setTextureRect(IntRect(57, 11, 50, 60));
             }
         }
         flip(sprite);
@@ -235,7 +235,7 @@ using namespace sf;
             }
             timepass = .1;
             if(noaction){
-                sprite.setTextureRect(IntRect(57, 11, 53, 60));
+                sprite.setTextureRect(IntRect(57, 11, 50, 60));
             }
         }
         flip(sprite);
