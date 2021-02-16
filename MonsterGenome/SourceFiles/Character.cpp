@@ -73,6 +73,12 @@ using namespace sf;
         else if((fxpos + fwidth/2) < (sxpos + swidth)){
             return -1;
         }
+        else if((sxpos > (fxpos - fwidth/2)) && ((sxpos + swidth) < (fxpos + fwidth/2))){
+            if(sxpos - (fxpos - fwidth/2) > ((fxpos + fwidth/2) - (sxpos + swidth))){
+                return -1;
+            }
+            return 1;
+        }
         else{
             return 0;
         }
@@ -86,7 +92,7 @@ using namespace sf;
                 removeCollision(borders[i], intersection);
                 if(borders[i]->getName() == "M"){
                     MovePlatform *d = static_cast<MovePlatform *>(borders[i]);
-                    if(aboveBelow(sprite, d->getSprite()) == -1){
+                    if(aboveBelow(sprite, d->getSprite()) == -1 && (d->getYspeed() > 0)){
                         d->reverse();
                     }
                     else if(aboveBelow(sprite, d->getSprite()) == 1){
