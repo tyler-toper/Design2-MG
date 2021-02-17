@@ -8,6 +8,8 @@ add_executable(MonsterGenome main.cpp
         HeaderFiles/Weapon.h
         SourceFiles/Armor.cpp
         HeaderFiles/Armor.h
+        HeaderFiles/Interface.h
+        SourceFiles/Interface.cpp
         SourceFiles/Menu.cpp
         HeaderFiles/Menu.h
         SourceFiles/LoadAssets.cpp
