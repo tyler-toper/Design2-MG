@@ -10,6 +10,8 @@
 #include "HeaderFiles/Settings.h"
 #include "HeaderFiles/GameState.h"
 
+#include <SFML/Audio.hpp>
+
 #define windowWidth 1024
 #define windowHeight 768
 // To get a proper window size, maybe we can have an initial window to prompt the user to choose a resolution
@@ -32,6 +34,11 @@ void openWindow(RenderWindow &window){
     Pause pause(windowWidth, windowHeight);
     Settings settings(windowWidth, windowHeight);
 
+    Music music;
+    if(!music.openFromFile("../../Assets/Audio/Soundtracks/Theme.ogg")){
+        cout << "Failed to open music" << endl;
+    }
+
     // Main game loop. While the window is open
     while(window.isOpen()){
         window.clear(Color::White);
@@ -40,8 +47,12 @@ void openWindow(RenderWindow &window){
         if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
             game.Draw(window, time, playerView, mapView);
+            music.stop();
         }
         else if(state.GetState() == GameState::MENU){
+            if(music.getStatus() != SoundSource::Status::Playing){
+                music.play();
+            }
             menu.PollMenu(window, state);
             menu.Draw(window);
         }
@@ -51,10 +62,12 @@ void openWindow(RenderWindow &window){
             window.setView(playerView);
             pause.PollMenu(window, state);
             pause.Draw(window);
+            music.stop();
         }
         else if(state.GetState() == GameState::SETTINGS){
             settings.PollMenu(window, state);
             settings.Draw(window);
+            music.stop();
         }
     
         window.display();
