@@ -21,9 +21,9 @@ vector<Armor> Armors;
 void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
     // Create objects
-    Menu menu(windowWidth, windowHeight);
-    View mapView;
     Settings settings(windowWidth, windowHeight);
+    Menu menu(windowWidth, windowHeight, settings.GetControlMapping());
+    View mapView;
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
     // Add Settings Controls Pointer/Reference

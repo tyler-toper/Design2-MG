@@ -64,24 +64,41 @@ std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
 std::string Settings::ConvertControls(sf::Keyboard::Key key) {
 
     // TODO FINISH ALL KEY MAPPINGS
-    // Should the letters be shifted to corresponding char values?
-    if(key == sf::Keyboard::A) {
-        return "A";
+    // Using the char values plus the key values to find keys
+    // Alphabet
+    if (key < 26) {
+        return std::string(1, key + 65);
     }
-    if(key == sf::Keyboard::B) {
-        return "B";
+    // Numbers
+    else if (key < 36) {
+        return std::string(1, key - 26 + 48);
     }
-    if(key == sf::Keyboard::C) {
-        return "C";
+    // Special Keys
+    else if (key == 37) {
+        return "Escape";
     }
-    if(key == sf::Keyboard::D) {
-        return "D";
+    else if (key == 38) {
+        return "Left Control";
     }
-    if(key == sf::Keyboard::E) {
-        return "E";
+    else if (key == 39) {
+        return "Left Shift";
     }
-    if(key == sf::Keyboard::F) {
-        return "F";
+    else if (key == 40) {
+        return "Left Alt";
+    }
+
+    // Arrow Keys
+    else if (key == 71) {
+        return "Left Arrow";
+    }
+    else if (key == 72) {
+        return "Right Arrow";
+    }
+    else if (key == 73) {
+        return "Up Arrow";
+    }
+    else if (key == 74) {
+        return "Down Arrow";
     }
 
 
