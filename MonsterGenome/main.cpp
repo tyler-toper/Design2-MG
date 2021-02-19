@@ -9,6 +9,7 @@
 #include "HeaderFiles/Pause.h"
 #include "HeaderFiles/Settings.h"
 #include "HeaderFiles/GameState.h"
+#include "HeaderFiles/AudioHandler.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -34,14 +35,20 @@ void openWindow(RenderWindow &window){
     // Add Settings Controls Pointer/Reference
     Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
 
+    AudioHandler audioHandler;
+
+
     // Main game loop. While the window is open
     while(window.isOpen()){
         window.clear(Color::White);
         time = clock.restart();
+        audioHandler.setState(state.GetState());
+        audioHandler.playMusic();
 
         if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
             game.Draw(window, time, playerView, mapView);
+
         }
         else if(state.GetState() == GameState::MENU){
             menu.PollMenu(window, state);
@@ -53,10 +60,12 @@ void openWindow(RenderWindow &window){
             window.setView(playerView);
             pause.PollMenu(window, state);
             pause.Draw(window);
+
         }
         else if(state.GetState() == GameState::SETTINGS){
             settings.PollMenu(window, state);
             settings.Draw(window);
+
         }
     
         window.display();
