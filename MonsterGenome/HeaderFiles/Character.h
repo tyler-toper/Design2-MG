@@ -56,7 +56,7 @@ class Hero : public Character {
 private:
 
 public:
-    Hero();
+    Hero(float spawnX, float spawnY);
 };
 
 class Enemy : public Character{
@@ -67,7 +67,7 @@ private:
     vector<int> actions{0,0,0,0,0,0};
     public:
 
-    Enemy();
+    Enemy(float spawnX, float spawnY);
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& time, RenderWindow& window);
     void setAnimation(vector<int>& actions);
     void checkMeleeHit(vector<Character*>& players);

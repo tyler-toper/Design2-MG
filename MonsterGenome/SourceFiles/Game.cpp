@@ -5,7 +5,6 @@ using namespace io;
 
 Game::Game(int lvl) {
     LoadLevel(lvl);
-
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
@@ -92,11 +91,11 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    Character* tempChar = new Hero();
+                    Character* tempChar = new Hero(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy();
+                    Character *tempChar = new Enemy(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){

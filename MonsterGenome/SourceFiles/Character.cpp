@@ -13,10 +13,6 @@ using namespace sf;
         jumping = false;
         jumpvel = 0;
         horizontalvel = 100.f;
-        text.loadFromFile("../Images/animation2.png");
-        sprite.setTexture(text);
-        sprite.setPosition(Vector2f(400.f, 300.f));
-        sprite.setTextureRect(IntRect(57, 11, 50, 60));
         //remove soon
         this->ene = ene;
         float timepass = .05;
@@ -24,13 +20,21 @@ using namespace sf;
 
     }
 
-    Hero::Hero() : Character(false){
-        
+    Hero::Hero(float spawnX, float spawnY) : Character(false){
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
     }
 
-    Enemy::Enemy() : Character(true) {
+    Enemy::Enemy(float spawnX, float spawnY) : Character(true) {
         int ID = 0;
         int xpDrop = 100;
+
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
     }
 
     void Character::setAdditions(float v, float h){
