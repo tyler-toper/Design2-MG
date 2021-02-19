@@ -13,7 +13,7 @@ using namespace sf;
         jumping = false;
         jumpvel = 0;
         horizontalvel = 100.f;
-        text.loadFromFile("../Images/animation.png");
+        text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
@@ -157,7 +157,7 @@ using namespace sf;
             sprite.setTextureRect(IntRect(36, 242, 50, 60));
         }
         else{
-            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));              
+            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));
         }
     }
 

@@ -25,7 +25,7 @@ void openWindow(RenderWindow &window){
     View mapView;
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
-    Game game;
+    Game game(1);
     Clock clock;
     Time time;
     GameState state;

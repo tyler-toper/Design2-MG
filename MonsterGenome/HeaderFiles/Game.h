@@ -16,9 +16,9 @@ private:
     vector<Projectile*> projs;
 
 public:
-    explicit Game();
+    explicit Game(int lvl);
 
     void PollGame(RenderWindow &window, Time& time, GameState &state);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
-
+    void LoadLevel(int lvl);
 };
