@@ -14,9 +14,10 @@ private:
     vector<Character*> players;
     vector<Platforms*> borders;
     vector<Projectile*> projs;
+    std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
 public:
-    explicit Game();
+    explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping);
 
     void PollGame(RenderWindow &window, Time& time, GameState &state);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);

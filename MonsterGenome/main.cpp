@@ -22,14 +22,17 @@ vector<Armor> Armors;
 void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
     // Create objects
-    Menu menu(windowWidth, windowHeight);
+    Settings settings(windowWidth, windowHeight);
+    Menu menu(windowWidth, windowHeight, settings.GetControlMapping());
     View mapView;
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
-    Game game;
+    // Add Settings Controls Pointer/Reference
+    Game game(settings.GetControlMapping());
     Clock clock;
     Time time;
     GameState state;
+    // Add Settings Controls Pointer/Reference
     Pause pause(windowWidth, windowHeight);
     Settings settings(windowWidth, windowHeight);
     AudioHandler audioHandler;

@@ -20,12 +20,12 @@ using namespace sf;
         //remove soon
         this->ene = ene;
         float timepass = .05;
-        //should be in weapons firerate
+        //should be in weapons fireratea
 
     }
 
-    Hero::Hero() : Character(false){
-        
+    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping) : Character(false){
+        this->controlMapping = controlMapping;
     }
 
     Enemy::Enemy() : Character(true) {
@@ -73,6 +73,12 @@ using namespace sf;
         else if((fxpos + fwidth/2) < (sxpos + swidth)){
             return -1;
         }
+        else if((sxpos > (fxpos - fwidth/2)) && ((sxpos + swidth) < (fxpos + fwidth/2))){
+            if(sxpos - (fxpos - fwidth/2) > ((fxpos + fwidth/2) - (sxpos + swidth))){
+                return -1;
+            }
+            return 1;
+        }
         else{
             return 0;
         }
@@ -86,7 +92,7 @@ using namespace sf;
                 removeCollision(borders[i], intersection);
                 if(borders[i]->getName() == "M"){
                     MovePlatform *d = static_cast<MovePlatform *>(borders[i]);
-                    if(aboveBelow(sprite, d->getSprite()) == -1){
+                    if(aboveBelow(sprite, d->getSprite()) == -1 && (d->getYspeed() > 0)){
                         d->reverse();
                     }
                     else if(aboveBelow(sprite, d->getSprite()) == 1){
@@ -174,28 +180,34 @@ using namespace sf;
         }
     }
 
-    void Character::setAnimation(){
+
+    void Hero::setAnimation(){
         bool noaction = true;
+        // Needs to dereference controlMapping in order to read map
+        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
         if(timepass <= 0){
+            // TODO: Add Control binding?
             if(Keyboard::isKeyPressed(Keyboard::X) || this->punch){
                 this->punch = true;
-                noaction = false;
                 mAnimation();   
+                noaction = false;
             }
+          
             else{
-                if(Keyboard::isKeyPressed(Keyboard::Left) || Keyboard::isKeyPressed(Keyboard::Right)){
+                if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
                 hAnimation();
                 noaction = false;
                 }
-                if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
+                if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
                     noaction = false;
                 }
                 //Unfinsihed, will be ducking or something
-                if(Keyboard::isKeyPressed(Keyboard::Down)){
+                if(Keyboard::isKeyPressed(controls["Crouch"])){
                     //noaction = false;
                 }
                 //Attacking
-                if(Keyboard::isKeyPressed(Keyboard::Z)){
+                if(Keyboard::isKeyPressed(controls["Attack"])){
                     noaction = false;
                 }
             }
@@ -208,7 +220,7 @@ using namespace sf;
         flip(sprite);
     }
 
-    void Enemy::setAnimation(vector<int>& actions){
+    void Enemy::setAnimation(){
         bool noaction = true;
         if(timepass <= 0){
             if(actions[5] || this->punch){
@@ -241,48 +253,51 @@ using namespace sf;
         flip(sprite);
     }
 
-    void Character::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){
-            this->atk = false;
-            //Gravity and collision when jumpin
-            float time = timein.asSeconds();
-            weapontimer = weapontimer - time;
-            timepass = timepass - time;
-            jumpvel += 1100.f * time; // Vertical Acceleration 
+    void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){
+        this->atk = false;
+        //Gravity and collision when jumpin
+        float time = timein.asSeconds();
+        weapontimer = weapontimer - time;
+        timepass = timepass - time;
+        jumpvel += 1100.f * time; // Vertical Acceleration
 
-            sprite.move(Vector2f(0, jumpvel * time));
+        sprite.move(Vector2f(0, jumpvel * time));
+
+        // Needs to dereference controlMapping in order to read map
+        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
             
-            if(Keyboard::isKeyPressed(Keyboard::X)){
-                
+        if(Keyboard::isKeyPressed(Keyboard::X)){
+
+        }
+        else{
+            //Moving Left and Right with Collision
+            if(Keyboard::isKeyPressed(controls["Move Left"])){
+                faceright = false;
+                sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
             }
-            else{
-                //Moving Left and Right with Collision
-                if(Keyboard::isKeyPressed(Keyboard::Left)){
-                    faceright = false;
-                    sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
-                }
-                else if(Keyboard::isKeyPressed(Keyboard::Right)){
-                    faceright = true;
-                    sprite.move(Vector2f(horizontalvel * time, 0));
-                }
-                if(Keyboard::isKeyPressed(Keyboard::Up) & !jumping){
-                    jumping = true;
-                    jumpvel = -400.f;
-                    sprite.move(Vector2f(0, jumpvel * time));
-                }
-                //Unfinsihed, will be ducking or something
-                if(Keyboard::isKeyPressed(Keyboard::Down)){
-                    
-                }
-                //Attacking
-                if(Keyboard::isKeyPressed(Keyboard::Z)){
-                    attack(proj, Mouse::getPosition(window));
-                }
+            else if(Keyboard::isKeyPressed(controls["Move Right"])){
+                faceright = true;
+                sprite.move(Vector2f(horizontalvel * time, 0));
             }
-            sprite.move(Vector2f(vertadd * time, horizadd * time));
-            checkCollison(borders);
-            checkProjectile(proj);
-            checkMeleeHit(players);
-            setAnimation();
+            if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
+                jumping = true;
+                jumpvel = -400.f;
+                sprite.move(Vector2f(0, jumpvel * time));
+            }
+            //Unfinsihed, will be ducking or something
+            if(Keyboard::isKeyPressed(controls["Crouch"])){
+
+            }
+            //Attacking
+            if(Keyboard::isKeyPressed(controls["Attack"])){
+                attack(proj, Mouse::getPosition(window));
+            }
+        }
+        sprite.move(Vector2f(vertadd * time, horizadd * time));
+        checkCollison(borders);
+        checkProjectile(proj);
+        checkMeleeHit(players);
+        setAnimation();
     }
 
     void Enemy::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){
@@ -337,7 +352,7 @@ using namespace sf;
             checkCollison(borders);
             checkProjectile(proj);
             checkMeleeHit(players);
-            setAnimation(actions);
+            setAnimation();
     }
 
     Sprite& Character::getSprite(){

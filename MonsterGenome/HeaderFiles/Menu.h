@@ -18,9 +18,10 @@ private:
     Font font;
     Text text[MenuOptions];
     Text title;
+    std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
 public:
-    Menu(float width, float height);
+    Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();

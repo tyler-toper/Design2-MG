@@ -1,6 +1,8 @@
 #include "../HeaderFiles/Menu.h"
 
-Menu::Menu(float width, float height){
+Menu::Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping){
+    this->controlMapping = controlMapping;
+
     font.loadFromFile(pixelFont);
     selected = 0;
 
@@ -42,12 +44,16 @@ void Menu::PollMenu(RenderWindow &window, GameState &state) {
         }
         if (event.type == Event::KeyPressed) {
             auto pressed = event.key.code;
-            if (pressed == Keyboard::Up) {
+            // Needs to dereference controlMapping in order to read map
+            std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
+            if (pressed == controls["Jump"]) {
                 MoveUp();
             }
-            if (pressed == Keyboard::Down) {
+            if (pressed == controls["Crouch"]) {
                 MoveDown();
             }
+            // TODO: Define general controls for this command
             if (pressed == Keyboard::Return) {
                 if (selected == 0) {
                     state.SetState(GameState::PLAY);
