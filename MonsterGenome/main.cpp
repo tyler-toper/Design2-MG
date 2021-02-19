@@ -32,7 +32,7 @@ void openWindow(RenderWindow &window){
     Time time;
     GameState state;
     // Add Settings Controls Pointer/Reference
-    Pause pause(windowWidth, windowHeight);
+    Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
 
     // Main game loop. While the window is open
     while(window.isOpen()){
