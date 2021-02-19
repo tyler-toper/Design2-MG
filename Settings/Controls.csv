@@ -2,6 +2,6 @@ Move Right,4,3
 Move Left,0,0
 Jump,22,22
 Crouch,18,18
-Attack,59,59
+Attack,59,42
 Reload,17,17
 Pause,15,36

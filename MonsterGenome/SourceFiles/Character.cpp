@@ -101,7 +101,7 @@ using namespace sf;
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
         if(timepass <= 0){
-            if(Keyboard::isKeyPressed(controls["Move Right"]) || Keyboard::isKeyPressed(Keyboard::Right)){
+            if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
                 hAnimation();
                 noaction = false;
             }

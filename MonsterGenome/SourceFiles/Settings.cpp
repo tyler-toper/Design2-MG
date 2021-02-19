@@ -62,6 +62,7 @@ std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
 }
 
 std::string Settings::ConvertControls(sf::Keyboard::Key key) {
+
     // TODO FINISH ALL KEY MAPPINGS
     // Should the letters be shifted to corresponding char values?
     if(key == sf::Keyboard::A) {
