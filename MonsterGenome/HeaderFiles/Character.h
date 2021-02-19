@@ -58,7 +58,7 @@ private:
 public:
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
     void setAnimation();
-    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& timein, RenderWindow& window);
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window);
 };
 
 class Enemy : public Character{

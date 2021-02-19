@@ -1,7 +1,7 @@
-Move Right,4,72
-Move Left,0,71
-Jump,22,73
-Crouch,18,74
+Move Right,4,3
+Move Left,0,0
+Jump,22,22
+Crouch,18,18
 Attack,59,52
 Reload,17,76
 Pause,15,36

@@ -279,7 +279,7 @@ using namespace sf;
                 faceright = true;
                 sprite.move(Vector2f(horizontalvel * time, 0));
             }
-            if(Keyboard::isKeyPressed(controls["Jump"])) & !jumping){
+            if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
                 jumping = true;
                 jumpvel = -400.f;
                 sprite.move(Vector2f(0, jumpvel * time));
@@ -352,7 +352,7 @@ using namespace sf;
             checkCollison(borders);
             checkProjectile(proj);
             checkMeleeHit(players);
-            setAnimation(actions);
+            setAnimation();
     }
 
     Sprite& Character::getSprite(){
