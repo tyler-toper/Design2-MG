@@ -9,8 +9,7 @@
 #include "HeaderFiles/Pause.h"
 #include "HeaderFiles/Settings.h"
 #include "HeaderFiles/GameState.h"
-
-#include <SFML/Audio.hpp>
+#include "HeaderFiles/AudioHandler.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -33,26 +32,23 @@ void openWindow(RenderWindow &window){
     GameState state;
     Pause pause(windowWidth, windowHeight);
     Settings settings(windowWidth, windowHeight);
+    AudioHandler audioHandler;
 
-    Music music;
-    if(!music.openFromFile("../../Assets/Audio/Soundtracks/Theme.ogg")){
-        cout << "Failed to open music" << endl;
-    }
 
     // Main game loop. While the window is open
     while(window.isOpen()){
         window.clear(Color::White);
         time = clock.restart();
+        audioHandler.setState(state.GetState());
+        audioHandler.playMusic();
 
         if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
             game.Draw(window, time, playerView, mapView);
-            music.stop();
+
         }
         else if(state.GetState() == GameState::MENU){
-            if(music.getStatus() != SoundSource::Status::Playing){
-                music.play();
-            }
+
             menu.PollMenu(window, state);
             menu.Draw(window);
         }
@@ -62,12 +58,12 @@ void openWindow(RenderWindow &window){
             window.setView(playerView);
             pause.PollMenu(window, state);
             pause.Draw(window);
-            music.stop();
+
         }
         else if(state.GetState() == GameState::SETTINGS){
             settings.PollMenu(window, state);
             settings.Draw(window);
-            music.stop();
+
         }
     
         window.display();
