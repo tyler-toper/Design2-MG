@@ -48,7 +48,6 @@ void openWindow(RenderWindow &window){
 
         }
         else if(state.GetState() == GameState::MENU){
-
             menu.PollMenu(window, state);
             menu.Draw(window);
         }
