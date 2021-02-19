@@ -34,7 +34,7 @@ void openWindow(RenderWindow &window){
     GameState state;
     // Add Settings Controls Pointer/Reference
     Pause pause(windowWidth, windowHeight);
-    Settings settings(windowWidth, windowHeight);
+
     AudioHandler audioHandler;
 
 
