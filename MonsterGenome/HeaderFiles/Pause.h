@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <stack>
@@ -17,6 +18,9 @@ private:
     Font font;
     Text text[PauseOptions];
     Text title;
+
+    SoundBuffer buffer;
+    Sound sound;
 
 public:
     Pause(float width, float height);

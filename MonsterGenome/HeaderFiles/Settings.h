@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -47,6 +48,9 @@ private:
     void Save();
     void ResetControls();
     std::string ConvertControls(sf::Keyboard::Key key);
+
+    SoundBuffer buffer;
+    Sound sound;
 
 public:
     Settings(float width, float height);

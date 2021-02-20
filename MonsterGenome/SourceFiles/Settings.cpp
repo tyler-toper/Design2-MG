@@ -55,6 +55,14 @@ Settings::Settings(float width, float height){
     for(int i = 0; i < SettingsOptions; i++) {
         controlMapping[function[i]] = control[i];
     }
+
+    if(!buffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg")){
+        cout << "Failed to load sound in menu" << endl;
+    }
+    else{
+        sound.setBuffer(buffer);
+        sound.setVolume(75);
+    }
 }
 
 std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
@@ -179,6 +187,7 @@ void Settings::Draw(RenderWindow &window){
 }
 
 void Settings::MoveDown(){
+    sound.play();
     if(selected + 1 < SettingsOptions){
         UserControls[selected].setFillColor(Color::Yellow);
         UserControls[selected].setStyle(Text::Regular);
@@ -189,6 +198,7 @@ void Settings::MoveDown(){
 }
 
 void Settings::MoveUp(){
+    sound.play();
     if(selected - 1 >= 0){
         UserControls[selected].setFillColor(Color::Yellow);
         UserControls[selected].setStyle(Text::Regular);

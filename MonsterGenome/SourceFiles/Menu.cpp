@@ -34,6 +34,15 @@ Menu::Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* 
 
     text[selected].setFillColor(Color::Red);
     text[selected].setStyle(Text::Underlined);
+
+    if(!buffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg")){
+        cout << "Failed to load sound in menu" << endl;
+    }
+    else{
+        sound.setBuffer(buffer);
+        sound.setVolume(75);
+    }
+
 }
 
 void Menu::PollMenu(RenderWindow &window, GameState &state) {
@@ -85,6 +94,7 @@ void Menu::Draw(RenderWindow &window){
 }
 
 void Menu::MoveDown(){
+    sound.play();
     if(selected + 1 < MenuOptions){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
@@ -95,6 +105,7 @@ void Menu::MoveDown(){
 }
 
 void Menu::MoveUp(){
+    sound.play();
     if(selected - 1 >= 0){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);

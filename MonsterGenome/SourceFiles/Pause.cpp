@@ -32,6 +32,14 @@ Pause::Pause(float width, float height) {
 
     text[selected].setFillColor(Color::Red);
     text[selected].setStyle(Text::Underlined);
+
+    if(!buffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg")){
+        cout << "Failed to load sound in menu" << endl;
+    }
+    else{
+        sound.setBuffer(buffer);
+        sound.setVolume(75);
+    }
 }
 
 
@@ -92,6 +100,7 @@ void Pause::Draw(RenderWindow &window){
 }
 
 void Pause::MoveDown(){
+    sound.play();
     if(selected + 1 < PauseOptions){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
@@ -102,6 +111,7 @@ void Pause::MoveDown(){
 }
 
 void Pause::MoveUp(){
+    sound.play();
     if(selected - 1 >= 0){
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);

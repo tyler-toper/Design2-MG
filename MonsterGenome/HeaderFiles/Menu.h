@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -19,6 +20,9 @@ private:
     Text text[MenuOptions];
     Text title;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
+
+    SoundBuffer buffer;
+    Sound sound;
 
 public:
     Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);

@@ -22,6 +22,7 @@ void AudioHandler::playMusic(){
                 cout << "Failed to open music" << endl;
             }
             else{
+                theme.setLoop(true);
                 theme.play();
             }
         }
