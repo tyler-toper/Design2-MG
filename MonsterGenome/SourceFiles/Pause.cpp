@@ -38,7 +38,7 @@ Pause::Pause(float width, float height) {
     }
     else{
         sound.setBuffer(buffer);
-        sound.setVolume(75);
+        sound.setVolume(20);
     }
 }
 

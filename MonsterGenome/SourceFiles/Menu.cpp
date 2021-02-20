@@ -40,7 +40,7 @@ Menu::Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* 
     }
     else{
         sound.setBuffer(buffer);
-        sound.setVolume(75);
+        sound.setVolume(20);
     }
 
 }
