@@ -49,8 +49,12 @@ private:
     void ResetControls();
     std::string ConvertControls(sf::Keyboard::Key key);
 
-    SoundBuffer buffer;
-    Sound sound;
+    SoundBuffer moveBuffer;
+    Sound moveSound;
+    SoundBuffer errorBuffer;
+    Sound errorSound;
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
 
 public:
     Settings(float width, float height);

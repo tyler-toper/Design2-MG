@@ -19,8 +19,12 @@ private:
     Text text[PauseOptions];
     Text title;
 
-    SoundBuffer buffer;
-    Sound sound;
+    SoundBuffer moveBuffer;
+    Sound moveSound;
+    SoundBuffer errorBuffer;
+    Sound errorSound;
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
 
 public:
     Pause(float width, float height);

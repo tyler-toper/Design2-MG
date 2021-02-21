@@ -56,13 +56,17 @@ Settings::Settings(float width, float height){
         controlMapping[function[i]] = control[i];
     }
 
-    if(!buffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg")){
-        cout << "Failed to load sound in menu" << endl;
-    }
-    else{
-        sound.setBuffer(buffer);
-        sound.setVolume(20);
-    }
+    moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
+    moveSound.setBuffer(moveBuffer);
+    moveSound.setVolume(35);
+
+    errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
+    errorSound.setBuffer(errorBuffer);
+    errorSound.setVolume(40);
+
+    confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
+    confirmSound.setBuffer(confirmBuffer);
+    confirmSound.setVolume(70);
 }
 
 std::map<std::string, sf::Keyboard::Key>* Settings::GetControlMapping() {
@@ -108,8 +112,6 @@ std::string Settings::ConvertControls(sf::Keyboard::Key key) {
     else if (key == 74) {
         return "Down Arrow";
     }
-
-
     return std::to_string(key);
 }
 
@@ -134,6 +136,7 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 UserControls[selected].setString(ConvertControls(pressed));
                 UserControls[selected].setFillColor(Color::Red);
                 selectPressed = false;
+                confirmSound.play();
             }
         }
 
@@ -154,6 +157,7 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 // TODO: Determine what the relative controls for these two are
                 if (pressed == Keyboard::Q){ ResetControls(); }
                 if (pressed == Keyboard::Return) {
+                    confirmSound.play();
                     UserControls[selected].setFillColor(Color::Blue);
                     UserControls[selected].setStyle(Text::Underlined);
                     selectPressed = true;
@@ -187,24 +191,30 @@ void Settings::Draw(RenderWindow &window){
 }
 
 void Settings::MoveDown(){
-    sound.play();
     if(selected + 1 < SettingsOptions){
+        moveSound.play();
         UserControls[selected].setFillColor(Color::Yellow);
         UserControls[selected].setStyle(Text::Regular);
         selected++;
         UserControls[selected].setFillColor(Color::Red);
         UserControls[selected].setStyle(Text::Underlined);
     }
+    else{
+        errorSound.play();
+    }
 }
 
 void Settings::MoveUp(){
-    sound.play();
     if(selected - 1 >= 0){
+        moveSound.play();
         UserControls[selected].setFillColor(Color::Yellow);
         UserControls[selected].setStyle(Text::Regular);
         selected--;
         UserControls[selected].setFillColor(Color::Red);
         UserControls[selected].setStyle(Text::Underlined);
+    }
+    else{
+        errorSound.play();
     }
 }
 

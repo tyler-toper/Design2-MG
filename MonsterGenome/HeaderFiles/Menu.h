@@ -21,8 +21,12 @@ private:
     Text title;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
-    SoundBuffer buffer;
-    Sound sound;
+    SoundBuffer moveBuffer;
+    Sound moveSound;
+    SoundBuffer errorBuffer;
+    Sound errorSound;
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
 
 public:
     Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);

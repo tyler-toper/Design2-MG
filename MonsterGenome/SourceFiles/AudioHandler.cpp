@@ -1,7 +1,5 @@
 #include "../HeaderFiles/AudioHandler.h"
 
-// TODO: Make functions to load and store sound (not music) files
-
 AudioHandler::AudioHandler(){
     state = GameState::MENU;
     stateChanged = true;
@@ -47,7 +45,9 @@ void AudioHandler::playMusic(){
         }
 
         if(state == GameState::PAUSE || state == GameState::SETTINGS){
-            settingsSound.play();
+            if(settingsSound.getStatus() != Sound::Status::Playing){
+                settingsSound.play();
+            }
         }
         else{
             settingsSound.stop();
