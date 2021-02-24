@@ -367,6 +367,10 @@ using namespace sf;
         return this->ene;
     }
 
+    int Character::getHealth(){
+        return this->health;
+    }
+
     void Character::attack(vector<Projectile*>& proj, Vector2i loc){
         if(weapontimer <= 0.f){
             string path;
