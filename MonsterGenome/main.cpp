@@ -8,8 +8,8 @@
 #include "HeaderFiles/Game.h"
 #include "HeaderFiles/Pause.h"
 #include "HeaderFiles/Settings.h"
-#include "HeaderFiles/Interface.h"
 #include "HeaderFiles/GameState.h"
+#include "HeaderFiles/AudioHandler.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -22,29 +22,33 @@ vector<Armor> Armors;
 void openWindow(RenderWindow &window){
     // TODO: Scale everything when changing window size
     // Create objects
-    Menu menu(windowWidth, windowHeight);
+    Settings settings(windowWidth, windowHeight);
+    Menu menu(windowWidth, windowHeight, settings.GetControlMapping());
     View mapView;
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
-    Game game;
+    // Add Settings Controls Pointer/Reference
+    Game game(settings.GetControlMapping());
     Clock clock;
     Time time;
     GameState state;
-    Pause pause(windowWidth, windowHeight);
-    Settings settings(windowWidth, windowHeight);
-    Interface ui;
-    ui.setInterface("HUD");
+    // Add Settings Controls Pointer/Reference
+    Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
+
+    AudioHandler audioHandler;
+
 
     // Main game loop. While the window is open
     while(window.isOpen()){
         window.clear(Color::White);
         time = clock.restart();
+        audioHandler.setState(state.GetState());
+        audioHandler.playMusic();
 
-        if(state.GetState() == GameState::PLAY){//Add more states (load save file, weapons store)
-            window.draw(ui.getInterface());//Correct location
-
+        if(state.GetState() == GameState::PLAY){
             game.PollGame(window, time, state);
             game.Draw(window, time, playerView, mapView);
+
         }
         else if(state.GetState() == GameState::MENU){
             menu.PollMenu(window, state);
@@ -56,10 +60,12 @@ void openWindow(RenderWindow &window){
             window.setView(playerView);
             pause.PollMenu(window, state);
             pause.Draw(window);
+
         }
         else if(state.GetState() == GameState::SETTINGS){
             settings.PollMenu(window, state);
             settings.Draw(window);
+
         }
     
         window.display();

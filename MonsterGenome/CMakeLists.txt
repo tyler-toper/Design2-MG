@@ -27,7 +27,7 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/Pause.cpp
         HeaderFiles/Pause.h
         SourceFiles/Character.cpp
-        HeaderFiles/Character.h)
+        HeaderFiles/Character.h SourceFiles/AudioHandler.cpp HeaderFiles/AudioHandler.h)
 
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
 

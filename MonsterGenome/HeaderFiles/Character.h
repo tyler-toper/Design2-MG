@@ -15,6 +15,8 @@ class Character{
         int strength;
         int vitality;
         bool jumping;
+        bool punch = false;
+        bool atk = false;
         bool faceright = true;
         float jumpvel;
         float horizontalvel;
@@ -37,20 +39,26 @@ class Character{
     void checkCollison(vector<Platforms*>& borders);
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile(vector<Projectile*>& proj);
-    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
+    virtual void checkMeleeHit(vector<Character*>& players);
+    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players, Time& time, RenderWindow& window) = 0;
     void attack(vector<Projectile*>& borders, Vector2i loc);
-    virtual void setAnimation();
+    virtual void setAnimation() = 0;
     void flip(Sprite& sprite);
     void hAnimation();
+    void mAnimation();
     void setAdditions(float v, float h);
     Sprite& getSprite();
+    bool getAttack();
+    bool getEnemy();
 };
 
 class Hero : public Character {
 private:
-
+    std::map<std::string, sf::Keyboard::Key>* controlMapping;
 public:
-    Hero();
+    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
+    void setAnimation();
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window);
 };
 
 class Enemy : public Character{
@@ -58,10 +66,11 @@ private:
     int ID;
     int xpDrop;
     float actionstime = 0;
-    vector<int> actions{0,0,0,0,0};
+    vector<int> actions{0,0,0,0,0,0};
     public:
 
     Enemy();
-    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, Time& time, RenderWindow& window);
-    void setAnimation(vector<int>& actions);
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& time, RenderWindow& window);
+    void setAnimation();
+    void checkMeleeHit(vector<Character*>& players);
 };
