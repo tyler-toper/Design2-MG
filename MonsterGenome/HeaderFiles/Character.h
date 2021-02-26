@@ -50,6 +50,7 @@ class Character{
     Sprite& getSprite();
     bool getAttack();
     bool getEnemy();
+    int getHealth();
 };
 
 class Hero : public Character {

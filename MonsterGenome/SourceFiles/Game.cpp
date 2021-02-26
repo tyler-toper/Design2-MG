@@ -16,6 +16,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping) {
 
     Character* play2 = new Enemy();
     Character* play = new Hero(controlMapping);
+    mod = new HeroMod(controlMapping);
     players.push_back(play);
     players.push_back(play2);
     borders.push_back(plat);
@@ -28,49 +29,74 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping) {
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
-    window.setKeyRepeatEnabled(false);
-    Event event;
-    while(window.pollEvent(event)) {
-        if (event.type == Event::Closed) {
-            window.close();
+    if(this->modify){
+        if(mod->PollMenu(window, state, modify, players[0])){
+            //Should be the load level
+            this->modify = false;
+            Character* temp = new Enemy();
+            players.push_back(temp);
         }
-        if(event.type == Event::KeyPressed){
-            // Needs to dereference controlMapping in order to read map
-            std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
-            // Pass event into settings and compare its output
-            if(event.key.code == controls["Pause"]){
-                state.Pause();
-                state.SetState(GameState::PAUSE);
+    }
+    else{
+        window.setKeyRepeatEnabled(false);
+        Event event;
+        while(window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+            }
+            if(event.type == Event::KeyPressed){
+                // Needs to dereference controlMapping in order to read map
+                std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+                // Pass event into settings and compare its output
+                if(event.key.code == controls["Pause"]){
+                    state.Pause();
+                    state.SetState(GameState::PAUSE);
+                }
             }
         }
-    }
-    for(int i = 0; i < borders.size(); i++){
-        borders[i]->update(time);
-    }
-    for(int i = 0; i < players.size(); i++){
-        players[i]->updatePosition(borders, projs, players, time, window);
+        
+        for(int i = 0; i < borders.size(); i++){
+            borders[i]->update(time);
+        }
+        for(int i = 0; i < players.size(); i++){
+            players[i]->updatePosition(borders, projs, players, time, window);
+        }
+        for(int i = 1; i < players.size(); i++){
+            if(players[i]->getHealth() <= 0){
+                delete players[i];
+                players.erase(players.begin() + i--);
+            }
+        }
     }
 }
 
 
 void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapView){
-    for(int i=0; i < projs.size(); i++){
-        if(!projs[i]->update(borders, time)){
-            window.draw(projs[i]->getSprite());
+    if(this->modify){
+        mod->Draw(window);
+    }
+    else{
+        for(int i=0; i < projs.size(); i++){
+            if(!projs[i]->update(borders, time)){
+                window.draw(projs[i]->getSprite());
+            }
+            else{
+                delete projs[i];
+                projs.erase(projs.begin() + i--);
+            }
         }
-        else{
-            delete projs[i];
-            projs.erase(projs.begin() + i--);
+        for(int i = 0; i < borders.size(); i++){
+            window.draw(borders[i]->getSprite());
+        }
+        for(int i = 0; i < players.size(); i++){
+            window.draw(players[i]->getSprite());
+        }
+        playerView.setCenter(players[0]->getSprite().getPosition());
+        playerView.setSize(window.getSize().x, window.getSize().y);
+        window.setView(playerView);
+        if(players.size() == 1){
+            modify = true;
+            mod->randomize();
         }
     }
-
-    for(int i = 0; i < borders.size(); i++){
-        window.draw(borders[i]->getSprite());
-    }
-    for(int i = 0; i < players.size(); i++){
-        window.draw(players[i]->getSprite());
-    }
-    playerView.setCenter(players[0]->getSprite().getPosition());
-    playerView.setSize(window.getSize().x, window.getSize().y);
-    window.setView(playerView);
 }
