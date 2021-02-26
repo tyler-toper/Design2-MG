@@ -8,6 +8,7 @@
 #include "HeaderFiles/Game.h"
 #include "HeaderFiles/Pause.h"
 #include "HeaderFiles/Settings.h"
+#include "HeaderFiles/Interface.h"
 #include "HeaderFiles/GameState.h"
 
 #define windowWidth 1024
@@ -31,13 +32,17 @@ void openWindow(RenderWindow &window){
     GameState state;
     Pause pause(windowWidth, windowHeight);
     Settings settings(windowWidth, windowHeight);
+    Interface ui;
+    ui.setInterface("HUD");
 
     // Main game loop. While the window is open
     while(window.isOpen()){
         window.clear(Color::White);
         time = clock.restart();
 
-        if(state.GetState() == GameState::PLAY){
+        if(state.GetState() == GameState::PLAY){//Add more states (load save file, weapons store)
+            window.draw(ui.getInterface());//Correct location
+
             game.PollGame(window, time, state);
             game.Draw(window, time, playerView, mapView);
         }

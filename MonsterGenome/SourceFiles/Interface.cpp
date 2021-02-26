@@ -1,5 +1,5 @@
 #include "../HeaderFiles/Interface.h"
-
+//Figure out way to communicate character/other data to interface (interface should be in main)
 Interface::Interface()
 {
     UI = None;
@@ -41,7 +41,7 @@ void Interface::setInterface(string name)
         UI_Display.setTexture(texture);
         UI = Store;
     }
-    else
+    else if(name == "None")
     {
         UI = None;
     }
