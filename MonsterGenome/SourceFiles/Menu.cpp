@@ -34,6 +34,19 @@ Menu::Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* 
 
     text[selected].setFillColor(Color::Red);
     text[selected].setStyle(Text::Underlined);
+
+    moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
+    moveSound.setBuffer(moveBuffer);
+    moveSound.setVolume(35);
+
+    errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
+    errorSound.setBuffer(errorBuffer);
+    errorSound.setVolume(40);
+
+    confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
+    confirmSound.setBuffer(confirmBuffer);
+    confirmSound.setVolume(70);
+
 }
 
 void Menu::PollMenu(RenderWindow &window, GameState &state) {
@@ -55,6 +68,7 @@ void Menu::PollMenu(RenderWindow &window, GameState &state) {
             }
             // TODO: Define general controls for this command
             if (pressed == Keyboard::Return) {
+                confirmSound.play();
                 if (selected == 0) {
                     state.SetState(GameState::PLAY);
                     state.SetPlaying(true);
@@ -86,20 +100,28 @@ void Menu::Draw(RenderWindow &window){
 
 void Menu::MoveDown(){
     if(selected + 1 < MenuOptions){
+        moveSound.play();
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
         selected++;
         text[selected].setFillColor(Color::Red);
         text[selected].setStyle(Text::Underlined);
     }
+    else{
+        errorSound.play();
+    }
 }
 
 void Menu::MoveUp(){
     if(selected - 1 >= 0){
+        moveSound.play();
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
         selected--;
         text[selected].setFillColor(Color::Red);
         text[selected].setStyle(Text::Underlined);
+    }
+    else{
+        errorSound.play();
     }
 }
