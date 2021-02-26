@@ -26,6 +26,7 @@ using namespace sf;
 
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping) : Character(false){
         this->controlMapping = controlMapping;
+        playerState = idle;
     }
 
     Enemy::Enemy() : Character(true) {
@@ -270,27 +271,28 @@ using namespace sf;
 
         }
         else{
-            //Moving Left and Right with Collision
-            if(Keyboard::isKeyPressed(controls["Move Left"])){
-                faceright = false;
-                sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
-            }
-            else if(Keyboard::isKeyPressed(controls["Move Right"])){
-                faceright = true;
-                sprite.move(Vector2f(horizontalvel * time, 0));
-            }
-            if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
-                jumping = true;
-                jumpvel = -400.f;
-                sprite.move(Vector2f(0, jumpvel * time));
-            }
-            //Unfinsihed, will be ducking or something
-            if(Keyboard::isKeyPressed(controls["Crouch"])){
+            if (playerState != locked) {
+                //Moving Left and Right with Collision
+                if (Keyboard::isKeyPressed(controls["Move Left"])) {
+                    faceright = false;
+                    sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
+                } else if (Keyboard::isKeyPressed(controls["Move Right"])) {
+                    faceright = true;
+                    sprite.move(Vector2f(horizontalvel * time, 0));
+                }
+                if (Keyboard::isKeyPressed(controls["Jump"]) & !jumping) {
+                    jumping = true;
+                    jumpvel = -400.f;
+                    sprite.move(Vector2f(0, jumpvel * time));
+                }
+                //Unfinished, will be ducking or something
+                if (Keyboard::isKeyPressed(controls["Crouch"])) {
 
-            }
-            //Attacking
-            if(Keyboard::isKeyPressed(controls["Attack"])){
-                attack(proj, Mouse::getPosition(window));
+                }
+                //Attacking
+                if (Keyboard::isKeyPressed(controls["Attack"])) {
+                    attack(proj, Mouse::getPosition(window));
+                }
             }
         }
         sprite.move(Vector2f(vertadd * time, horizadd * time));

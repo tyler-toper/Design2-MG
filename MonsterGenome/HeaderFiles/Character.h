@@ -54,6 +54,9 @@ class Character{
 
 class Hero : public Character {
 private:
+    // TODO: Change to jumping
+    enum playerStates {idle, jump, locked};
+    playerStates playerState;
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
 public:
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
