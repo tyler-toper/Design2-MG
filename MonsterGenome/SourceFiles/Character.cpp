@@ -203,22 +203,10 @@ using namespace sf;
         }
     }
 
-
+    /// Hero Functions
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping) : Character(false){
         this->controlMapping = controlMapping;
-    }
-
-    Enemy::Enemy() : Character(true) {
-        int ID = 0;
-        int xpDrop = 100;
-    }
-
-    void Enemy::checkMeleeHit(vector<Character*>& players){
-        if((players[0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds())){
-            if(players[0]->getAttack()){
-                this->health -= 10;
-            }
-        }
+        state_ = new StandingState();
     }
 
     void Hero::setAnimation(){
@@ -230,14 +218,14 @@ using namespace sf;
             // TODO: Add Control binding?
             if(Keyboard::isKeyPressed(Keyboard::X) || this->punch){
                 this->punch = true;
-                mAnimation();   
+                mAnimation();
                 noaction = false;
             }
-          
+
             else{
                 if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
-                hAnimation();
-                noaction = false;
+                    hAnimation();
+                    noaction = false;
                 }
                 if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
                     noaction = false;
@@ -251,40 +239,7 @@ using namespace sf;
                     noaction = false;
                 }
             }
-            
-            timepass = .1;
-            if(noaction){
-                sprite.setTextureRect(IntRect(57, 11, 50, 60));
-            }
-        }
-        flip(sprite);
-    }
 
-    void Enemy::setAnimation(){
-        bool noaction = true;
-        if(timepass <= 0){
-            if(actions[5] || this->punch){
-                this->punch = true;
-                noaction = false;
-                mAnimation();
-            }
-            else{
-                if(actions[0] || actions[1]){
-                hAnimation();
-                noaction = false;
-                }
-                if(actions[2] & !jumping){
-                    noaction = false;
-                }
-                //Unfinsihed, will be ducking or something
-                if(actions[3]){
-                    //noaction = false;
-                }
-                //Attacking
-                if(actions[4]){
-                    //noaction = false;
-                }
-            }
             timepass = .1;
             if(noaction){
                 sprite.setTextureRect(IntRect(57, 11, 50, 60));
@@ -305,7 +260,7 @@ using namespace sf;
 
         // Needs to dereference controlMapping in order to read map
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
-            
+
         if(Keyboard::isKeyPressed(Keyboard::X)){
 
         }
@@ -340,6 +295,63 @@ using namespace sf;
         checkProjectile(proj);
         checkMeleeHit(players);
         setAnimation();
+    }
+    // Hero States
+    // Standing
+    void Hero::StandingState::handleInput(Hero& hero, sf::Keyboard::Key input) {
+
+    }
+
+    void Hero::StandingState::update(Hero& Hero) {
+
+    }
+
+/// Enemy Functions
+
+    Enemy::Enemy() : Character(true) {
+        int ID = 0;
+        int xpDrop = 100;
+    }
+
+    void Enemy::checkMeleeHit(vector<Character*>& players){
+        if((players[0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds())){
+            if(players[0]->getAttack()){
+                this->health -= 10;
+            }
+        }
+    }
+
+    void Enemy::setAnimation(){
+        bool noaction = true;
+        if(timepass <= 0){
+            if(actions[5] || this->punch){
+                this->punch = true;
+                noaction = false;
+                mAnimation();
+            }
+            else{
+                if(actions[0] || actions[1]){
+                hAnimation();
+                noaction = false;
+                }
+                if(actions[2] & !jumping){
+                    noaction = false;
+                }
+                //Unfinsihed, will be ducking or something
+                if(actions[3]){
+                    //noaction = false;
+                }
+                //Attacking
+                if(actions[4]){
+                    //noaction = false;
+                }
+            }
+            timepass = .1;
+            if(noaction){
+                sprite.setTextureRect(IntRect(57, 11, 50, 60));
+            }
+        }
+        flip(sprite);
     }
 
     void Enemy::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){

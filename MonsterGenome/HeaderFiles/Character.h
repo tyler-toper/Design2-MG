@@ -58,7 +58,30 @@ class Character{
 
 class Hero : public Character {
 private:
+
+    class HeroState {
+    public:
+        virtual ~HeroState() {};
+        virtual void handleInput(Hero& hero, sf::Keyboard::Key input) {};
+        virtual void update(Hero& Hero) {};
+        // TODO: In order to do static classes, we need to declare them here
+        // However the code fails because it hasn't seen the states yet
+//        static StandingState standing;
+//        static JumpingState jumping;
+    };
+
+    class StandingState : public HeroState {
+    public:
+        void handleInput(Hero& hero, sf::Keyboard::Key input);
+        void update(Hero& hero);
+    };
+
+    class JumpingState : public HeroState {
+
+    };
+
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
+    HeroState* state_;
 public:
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
     void setAnimation();
