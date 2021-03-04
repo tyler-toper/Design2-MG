@@ -77,7 +77,9 @@ private:
     };
 
     class JumpingState : public HeroState {
-
+    public:
+        HeroState* handleInput(Hero& hero, Time& timein, vector<Projectile*>& proj, RenderWindow& window);
+        void update(Hero& hero, Time& timein);
     };
 
     std::map<std::string, sf::Keyboard::Key>* controlMapping;

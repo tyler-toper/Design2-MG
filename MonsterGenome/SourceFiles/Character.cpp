@@ -335,10 +335,38 @@ using namespace sf;
             hero.attack(proj, Mouse::getPosition(window));
             return NULL;
         }
-
+        return NULL;
     }
 
     void Hero::StandingState::update(Hero& hero, Time& timein) {
+        hero.atk = false;
+        //Gravity and collision when jumpin
+        float time = timein.asSeconds();
+        hero.weapontimer = hero.weapontimer - time;
+        hero.timepass = hero.timepass - time;
+        hero.jumpvel += 1100.f * time; // Vertical Acceleration
+
+        hero.sprite.move(Vector2f(0, hero.jumpvel * time));
+    }
+    // Jumping
+    Hero::HeroState* Hero::JumpingState::handleInput(Hero& hero, Time& timein, vector<Projectile*>& proj, RenderWindow& window) {
+        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+        float time = timein.asSeconds();
+
+        if (Keyboard::isKeyPressed(controls["Move Left"])) {
+            hero.faceright = false;
+            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            return NULL;
+        }
+        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
+            hero.faceright = true;
+            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            return NULL;
+        }
+        return NULL;
+    }
+
+    void Hero::JumpingState::update(Hero& hero, Time& timein) {
         hero.atk = false;
         //Gravity and collision when jumpin
         float time = timein.asSeconds();
