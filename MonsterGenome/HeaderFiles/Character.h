@@ -31,7 +31,10 @@ class Character{
         bool ene;
         //should be in weapons firerate
         float weapontimer = 0.f;
-    
+
+        // TODO: Change to jumping
+        enum moveStates {idle, jump, locked};
+        moveStates movementState;
     public:
     
 
@@ -55,9 +58,6 @@ class Character{
 
 class Hero : public Character {
 private:
-    // TODO: Change to jumping
-    enum playerStates {idle, jump, locked};
-    playerStates playerState;
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
 public:
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping);
