@@ -62,8 +62,8 @@ private:
     class HeroState {
     public:
         virtual ~HeroState() {};
-        virtual void handleInput(Hero& hero, sf::Keyboard::Key input) {};
-        virtual void update(Hero& Hero) {};
+        virtual HeroState* handleInput(Hero& hero, Time& timein,  vector<Projectile*>& proj, RenderWindow& window) {};
+        virtual void update(Hero& Hero, Time& timein) {};
         // TODO: In order to do static classes, we need to declare them here
         // However the code fails because it hasn't seen the states yet
 //        static StandingState standing;
@@ -72,8 +72,8 @@ private:
 
     class StandingState : public HeroState {
     public:
-        void handleInput(Hero& hero, sf::Keyboard::Key input);
-        void update(Hero& hero);
+        HeroState* handleInput(Hero& hero, Time& timein, vector<Projectile*>& proj, RenderWindow& window);
+        void update(Hero& hero, Time& timein);
     };
 
     class JumpingState : public HeroState {
