@@ -83,7 +83,7 @@ private:
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
     HeroState* state_;
 public:
-    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players);
+    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
     void setAnimation();
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players,Time& timein, RenderWindow& window);
 };
@@ -96,7 +96,7 @@ private:
     vector<int> actions{0,0,0,0,0,0};
     public:
 
-    Enemy();
+    Enemy(float spawnX, float spawnY);
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& time, RenderWindow& window);
     void setAnimation();
     void checkMeleeHit(vector<Character*>& players);

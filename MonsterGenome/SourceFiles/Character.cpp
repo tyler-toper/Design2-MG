@@ -202,18 +202,24 @@ using namespace sf;
     }
 
     /// Hero Functions
-    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players) : Character(false){
+    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(false){
         this->controlMapping = controlMapping;
         state_ = new StandingState();
         this->borders = borders;
         this->proj = proj;
         this->players = players;
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
+
     }
 
     void Hero::setAnimation(){
         bool noaction = true;
         // Needs to dereference controlMapping in order to read map
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
 
         if(timepass <= 0){
             // TODO: Add Control binding?
@@ -222,7 +228,6 @@ using namespace sf;
                 mAnimation();
                 noaction = false;
             }
-
             else{
                 if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
                     hAnimation();
@@ -334,10 +339,16 @@ using namespace sf;
 
 /// Enemy Functions
 
-    Enemy::Enemy() : Character(true) {
+    Enemy::Enemy(float spawnX, float spawnY) : Character(true) {
         int ID = 0;
         int xpDrop = 100;
+
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
     }
+
 
     void Enemy::checkMeleeHit(vector<Character*>& players){
         if((players[0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds())){

@@ -34,6 +34,18 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
 
     text[selected].setFillColor(Color::Red);
     text[selected].setStyle(Text::Underlined);
+
+    moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
+    moveSound.setBuffer(moveBuffer);
+    moveSound.setVolume(35);
+
+    errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
+    errorSound.setBuffer(errorBuffer);
+    errorSound.setVolume(40);
+
+    confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
+    confirmSound.setBuffer(confirmBuffer);
+    confirmSound.setVolume(70);
 }
 
 
@@ -59,6 +71,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
                 MoveDown();
             }
             if(pressed == Keyboard::Return){
+                confirmSound.play();
                 if(selected == 0){
                     state.SetState(GameState::PLAY);
                     state.Resume();
@@ -97,20 +110,28 @@ void Pause::Draw(RenderWindow &window){
 
 void Pause::MoveDown(){
     if(selected + 1 < PauseOptions){
+        moveSound.play();
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
         selected++;
         text[selected].setFillColor(Color::Red);
         text[selected].setStyle(Text::Underlined);
     }
+    else{
+        errorSound.play();
+    }
 }
 
 void Pause::MoveUp(){
     if(selected - 1 >= 0){
+        moveSound.play();
         text[selected].setFillColor(Color::Yellow);
         text[selected].setStyle(Text::Regular);
         selected--;
         text[selected].setFillColor(Color::Red);
         text[selected].setStyle(Text::Underlined);
+    }
+    else{
+        errorSound.play();
     }
 }

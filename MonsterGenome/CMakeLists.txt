@@ -26,13 +26,21 @@ add_executable(MonsterGenome main.cpp
         HeaderFiles/Pause.h
         SourceFiles/Character.cpp
         HeaderFiles/Character.h
+        irrXML/CXMLReaderImpl.h
+        irrXML/fast_atof.h
+        irrXML/heapsort.h
+        irrXML/irrArray.h
+        irrXML/irrString.h
+        irrXML/irrTypes.h
+        irrXML/irrXML.cpp
+        irrXML/irrXML.h
         SourceFiles/AudioHandler.cpp
         HeaderFiles/AudioHandler.h
         SourceFiles/HeroMod.cpp
         HeaderFiles/HeroMod.h)
 
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
-
+  
 set(SFML_ROOT "../Dependencies/SFML-2.5.1")
 
 if(POLICY CMP0074)

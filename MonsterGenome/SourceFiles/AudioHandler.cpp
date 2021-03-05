@@ -1,10 +1,23 @@
 #include "../HeaderFiles/AudioHandler.h"
 
-// TODO: Make functions to load and store sound (not music) files
-
 AudioHandler::AudioHandler(){
     state = GameState::MENU;
     stateChanged = true;
+
+    theme.openFromFile("../../Assets/Audio/Soundtracks/Theme.ogg");
+    theme.setLoop(true);
+    theme.setVolume(25);
+
+    playBuffer.loadFromFile("../../Assets/Audio/Soundtracks/Brave Worm.wav");
+    playSound.setBuffer(playBuffer);
+    playSound.setLoop(true);
+    playSound.setVolume(25);
+
+    settingsBuffer.loadFromFile("../../Assets/Audio/Soundtracks/Gapman.wav");
+    settingsSound.setBuffer(settingsBuffer);
+    settingsSound.setLoop(true);
+    settingsSound.setVolume(25);
+
 }
 
 void AudioHandler::setState(GameState::State newState){
@@ -18,43 +31,27 @@ void AudioHandler::playMusic(){
     if(stateChanged){
         stateChanged = false;
         if(state == GameState::MENU){
-            if(!theme.openFromFile("../../Assets/Audio/Soundtracks/Theme.ogg")){
-                cout << "Failed to open music" << endl;
-            }
-            else{
-                theme.play();
-            }
+            theme.play();
         }
         else{
             theme.stop();
         }
         
         if(state == GameState::PLAY){
-            // Can't pause right now since it loads the file every time
-            if(!buffer.loadFromFile("../../Assets/Audio/Soundtracks/Brave Worm.wav")){
-                cout << "Failed to load sound" << endl;
-            }
-            else{
-                sound.setBuffer(buffer);
-                sound.setLoop(true);
-                sound.play();
-            }
+            playSound.play();
         }
         else{
-            sound.stop();
+            playSound.pause();
         }
 
         if(state == GameState::PAUSE || state == GameState::SETTINGS){
-            if(!buffer.loadFromFile("../../Assets/Audio/Soundtracks/Gapman.wav")){
-                cout << "Failed to load sound" << endl;
-            }
-            else{
-                sound.setBuffer(buffer);
-                sound.setLoop(true);
-                sound.play();
+            if(settingsSound.getStatus() != Sound::Status::Playing){
+                settingsSound.play();
             }
         }
-
+        else{
+            settingsSound.stop();
+        }
     }
 }
 
