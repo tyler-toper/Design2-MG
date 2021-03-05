@@ -250,47 +250,6 @@ using namespace sf;
     }
 
     void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players,Time& timein, RenderWindow& window){
-//        this->atk = false;
-//        //Gravity and collision when jumpin
-//        float time = timein.asSeconds();
-//        weapontimer = weapontimer - time;
-//        timepass = timepass - time;
-//        jumpvel += 1100.f * time; // Vertical Acceleration
-//
-//        sprite.move(Vector2f(0, jumpvel * time));
-//
-//        // Needs to dereference controlMapping in order to read map
-//        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
-//
-//        if(Keyboard::isKeyPressed(Keyboard::X)){
-//
-//        }
-//        else{
-//            if (movementState != locked) {
-//                //Moving Left and Right with Collision
-//                if (Keyboard::isKeyPressed(controls["Move Left"])) {
-//                    faceright = false;
-//                    sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
-//                } else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-//                    faceright = true;
-//                    sprite.move(Vector2f(horizontalvel * time, 0));
-//                }
-//                if (Keyboard::isKeyPressed(controls["Jump"]) & movementState != jump) {
-//                    jumping = true;
-//                    movementState = jump;
-//                    jumpvel = -400.f;
-//                    sprite.move(Vector2f(0, jumpvel * time));
-//                }
-//                //Unfinished, will be ducking or something
-//                if (Keyboard::isKeyPressed(controls["Crouch"])) {
-//
-//                }
-//                //Attacking
-//                if (Keyboard::isKeyPressed(controls["Attack"])) {
-//                    attack(proj, Mouse::getPosition(window));
-//                }
-//            }
-//        }
         float time = timein.asSeconds();
         this->atk = false;
        //Gravity and collision when jumpin
