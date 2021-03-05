@@ -120,7 +120,8 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    // TODO: Fix this constructor
+                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
