@@ -15,7 +15,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping) {
     Platforms* plat7 = new MovePlatform("../Images/platform2.png", 0, 500, 0, 100, 100);
 
     Character* play2 = new Enemy();
-    Character* play = new Hero(controlMapping);
+    Character* play = new Hero(controlMapping, &borders, &projs, &players);
     mod = new HeroMod(controlMapping);
     players.push_back(play);
     players.push_back(play2);
