@@ -6,6 +6,7 @@ using namespace io;
 Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     this->controlMapping = controlMapping;
     this->lvl = lvl;
+    this->LFS = false;
     mod = new HeroMod(controlMapping);
     LoadLevel(lvl);
 }
@@ -15,8 +16,6 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
             cout << "Test 1" << endl; //Program never gets here.
-            LoadLevel(this->lvl);
-            cout << "Test 2" << endl;
         }
     }
     else{
@@ -109,7 +108,7 @@ void Game::LoadLevel(int lvl){
     std::string lvlFullName = "../../Assets/Levels/lvl" + std::to_string(lvl) + ".xml";
     lvlFile = createIrrXMLReader(lvlFullName.c_str());
     std::string textPath;
-    float col, row, col2, row2, speed;
+    float col, row, col2, row2, speed, spawnX, spawnY;
     mod = new HeroMod(controlMapping);
 
     while (lvlFile && lvlFile->read()){
@@ -120,8 +119,14 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
-                    players.push_back(tempChar);
+                    if(this->LFS){
+                        spawnX = lvlFile->getAttributeValueAsFloat("x");
+                        spawnY = lvlFile->getAttributeValueAsFloat("y");
+                    }
+                    else{
+                        Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                        players.push_back(tempChar);
+                    }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
                     Character *tempChar = new Enemy(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));

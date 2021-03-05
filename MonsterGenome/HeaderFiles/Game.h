@@ -18,10 +18,10 @@ private:
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroMod* mod;
     int lvl;
+    bool LFS;
     bool modify = false;
 
 public:
-    explicit Game(int lvl);
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);
 
     void PollGame(RenderWindow &window, Time& time, GameState &state);
