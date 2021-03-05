@@ -5,6 +5,7 @@
 #include "../HeaderFiles/Character.h"
 #include "../HeaderFiles/Platforms.h"
 #include "../HeaderFiles/GameState.h"
+#include "../HeaderFiles/Interface.h"
 using namespace std;
 using namespace sf;
 
@@ -14,6 +15,7 @@ private:
     vector<Character*> players;
     vector<Platforms*> borders;
     vector<Projectile*> projs;
+    Interface* HUD;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
 public:

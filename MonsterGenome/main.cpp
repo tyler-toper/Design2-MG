@@ -50,7 +50,7 @@ void openWindow(RenderWindow &window){
             game.Draw(window, time, playerView, mapView);
 
         }
-        else if(state.GetState() == GameState::MENU){
+        else if(state.GetState() == GameState::MENU){//Start menu should go to load save screen
             menu.PollMenu(window, state);
             menu.Draw(window);
         }

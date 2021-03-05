@@ -16,15 +16,18 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping) {
 
     Character* play2 = new Enemy();
     Character* play = new Hero(controlMapping);
+
+    HUD = new Interface("HUD");
+
     players.push_back(play);
     players.push_back(play2);
+
     borders.push_back(plat);
     borders.push_back(plat1);
     borders.push_back(plat2);
     borders.push_back(plat3);
     borders.push_back(plat6);
     borders.push_back(plat7);
-
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
@@ -70,6 +73,11 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
     for(int i = 0; i < players.size(); i++){
         window.draw(players[i]->getSprite());
     }
+
+    Sprite resized = HUD->getSprite();          //This block of code draws the HUD for the player
+    resized.setPosition(players[0]->getSprite().getPosition().x-(window.getSize().x/2), players[0]->getSprite().getPosition().y-(window.getSize().y/2));        //More flexible for resizing
+    window.draw(resized);
+
     playerView.setCenter(players[0]->getSprite().getPosition());
     playerView.setSize(window.getSize().x, window.getSize().y);
     window.setView(playerView);

@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -20,7 +21,8 @@ private:
     Sprite Empty;
 public:
     Interface();
-    Sprite& getInterface();                 //Returns the interface as a sprite
+    Interface(string name);
+    Sprite& getSprite();                 //Returns the interface as a sprite
     void setInterface(string name);
 
 };
