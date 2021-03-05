@@ -10,8 +10,10 @@ class AudioHandler{
 private:
     GameState::State state;
     Music theme;
-    SoundBuffer buffer;
-    Sound sound;
+    SoundBuffer settingsBuffer;
+    Sound settingsSound;
+    SoundBuffer playBuffer;
+    Sound playSound;
     bool stateChanged;
 
 public:

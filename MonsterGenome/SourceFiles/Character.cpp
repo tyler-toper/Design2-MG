@@ -13,24 +13,29 @@ using namespace sf;
         jumping = false;
         jumpvel = 0;
         horizontalvel = 100.f;
-        text.loadFromFile("../Images/animation.png");
-        sprite.setTexture(text);
-        sprite.setPosition(Vector2f(400.f, 300.f));
-        sprite.setTextureRect(IntRect(57, 11, 50, 60));
         //remove soon
         this->ene = ene;
         float timepass = .05;
-        //should be in weapons fireratea
+        //should be in weapons firerate
 
     }
 
-    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping) : Character(false){
+    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, float spawnX, float spawnY) : Character(false){
         this->controlMapping = controlMapping;
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
     }
 
-    Enemy::Enemy() : Character(true) {
+    Enemy::Enemy(float spawnX, float spawnY) : Character(true) {
         int ID = 0;
         int xpDrop = 100;
+
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
     }
 
     void Character::setAdditions(float v, float h){
@@ -163,7 +168,7 @@ using namespace sf;
             sprite.setTextureRect(IntRect(36, 242, 50, 60));
         }
         else{
-            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));              
+            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));
         }
     }
 
@@ -172,11 +177,11 @@ using namespace sf;
             sprite.setTextureRect(IntRect(36, 325, 50, 60));
         }
         else{
-            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));   
+            sprite.setTextureRect(IntRect(sprite.getTextureRect().left+60, sprite.getTextureRect().top, 50, 60));
             if(sprite.getTextureRect().left == 156 || sprite.getTextureRect().left == 336){
                 this->punch = false;
                 this->atk = true;
-            }           
+            }
         }
     }
 
@@ -186,14 +191,14 @@ using namespace sf;
         // Needs to dereference controlMapping in order to read map
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
+
         if(timepass <= 0){
             // TODO: Add Control binding?
             if(Keyboard::isKeyPressed(Keyboard::X) || this->punch){
                 this->punch = true;
-                mAnimation();   
+                mAnimation();
                 noaction = false;
             }
-          
             else{
                 if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
                 hAnimation();
@@ -365,6 +370,10 @@ using namespace sf;
 
     bool Character::getEnemy(){
         return this->ene;
+    }
+
+    int Character::getHealth(){
+        return this->health;
     }
 
     void Character::attack(vector<Projectile*>& proj, Vector2i loc){

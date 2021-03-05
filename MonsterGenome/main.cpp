@@ -27,8 +27,7 @@ void openWindow(RenderWindow &window){
     View mapView;
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
-    // Add Settings Controls Pointer/Reference
-    Game game(settings.GetControlMapping());
+    Game game(settings.GetControlMapping(), 1);
     Clock clock;
     Time time;
     GameState state;
@@ -53,6 +52,7 @@ void openWindow(RenderWindow &window){
         else if(state.GetState() == GameState::MENU){//Start menu should go to load save screen
             menu.PollMenu(window, state);
             menu.Draw(window);
+
         }
         else if(state.GetState() == GameState::PAUSE){
             playerView.setSize(window.getSize().x, window.getSize().y);

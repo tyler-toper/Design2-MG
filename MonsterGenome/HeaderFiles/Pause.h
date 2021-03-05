@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <stack>
@@ -19,6 +20,13 @@ private:
     Text title;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
+
+    SoundBuffer moveBuffer;
+    Sound moveSound;
+    SoundBuffer errorBuffer;
+    Sound errorSound;
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
 
 public:
     Pause(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
