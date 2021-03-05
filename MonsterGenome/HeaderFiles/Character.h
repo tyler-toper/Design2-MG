@@ -40,9 +40,9 @@ class Character{
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile(vector<Projectile*>& proj);
     virtual void checkMeleeHit(vector<Character*>& players);
-    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players, Time& time, RenderWindow& window);
+    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players, Time& time, RenderWindow& window) = 0;
     void attack(vector<Projectile*>& borders, Vector2i loc);
-    virtual void setAnimation();
+    virtual void setAnimation() = 0;
     void flip(Sprite& sprite);
     void hAnimation();
     void mAnimation();
@@ -50,13 +50,18 @@ class Character{
     Sprite& getSprite();
     bool getAttack();
     bool getEnemy();
+    int getHealth();
 };
 
 class Hero : public Character {
 private:
-
+    std::map<std::string, sf::Keyboard::Key>* controlMapping;
 public:
     Hero(float spawnX, float spawnY);
+    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, float spawnX, float spawnY);
+
+    void setAnimation();
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window);
 };
 
 class Enemy : public Character{
@@ -69,6 +74,6 @@ private:
 
     Enemy(float spawnX, float spawnY);
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& time, RenderWindow& window);
-    void setAnimation(vector<int>& actions);
+    void setAnimation();
     void checkMeleeHit(vector<Character*>& players);
 };

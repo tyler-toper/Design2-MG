@@ -33,7 +33,11 @@ add_executable(MonsterGenome main.cpp
         irrXML/irrString.h
         irrXML/irrTypes.h
         irrXML/irrXML.cpp
-        irrXML/irrXML.h)
+        irrXML/irrXML.h
+        SourceFiles/AudioHandler.cpp
+        HeaderFiles/AudioHandler.h
+        SourceFiles/HeroMod.cpp
+        HeaderFiles/HeroMod.h)
 
 include_directories(headers /usr/include c:/SFML-2.5.1/include)
 

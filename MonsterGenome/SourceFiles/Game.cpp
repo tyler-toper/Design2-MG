@@ -3,75 +3,103 @@
 using namespace irr;
 using namespace io;
 
-Game::Game(int lvl) {
+Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
+    this->controlMapping = controlMapping;
+    this->lvl = lvl;
+    mod = new HeroMod(controlMapping);
     LoadLevel(lvl);
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
-    window.setKeyRepeatEnabled(false);
-    Event event;
-    while(window.pollEvent(event)) {
-        if (event.type == Event::Closed) {
-            window.close();
+    if(this->modify){
+        if(mod->PollMenu(window, state, modify, players[0])){
+            this->modify = false;
+            cout << "Test 1" << endl; //Program never gets here.
+            LoadLevel(this->lvl);
+            cout << "Test 2" << endl;
         }
-        if(event.type == Event::KeyPressed){
-            if(event.key.code == Keyboard::Escape){
-                state.Pause();
-                state.SetState(GameState::PAUSE);
+    }
+    else{
+
+        window.setKeyRepeatEnabled(false);
+        Event event;
+        while(window.pollEvent(event)) {
+            if (event.type == Event::Closed) {
+                window.close();
+            }
+            if(event.type == Event::KeyPressed){
+                // Needs to dereference controlMapping in order to read map
+                std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+                // Pass event into settings and compare its output
+                if(event.key.code == controls["Pause"]){
+                    state.Pause();
+                    state.SetState(GameState::PAUSE);
+                }
             }
         }
-    }
-    for(int i = 0; i < borders.size(); i++){
-        borders[i]->update(time);
-    }
-    for(int i = 0; i < players.size(); i++){
-        players[i]->updatePosition(borders, projs, players, time, window);
+
+        for(int i = 0; i < borders.size(); i++){
+            borders[i]->update(time);
+        }
+        for(int i = 0; i < players.size(); i++){
+            players[i]->updatePosition(borders, projs, players, time, window);
+        }
+        for(int i = 1; i < players.size(); i++){
+            if(players[i]->getHealth() <= 0){
+                delete players[i];
+                players.erase(players.begin() + i--);
+            }
+        }
     }
 }
 
 
 void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapView){
-    playerView.setCenter(players[0]->getSprite().getPosition());
-    playerView.setSize(window.getSize().x, window.getSize().y);
-    window.setView(playerView);
-
-    for(int i=0; i < projs.size(); i++){
-        if(!projs[i]->update(borders, time)){
-            window.draw(projs[i]->getSprite());
+    if(this->modify){
+        mod->Draw(window);
+    }
+    else {
+        playerView.setCenter(players[0]->getSprite().getPosition());
+        playerView.setSize(window.getSize().x, window.getSize().y);
+        window.setView(playerView);
+        for (int i = 0; i < projs.size(); i++) {
+            if (!projs[i]->update(borders, time)) {
+                window.draw(projs[i]->getSprite());
+            } else {
+                delete projs[i];
+                projs.erase(projs.begin() + i--);
+            }
         }
-        else{
-            delete projs[i];
-            projs.erase(projs.begin() + i--);
+        for (int i = 0; i < borders.size(); i++) {
+            window.draw(borders[i]->getSprite());
         }
-    }
-
-    for(int i = 0; i < borders.size(); i++){
-        window.draw(borders[i]->getSprite());
-    }
-    for(int i = 0; i < players.size(); i++){
-        window.draw(players[i]->getSprite());
-    }
-
-    mapView.setCenter(players[0]->getSprite().getPosition().x, players[0]->getSprite().getPosition().y - 200);
-    mapView.setSize(window.getSize().x*.25f, window.getSize().y*0.25f);
-    mapView.zoom(6);
-    mapView.setViewport(sf::FloatRect(0.01f, 0.01f, 0.2f, 0.2f));
-    window.setView(mapView);
-    for(int i=0; i < projs.size(); i++){
-        if(!projs[i]->update(borders, time)){
-            window.draw(projs[i]->getSprite());
+        for (int i = 0; i < players.size(); i++) {
+            window.draw(players[i]->getSprite());
         }
-        else{
-            delete projs[i];
-            projs.erase(projs.begin() + i--);
-        }
-    }
 
-    for(int i = 0; i < borders.size(); i++){
-        window.draw(borders[i]->getSprite());
-    }
-    for(int i = 0; i < players.size(); i++){
-        window.draw(players[i]->getSprite());
+        mapView.setCenter(players[0]->getSprite().getPosition().x, players[0]->getSprite().getPosition().y - 200);
+        mapView.setSize(window.getSize().x * .25f, window.getSize().y * 0.25f);
+        mapView.zoom(6);
+        mapView.setViewport(sf::FloatRect(0.01f, 0.01f, 0.2f, 0.2f));
+        window.setView(mapView);
+        for (int i = 0; i < projs.size(); i++) {
+            if (!projs[i]->update(borders, time)) {
+                window.draw(projs[i]->getSprite());
+            } else {
+                delete projs[i];
+                projs.erase(projs.begin() + i--);
+            }
+        }
+        for(int i = 0; i < borders.size(); i++){
+            window.draw(borders[i]->getSprite());
+        }
+        for(int i = 0; i < players.size(); i++){
+            window.draw(players[i]->getSprite());
+        }
+        if (players.size() == 1) {
+            modify = true;
+            mod->randomize();
+        }
     }
 }
 
@@ -82,6 +110,7 @@ void Game::LoadLevel(int lvl){
     lvlFile = createIrrXMLReader(lvlFullName.c_str());
     std::string textPath;
     float col, row, col2, row2, speed;
+    mod = new HeroMod(controlMapping);
 
     while (lvlFile && lvlFile->read()){
         fileNotEmpty = true;
@@ -91,7 +120,7 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    Character* tempChar = new Hero(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
@@ -131,6 +160,7 @@ void Game::LoadLevel(int lvl){
     if (!fileNotEmpty){
         std::cerr << "Can't read level file " << lvlFullName << std::endl;
     }
+
     delete lvlFile;
     lvlFile = NULL;
 }
