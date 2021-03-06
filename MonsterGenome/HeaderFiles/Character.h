@@ -26,7 +26,10 @@ class Character{
         float horizadd = 0.f;
         Texture text;
         Sprite sprite;
-        int experience; 
+        int experience;
+        vector<Platforms*>* borders; 
+        vector<Projectile*>* proj;
+        vector<Character*>* players; 
 
         float timepass = .5f;
         //make enemy
@@ -36,12 +39,12 @@ class Character{
     public:
     
 
-    Character(bool ene);
-    void checkCollison(vector<Platforms*>& borders);
+    Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene);
+    void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);
-    void checkProjectile(vector<Projectile*>& proj);
-    virtual void checkMeleeHit(vector<Character*>& players);
-    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players, Time& time, RenderWindow& window) = 0;
+    void checkProjectile();
+    virtual void checkMeleeHit();
+    virtual void updatePosition(Time& time, RenderWindow& window) = 0;
     void attack(vector<Projectile*>* borders, Vector2i loc);
     virtual void setAnimation() = 0;
     void flip(Sprite& sprite);
@@ -62,10 +65,6 @@ private:
         virtual ~HeroState() {};
         virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window) {};
         virtual void update(Hero& Hero) {};
-        // TODO: In order to do static classes, we need to declare them here
-        // However the code fails because it hasn't seen the states yet
-//        static StandingState standing;
-//        static JumpingState jumping;
     };
 
     class StandingState : public HeroState {
@@ -79,15 +78,12 @@ private:
         void handleInput(Hero& hero, Time& timein, RenderWindow& window);
         void update(Hero& hero);
     };
-    vector<Platforms*>* borders; 
-    vector<Projectile*>* proj;
-    vector<Character*>* players;
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
     HeroState* state_;
 public:
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
     void setAnimation();
-    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players,Time& timein, RenderWindow& window);
+    void updatePosition(Time& timein, RenderWindow& window);
 };
 
 class Enemy : public Character{
@@ -96,10 +92,30 @@ private:
     int xpDrop;
     float actionstime = 0;
     vector<int> actions{0,0,0,0,0,0};
+
+    class EnemyState {
+    public:
+        virtual ~EnemyState() {};
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) {};
+        virtual void update(Enemy& ene) {};
+    };
+
+    class StandingState : public EnemyState {
+    public:
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void update(Enemy& ene);
+    };
+
+    class JumpingState : public EnemyState {
+    public:
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void update(Enemy& ene);
+    };
+    EnemyState* state_;
     public:
 
-    Enemy(float spawnX, float spawnY);
-    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& time, RenderWindow& window);
+    Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
+    void updatePosition(Time& time, RenderWindow& window);
     void setAnimation();
-    void checkMeleeHit(vector<Character*>& players);
+    void checkMeleeHit();
 };
