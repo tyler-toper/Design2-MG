@@ -99,6 +99,7 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
+            window.setView(window.getDefaultView());
         }
     }
 }

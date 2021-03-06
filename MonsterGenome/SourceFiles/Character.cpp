@@ -148,7 +148,7 @@ using namespace sf;
 
     void Character::flip(Sprite& sprite){
         sprite.setOrigin({ sprite.getGlobalBounds().width/2.0f, 0});
-        sprite.setScale({ int(pow(-1, !faceright)) , 1 });
+        sprite.setScale(pow(-1, !faceright), 1);
     }
 
     void Character::hAnimation(){
