@@ -260,7 +260,7 @@ using namespace sf;
        //Gravity and collision when jumpin
         weapontimer = weapontimer - time;
         timepass = timepass - time;
-        jumpvel += 1100.f * time; // Vertical Acceleration
+        jumpvel += GRAV * time; // Vertical Acceleration
 
         sprite.move(Vector2f(0, jumpvel * time));
         state_->handleInput(*this, timein, window);

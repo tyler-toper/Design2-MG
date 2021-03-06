@@ -6,6 +6,8 @@
 #include "../HeaderFiles/Projectile.h"
 using namespace sf;
 
+const float GRAV = 1100.f;
+
 class Character{
     protected:
         string name;
