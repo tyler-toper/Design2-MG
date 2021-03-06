@@ -42,7 +42,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
             borders[i]->update(time);
         }
         for(int i = 0; i < players.size(); i++){
-            players[i]->updatePosition(borders, projs, players, time, window);
+            players[i]->updatePosition(time, window);
         }
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
@@ -125,7 +125,7 @@ void Game::LoadLevel(int lvl){
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character *tempChar = new Enemy(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){
