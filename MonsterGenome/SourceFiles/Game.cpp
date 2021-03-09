@@ -6,16 +6,17 @@ using namespace io;
 Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     this->controlMapping = controlMapping;
     this->lvl = lvl;
-    this->LFS = false;
     mod = new HeroMod(controlMapping);
     LoadLevel(lvl);
 }
 
-void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
+void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
             cout << "Test 1" << endl; //Program never gets here.
+            LoadLevel(this->lvl);
+            cout << "Test 2" << endl;
         }
     }
     else{
@@ -41,7 +42,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
             borders[i]->update(time);
         }
         for(int i = 0; i < players.size(); i++){
-            players[i]->updatePosition(borders, projs, players, time, window);
+            players[i]->updatePosition(time, window, playerView);
         }
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
@@ -98,6 +99,7 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
+            window.setView(window.getDefaultView());
         }
     }
 }
@@ -108,7 +110,7 @@ void Game::LoadLevel(int lvl){
     std::string lvlFullName = "../../Assets/Levels/lvl" + std::to_string(lvl) + ".xml";
     lvlFile = createIrrXMLReader(lvlFullName.c_str());
     std::string textPath;
-    float col, row, col2, row2, speed, spawnX, spawnY;
+    float col, row, col2, row2, speed;
     mod = new HeroMod(controlMapping);
 
     while (lvlFile && lvlFile->read()){
@@ -119,17 +121,12 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    if(this->LFS){
-                        spawnX = lvlFile->getAttributeValueAsFloat("x");
-                        spawnY = lvlFile->getAttributeValueAsFloat("y");
-                    }
-                    else{
-                        Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
-                        players.push_back(tempChar);
-                    }
+                    // TODO: Fix this constructor
+                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character *tempChar = new Enemy(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){
@@ -165,7 +162,6 @@ void Game::LoadLevel(int lvl){
     if (!fileNotEmpty){
         std::cerr << "Can't read level file " << lvlFullName << std::endl;
     }
-
     delete lvlFile;
     lvlFile = NULL;
 }
