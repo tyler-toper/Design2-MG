@@ -9,6 +9,7 @@ using namespace std;
 class AudioHandler{
 private:
     GameState::State state;
+    GameState::State prev;
     Music theme;
     SoundBuffer settingsBuffer;
     Sound settingsSound;

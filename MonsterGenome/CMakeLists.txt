@@ -39,6 +39,7 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/HeroMod.cpp
         HeaderFiles/HeroMod.h)
 
+# SFML
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
   
 set(SFML_ROOT "../Dependencies/SFML-2.5.1")
@@ -59,4 +60,17 @@ endif()
 if(WIN32)
     file(GLOB BINARY_DEP_DLLS "${SFML_INCLUDE_DIR}/../bin/*.dll")
     file(COPY ${BINARY_DEP_DLLS} DESTINATION ${CMAKE_BINARY_DIR})
+endif()
+
+# Boost
+set(BOOST_ROOT "../Dependencies/boost_1_75_0")
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.75.0 REQUIRED) # FIXME
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    link_directories("../Dependencies/boost_1_75_0")
+    target_link_libraries(MonsterGenome ${Boost_LIBRARIES})
 endif()
