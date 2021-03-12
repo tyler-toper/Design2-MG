@@ -58,7 +58,7 @@ void openWindow(RenderWindow &window){
             playerView.setSize(window.getSize().x, window.getSize().y);
             playerView.setCenter((float)windowWidth/2, (float)windowHeight/2);
             window.setView(playerView);
-            pause.PollMenu(window, state);
+            pause.PollMenu(window, state, game);
             pause.Draw(window);
 
         }

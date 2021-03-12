@@ -189,6 +189,10 @@ using namespace sf;
         return this->health;
     }
 
+    string Character::getName(){
+        return this->name;
+    }
+
     void Character::attack(vector<Projectile*>* proj, Vector2f loc){
         cout << sprite.getPosition().x << " " << sprite.getPosition().y << endl;
         cout << loc.x << " " << loc.y << endl;
@@ -208,6 +212,7 @@ using namespace sf;
 
     /// Hero Functions
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, false){
+        this->name = "Hero";
         this->controlMapping = controlMapping;
         state_ = new StandingState();
         
@@ -216,6 +221,36 @@ using namespace sf;
         sprite.setPosition(Vector2f(spawnX, spawnY));
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
+    }
+
+
+    template<class Archive> void Hero::serialize(Archive & ar, const unsigned int version){
+        ar & this->name;
+        ar & this->level;
+        ar & this->health;
+        ar & this->armor;
+        ar & this->strength;
+        ar & this->vitality;
+        ar & this->jumping;
+        ar & this->punch;
+        ar & this->atk;
+        ar & this->faceright;
+        ar & this->jumpvel;
+        ar & this->horizontalvel;
+        ar & this->vertadd;
+        ar & this->horizadd;
+        ar & this->text;
+        ar & this->sprite;
+        ar & this->experience;
+        ar & this->borders;
+        ar & this->proj;
+        ar & this->players;
+
+        ar & this->timepass;
+        ar & this->ene;
+        ar & this->weapontimer;
+        ar & this->controlMapping;
+        ar & this->state_;
     }
 
     void Hero::setAnimation(){
@@ -346,6 +381,7 @@ using namespace sf;
         int ID = 0;
         int xpDrop = 100;
 
+        this->name = "Enemy";
         state_ = new StandingState();
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);

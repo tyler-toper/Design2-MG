@@ -3,6 +3,9 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <fstream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 #include "../HeaderFiles/Projectile.h"
 using namespace sf;
 
@@ -34,6 +37,8 @@ class Character{
         bool ene;
         //should be in weapons firerate
         float weapontimer = 0.f;
+
+        friend class Pause;
     public:
     
 
@@ -53,10 +58,14 @@ class Character{
     bool getAttack();
     bool getEnemy();
     int getHealth();
+    string getName();
 };
 
 class Hero : public Character {
 private:
+
+    friend class boost::serialization::access;
+    template<class Archive> void serialize(Archive & ar, const unsigned int version);
 
     class HeroState {
     public:

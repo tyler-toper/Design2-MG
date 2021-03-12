@@ -13,10 +13,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
-            this->modify = false;
-            cout << "Test 1" << endl; //Program never gets here.
-            LoadLevel(this->lvl);
-            cout << "Test 2" << endl;
+
         }
     }
     else{
@@ -110,7 +107,7 @@ void Game::LoadLevel(int lvl){
     std::string lvlFullName = "../../Assets/Levels/lvl" + std::to_string(lvl) + ".xml";
     lvlFile = createIrrXMLReader(lvlFullName.c_str());
     std::string textPath;
-    float col, row, col2, row2, speed;
+    float col, row, col2, row2, speed, xCoord, yCoord;
     mod = new HeroMod(controlMapping);
 
     while (lvlFile && lvlFile->read()){
@@ -121,9 +118,15 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    // TODO: Fix this constructor
-                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
-                    players.push_back(tempChar);
+                    if(this->LFS){
+                        //LFS = Load From Save. Should simply update the player position rather than create a new hero.
+                        xCoord = lvlFile->getAttributeValueAsFloat("x");
+                        yCoord = lvlFile->getAttributeValueAsFloat("y");
+                    }
+                    else{
+                        Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                        players.push_back(tempChar);
+                    }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
                     Character *tempChar = new Enemy(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));

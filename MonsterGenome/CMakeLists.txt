@@ -39,10 +39,11 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/HeroMod.cpp
         HeaderFiles/HeroMod.h)
 
+
 # SFML
-include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
+include_directories(headers /usr/include C:/SFML-2.5.1/include)
   
-set(SFML_ROOT "../Dependencies/SFML-2.5.1")
+set(SFML_ROOT "C:/SFML-2.5.1")
 
 if(POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)
@@ -53,7 +54,7 @@ find_package(SFML REQUIRED system window graphics network audio)
 
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
-    link_directories("../Dependencies/SFML-2.5.1")
+    link_directories("C:/SFML-2.5.1")
     target_link_libraries(MonsterGenome ${SFML_LIBRARIES})
 endif()
 
@@ -63,14 +64,18 @@ if(WIN32)
 endif()
 
 # Boost
-set(BOOST_ROOT "../Dependencies/boost_1_75_0")
-set(Boost_USE_STATIC_LIBS OFF)
+set(BOOST_ROOT "C:/boost_1_75_0")
+set(Boost_USE_STATIC_LIBS ON)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.75.0 REQUIRED) # FIXME
+set(Boost_DEBUG ON)
+set(Boost_LIBRARY_DIR C:/boost_1_75_0/boost) # Tried to set path to the library.
+#find_package(Boost 1.75.0 COMPONENTS REQUIRED) # Starts to compile but creates a bunch of undefined function errors.
+find_package(Boost 1.75.0 COMPONENTS system filesystem REQUIRED) # Can't find boost but I'm pretty sure I need it like this.
 
 if(Boost_FOUND)
-    include_directories(${Boost_INCLUDE_DIRS})
-    link_directories("../Dependencies/boost_1_75_0")
+    include_directories(${Boost_INCLUDE_DIR})
+    link_directories(${Boost_LIBRARY_DIR})
+    link_directories("C:/boost_1_75_0")
     target_link_libraries(MonsterGenome ${Boost_LIBRARIES})
 endif()
