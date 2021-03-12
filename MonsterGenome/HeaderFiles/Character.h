@@ -35,13 +35,17 @@ class Character{
         bool ene;
         //should be in weapons firerate
         float weapontimer = 0.f;
-        float jumpHeight = 0.f;
-        float baseJumpHeight = 0.f;
+        /// Movement
+        // Walking and Running
         float horizontalvel;
         float baseHorizontalvel;
+        float maxHorizontalvel;
+        float horizontalAcc;
+        // Jumping
+        float baseJumpHeight = 0.f;
+        float jumpHeight = 0.f;
 
 public:
-
     // Constructors
     Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene);
     // Getters
@@ -96,6 +100,7 @@ public:
     // Getters
     // Mutators
     void updatePosition(Time& timein, RenderWindow& window);
+    void run(bool isRunning);
 };
 
 class Enemy : public Character{

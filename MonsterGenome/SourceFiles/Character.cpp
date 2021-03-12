@@ -73,9 +73,13 @@ using namespace sf;
         this->ene = ene;
         float timepass = .05;
         //should be in weapons fireratea
-        // Character Movement Attributes
+        /// Character Movement Attributes
+        // Walking and Running
         horizontalvel = 200.f;
         baseHorizontalvel = 200.f;
+        maxHorizontalvel = 350.f;
+        horizontalAcc = 5.f;
+        // Jumping
         jumpHeight = 400.0f;
 
     }
@@ -240,7 +244,8 @@ using namespace sf;
                 noaction = false;
             }
             else{
-                if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
+                // If player is pressing left or right, but not both
+                if(Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])){
                     hAnimation();
                     noaction = false;
                 }
@@ -285,21 +290,38 @@ using namespace sf;
         checkMeleeHit();
         setAnimation();
     }
+    void Hero::run(bool isRunning) {
+        if(isRunning) {
+            if(horizontalvel < maxHorizontalvel) {
+                horizontalvel += horizontalAcc;
+            }
+        }
+        else {
+            horizontalvel = baseHorizontalvel;
+        }
+    }
+
     // Hero States
     // Standing
     void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& window) {
         std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
         float time = timein.asSeconds();
 
-        if (Keyboard::isKeyPressed(controls["Move Left"])) {
-            hero.faceright = false;
-            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+        // If the player is pressing left or right, but not at the same time, handle movement
+        if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
+
+            hero.run(Keyboard::isKeyPressed(controls["Run"]));
+
+            if (Keyboard::isKeyPressed(controls["Move Left"])) {
+                hero.faceright = false;
+                hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            }
+            if (Keyboard::isKeyPressed(controls["Move Right"])) {
+                hero.faceright = true;
+                hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            }
         }
-        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-            hero.faceright = true;
-            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
-        }
-        if (Keyboard::isKeyPressed(controls["Jump"])) {
+         if (Keyboard::isKeyPressed(controls["Jump"])) {
             hero.jump();
             hero.sprite.move(Vector2f(0, hero.jumpvel * time));
         }
@@ -326,13 +348,16 @@ using namespace sf;
         std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
         float time = timein.asSeconds();
 
-        if (Keyboard::isKeyPressed(controls["Move Left"])) {
-            hero.faceright = false;
-            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
-        }
-        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-            hero.faceright = true;
-            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+        // If the player is pressing left or right, but not at the same time, handle movement
+        if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
+            if (Keyboard::isKeyPressed(controls["Move Left"])) {
+                hero.faceright = false;
+                hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            }
+            if (Keyboard::isKeyPressed(controls["Move Right"])) {
+                hero.faceright = true;
+                hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            }
         }
     }
 
