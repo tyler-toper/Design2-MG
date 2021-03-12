@@ -433,7 +433,6 @@ using namespace sf;
             checkProjectile();
             checkMeleeHit();
             setAnimation();
-            sprite.move(Vector2f(0, jumpvel * time));
     }
 
     // Enemy States
