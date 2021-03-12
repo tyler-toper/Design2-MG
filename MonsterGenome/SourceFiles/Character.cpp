@@ -292,12 +292,12 @@ using namespace sf;
     }
     void Hero::run(bool isRunning) {
         if(isRunning) {
-            if(horizontalvel < maxHorizontalvel) {
-                horizontalvel += horizontalAcc;
-            }
+            if(horizontalvel < maxHorizontalvel) { horizontalvel += horizontalAcc; }
+            else if (horizontalvel > maxHorizontalvel) { horizontalvel -= horizontalAcc; }
         }
         else {
-            horizontalvel = baseHorizontalvel;
+            if (horizontalvel > baseHorizontalvel) { horizontalvel -= 2 * horizontalAcc; }
+            else { horizontalvel = baseHorizontalvel; }
         }
     }
 
