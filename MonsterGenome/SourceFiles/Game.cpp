@@ -14,9 +14,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
-            cout << "Test 1" << endl; //Program never gets here.
             LoadLevel(this->lvl);
-            cout << "Test 2" << endl;
         }
     }
     else{

@@ -62,7 +62,6 @@ using namespace sf;
         health = 100;
         jumping = false;
         jumpvel = 0;
-        horizontalvel = 100.f;
         text.loadFromFile("../Images/animation.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
@@ -74,14 +73,38 @@ using namespace sf;
         this->ene = ene;
         float timepass = .05;
         //should be in weapons fireratea
+        /// Character Movement Attributes
+        // Walking and Running
+        horizontalvel = 200.f;
+        baseHorizontalvel = 200.f;
+        maxHorizontalvel = 400.f;
+        horizontalAcc = 1.f;
+        // Jumping
+        jumpHeight = 400.0f;
 
     }
 
-    // Getters
     // Setters
     void Character::setAdditions(float v, float h){
         this->vertadd = v;
         this->horizadd = h;
+    }
+
+    // Getters
+    Sprite& Character::getSprite(){
+        return this->sprite;
+    }
+
+    bool Character::getAttack(){
+        return this->atk;
+    }
+
+    bool Character::getEnemy(){
+        return this->ene;
+    }
+
+    int Character::getHealth(){
+        return this->health;
     }
 
     // Mutators
@@ -173,22 +196,6 @@ using namespace sf;
         }
     }
 
-    Sprite& Character::getSprite(){
-        return this->sprite;
-    }
-
-    bool Character::getAttack(){
-        return this->atk;
-    }
-
-    bool Character::getEnemy(){
-        return this->ene;
-    }
-
-    int Character::getHealth(){
-        return this->health;
-    }
-
     void Character::attack(vector<Projectile*>* proj, Vector2f loc){
         cout << sprite.getPosition().x << " " << sprite.getPosition().y << endl;
         cout << loc.x << " " << loc.y << endl;
@@ -206,7 +213,12 @@ using namespace sf;
         }
     }
 
+    void Character::jump() {
+        jumpvel = -jumpHeight;
+    }
+
     /// Hero Functions
+    // Constructor
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, false){
         this->controlMapping = controlMapping;
         state_ = new StandingState();
@@ -217,7 +229,7 @@ using namespace sf;
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
     }
-
+    // Setters
     void Hero::setAnimation(){
         bool noaction = true;
         // Needs to dereference controlMapping in order to read map
@@ -232,7 +244,8 @@ using namespace sf;
                 noaction = false;
             }
             else{
-                if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
+                // If player is pressing left or right, but not both
+                if(Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])){
                     hAnimation();
                     noaction = false;
                 }
@@ -257,13 +270,15 @@ using namespace sf;
         flip(sprite);
     }
 
+    // Getters
+    // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
         float time = timein.asSeconds();
         this->atk = false;
        //Gravity and collision when jumpin
         weapontimer = weapontimer - time;
         timepass = timepass - time;
-        jumpvel += 1100.f * time; // Vertical Acceleration
+        jumpvel += GRAV * time; // Vertical Acceleration
 
         sprite.move(Vector2f(0, jumpvel * time));
         state_->handleInput(*this, timein, window, playerView);
@@ -275,22 +290,43 @@ using namespace sf;
         checkMeleeHit();
         setAnimation();
     }
+    void Hero::run(bool isRunning) {
+        if(isRunning) {
+            if(horizontalvel < maxHorizontalvel) { horizontalvel += horizontalAcc; }
+            else if (horizontalvel > maxHorizontalvel) { horizontalvel -= horizontalAcc; }
+        }
+        else {
+            if (horizontalvel > baseHorizontalvel) { horizontalvel -= 2 * horizontalAcc; }
+            else { horizontalvel = baseHorizontalvel; }
+        }
+    }
+
     // Hero States
     // Standing
     void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
         std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
         float time = timein.asSeconds();
 
-        if (Keyboard::isKeyPressed(controls["Move Left"])) {
-            hero.faceright = false;
-            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+        // If the player is pressing left or right, but not at the same time, handle movement
+        if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
+
+            hero.run(Keyboard::isKeyPressed(controls["Run"]));
+
+            if (Keyboard::isKeyPressed(controls["Move Left"])) {
+                hero.faceright = false;
+                hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            }
+            if (Keyboard::isKeyPressed(controls["Move Right"])) {
+                hero.faceright = true;
+                hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            }
         }
-        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-            hero.faceright = true;
-            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+        else {
+            // No movement, clear run speed
+            hero.run(false);
         }
         if (Keyboard::isKeyPressed(controls["Jump"])) {
-            hero.jumpvel = -400.f;
+            hero.jump();
             hero.sprite.move(Vector2f(0, hero.jumpvel * time));
         }
         //Unfinished, will be ducking or something
@@ -316,13 +352,16 @@ using namespace sf;
         std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
         float time = timein.asSeconds();
 
-        if (Keyboard::isKeyPressed(controls["Move Left"])) {
-            hero.faceright = false;
-            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
-        }
-        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-            hero.faceright = true;
-            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+        // If the player is pressing left or right, but not at the same time, handle movement
+        if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
+            if (Keyboard::isKeyPressed(controls["Move Left"])) {
+                hero.faceright = false;
+                hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            }
+            if (Keyboard::isKeyPressed(controls["Move Right"])) {
+                hero.faceright = true;
+                hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            }
         }
     }
 
@@ -413,7 +452,7 @@ using namespace sf;
             //Gravity and collision when jumpin
             weapontimer = weapontimer - time;
             timepass = timepass - time;
-            jumpvel += 1100.f * time; // Vertical Acceleration
+            jumpvel += GRAV * time; // Vertical Acceleration
 
             sprite.move(Vector2f(0, jumpvel * time));
             state_->handleInput(*this, timein, window);
@@ -424,10 +463,9 @@ using namespace sf;
             checkProjectile();
             checkMeleeHit();
             setAnimation();
-            sprite.move(Vector2f(0, jumpvel * time));
     }
 
-// Enemy States
+    // Enemy States
     // Standing
     void Enemy::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
         float time = timein.asSeconds();
@@ -442,7 +480,7 @@ using namespace sf;
             ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
         }
         if(ene.actions[2]){
-            ene.jumpvel = -400.f;
+            ene.jump();
             ene.sprite.move(Vector2f(0, ene.jumpvel * time));
         }
         //Unfinsihed, will be ducking or something

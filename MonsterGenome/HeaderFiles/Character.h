@@ -6,6 +6,8 @@
 #include "../HeaderFiles/Projectile.h"
 using namespace sf;
 
+const float GRAV = 1100.f;
+
 class Character{
     protected:
         string name;
@@ -19,7 +21,6 @@ class Character{
         bool atk = false;
         bool faceright = true;
         float jumpvel;
-        float horizontalvel;
         float vertadd = 0.f;
         float horizadd = 0.f;
         Texture text;
@@ -34,10 +35,26 @@ class Character{
         bool ene;
         //should be in weapons firerate
         float weapontimer = 0.f;
-    public:
-    
+        /// Movement
+        // Walking and Running
+        float horizontalvel;
+        float baseHorizontalvel;
+        float maxHorizontalvel;
+        float horizontalAcc;
+        // Jumping
+        float baseJumpHeight = 0.f;
+        float jumpHeight = 0.f;
 
+public:
+    // Constructors
     Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene);
+    // Getters
+    Sprite& getSprite();
+    bool getAttack();
+    bool getEnemy();
+    int getHealth();
+    // Setters
+    // Mutators
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
@@ -49,15 +66,11 @@ class Character{
     void hAnimation();
     void mAnimation();
     void setAdditions(float v, float h);
-    Sprite& getSprite();
-    bool getAttack();
-    bool getEnemy();
-    int getHealth();
+    virtual void jump();
 };
 
 class Hero : public Character {
 private:
-
     class HeroState {
     public:
         virtual ~HeroState() {};
@@ -78,10 +91,16 @@ private:
     };
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
     HeroState* state_;
+
 public:
+    // Constructor
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
+    // Setters
     void setAnimation();
+    // Getters
+    // Mutators
     void updatePosition(Time& timein, RenderWindow& window, View &playerView);
+    void run(bool isRunning);
 };
 
 class Enemy : public Character{
