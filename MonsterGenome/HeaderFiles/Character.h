@@ -28,7 +28,7 @@ class Character{
         int experience;
         vector<Platforms*>* borders; 
         vector<Projectile*>* proj;
-        vector<Character*>* players; 
+        vector<Character*>* actors;
 
         float timepass = .5f;
         //make enemy
@@ -47,7 +47,7 @@ class Character{
 
 public:
     // Constructors
-    Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene);
+    Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene);
     // Getters
     Sprite& getSprite();
     bool getAttack();
@@ -94,7 +94,7 @@ private:
 
 public:
     // Constructor
-    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
+    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
     // Setters
     void setAnimation(string animation);
     // Getters
@@ -131,7 +131,7 @@ private:
     EnemyState* state_;
     public:
 
-    Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
+    Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
     void updatePosition(Time& time, RenderWindow& window, View &playerView);
     void setAnimation(string animation);
     void checkMeleeHit();

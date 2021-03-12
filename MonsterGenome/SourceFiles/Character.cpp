@@ -60,7 +60,7 @@ using namespace sf;
 
     /// Character Functions
     // Constructor
-    Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene){
+    Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene){
 
         int armor = 100;
         name = "player";
@@ -77,7 +77,7 @@ using namespace sf;
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
         this->borders = borders;
         this->proj = proj;
-        this->players = players;
+        this->actors = actors;
         //remove soon
         this->ene = ene;
         float timepass = .05;
@@ -169,9 +169,9 @@ using namespace sf;
     }
 
     void Character::checkMeleeHit(){
-        for(int i=1; i < players[0].size(); i++){
-            if((players[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0][i]->getSprite().getGlobalBounds())){
-                if(players[0][i]->getAttack()){
+        for(int i=1; i < actors[0].size(); i++){
+            if((actors[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
+                if(actors[0][i]->getAttack()){
                     this->health -= 10;
                 }
             }
@@ -226,7 +226,7 @@ using namespace sf;
 
     /// Hero Functions
     // Constructor
-    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, false){
+    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
         this->controlMapping = controlMapping;
         state_ = new StandingState();
         
@@ -398,7 +398,7 @@ using namespace sf;
 
 /// Enemy Functions
 
-    Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, true) {
+    Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, true) {
         int ID = 0;
         int xpDrop = 100;
 
@@ -411,8 +411,8 @@ using namespace sf;
 
 
     void Enemy::checkMeleeHit(){
-        if((players[0][0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0][0]->getSprite().getGlobalBounds())){
-            if(players[0][0]->getAttack()){
+        if((actors[0][0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][0]->getSprite().getGlobalBounds())){
+            if(actors[0][0]->getAttack()){
                 this->health -= 10;
             }
         }
