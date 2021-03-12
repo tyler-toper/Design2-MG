@@ -61,7 +61,7 @@ public:
     virtual void checkMeleeHit();
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
     void attack(vector<Projectile*>* borders, Vector2f loc);
-    virtual void setAnimation() = 0;
+    virtual void setAnimation(string animation) = 0;
     void flip(Sprite& sprite);
     void hAnimation();
     void mAnimation();
@@ -96,7 +96,7 @@ public:
     // Constructor
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
     // Setters
-    void setAnimation();
+    void setAnimation(string animation);
     // Getters
     // Mutators
     void updatePosition(Time& timein, RenderWindow& window, View &playerView);
@@ -133,6 +133,6 @@ private:
 
     Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
     void updatePosition(Time& time, RenderWindow& window, View &playerView);
-    void setAnimation();
+    void setAnimation(string animation);
     void checkMeleeHit();
 };

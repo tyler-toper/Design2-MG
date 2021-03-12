@@ -49,6 +49,15 @@ using namespace sf;
         }
     }
 
+    bool isAnyKeyPressed(std::map<std::string, sf::Keyboard::Key>* controlMapping)
+	{
+        for (auto const& x : controlMapping[0]){
+            if (sf::Keyboard::isKeyPressed(controlMapping[0][x.first]))
+				return true;
+        }
+		return false;
+	}
+
     /// Character Functions
     // Constructor
     Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene){
@@ -197,8 +206,6 @@ using namespace sf;
     }
 
     void Character::attack(vector<Projectile*>* proj, Vector2f loc){
-        cout << sprite.getPosition().x << " " << sprite.getPosition().y << endl;
-        cout << loc.x << " " << loc.y << endl;
         if(weapontimer <= 0.f){
             string path;
             if(ene){
@@ -229,41 +236,37 @@ using namespace sf;
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
     }
-    // Setters
-    void Hero::setAnimation(){
-        bool noaction = true;
+
+    void Hero::setAnimation(string animation){
         // Needs to dereference controlMapping in order to read map
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
 
         if(timepass <= 0){
             // TODO: Add Control binding?
-            if(Keyboard::isKeyPressed(Keyboard::X) || this->punch){
+            if(animation == "melee"){
                 this->punch = true;
                 mAnimation();
-                noaction = false;
             }
             else{
-                // If player is pressing left or right, but not both
-                if(Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])){
+                if(animation == "left" || animation == "right"){
                     hAnimation();
-                    noaction = false;
                 }
-                if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
-                    noaction = false;
+                if(animation == "jump"){
+
                 }
                 //Unfinsihed, will be ducking or something
-                if(Keyboard::isKeyPressed(controls["Crouch"])){
-                    //noaction = false;
+                if(animation == "crouch"){
+                   
                 }
                 //Attacking
-                if(Keyboard::isKeyPressed(controls["Attack"])){
-                    noaction = false;
+                if(animation == "ranged"){
+                   
                 }
             }
 
             timepass = .1;
-            if(noaction){
+            if(animation == "still"){
                 sprite.setTextureRect(IntRect(57, 11, 50, 60));
             }
         }
@@ -288,7 +291,6 @@ using namespace sf;
         checkCollison();
         checkProjectile();
         checkMeleeHit();
-        setAnimation();
     }
     void Hero::run(bool isRunning) {
         if(isRunning) {
@@ -315,10 +317,12 @@ using namespace sf;
             if (Keyboard::isKeyPressed(controls["Move Left"])) {
                 hero.faceright = false;
                 hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+                hero.setAnimation("left");
             }
             if (Keyboard::isKeyPressed(controls["Move Right"])) {
                 hero.faceright = true;
                 hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+                hero.setAnimation("right");
             }
         }
         else {
@@ -328,14 +332,21 @@ using namespace sf;
         if (Keyboard::isKeyPressed(controls["Jump"])) {
             hero.jump();
             hero.sprite.move(Vector2f(0, hero.jumpvel * time));
+            hero.setAnimation("still"); //CHange when we have animation
+
         }
         //Unfinished, will be ducking or something
         if (Keyboard::isKeyPressed(controls["Crouch"])) {
+            hero.setAnimation("still"); //CHange when we have animation
 
         }
         //Attacking
         if (Keyboard::isKeyPressed(controls["Attack"])) {
             hero.attack(hero.proj, window.mapPixelToCoords(Mouse::getPosition(window), playerView));
+            hero.setAnimation("still"); //CHange when we have animation
+        }
+        if(!isAnyKeyPressed(hero.controlMapping)){
+            hero.setAnimation("still");
         }
     }
 
@@ -357,11 +368,17 @@ using namespace sf;
             if (Keyboard::isKeyPressed(controls["Move Left"])) {
                 hero.faceright = false;
                 hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+                hero.setAnimation("left");
             }
             if (Keyboard::isKeyPressed(controls["Move Right"])) {
                 hero.faceright = true;
                 hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+                hero.setAnimation("right");
+
             }
+            else{
+            hero.setAnimation("still");
+            }   
         }
     }
 
@@ -401,33 +418,32 @@ using namespace sf;
         }
     }
 
-    void Enemy::setAnimation(){
-        bool noaction = true;
+    void Enemy::setAnimation(string animation){
         if(timepass <= 0){
-            if(actions[5] || this->punch){
+            // TODO: Add Control binding?
+            if(animation == "melee"){
                 this->punch = true;
-                noaction = false;
                 mAnimation();
             }
             else{
-                if(actions[0] || actions[1]){
-                hAnimation();
-                noaction = false;
+                if(animation == "left" || animation == "right"){
+                    hAnimation();
                 }
-                if(actions[2] & !jumping){
-                    noaction = false;
+                if(animation == "jump"){
+
                 }
                 //Unfinsihed, will be ducking or something
-                if(actions[3]){
-                    //noaction = false;
+                if(animation == "crouch"){
+                   
                 }
                 //Attacking
-                if(actions[4]){
-                    //noaction = false;
+                if(animation == "ranged"){
+                   
                 }
             }
+
             timepass = .1;
-            if(noaction){
+            if(animation == "still"){
                 sprite.setTextureRect(IntRect(57, 11, 50, 60));
             }
         }
@@ -462,7 +478,6 @@ using namespace sf;
             checkCollison();
             checkProjectile();
             checkMeleeHit();
-            setAnimation();
     }
 
     // Enemy States
@@ -474,22 +489,26 @@ using namespace sf;
         if(ene.actions[0]){
             ene.faceright = false;
             ene.sprite.move(Vector2f(-1.f * ene.horizontalvel * time, 0));
+            ene.setAnimation("left");
         }
         else if(ene.actions[1]){
             ene.faceright = true;
             ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
+            ene.setAnimation("right");
         }
         if(ene.actions[2]){
             ene.jump();
             ene.sprite.move(Vector2f(0, ene.jumpvel * time));
+            ene.setAnimation("still"); //Change with animation
         }
         //Unfinsihed, will be ducking or something
         if(ene.actions[3]){
-            
+            ene.setAnimation("still"); //CHange with animation
         }
         //Attacking
         if(ene.actions[4]){
             //attack(proj, Mouse::getPosition(window));
+            ene.setAnimation("still"); //Change with animation
         }
     }
 
@@ -508,10 +527,15 @@ using namespace sf;
         if(ene.actions[0]){
             ene.faceright = false;
             ene.sprite.move(Vector2f(-1.f * ene.horizontalvel * time, 0));
+            ene.setAnimation("left");
         }
         else if(ene.actions[1]){
             ene.faceright = true;
             ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
+            ene.setAnimation("right");
+        }
+        else{
+            ene.setAnimation("still");
         }
     }
 
