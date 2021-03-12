@@ -21,7 +21,6 @@ class Character{
         bool atk = false;
         bool faceright = true;
         float jumpvel;
-        float horizontalvel;
         float vertadd = 0.f;
         float horizadd = 0.f;
         Texture text;
@@ -37,6 +36,9 @@ class Character{
         //should be in weapons firerate
         float weapontimer = 0.f;
         float jumpHeight = 0.f;
+        float baseJumpHeight = 0.f;
+        float horizontalvel;
+        float baseHorizontalvel;
 
 public:
 

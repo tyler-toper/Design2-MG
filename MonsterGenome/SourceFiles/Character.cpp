@@ -75,6 +75,7 @@ using namespace sf;
         //should be in weapons fireratea
         // Character Movement Attributes
         horizontalvel = 200.f;
+        baseHorizontalvel = 200.f;
         jumpHeight = 400.0f;
 
     }
