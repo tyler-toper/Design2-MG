@@ -77,8 +77,8 @@ using namespace sf;
         // Walking and Running
         horizontalvel = 200.f;
         baseHorizontalvel = 200.f;
-        maxHorizontalvel = 350.f;
-        horizontalAcc = 5.f;
+        maxHorizontalvel = 400.f;
+        horizontalAcc = 1.f;
         // Jumping
         jumpHeight = 400.0f;
 
@@ -321,7 +321,11 @@ using namespace sf;
                 hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
             }
         }
-         if (Keyboard::isKeyPressed(controls["Jump"])) {
+        else {
+            // No movement, clear run speed
+            hero.run(false);
+        }
+        if (Keyboard::isKeyPressed(controls["Jump"])) {
             hero.jump();
             hero.sprite.move(Vector2f(0, hero.jumpvel * time));
         }
