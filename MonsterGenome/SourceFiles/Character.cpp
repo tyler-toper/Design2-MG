@@ -376,10 +376,10 @@ using namespace sf;
                 hero.setAnimation("right");
 
             }
-            else{
-            hero.setAnimation("still");
-            }   
         }
+        else{
+            hero.setAnimation("still");
+        }   
     }
 
     void Hero::JumpingState::update(Hero& hero) {
