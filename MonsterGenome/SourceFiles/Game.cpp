@@ -10,7 +10,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     LoadLevel(lvl);
 }
 
-void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
+void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
@@ -40,7 +40,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
             borders[i]->update(time);
         }
         for(int i = 0; i < players.size(); i++){
-            players[i]->updatePosition(time, window);
+            players[i]->updatePosition(time, window, playerView);
         }
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
@@ -97,6 +97,7 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
+            window.setView(window.getDefaultView());
         }
     }
 }

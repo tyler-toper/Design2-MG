@@ -45,7 +45,7 @@ void openWindow(RenderWindow &window){
         audioHandler.playMusic();
 
         if(state.GetState() == GameState::PLAY){
-            game.PollGame(window, time, state);
+            game.PollGame(window, time, state, playerView);
             game.Draw(window, time, playerView, mapView);
 
         }

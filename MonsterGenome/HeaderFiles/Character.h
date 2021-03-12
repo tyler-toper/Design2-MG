@@ -59,8 +59,8 @@ public:
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
     virtual void checkMeleeHit();
-    virtual void updatePosition(Time& time, RenderWindow& window) = 0;
-    void attack(vector<Projectile*>* borders, Vector2i loc);
+    virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
+    void attack(vector<Projectile*>* borders, Vector2f loc);
     virtual void setAnimation() = 0;
     void flip(Sprite& sprite);
     void hAnimation();
@@ -74,19 +74,19 @@ private:
     class HeroState {
     public:
         virtual ~HeroState() {};
-        virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window) {};
+        virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {};
         virtual void update(Hero& Hero) {};
     };
 
     class StandingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window);
+        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
         void update(Hero& hero);
     };
 
     class JumpingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window);
+        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
         void update(Hero& hero);
     };
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
@@ -99,7 +99,7 @@ public:
     void setAnimation();
     // Getters
     // Mutators
-    void updatePosition(Time& timein, RenderWindow& window);
+    void updatePosition(Time& timein, RenderWindow& window, View &playerView);
     void run(bool isRunning);
 };
 
@@ -132,7 +132,7 @@ private:
     public:
 
     Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
-    void updatePosition(Time& time, RenderWindow& window);
+    void updatePosition(Time& time, RenderWindow& window, View &playerView);
     void setAnimation();
     void checkMeleeHit();
 };
