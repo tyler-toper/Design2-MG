@@ -2,7 +2,64 @@
 using namespace std;
 using namespace sf;
 
-    /// Generic Functions
+    Character::Character(bool ene){
+        int armor = 100;
+        name = "player";
+        level = 0;
+        experience = 0;
+        vitality = 0;
+        strength = 0;
+        health = 100;
+        jumping = false;
+        jumpvel = 0;
+        horizontalvel = 100.f;
+        //remove soon
+        this->ene = ene;
+        float timepass = .05;
+        //should be in weapons firerate
+
+    }
+
+    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, float spawnX, float spawnY) : Character(false){
+        this->controlMapping = controlMapping;
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
+        this->inventory = new Inventory(10);
+        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword.png");
+        this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol.png");
+
+        //inv testing
+        cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+        this->inventory->add(this->sword);
+        this->inventory->add(this->pistol);
+        this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
+
+        cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+        this->inventory->remove(0);
+        this->inventory->remove(0);
+        cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+
+
+
+    }
+
+    Enemy::Enemy(float spawnX, float spawnY) : Character(true) {
+        int ID = 0;
+        int xpDrop = 100;
+
+        text.loadFromFile("../Images/animation2.png");
+        sprite.setTexture(text);
+        sprite.setPosition(Vector2f(spawnX, spawnY));
+        sprite.setTextureRect(IntRect(57, 11, 50, 60));
+    }
+
+    void Character::setAdditions(float v, float h){
+        this->vertadd = v;
+        this->horizadd = h;
+    }
+
     int aboveBelow(Sprite& first, Sprite& second){
         float fypos = first.getPosition().y;
         float fxpos = first.getPosition().x;
@@ -49,50 +106,14 @@ using namespace sf;
         }
     }
 
-    /// Character Functions
-    // Constructor
-    Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene){
-
-        int armor = 100;
-        name = "player";
-        level = 0;
-        experience = 0;
-        vitality = 0;
-        strength = 0;
-        health = 100;
-        jumping = false;
-        jumpvel = 0;
-        horizontalvel = 100.f;
-        text.loadFromFile("../Images/animation.png");
-        sprite.setTexture(text);
-        sprite.setPosition(Vector2f(400.f, 300.f));
-        sprite.setTextureRect(IntRect(57, 11, 50, 60));
-        this->borders = borders;
-        this->proj = proj;
-        this->players = players;
-        //remove soon
-        this->ene = ene;
-        float timepass = .05;
-        //should be in weapons fireratea
-
-    }
-
-    // Getters
-    // Setters
-    void Character::setAdditions(float v, float h){
-        this->vertadd = v;
-        this->horizadd = h;
-    }
-
-    // Mutators
-    void Character::checkCollison(){
+    void Character::checkCollison(vector<Platforms*>& borders){
         setAdditions(0.f, 0.f);
-        for(int i=0; i < borders[0].size(); i++){
+        for(int i=0; i < borders.size(); i++){
             FloatRect intersection;
-            if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
-                removeCollision(borders[0][i], intersection);
-                if(borders[0][i]->getName() == "M"){
-                    MovePlatform *d = static_cast<MovePlatform *>(borders[0][i]);
+            if(sprite.getGlobalBounds().intersects(borders[i]->getSprite().getGlobalBounds(), intersection)){
+                removeCollision(borders[i], intersection);
+                if(borders[i]->getName() == "M"){
+                    MovePlatform *d = static_cast<MovePlatform *>(borders[i]);
                     if(aboveBelow(sprite, d->getSprite()) == -1 && (d->getYspeed() > 0)){
                         d->reverse();
                     }
@@ -106,7 +127,7 @@ using namespace sf;
 
     void Character::removeCollision(Platforms* borders, FloatRect& intersection){
         int relative = aboveBelow(sprite, borders->getSprite());
-
+        
         if(relative == 1 || relative == -1){
             if(intersection.width < intersection.height){
                 sprite.move(intersection.width * rightLeft(sprite, borders->getSprite()), 0);
@@ -122,33 +143,41 @@ using namespace sf;
             }
         }
         else{
-            sprite.move(intersection.width * rightLeft(sprite, borders->getSprite()), 0);
+            sprite.move(intersection.width * rightLeft(sprite, borders->getSprite()), 0);   
         }
     }
 
-    void Character::checkProjectile(){
-        for(int i=0; i < proj[0].size(); i++){
-            if((proj[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
-                delete proj[0][i];
-                proj[0].erase(proj[0].begin() + i--);
+    void Character::checkProjectile(vector<Projectile*>& proj){
+        for(int i=0; i < proj.size(); i++){
+            if((proj[i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[i]->getSprite().getGlobalBounds())){
+                delete proj[i]; 
+                proj.erase(proj.begin() + i--);
                 health -= 10;
             }
         }
     }
 
-    void Character::checkMeleeHit(){
-        for(int i=1; i < players[0].size(); i++){
-            if((players[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0][i]->getSprite().getGlobalBounds())){
-                if(players[0][i]->getAttack()){
+    void Character::checkMeleeHit(vector<Character*>& players){
+        for(int i=1; i < players.size(); i++){
+            if((players[i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[i]->getSprite().getGlobalBounds())){
+                if(players[i]->getAttack()){
                     this->health -= 10;
                 }
             }
         }
     }
 
+    void Enemy::checkMeleeHit(vector<Character*>& players){
+        if((players[0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0]->getSprite().getGlobalBounds())){
+            if(players[0]->getAttack()){
+                this->health -= 10;
+            }
+        }
+    }
+
     void Character::flip(Sprite& sprite){
         sprite.setOrigin({ sprite.getGlobalBounds().width/2.0f, 0});
-        sprite.setScale(pow(-1, !faceright), 1);
+        sprite.setScale({ int(pow(-1, !faceright)) , 1 });
     }
 
     void Character::hAnimation(){
@@ -173,50 +202,6 @@ using namespace sf;
         }
     }
 
-    Sprite& Character::getSprite(){
-        return this->sprite;
-    }
-
-    bool Character::getAttack(){
-        return this->atk;
-    }
-
-    bool Character::getEnemy(){
-        return this->ene;
-    }
-
-    int Character::getHealth(){
-        return this->health;
-    }
-
-    void Character::attack(vector<Projectile*>* proj, Vector2f loc){
-        cout << sprite.getPosition().x << " " << sprite.getPosition().y << endl;
-        cout << loc.x << " " << loc.y << endl;
-        if(weapontimer <= 0.f){
-            string path;
-            if(ene){
-                path = "../Images/shot1.png";
-            }
-            else
-            {
-                path = "../Images/shot.png";
-            }
-            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y, this->ene));
-            weapontimer = 1.f;
-        }
-    }
-
-    /// Hero Functions
-    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, false){
-        this->controlMapping = controlMapping;
-        state_ = new StandingState();
-        
-        text.loadFromFile("../Images/animation2.png");
-        sprite.setTexture(text);
-        sprite.setPosition(Vector2f(spawnX, spawnY));
-        sprite.setTextureRect(IntRect(57, 11, 50, 60));
-
-    }
 
     void Hero::setAnimation(){
         bool noaction = true;
@@ -233,8 +218,8 @@ using namespace sf;
             }
             else{
                 if(Keyboard::isKeyPressed(controls["Move Left"]) || Keyboard::isKeyPressed(controls["Move Right"])){
-                    hAnimation();
-                    noaction = false;
+                hAnimation();
+                noaction = false;
                 }
                 if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
                     noaction = false;
@@ -248,118 +233,13 @@ using namespace sf;
                     noaction = false;
                 }
             }
-
+            
             timepass = .1;
             if(noaction){
                 sprite.setTextureRect(IntRect(57, 11, 50, 60));
             }
         }
         flip(sprite);
-    }
-
-    void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
-        float time = timein.asSeconds();
-        this->atk = false;
-       //Gravity and collision when jumpin
-        weapontimer = weapontimer - time;
-        timepass = timepass - time;
-        jumpvel += 1100.f * time; // Vertical Acceleration
-
-        sprite.move(Vector2f(0, jumpvel * time));
-        state_->handleInput(*this, timein, window, playerView);
-        state_->update(*this);
-
-        sprite.move(Vector2f(vertadd * time, horizadd * time));
-        checkCollison();
-        checkProjectile();
-        checkMeleeHit();
-        setAnimation();
-    }
-    // Hero States
-    // Standing
-    void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
-        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-        float time = timein.asSeconds();
-
-        if (Keyboard::isKeyPressed(controls["Move Left"])) {
-            hero.faceright = false;
-            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
-        }
-        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-            hero.faceright = true;
-            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
-        }
-        if (Keyboard::isKeyPressed(controls["Jump"])) {
-            hero.jumpvel = -400.f;
-            hero.sprite.move(Vector2f(0, hero.jumpvel * time));
-        }
-        //Unfinished, will be ducking or something
-        if (Keyboard::isKeyPressed(controls["Crouch"])) {
-
-        }
-        //Attacking
-        if (Keyboard::isKeyPressed(controls["Attack"])) {
-            hero.attack(hero.proj, window.mapPixelToCoords(Mouse::getPosition(window), playerView));
-        }
-    }
-
-    void Hero::StandingState::update(Hero& hero) {
-        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-        if (Keyboard::isKeyPressed(controls["Jump"])) {
-            Hero::HeroState *temp = hero.state_;
-            hero.state_ = new JumpingState();
-            delete temp;
-        }
-    }
-    // Jumping
-    void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
-        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-        float time = timein.asSeconds();
-
-        if (Keyboard::isKeyPressed(controls["Move Left"])) {
-            hero.faceright = false;
-            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
-        }
-        else if (Keyboard::isKeyPressed(controls["Move Right"])) {
-            hero.faceright = true;
-            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
-        }
-    }
-
-    void Hero::JumpingState::update(Hero& hero) {
-        for(int i=0; i < hero.borders->size(); i++){
-            if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
-                if(hero.borders[0][i]->getName() == "nogo" || hero.borders[0][i]->getName() == "M"){
-                   if(aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
-                       Hero::HeroState *temp = hero.state_;
-                       hero.state_ = new StandingState();
-                       delete temp;
-                   }
-                }
-            }
-        }
-    }
-
-/// Enemy Functions
-
-    Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, true) {
-        int ID = 0;
-        int xpDrop = 100;
-
-        state_ = new StandingState();
-        text.loadFromFile("../Images/animation2.png");
-        sprite.setTexture(text);
-        sprite.setPosition(Vector2f(spawnX, spawnY));
-        sprite.setTextureRect(IntRect(57, 11, 50, 60));
-    }
-
-
-    void Enemy::checkMeleeHit(){
-        if((players[0][0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(players[0][0]->getSprite().getGlobalBounds())){
-            if(players[0][0]->getAttack()){
-                this->health -= 10;
-            }
-        }
     }
 
     void Enemy::setAnimation(){
@@ -395,7 +275,103 @@ using namespace sf;
         flip(sprite);
     }
 
-    void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+    void Character::renderWeapon(RenderWindow& window, View &playerView){
+        /*
+    window.setKeyRepeatEnabled(false);
+
+    Event event;
+        while(window.pollEvent(event)){
+            if(event.type == Event::KeyPressed){
+                if(event.key.code == Keyboard::C){
+                    cout << "keyboard c pressed" << endl;
+                    if(faceright){
+                        cout << faceright << endl;
+                        sword.renderRight(window, playerView);
+                    }
+                    else if(!faceright){
+                        cout << faceright << endl;
+
+                        sword.renderLeft(window, playerView);
+                    }
+                }
+            }
+        }*/
+
+        if(Keyboard::isKeyPressed(Keyboard::C)){
+            cout << faceright << endl;
+
+            if(faceright){
+                sword->renderRight(window, playerView);
+            }
+            else if(!faceright){
+                sword->renderLeft(window, playerView);
+            }
+
+        }
+
+        if(Keyboard::isKeyPressed(Keyboard::V)){
+            cout << faceright << endl;
+/*
+            Pistol pistol = Pistol("../../Assets/WeaponTextures/pistol.png");
+*/
+
+            if(faceright){
+                pistol->renderRight(window, playerView);
+            }
+            else if(!faceright){
+                pistol->renderLeft(window, playerView);
+            }
+        }
+
+    }
+    void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){
+        this->atk = false;
+        //Gravity and collision when jumpin
+        float time = timein.asSeconds();
+        weapontimer = weapontimer - time;
+        timepass = timepass - time;
+        jumpvel += 1100.f * time; // Vertical Acceleration
+
+        sprite.move(Vector2f(0, jumpvel * time));
+
+        // Needs to dereference controlMapping in order to read map
+        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+            
+        if(Keyboard::isKeyPressed(Keyboard::X)){
+
+        }
+        else{
+            //Moving Left and Right with Collision
+            if(Keyboard::isKeyPressed(controls["Move Left"])){
+                faceright = false;
+                sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
+            }
+            else if(Keyboard::isKeyPressed(controls["Move Right"])){
+                faceright = true;
+                sprite.move(Vector2f(horizontalvel * time, 0));
+            }
+            if(Keyboard::isKeyPressed(controls["Jump"]) & !jumping){
+                jumping = true;
+                jumpvel = -400.f;
+                sprite.move(Vector2f(0, jumpvel * time));
+            }
+            //Unfinsihed, will be ducking or something
+            if(Keyboard::isKeyPressed(controls["Crouch"])){
+
+            }
+            //Attacking
+            if(Keyboard::isKeyPressed(controls["Attack"])){
+                attack(proj, Mouse::getPosition(window));
+            }
+        }
+        sprite.move(Vector2f(vertadd * time, horizadd * time));
+        checkCollison(borders);
+        checkProjectile(proj);
+        checkMeleeHit(players);
+        setAnimation();
+    }
+
+    void Enemy::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){
             this->atk = false; 
 
             float time = timein.asSeconds();
@@ -413,80 +389,71 @@ using namespace sf;
             //Gravity and collision when jumpin
             weapontimer = weapontimer - time;
             timepass = timepass - time;
-            jumpvel += 1100.f * time; // Vertical Acceleration
+            jumpvel += 1100.f * time; // Vertical Acceleration 
 
             sprite.move(Vector2f(0, jumpvel * time));
-            state_->handleInput(*this, timein, window);
-            state_->update(*this);
+            if(actions[5]){
 
-            sprite.move(Vector2f(vertadd * time, horizadd * time));
-            checkCollison();
-            checkProjectile();
-            checkMeleeHit();
-            setAnimation();
-            sprite.move(Vector2f(0, jumpvel * time));
-    }
-
-// Enemy States
-    // Standing
-    void Enemy::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
-        float time = timein.asSeconds();
-
-        //Moving Left and Right with Collision
-        if(ene.actions[0]){
-            ene.faceright = false;
-            ene.sprite.move(Vector2f(-1.f * ene.horizontalvel * time, 0));
-        }
-        else if(ene.actions[1]){
-            ene.faceright = true;
-            ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
-        }
-        if(ene.actions[2]){
-            ene.jumpvel = -400.f;
-            ene.sprite.move(Vector2f(0, ene.jumpvel * time));
-        }
-        //Unfinsihed, will be ducking or something
-        if(ene.actions[3]){
-            
-        }
-        //Attacking
-        if(ene.actions[4]){
-            //attack(proj, Mouse::getPosition(window));
-        }
-    }
-
-    void Enemy::StandingState::update(Enemy& ene) {
-        if (ene.actions[2]) {
-            Enemy::EnemyState *temp = ene.state_;
-            ene.state_ = new JumpingState();
-            delete temp;
-        }
-    }
-    // Jumping
-    void Enemy::JumpingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
-        float time = timein.asSeconds();
-
-         //Moving Left and Right with Collision
-        if(ene.actions[0]){
-            ene.faceright = false;
-            ene.sprite.move(Vector2f(-1.f * ene.horizontalvel * time, 0));
-        }
-        else if(ene.actions[1]){
-            ene.faceright = true;
-            ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
-        }
-    }
-
-    void Enemy::JumpingState::update(Enemy& ene) {
-        for(int i=0; i < ene.borders->size(); i++){
-            if(ene.sprite.getGlobalBounds().intersects(ene.borders[0][i]->getSprite().getGlobalBounds())){
-                if(ene.borders[0][i]->getName() == "nogo" || ene.borders[0][i]->getName() == "M"){
-                   if(aboveBelow(ene.sprite, ene.borders[0][i]->getSprite()) == 1){
-                       Enemy::EnemyState *temp = ene.state_;
-                       ene.state_ = new StandingState();
-                       delete temp;
-                   }
+            }
+            else{
+                //Moving Left and Right with Collision
+                if(actions[0]){
+                    faceright = false;
+                    sprite.move(Vector2f(-1.f * horizontalvel * time, 0));
+                }
+                else if(actions[1]){
+                    faceright = true;
+                    sprite.move(Vector2f(horizontalvel * time, 0));
+                }
+                if(actions[2] & !jumping){
+                    jumping = true;
+                    jumpvel = -400.f;
+                    sprite.move(Vector2f(0, jumpvel * time));
+                }
+                //Unfinsihed, will be ducking or something
+                if(actions[3]){
+                    
+                }
+                //Attacking
+                if(actions[4]){
+                    attack(proj, Mouse::getPosition(window));
                 }
             }
-        }
+            sprite.move(Vector2f(vertadd * time, horizadd * time));
+            checkCollison(borders);
+            checkProjectile(proj);
+            checkMeleeHit(players);
+            setAnimation();
     }
+
+    Sprite& Character::getSprite(){
+        return this->sprite;
+    }
+
+    bool Character::getAttack(){
+        return this->atk;
+    }
+
+    bool Character::getEnemy(){
+        return this->ene;
+    }
+
+    int Character::getHealth(){
+        return this->health;
+    }
+
+    void Character::attack(vector<Projectile*>& proj, Vector2i loc){
+        if(weapontimer <= 0.f){
+            string path;
+            if(ene){
+                path = "../Images/shot1.png";
+            }
+            else
+            {
+                path = "../Images/shot.png";
+            }
+            proj.push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y, this->ene));
+            weapontimer = 1.f;
+        }
+    }    
+

@@ -4,6 +4,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "../HeaderFiles/Projectile.h"
+#include "../HeaderFiles/Items.h"
+#include "../HeaderFiles/Inventory.h"
+#include "../HeaderFiles/Sword.h"
+#include "../HeaderFiles/Pistol.h"
 using namespace sf;
 
 class Character{
@@ -25,25 +29,28 @@ class Character{
         Texture text;
         Sprite sprite;
         int experience;
-        vector<Platforms*>* borders; 
-        vector<Projectile*>* proj;
-        vector<Character*>* players; 
 
+        Inventory* inventory;
+        Sword* sword;
+        Pistol* pistol;
         float timepass = .5f;
         //make enemy
         bool ene;
         //should be in weapons firerate
         float weapontimer = 0.f;
+        //Sword sword;
+
+    
     public:
     
 
-    Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene);
-    void checkCollison();
+    Character(bool ene);
+    void checkCollison(vector<Platforms*>& borders);
     void removeCollision(Platforms* borders, FloatRect& intersection);
-    void checkProjectile();
-    virtual void checkMeleeHit();
-    virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
-    void attack(vector<Projectile*>* borders, Vector2f loc);
+    void checkProjectile(vector<Projectile*>& proj);
+    virtual void checkMeleeHit(vector<Character*>& players);
+    virtual void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj,vector<Character*>& players, Time& time, RenderWindow& window) = 0;
+    void attack(vector<Projectile*>& borders, Vector2i loc);
     virtual void setAnimation() = 0;
     void flip(Sprite& sprite);
     void hAnimation();
@@ -53,35 +60,18 @@ class Character{
     bool getAttack();
     bool getEnemy();
     int getHealth();
+    void renderWeapon(RenderWindow& window, View &playerView);
+    void updateWeapon(RenderWindow& window, View& playerView);
 };
 
 class Hero : public Character {
 private:
-
-    class HeroState {
-    public:
-        virtual ~HeroState() {};
-        virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {};
-        virtual void update(Hero& Hero) {};
-    };
-
-    class StandingState : public HeroState {
-    public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
-    };
-
-    class JumpingState : public HeroState {
-    public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
-    };
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
-    HeroState* state_;
 public:
-    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
+    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, float spawnX, float spawnY);
+
     void setAnimation();
-    void updatePosition(Time& timein, RenderWindow& window, View &playerView);
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window);
 };
 
 class Enemy : public Character{
@@ -90,30 +80,10 @@ private:
     int xpDrop;
     float actionstime = 0;
     vector<int> actions{0,0,0,0,0,0};
-
-    class EnemyState {
-    public:
-        virtual ~EnemyState() {};
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) {};
-        virtual void update(Enemy& ene) {};
-    };
-
-    class StandingState : public EnemyState {
-    public:
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        void update(Enemy& ene);
-    };
-
-    class JumpingState : public EnemyState {
-    public:
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        void update(Enemy& ene);
-    };
-    EnemyState* state_;
     public:
 
-    Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
-    void updatePosition(Time& time, RenderWindow& window, View &playerView);
+    Enemy(float spawnX, float spawnY);
+    void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& time, RenderWindow& window);
     void setAnimation();
-    void checkMeleeHit();
+    void checkMeleeHit(vector<Character*>& players);
 };
