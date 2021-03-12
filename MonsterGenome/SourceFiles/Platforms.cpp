@@ -12,7 +12,7 @@ Platforms::Platforms(String path, float col, float row){
     sprite.setPosition(Vector2f(col, row));
 }
 
-//Invisible Boundry
+//Invisible Boundary
 Platforms::Platforms(float col, float row, float col2, float row2){
     name = "N";
     text.create(col, row);

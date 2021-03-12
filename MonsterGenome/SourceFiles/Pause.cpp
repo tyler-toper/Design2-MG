@@ -1,7 +1,9 @@
 #include "../HeaderFiles/Pause.h"
 
 
-Pause::Pause(float width, float height) {
+Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key>* controlMapping) {
+    this->controlMapping = controlMapping;
+
     font.loadFromFile(pixelFont);
     selected = 0;
 
@@ -55,15 +57,17 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
         }
         if (event.type == Event::KeyPressed){
             auto pressed = event.key.code;
+            // Needs to dereference controlMapping in order to read map
+            std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
-            if(pressed == Keyboard::Escape){
+            if(pressed == controls["Pause"]){
                 state.SetState(GameState::PLAY);
                 state.Resume();
             }
-            if (pressed == Keyboard::Up) {
+            if (pressed == controls["Jump"]) {
                 MoveUp();
             }
-            if(pressed == Keyboard::Down){
+            if(pressed == controls["Crouch"]){
                 MoveDown();
             }
             if(pressed == Keyboard::Return){

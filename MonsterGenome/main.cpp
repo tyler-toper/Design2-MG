@@ -27,13 +27,12 @@ void openWindow(RenderWindow &window){
     View mapView;
     View playerView(Vector2f((float)windowWidth/2, (float)windowHeight/2), Vector2f(windowWidth, windowHeight));
     window.setView(playerView);
-    // Add Settings Controls Pointer/Reference
-    Game game(settings.GetControlMapping());
+    Game game(settings.GetControlMapping(), 1);
     Clock clock;
     Time time;
     GameState state;
     // Add Settings Controls Pointer/Reference
-    Pause pause(windowWidth, windowHeight);
+    Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
 
     AudioHandler audioHandler;
 
@@ -46,13 +45,14 @@ void openWindow(RenderWindow &window){
         audioHandler.playMusic();
 
         if(state.GetState() == GameState::PLAY){
-            game.PollGame(window, time, state);
+            game.PollGame(window, time, state, playerView);
             game.Draw(window, time, playerView, mapView);
 
         }
         else if(state.GetState() == GameState::MENU){
             menu.PollMenu(window, state);
             menu.Draw(window);
+
         }
         else if(state.GetState() == GameState::PAUSE){
             playerView.setSize(window.getSize().x, window.getSize().y);

@@ -18,6 +18,8 @@ private:
     Font font;
     Text text[PauseOptions];
     Text title;
+    std::map<std::string, sf::Keyboard::Key> *controlMapping;
+
 
     SoundBuffer moveBuffer;
     Sound moveSound;
@@ -27,7 +29,7 @@ private:
     Sound confirmSound;
 
 public:
-    Pause(float width, float height);
+    Pause(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
