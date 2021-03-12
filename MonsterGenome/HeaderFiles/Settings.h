@@ -48,6 +48,7 @@ private:
     void Save();
     void ResetControls();
     std::string ConvertControls(sf::Keyboard::Key key);
+    void UpdateControls();
 
     SoundBuffer moveBuffer;
     Sound moveSound;

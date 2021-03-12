@@ -220,6 +220,12 @@ std::string Settings::ConvertControls(sf::Keyboard::Key key) {
     return std::to_string(key);
 }
 
+// Override existing controls with new controls
+void Settings::UpdateControls() {
+    for (int i = 0; i < control.size(); i++) {
+        controlMapping[function[i]] = control[i];
+    }
+}
 
 void Settings::PollMenu(RenderWindow &window, GameState &state){
     Event event;
@@ -236,7 +242,6 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 auto pressed = event.key.code;
                 // Saves the enum value
                 control[selected] = pressed;
-                controlMapping[function[selected]] = pressed;
                 // Print the corresponding key for the enum
                 UserControls[selected].setString(ConvertControls(pressed));
                 UserControls[selected].setFillColor(Color::Red);
@@ -250,10 +255,12 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             if (event.type == Event::KeyPressed) {
                 auto pressed = event.key.code;
                 if (pressed == controlMapping["Pause"] && state.IsPlaying()) {
+                    UpdateControls();
                     Save();
                     state.SetState(GameState::PAUSE);
                 }
                 if (pressed == controlMapping["Pause"] && !state.IsPlaying()) {
+                    UpdateControls();
                     Save();
                     state.SetState(GameState::MENU);
                 }
@@ -371,6 +378,6 @@ void Settings::ResetControls() {
     for(int i = 0; i < SettingsOptions; i++){
         // TODO: FIX THIS TO WORK WITH ENUM
         control[i] = defaults[i];
-        //UserControls[i].setString(control[i]);
+        UserControls[i].setString(ConvertControls(control[i]));
     }
 }
