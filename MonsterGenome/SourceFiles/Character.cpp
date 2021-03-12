@@ -62,7 +62,6 @@ using namespace sf;
         health = 100;
         jumping = false;
         jumpvel = 0;
-        horizontalvel = 100.f;
         text.loadFromFile("../Images/animation.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
@@ -74,14 +73,33 @@ using namespace sf;
         this->ene = ene;
         float timepass = .05;
         //should be in weapons fireratea
+        // Character Movement Attributes
+        horizontalvel = 200.f;
+        jumpHeight = 400.0f;
 
     }
 
-    // Getters
     // Setters
     void Character::setAdditions(float v, float h){
         this->vertadd = v;
         this->horizadd = h;
+    }
+
+    // Getters
+    Sprite& Character::getSprite(){
+        return this->sprite;
+    }
+
+    bool Character::getAttack(){
+        return this->atk;
+    }
+
+    bool Character::getEnemy(){
+        return this->ene;
+    }
+
+    int Character::getHealth(){
+        return this->health;
     }
 
     // Mutators
@@ -173,22 +191,6 @@ using namespace sf;
         }
     }
 
-    Sprite& Character::getSprite(){
-        return this->sprite;
-    }
-
-    bool Character::getAttack(){
-        return this->atk;
-    }
-
-    bool Character::getEnemy(){
-        return this->ene;
-    }
-
-    int Character::getHealth(){
-        return this->health;
-    }
-
     void Character::attack(vector<Projectile*>* proj, Vector2i loc){
         cout << sprite.getPosition().x << " " << sprite.getPosition().y << endl;
         cout << loc.x << " " << loc.y << endl;
@@ -206,7 +208,12 @@ using namespace sf;
         }
     }
 
+    void Character::jump() {
+        jumpvel = -jumpHeight;
+    }
+
     /// Hero Functions
+    // Constructor
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY) : Character(borders, proj, players, false){
         this->controlMapping = controlMapping;
         state_ = new StandingState();
@@ -217,7 +224,7 @@ using namespace sf;
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
     }
-
+    // Setters
     void Hero::setAnimation(){
         bool noaction = true;
         // Needs to dereference controlMapping in order to read map
@@ -257,6 +264,8 @@ using namespace sf;
         flip(sprite);
     }
 
+    // Getters
+    // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window){
         float time = timein.asSeconds();
         this->atk = false;
@@ -290,7 +299,7 @@ using namespace sf;
             hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
         }
         if (Keyboard::isKeyPressed(controls["Jump"])) {
-            hero.jumpvel = -400.f;
+            hero.jump();
             hero.sprite.move(Vector2f(0, hero.jumpvel * time));
         }
         //Unfinished, will be ducking or something
@@ -427,7 +436,7 @@ using namespace sf;
             sprite.move(Vector2f(0, jumpvel * time));
     }
 
-// Enemy States
+    // Enemy States
     // Standing
     void Enemy::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
         float time = timein.asSeconds();

@@ -36,10 +36,19 @@ class Character{
         bool ene;
         //should be in weapons firerate
         float weapontimer = 0.f;
-    public:
-    
+        float jumpHeight = 0.f;
 
+public:
+
+    // Constructors
     Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene);
+    // Getters
+    Sprite& getSprite();
+    bool getAttack();
+    bool getEnemy();
+    int getHealth();
+    // Setters
+    // Mutators
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
@@ -51,15 +60,11 @@ class Character{
     void hAnimation();
     void mAnimation();
     void setAdditions(float v, float h);
-    Sprite& getSprite();
-    bool getAttack();
-    bool getEnemy();
-    int getHealth();
+    virtual void jump();
 };
 
 class Hero : public Character {
 private:
-
     class HeroState {
     public:
         virtual ~HeroState() {};
@@ -80,9 +85,14 @@ private:
     };
     std::map<std::string, sf::Keyboard::Key>* controlMapping;
     HeroState* state_;
+
 public:
+    // Constructor
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, float spawnX, float spawnY);
+    // Setters
     void setAnimation();
+    // Getters
+    // Mutators
     void updatePosition(Time& timein, RenderWindow& window);
 };
 
