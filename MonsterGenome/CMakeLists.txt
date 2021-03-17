@@ -37,7 +37,9 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/AudioHandler.cpp
         HeaderFiles/AudioHandler.h
         SourceFiles/HeroMod.cpp
-        HeaderFiles/HeroMod.h)
+        HeaderFiles/HeroMod.h
+        SourceFiles/Enemy.cpp
+        HeaderFiles/Enemy.h)
 
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
   

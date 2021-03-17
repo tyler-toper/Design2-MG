@@ -9,42 +9,45 @@ using namespace sf;
 const float GRAV = 1100.f;
 
 class Character{
-    protected:
-        string name;
-        int level;
-        int health;
-        int armor;
-        int strength;
-        int vitality;
-        bool jumping;
-        bool punch = false;
-        bool atk = false;
-        bool faceright = true;
-        float jumpvel;
-        float vertadd = 0.f;
-        float horizadd = 0.f;
-        Texture text;
-        Sprite sprite;
-        int experience;
-        vector<Platforms*>* borders; 
-        vector<Projectile*>* proj;
-        vector<Character*>* actors;
+protected:
+    string name;
+    int level;
+    int health;
+    int armor;
+    int strength;
+    int vitality;
+    bool jumping;
+    bool punch = false;
+    bool atk = false;
+    bool faceright = true;
+    float jumpvel;
+    float vertadd = 0.f;
+    float horizadd = 0.f;
+    Texture text;
+    Sprite sprite;
+    int experience;
+    vector<Platforms*>* borders;
+    vector<Projectile*>* proj;
+    vector<Character*>* actors;
 
-        float timepass = .5f;
-        //make enemy
-        bool ene;
-        //should be in weapons firerate
-        float weapontimer = 0.f;
-        /// Movement
-        // Walking and Running
-        float horizontalvel;
-        float baseHorizontalvel;
-        float maxHorizontalvel;
-        float horizontalAcc;
-        // Jumping
-        float baseJumpHeight = 0.f;
-        float jumpHeight = 0.f;
+    float timepass = .5f;
+    //make enemy
+    bool ene;
+    //should be in weapons firerate
+    float weapontimer = 0.f;
+    /// Movement
+    // Walking and Running
+    float horizontalvel;
+    float baseHorizontalvel;
+    float maxHorizontalvel;
+    float horizontalAcc;
+    // Jumping
+    float baseJumpHeight = 0.f;
+    float jumpHeight = 0.f;
 
+    // Private Functions
+    int aboveBelow(Sprite& first, Sprite& second);
+    int rightLeft(Sprite& first, Sprite& second);
 public:
     // Constructors
     Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene);
@@ -101,38 +104,4 @@ public:
     // Mutators
     void updatePosition(Time& timein, RenderWindow& window, View &playerView);
     void run(bool isRunning);
-};
-
-class Enemy : public Character{
-private:
-    int ID;
-    int xpDrop;
-    float actionstime = 0;
-    vector<int> actions{0,0,0,0,0,0};
-
-    class EnemyState {
-    public:
-        virtual ~EnemyState() {};
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) {};
-        virtual void update(Enemy& ene) {};
-    };
-
-    class StandingState : public EnemyState {
-    public:
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        void update(Enemy& ene);
-    };
-
-    class JumpingState : public EnemyState {
-    public:
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        void update(Enemy& ene);
-    };
-    EnemyState* state_;
-    public:
-
-    Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
-    void updatePosition(Time& time, RenderWindow& window, View &playerView);
-    void setAnimation();
-    void checkMeleeHit();
 };
