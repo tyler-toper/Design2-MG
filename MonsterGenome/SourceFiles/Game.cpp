@@ -10,13 +10,11 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     LoadLevel(lvl);
 }
 
-void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
+void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
-            cout << "Test 1" << endl; //Program never gets here.
             LoadLevel(this->lvl);
-            cout << "Test 2" << endl;
         }
     }
     else{
@@ -42,7 +40,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state) {
             borders[i]->update(time);
         }
         for(int i = 0; i < players.size(); i++){
-            players[i]->updatePosition(borders, projs, players, time, window);
+            players[i]->updatePosition(time, window, playerView);
         }
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
@@ -104,6 +102,7 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
+            window.setView(window.getDefaultView());
         }
     }
 }
@@ -125,11 +124,12 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    // TODO: Fix this constructor
+                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character *tempChar = new Enemy(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){

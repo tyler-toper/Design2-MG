@@ -25,7 +25,7 @@ private:
 public:
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);
 
-    void PollGame(RenderWindow &window, Time& time, GameState &state);
+    void PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
     void LoadLevel(int lvl);
 };
