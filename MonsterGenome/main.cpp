@@ -10,6 +10,7 @@
 #include "HeaderFiles/Settings.h"
 #include "HeaderFiles/GameState.h"
 #include "HeaderFiles/AudioHandler.h"
+#include "HeaderFiles/SaveMenu.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -33,8 +34,8 @@ void openWindow(RenderWindow &window){
     GameState state;
     // Add Settings Controls Pointer/Reference
     Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
-
     AudioHandler audioHandler;
+    SaveMenu savemenu(windowWidth, windowHeight, settings.GetControlMapping());
 
 
     // Main game loop. While the window is open
@@ -65,7 +66,10 @@ void openWindow(RenderWindow &window){
         else if(state.GetState() == GameState::SETTINGS){
             settings.PollMenu(window, state);
             settings.Draw(window);
-
+        }
+        else if(state.GetState() == GameState::SAVE){
+            savemenu.PollMenu(window, state);
+            savemenu.Draw(window);
         }
     
         window.display();
