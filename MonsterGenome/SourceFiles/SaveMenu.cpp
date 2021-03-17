@@ -8,6 +8,9 @@ SaveMenu::SaveMenu(float width, float height, std::map<std::string, sf::Keyboard
     menu.loadFromFile("../../Assets/Backgrounds/SaveMenu.png");
     menuSprite.setTexture(menu);
 
+    background.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
+    backgroundSprite.setTexture(background);
+
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
     moveSound.setVolume(35);
@@ -32,14 +35,24 @@ void SaveMenu::PollMenu(RenderWindow &window, GameState &state){
             auto pressed = event.key.code;
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
-            if(pressed == controls["Escape"]){
-                state.SetState(GameState::MENU);
+            if(pressed == controls["Pause"]){
+                if(GameState::GetPrev() == GameState::MENU){
+                    state.SetState(GameState::MENU);
+                }
+                else{
+                    state.SetState(GameState::PAUSE);
+                }
+            }
+            // FIXME: Connect to save functionality, replace with
+            else if(pressed == Keyboard::Return){
+                state.SetState(GameState::PLAY);
             }
         }
     }
 }
 
 void SaveMenu::Draw(RenderWindow &window){
+    window.draw(backgroundSprite);
     window.draw(menuSprite);
 }
 

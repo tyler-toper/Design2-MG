@@ -21,6 +21,9 @@ private:
     Texture menu;
     Sprite menuSprite;
 
+    Texture background;
+    Sprite backgroundSprite;
+
     SoundBuffer moveBuffer;
     Sound moveSound;
     SoundBuffer errorBuffer;

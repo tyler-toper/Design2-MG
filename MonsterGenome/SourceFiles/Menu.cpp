@@ -71,7 +71,7 @@ void Menu::PollMenu(RenderWindow &window, GameState &state) {
                 confirmSound.play();
                 if (selected == 0) {
                     state.SetState(GameState::SAVE);
-                    state.SetPlaying(true);
+                    //state.SetPlaying(true);
                 }
                 else if (selected == 1) {
                     state.SetState(GameState::SETTINGS);

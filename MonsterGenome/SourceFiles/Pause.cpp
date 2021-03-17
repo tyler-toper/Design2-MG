@@ -77,7 +77,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
                     state.Resume();
                 }
                 else if(selected == 1){
-                    // TODO: Connect save system
+                    state.SetState(GameState::SAVE);
                 }
                 else if(selected == 2){
                     // TODO: Connect load system
@@ -86,7 +86,6 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
                     state.SetState(GameState::SETTINGS);
                 }
                 else if(selected == 4){
-                    state.SetPlaying(false);
                     state.SetState(GameState::MENU);
                 }
             }

@@ -51,6 +51,7 @@ void openWindow(RenderWindow &window){
 
         }
         else if(state.GetState() == GameState::MENU){
+            state.SetPlaying(false);
             menu.PollMenu(window, state);
             menu.Draw(window);
 

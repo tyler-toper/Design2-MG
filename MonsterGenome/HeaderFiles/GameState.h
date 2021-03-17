@@ -9,7 +9,8 @@ public:
     State state;
 
     GameState();
-    State GetState();
+    State GetState() const;
+    static State GetPrev();
     void SetState(State NewState);
     bool IsPlaying() const;
     void SetPlaying(bool cond);
