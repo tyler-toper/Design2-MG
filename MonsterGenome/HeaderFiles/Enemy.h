@@ -8,7 +8,7 @@
 using namespace sf;
 
 class Enemy : public Character{
-private:
+protected:
     int ID;
     int xpDrop;
     float actionstime = 0;
@@ -23,20 +23,28 @@ private:
 
     class StandingState : public EnemyState {
     public:
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        void update(Enemy& ene);
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        virtual void update(Enemy& ene);
     };
 
     class JumpingState : public EnemyState {
     public:
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        void update(Enemy& ene);
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        virtual void update(Enemy& ene);
     };
     EnemyState* state_;
 public:
 
     Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
-    void updatePosition(Time& time, RenderWindow& window, View &playerView);
-    void setAnimation();
     void checkMeleeHit();
+    virtual void setAnimation() = 0;
+    virtual void updatePosition(Time& time, RenderWindow& window, View &playerView);
+};
+
+/// Fighter
+class Fighter : public Enemy {
+public:
+
+    Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
+    void setAnimation();
 };

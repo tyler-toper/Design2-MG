@@ -3,7 +3,6 @@ using namespace std;
 using namespace sf;
 
 /// Enemy Functions
-
 Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, true) {
     int ID = 0;
     int xpDrop = 100;
@@ -23,45 +22,13 @@ void Enemy::checkMeleeHit(){
         }
     }
 }
-void Enemy::setAnimation(){
-    bool noaction = true;
-    if(timepass <= 0){
-        if(actions[5] || this->punch){
-            this->punch = true;
-            noaction = false;
-            mAnimation();
-        }
-        else{
-            if(actions[0] || actions[1]){
-                hAnimation();
-                noaction = false;
-            }
-            if(actions[2] & !jumping){
-                noaction = false;
-            }
-            //Unfinsihed, will be ducking or something
-            if(actions[3]){
-                //noaction = false;
-            }
-            //Attacking
-            if(actions[4]){
-                //noaction = false;
-            }
-        }
-        timepass = .1;
-        if(noaction){
-            sprite.setTextureRect(IntRect(57, 11, 50, 60));
-        }
-    }
-    flip(sprite);
-}
 
 void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     this->atk = false;
 
     float time = timein.asSeconds();
     actionstime -= time;
-    actions[2] = 0;
+//    actions[2] = 0;
     if(actionstime <= 0){
         actions.clear();
         for(int i = 0; i < 6; i++){
@@ -87,7 +54,7 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     setAnimation();
 }
 
-// Enemy States
+/// Enemy States
 // Standing
 void Enemy::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
     float time = timein.asSeconds();
@@ -149,4 +116,50 @@ void Enemy::JumpingState::update(Enemy& ene) {
             }
         }
     }
+}
+
+/// Fighter
+Fighter::Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Enemy(borders, proj, actors, spawnX, spawnY) {
+    int ID = 0;
+    int xpDrop = 100;
+
+    // TODO: Determine what is necessary
+    state_ = new StandingState();
+    text.loadFromFile("../Images/animation2.png");
+    sprite.setTexture(text);
+    sprite.setPosition(Vector2f(spawnX, spawnY));
+    sprite.setTextureRect(IntRect(57, 11, 50, 60));
+}
+
+void Fighter::setAnimation(){
+    bool noaction = true;
+    if(timepass <= 0){
+        if(actions[5] || this->punch){
+            this->punch = true;
+            noaction = false;
+            mAnimation();
+        }
+        else{
+            if(actions[0] || actions[1]){
+                hAnimation();
+                noaction = false;
+            }
+            if(actions[2] & !jumping){
+                noaction = false;
+            }
+            //Unfinsihed, will be ducking or something
+            if(actions[3]){
+                //noaction = false;
+            }
+            //Attacking
+            if(actions[4]){
+                //noaction = false;
+            }
+        }
+        timepass = .1;
+        if(noaction){
+            sprite.setTextureRect(IntRect(57, 11, 50, 60));
+        }
+    }
+    flip(sprite);
 }
