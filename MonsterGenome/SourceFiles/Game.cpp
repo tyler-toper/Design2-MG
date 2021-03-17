@@ -45,7 +45,6 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View & p
             players[i]->updatePosition(borders, projs, players, time, window);
 
         }
-        players[0]->renderWeapon(window, playerView);
 
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
@@ -79,6 +78,9 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         for (int i = 0; i < players.size(); i++) {
             window.draw(players[i]->getSprite());
         }
+
+        players[0]->equipWeapon(window, playerView);
+        players[0]->animWeapon(window, playerView);
 
         mapView.setCenter(players[0]->getSprite().getPosition().x, players[0]->getSprite().getPosition().y - 200);
         mapView.setSize(window.getSize().x * .25f, window.getSize().y * 0.25f);

@@ -30,6 +30,13 @@ class Character{
         Sprite sprite;
         int experience;
 
+        bool equipSw = false;
+        int swToggle = 0;
+        bool equipPis = false;
+        int pisToggle = 0;
+        Texture testerText;
+
+
         Inventory* inventory;
         Sword* sword;
         Pistol* pistol;
@@ -60,8 +67,8 @@ class Character{
     bool getAttack();
     bool getEnemy();
     int getHealth();
-    void renderWeapon(RenderWindow& window, View &playerView);
-    void updateWeapon(RenderWindow& window, View& playerView);
+    void equipWeapon(RenderWindow& window, View &playerView);
+    void animWeapon(RenderWindow& window, View& playerView);
 };
 
 class Hero : public Character {

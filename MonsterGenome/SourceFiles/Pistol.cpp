@@ -18,36 +18,32 @@ Pistol* Pistol::clone() {
 
 
 void Pistol::renderRight(RenderWindow& window, View &playerView){
-
     Vector2f sw = playerView.getCenter();
+    weapSprite.setPosition(sw.x + 20.f, sw.y + 48.f);
+    if(flipped && first!=0){
+        weapSprite.scale(-1.f, 1.f);
+        flipped = false;
+    }
+    if(first==0){
+        first++;
+    }
 
-    weapSprite.setPosition(sw.x + 15.f, sw.y + 50.f);
     window.draw(weapSprite);
 
 }
 
 void Pistol::renderLeft(RenderWindow& window, View &playerView){
-
     Vector2f sw = playerView.getCenter();
+    weapSprite.setPosition(sw.x + -20.f, sw.y + 48.f);
+    if(!flipped){
+        weapSprite.scale(-1.f, 1.f);
+    }
+    flipped = true;
 
-    weapSprite.scale(-1.f, 1.f);
-    weapSprite.setPosition(sw.x + -15.f, sw.y + 50.f);
     window.draw(weapSprite);
 }
 
 
-void Pistol::update(RenderWindow& window, View &playerView){/*
-    Vector2f sw = playerView.getCenter();
-    if(faceright) {
-        weapSprite.setPosition(sw.x + 20.f, sw.y + 45.f);
-        window.draw(weapSprite);
+void Pistol::update(RenderWindow& window, View &playerView){
 
-    }
-    else if(!faceright){
-        //weapSprite.setOrigin({ weapSprite.getGlobalBounds().width/2.0f, 0});
-        weapSprite.scale(-1.f, 1.f);
-        weapSprite.setPosition(sw.x + -20.f, sw.y + 45.f);
-        window.draw(weapSprite);
-    }*/
 }
-

@@ -34,13 +34,12 @@ using namespace sf;
         cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
         this->inventory->add(this->sword);
         this->inventory->add(this->pistol);
-        this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
+        //this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
 
         cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
         this->inventory->remove(0);
         this->inventory->remove(0);
         cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
-
 
 
     }
@@ -275,55 +274,82 @@ using namespace sf;
         flip(sprite);
     }
 
-    void Character::renderWeapon(RenderWindow& window, View &playerView){
-        /*
-    window.setKeyRepeatEnabled(false);
-
-    Event event;
-        while(window.pollEvent(event)){
-            if(event.type == Event::KeyPressed){
-                if(event.key.code == Keyboard::C){
-                    cout << "keyboard c pressed" << endl;
-                    if(faceright){
-                        cout << faceright << endl;
-                        sword.renderRight(window, playerView);
-                    }
-                    else if(!faceright){
-                        cout << faceright << endl;
-
-                        sword.renderLeft(window, playerView);
-                    }
+    void Character::equipWeapon(RenderWindow& window, View &playerView){
+        //Sword
+        //first time equipping
+        if(!equipSw && !swToggle){
+            if (Keyboard::isKeyPressed(Keyboard::C)) {
+                //cout << faceright << endl;
+                if (faceright) {
+                    sword->renderRight(window, playerView);
+                } else if (!faceright) {
+                    sword->renderLeft(window, playerView);
+                }
+                equipSw = true;
+                swToggle = 1;
                 }
             }
-        }*/
 
-        if(Keyboard::isKeyPressed(Keyboard::C)){
-            cout << faceright << endl;
+        //keep rendering while equipped
+        else if(equipSw && swToggle){
+            //cout << faceright << endl;
 
-            if(faceright){
+            if (faceright) {
                 sword->renderRight(window, playerView);
-            }
-            else if(!faceright){
+            } else if (!faceright) {
                 sword->renderLeft(window, playerView);
             }
 
+            if(Keyboard::isKeyPressed(Keyboard::C)){
+                swToggle = 0;
+            }
         }
 
-        if(Keyboard::isKeyPressed(Keyboard::V)){
-            cout << faceright << endl;
-/*
-            Pistol pistol = Pistol("../../Assets/WeaponTextures/pistol.png");
-*/
+        //unequip
+        else if(equipSw && !swToggle){
+            //cout << faceright << endl;
+            equipSw = false;
+        }
 
-            if(faceright){
-                pistol->renderRight(window, playerView);
+        //Pistol
+        if(!equipPis && !pisToggle){
+            if (Keyboard::isKeyPressed(Keyboard::V)) {
+                //cout << faceright << endl;
+                if (faceright) {
+                    pistol->renderRight(window, playerView);
+                } else if (!faceright) {
+                    pistol->renderLeft(window, playerView);
+                }
+                equipPis = true;
+                pisToggle = 1;
             }
-            else if(!faceright){
+        }
+
+        else if(equipPis && pisToggle){
+            //cout << faceright << endl;
+
+            if (faceright) {
+                pistol->renderRight(window, playerView);
+            } else if (!faceright) {
                 pistol->renderLeft(window, playerView);
             }
+
+            if(Keyboard::isKeyPressed(Keyboard::V)){
+                pisToggle = 0;
+            }
+        }
+
+        else if(equipPis && !pisToggle){
+            equipPis = false;
         }
 
     }
+
+    void Character::animWeapon(RenderWindow &window, View &playerView) {
+
+    }
+
+
     void Hero::updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window){
         this->atk = false;
         //Gravity and collision when jumpin

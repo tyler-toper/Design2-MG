@@ -18,50 +18,38 @@ Sword* Sword::clone() {
     return new Sword(*this);
 }
 
+
 void Sword::renderRight(RenderWindow& window, View &playerView){
 
     Vector2f sw = playerView.getCenter();
-    cout << sw.x << "and " << sw.y << endl;
-    weapSprite.setPosition(sw.x + 20.f, sw.y + 45.f);
-    window.draw(weapSprite);
+    weapSprite.setPosition(sw.x + 20.f, sw.y + 48.f);
+    if(flipped && first!=0){
+        weapSprite.scale(-1.f, 1.f);
+        flipped = false;
+    }
+    if(first==0){
+        first++;
+    }
 
+    window.draw(weapSprite);
+    //cout << "renderRight flipped : " << flipped << endl;
 }
 
 void Sword::renderLeft(RenderWindow& window, View &playerView){
-
     Vector2f sw = playerView.getCenter();
-    weapSprite.setPosition(sw.x + -20.f, sw.y + 45.f);
+    weapSprite.setPosition(sw.x + -20.f, sw.y + 48.f);
+    if(!flipped){
+        weapSprite.scale(-1.f, 1.f);
+    }
+    flipped = true;
 
-    weapSprite.scale(-1.f, 1.f);
     window.draw(weapSprite);
+    //cout << "renderLeft flipped : " << flipped << endl;
+
 }
 
 
 void Sword::update(RenderWindow& window, View &playerView){
-/*    Vector2f sw = playerView.getCenter();
-    weapSprite.setPosition(sw.x + 20.f, sw.y + 45.f);*/
-
 
 }
 
-/*void Sword::updateRight(RenderWindow& window, View &playerView){
-    Vector2f sw = playerView.getCenter();
-        weapSprite.setPosition(sw.x + 20.f, sw.y + 45.f);
-
-}
-
-void Sword::updateLeft(RenderWindow& window, View &playerView){
-    Vector2f sw = playerView.getCenter();
-
-        weapSprite.scale(-1.f, 1.f);
-        weapSprite.setPosition(sw.x + -20.f, sw.y + 45.f);
-}*/
-
-void Sword::render(RenderWindow& window, View &playerView){
-
-    //Vector2f sw = playerView.getCenter();
-
-    //weapSprite.setPosition(sw.x + 20.f, sw.y + 45.f);
-    window.draw(weapSprite);
-
-}

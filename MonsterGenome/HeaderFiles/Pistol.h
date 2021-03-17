@@ -7,7 +7,8 @@ class RangedWeapon;
 
 class Pistol: public RangedWeapon {
 private:
-
+    bool flipped = false;
+    int first = 0;
 public:
     Pistol(unsigned level, string textureFile);
     virtual ~Pistol();

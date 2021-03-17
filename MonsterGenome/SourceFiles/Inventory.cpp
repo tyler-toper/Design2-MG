@@ -67,6 +67,7 @@ const bool Inventory::remove(const unsigned int index) {
         --this->numItems;
         return true;
     }
+    return false;
 }
 
 const bool Inventory::saveFile(const string fileName) {
