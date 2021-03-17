@@ -37,14 +37,13 @@ public:
 
     Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
     void checkMeleeHit();
-    virtual void setAnimation() = 0;
+    virtual void setAnimation(string animation) = 0;
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView);
 };
 
 /// Fighter
 class Fighter : public Enemy {
 public:
-
     Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
-    void setAnimation();
+    void setAnimation(string animation);
 };

@@ -48,6 +48,7 @@ protected:
     // Private Functions
     int aboveBelow(Sprite& first, Sprite& second);
     int rightLeft(Sprite& first, Sprite& second);
+    bool isAnyKeyPressed(std::map<std::string, sf::Keyboard::Key>* controlMapping);
 public:
     // Constructors
     Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene);
@@ -64,7 +65,7 @@ public:
     virtual void checkMeleeHit();
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
     void attack(vector<Projectile*>* borders, Vector2f loc);
-    virtual void setAnimation() = 0;
+    virtual void setAnimation(string animation) = 0;
     void flip(Sprite& sprite);
     void hAnimation();
     void mAnimation();
@@ -99,7 +100,7 @@ public:
     // Constructor
     Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
     // Setters
-    void setAnimation();
+    void setAnimation(string animation);
     // Getters
     // Mutators
     void updatePosition(Time& timein, RenderWindow& window, View &playerView);

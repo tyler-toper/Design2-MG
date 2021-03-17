@@ -14,7 +14,7 @@ Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Char
     sprite.setTextureRect(IntRect(57, 11, 50, 60));
 }
 
-
+// TODO: Add param to change health lost
 void Enemy::checkMeleeHit(){
     if((actors[0][0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][0]->getSprite().getGlobalBounds())){
         if(actors[0][0]->getAttack()){
@@ -51,7 +51,6 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     checkCollison();
     checkProjectile();
     checkMeleeHit();
-    setAnimation();
 }
 
 /// Enemy States
@@ -63,22 +62,26 @@ void Enemy::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow& w
     if(ene.actions[0]){
         ene.faceright = false;
         ene.sprite.move(Vector2f(-1.f * ene.horizontalvel * time, 0));
+        ene.setAnimation("left");
     }
     else if(ene.actions[1]){
         ene.faceright = true;
         ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
+        ene.setAnimation("right");
     }
     if(ene.actions[2]){
         ene.jump();
         ene.sprite.move(Vector2f(0, ene.jumpvel * time));
+        ene.setAnimation("still"); //Change with animation
     }
     //Unfinsihed, will be ducking or something
     if(ene.actions[3]){
-
+        ene.setAnimation("still"); //CHange with animation
     }
     //Attacking
     if(ene.actions[4]){
         //attack(proj, Mouse::getPosition(window));
+        ene.setAnimation("still"); //Change with animation
     }
 }
 
@@ -97,10 +100,15 @@ void Enemy::JumpingState::handleInput(Enemy& ene, Time& timein, RenderWindow& wi
     if(ene.actions[0]){
         ene.faceright = false;
         ene.sprite.move(Vector2f(-1.f * ene.horizontalvel * time, 0));
+        ene.setAnimation("left");
     }
     else if(ene.actions[1]){
         ene.faceright = true;
         ene.sprite.move(Vector2f(ene.horizontalvel * time, 0));
+        ene.setAnimation("right");
+    }
+    else{
+        ene.setAnimation("still");
     }
 }
 
@@ -131,33 +139,32 @@ Fighter::Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<
     sprite.setTextureRect(IntRect(57, 11, 50, 60));
 }
 
-void Fighter::setAnimation(){
-    bool noaction = true;
+void Fighter::setAnimation(string animation){
     if(timepass <= 0){
-        if(actions[5] || this->punch){
+        // TODO: Add Control binding?
+        if(animation == "melee"){
             this->punch = true;
-            noaction = false;
             mAnimation();
         }
         else{
-            if(actions[0] || actions[1]){
+            if(animation == "left" || animation == "right"){
                 hAnimation();
-                noaction = false;
             }
-            if(actions[2] & !jumping){
-                noaction = false;
+            if(animation == "jump"){
+
             }
             //Unfinsihed, will be ducking or something
-            if(actions[3]){
-                //noaction = false;
+            if(animation == "crouch"){
+
             }
             //Attacking
-            if(actions[4]){
-                //noaction = false;
+            if(animation == "ranged"){
+
             }
         }
+
         timepass = .1;
-        if(noaction){
+        if(animation == "still"){
             sprite.setTextureRect(IntRect(57, 11, 50, 60));
         }
     }
