@@ -277,20 +277,15 @@ using namespace sf;
     void Character::equipWeapon(RenderWindow& window, View &playerView){
         //Sword
         //first time equipping
-        if(!equipSw && !swToggle){
-            if (Keyboard::isKeyPressed(Keyboard::C)) {
+        /*if(!equipSw && !swToggle){*/
+            if (Keyboard::isKeyPressed(Keyboard::C) || equipSw) {
                 //cout << faceright << endl;
-                if (faceright) {
-                    sword->renderRight(window, playerView);
-                } else if (!faceright) {
-                    sword->renderLeft(window, playerView);
-                }
                 equipSw = true;
-                swToggle = 1;
+                //swToggle = 1;
                 }
-            }
+           // }
 
-        //keep rendering while equipped
+        /*//keep rendering while equipped
         else if(equipSw && swToggle){
             //cout << faceright << endl;
 
@@ -309,23 +304,18 @@ using namespace sf;
         else if(equipSw && !swToggle){
             //cout << faceright << endl;
             equipSw = false;
-        }
+        }*/
 
         //Pistol
-        if(!equipPis && !pisToggle){
-            if (Keyboard::isKeyPressed(Keyboard::V)) {
+        /*if(!equipPis && !pisToggle){*/
+            if (Keyboard::isKeyPressed(Keyboard::V) || equipPis) {
                 //cout << faceright << endl;
-                if (faceright) {
-                    pistol->renderRight(window, playerView);
-                } else if (!faceright) {
-                    pistol->renderLeft(window, playerView);
-                }
                 equipPis = true;
-                pisToggle = 1;
+                //pisToggle = 1;
             }
-        }
+        //}
 
-        else if(equipPis && pisToggle){
+        /*else if(equipPis && pisToggle){
             //cout << faceright << endl;
 
             if (faceright) {
@@ -341,6 +331,26 @@ using namespace sf;
 
         else if(equipPis && !pisToggle){
             equipPis = false;
+        }*/
+
+        if (Keyboard::isKeyPressed(Keyboard::X)) {
+                equipPis = false;
+                equipSw = false;
+            }
+        
+        if(equipSw){
+            if (faceright) {
+                    sword->renderRight(window, playerView);
+                } else if (!faceright) {
+                    sword->renderLeft(window, playerView);
+                }
+        }
+        else if(equipPis){
+            if (faceright) {
+                    pistol->renderRight(window, playerView);
+                } else if (!faceright) {
+                    pistol->renderLeft(window, playerView);
+                }
         }
 
     }
