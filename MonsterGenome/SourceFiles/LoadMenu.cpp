@@ -1,7 +1,6 @@
-#include "../HeaderFiles/SaveMenu.h"
+#include "../HeaderFiles/LoadMenu.h"
 
-
-SaveMenu::SaveMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping){
+loadMenu::loadMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping){
     this->controlMapping = controlMapping;
     selected = 0;
 
@@ -25,7 +24,7 @@ SaveMenu::SaveMenu(float width, float height, std::map<std::string, sf::Keyboard
 
 }
 
-void SaveMenu::PollMenu(RenderWindow &window, GameState &state){
+void loadMenu::PollMenu(RenderWindow &window, GameState &state){
     Event event;
     while(window.pollEvent(event)){
         if(event.type == Event::Closed){
@@ -36,35 +35,31 @@ void SaveMenu::PollMenu(RenderWindow &window, GameState &state){
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
-                state.SetState(GameState::PAUSE);
+                if(GameState::GetPrev() == GameState::MENU){
+                    state.SetState(GameState::MENU);
+                }
+                else{
+                    state.SetState(GameState::PAUSE);
+                }
             }
-            // FIXME: Connect to save functionality. Stay on screen or return to pause screen?
+            // FIXME: Connect to load functionality
             else if(pressed == Keyboard::Return){
-                cout << "Save" << endl;
+                state.SetState(GameState::LVL1);
+                state.SetPlaying(true);
             }
         }
     }
 }
 
-void SaveMenu::Draw(RenderWindow &window){
+void loadMenu::Draw(RenderWindow &window){
     window.draw(backgroundSprite);
     window.draw(menuSprite);
-    // TODO: Get rid of below when implementing save screen
-    Font font;
-    font.loadFromFile("../../Assets/Fonts/PixelFont.ttf");
-    Text text;
-    text.setString("THIS IS SAVING!!!");
-    text.setFont(font);
-    text.setFillColor(Color::Blue);
-    text.setCharacterSize(100);
-    text.setPosition(0, 0);
-    window.draw(text);
 }
 
-void SaveMenu::MoveUp(){
+void loadMenu::MoveUp(){
 
 }
 
-void SaveMenu::MoveDown(){
+void loadMenu::MoveDown(){
 
 }

@@ -61,7 +61,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
-                state.SetState(GameState::PLAY);
+                state.SetState(GameState::LVL1);
                 state.Resume();
             }
             if (pressed == controls["Jump"]) {
@@ -73,14 +73,14 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
             if(pressed == Keyboard::Return){
                 confirmSound.play();
                 if(selected == 0){
-                    state.SetState(GameState::PLAY);
+                    state.SetState(GameState::LVL1);
                     state.Resume();
                 }
                 else if(selected == 1){
                     state.SetState(GameState::SAVE);
                 }
                 else if(selected == 2){
-                    // TODO: Connect load system
+                    state.SetState(GameState::LOAD);
                 }
                 else if(selected == 3){
                     state.SetState(GameState::SETTINGS);

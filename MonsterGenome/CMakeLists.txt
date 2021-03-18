@@ -39,7 +39,7 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/HeroMod.cpp
         HeaderFiles/HeroMod.h
         SourceFiles/SaveMenu.cpp
-        HeaderFiles/SaveMenu.h)
+        HeaderFiles/SaveMenu.h SourceFiles/LoadMenu.cpp HeaderFiles/LoadMenu.h)
 
 # SFML
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
