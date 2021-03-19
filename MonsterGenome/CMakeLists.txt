@@ -40,8 +40,12 @@ add_executable(MonsterGenome main.cpp
         HeaderFiles/HeroMod.h
         SourceFiles/Enemy.cpp
         HeaderFiles/Enemy.h
-        )
+        SourceFiles/StartMenu.cpp
+        HeaderFiles/StartMenu.h
+        SourceFiles/SaveLoadMenu.cpp
+        HeaderFiles/SaveLoadMenu.h)
 
+# SFML
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
   
 set(SFML_ROOT "../Dependencies/SFML-2.5.1")
