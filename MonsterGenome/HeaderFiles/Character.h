@@ -63,6 +63,7 @@ public:
     float getJumpVel();
     // Setters
     void setFaceright(bool newFaceright);
+
     // Mutators
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);

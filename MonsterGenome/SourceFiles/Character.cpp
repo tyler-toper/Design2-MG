@@ -1,6 +1,7 @@
 #include "../HeaderFiles/Character.h"
 using namespace std;
 using namespace sf;
+
     /// Character Functions
     // Private Functions
     int Character::rightLeft(Sprite& first, Sprite& second){
