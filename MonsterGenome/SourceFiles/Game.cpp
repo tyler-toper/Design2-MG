@@ -124,7 +124,7 @@ void Game::LoadLevel(int lvl){
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character *tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){
