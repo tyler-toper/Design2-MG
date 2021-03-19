@@ -25,6 +25,7 @@ vector<int> Enemy::getActions() {
 
 // Setters
 void Enemy::setState(Enemy::EnemyState* newState) {
+    // TODO: Should this delete the old state?
     state_ = newState;
 }
 
@@ -152,10 +153,10 @@ void Fighter::StandingState::update(Enemy& ene) {
     if (actions[2]) {
         Enemy::EnemyState *temp = ene.getState();
         ene.setState(new JumpingState());
-//        ene.state_ = new JumpingState();
         delete temp;
     }
 }
+
 // Jumping
 void Fighter::JumpingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
     float time = timein.asSeconds();
@@ -177,6 +178,124 @@ void Fighter::JumpingState::handleInput(Enemy& ene, Time& timein, RenderWindow& 
 }
 
 void Fighter::JumpingState::update(Enemy& ene) {
+    for(int i=0; i < ene.getBorders()->size(); i++){
+        if(ene.getSprite().getGlobalBounds().intersects(ene.getBorders()[0][i]->getSprite().getGlobalBounds())){
+            if(ene.getBorders()[0][i]->getName() == "nogo" || ene.getBorders()[0][i]->getName() == "M"){
+                if(ene.aboveBelow(ene.getSprite(), ene.getBorders()[0][i]->getSprite()) == 1){
+                    Enemy::EnemyState *temp = ene.getState();
+                    ene.setState(new StandingState());
+                    delete temp;
+                }
+            }
+        }
+    }
+}
+
+/// Wanderer
+Wanderer::Wanderer(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Enemy(borders, proj, actors, spawnX, spawnY) {
+    int ID = 0;
+    int xpDrop = 100;
+
+    // TODO: Determine what is necessary
+    state_ = new StandingState();
+    text.loadFromFile("../Images/animation2.png");
+    sprite.setTexture(text);
+    sprite.setPosition(Vector2f(spawnX, spawnY));
+    sprite.setTextureRect(IntRect(57, 11, 50, 60));
+}
+
+void Wanderer::setAnimation(string animation){
+    // TODO: Clean up and remove unneeded animations or make part of enemy class
+    if(timepass <= 0){
+        if(animation == "melee"){
+            this->punch = true;
+            mAnimation();
+        }
+        else{
+            if(animation == "left" || animation == "right"){
+                hAnimation();
+            }
+            if(animation == "jump"){
+
+            }
+            //Unfinsihed, will be ducking or something
+            if(animation == "crouch"){
+
+            }
+            //Attacking
+            if(animation == "ranged"){
+
+            }
+        }
+        timepass = .1;
+        if(animation == "still"){
+            sprite.setTextureRect(IntRect(57, 11, 50, 60));
+        }
+    }
+    flip(sprite);
+}
+
+void Wanderer::setActions(float time) {
+    // TODO: Make hitting a wall change direction!
+    if(faceright) {
+        actions[0] = 0;
+        actions[1] = 1;
+    }
+    else {
+        actions[0] = 1;
+        actions[1] = 0;
+    }
+}
+
+/// Wanderer States
+// Standing
+void Wanderer::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
+    float time = timein.asSeconds();
+    vector<int> actions = ene.getActions();
+    // Moving Left and Right with Collision
+    if(actions[0]){
+        ene.setFaceright(false);
+        ene.getSprite().move(Vector2f(-1.f * ene.getHorizontalVel() * time, 0));
+        ene.setAnimation("left");
+    }
+    else if(actions[1]){
+        ene.setFaceright(true);
+        ene.getSprite().move(Vector2f(ene.getHorizontalVel() * time, 0));
+        ene.setAnimation("right");
+    }
+}
+
+void Wanderer::StandingState::update(Enemy& ene) {
+    vector<int> actions = ene.getActions();
+    // Make this falling
+    if (actions[2]) {
+        Enemy::EnemyState *temp = ene.getState();
+        ene.setState(new JumpingState());
+        delete temp;
+    }
+}
+
+// Jumping
+void Wanderer::JumpingState::handleInput(Enemy& ene, Time& timein, RenderWindow& window) {
+    float time = timein.asSeconds();
+    vector<int> actions = ene.getActions();
+    //Moving Left and Right with Collision
+    if(actions[0]){
+        ene.setFaceright(false);
+        ene.getSprite().move(Vector2f(-1.f * ene.getHorizontalVel() * time, 0));
+        ene.setAnimation("left");
+    }
+    else if(actions[1]){
+        ene.setFaceright(true);
+        ene.getSprite().move(Vector2f(ene.getHorizontalVel() * time, 0));
+        ene.setAnimation("right");
+    }
+    else{
+        ene.setAnimation("still");
+    }
+}
+
+void Wanderer::JumpingState::update(Enemy& ene) {
     for(int i=0; i < ene.getBorders()->size(); i++){
         if(ene.getSprite().getGlobalBounds().intersects(ene.getBorders()[0][i]->getSprite().getGlobalBounds())){
             if(ene.getBorders()[0][i]->getName() == "nogo" || ene.getBorders()[0][i]->getName() == "M"){

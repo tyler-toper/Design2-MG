@@ -7,7 +7,7 @@
 #include "Character.h"
 using namespace sf;
 
-class Enemy : public Character{
+class Enemy : public Character {
 protected:
     int ID;
     int xpDrop;
@@ -46,19 +46,48 @@ public:
 };
 
 /// Fighter
+// Shoots at player and runs around
 class Fighter : public Enemy {
 public:
+    // Constructors
     Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
+    // Setters
     void setAnimation(string animation);
+    // Mutators
     void setActions(float time);
+
+    // States
     struct StandingState : public Enemy::StandingState {
         void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
         void update(Enemy& ene);
     };
-
     struct JumpingState : public Enemy::JumpingState {
         void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
         void update(Enemy& ene);
     };
+
+};
+
+/// Wanderer
+// Wanders back and forth like a goomba
+class Wanderer : public Enemy {
+public:
+    // Constructors
+    Wanderer(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
+    // Setters
+    void setAnimation(string animation);
+    // Mutators
+    void setActions(float time);
+
+    // States
+    struct StandingState : public Enemy::StandingState {
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void update(Enemy& ene);
+    };
+    struct JumpingState : public Enemy::JumpingState {
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void update(Enemy& ene);
+    };
+
 
 };
