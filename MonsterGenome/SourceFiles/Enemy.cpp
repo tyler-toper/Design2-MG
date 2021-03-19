@@ -143,7 +143,6 @@ void Fighter::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow&
     }
     //Attacking
     if(actions[4]){
-        //attack(proj, Mouse::getPosition(window));
         ene.setAnimation("still"); //Change with animation
     }
 }
