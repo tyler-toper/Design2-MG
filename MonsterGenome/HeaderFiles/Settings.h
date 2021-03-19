@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <vector>
@@ -26,7 +27,7 @@ private:
     Text title;
     Text directions;
 
-    bool EnterPressed;
+    bool selectPressed;
     float width;
     float height;
 
@@ -37,13 +38,24 @@ private:
     // Name of action
     vector<string> function;
     // Default keys
-    vector<string> defaults;
+    std::vector<sf::Keyboard::Key> defaults;
     // User selected keys
-    vector<string> control;
+    std::vector<sf::Keyboard::Key> control;
+    // The key mapping
+    std::map<std::string, sf::Keyboard::Key> controlMapping;
 
     void LoadControls();
     void Save();
     void ResetControls();
+    std::string ConvertControls(sf::Keyboard::Key key);
+    void UpdateControls();
+
+    SoundBuffer moveBuffer;
+    Sound moveSound;
+    SoundBuffer errorBuffer;
+    Sound errorSound;
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
 
 public:
     Settings(float width, float height);
@@ -51,6 +63,10 @@ public:
     void MoveUp();
     void MoveDown();
 
+    std::map<std::string, sf::Keyboard::Key>* GetControlMapping();
+
+    // HandleInput
+    // Takes in the raw keyboard input and converts it to relevant game text, like jump or left
     void PollMenu(RenderWindow &window, GameState &state);
 };
 
