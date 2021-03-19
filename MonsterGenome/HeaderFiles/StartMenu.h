@@ -11,18 +11,27 @@ using namespace std;
 using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
-#define MenuOptions 3
+#define StartMenuOptions 5
 
 class StartMenu{
 private:
     int selected;
+    int entered;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
+
+    int xValue;
+    int yValue[StartMenuOptions - 1];
 
     Texture menu;
     Sprite menuSprite;
-
     Texture background;
     Sprite backgroundSprite;
+    Texture startButton;
+    Sprite startButtonSprite;
+    Texture enteredBox;
+    Sprite enteredBoxSprite;
+    Texture selectedBox;
+    Sprite selectedBoxSprite;
 
     SoundBuffer moveBuffer;
     Sound moveSound;

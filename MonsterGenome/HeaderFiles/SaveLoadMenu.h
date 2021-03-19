@@ -11,7 +11,7 @@ using namespace std;
 using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
-#define MenuOptions 3
+#define SaveLoadOptions 3
 
 
 class SaveLoadMenu{
@@ -21,9 +21,16 @@ private:
 
     Texture menu;
     Sprite menuSprite;
-
     Texture background;
     Sprite backgroundSprite;
+    Texture saveButton;
+    Sprite saveButtonSprite;
+    Texture loadButton;
+    Sprite loadButtonSprite;
+    Texture enteredBox;
+    Sprite enteredBoxSprite;
+    Texture selectedBox;
+    Sprite selectedBoxSprite;
 
     SoundBuffer moveBuffer;
     Sound moveSound;

@@ -7,6 +7,20 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
     menu.loadFromFile("../../Assets/Backgrounds/SaveLoad/LoadMenu.png");
     menuSprite.setTexture(menu);
 
+    saveButton.loadFromFile("../../Assets/Backgrounds/SaveLoad/SaveButtonSelected.png");
+    saveButtonSprite.setTexture(saveButton);
+    saveButtonSprite.setPosition(500, 500);
+
+    loadButton.loadFromFile("../../Assets/Backgrounds/SaveLoad/LoadButtonSelected.png");
+    loadButtonSprite.setTexture(loadButton);
+    loadButtonSprite.setPosition(400, 400);
+
+    enteredBox.loadFromFile("../../Assets/Backgrounds/SaveBoxEntered.png");
+    enteredBoxSprite.setTexture(enteredBox);
+
+    selectedBox.loadFromFile("../../Assets/Backgrounds/SaveBoxSelected.png");
+    selectedBoxSprite.setTexture(selectedBox);
+
     background.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
     backgroundSprite.setTexture(background);
 
