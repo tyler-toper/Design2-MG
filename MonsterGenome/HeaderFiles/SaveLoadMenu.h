@@ -17,7 +17,11 @@ using namespace sf;
 class SaveLoadMenu{
 private:
     int selected;
+    int entered;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
+
+    int xValue;
+    int yValue[4];
 
     Texture menu;
     Sprite menuSprite;
@@ -46,6 +50,7 @@ public:
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
-
+    void MoveRight();
+    void MoveLeft();
 
 };

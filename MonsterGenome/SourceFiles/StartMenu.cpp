@@ -4,7 +4,7 @@
 StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping){
     this->controlMapping = controlMapping;
     selected = 0;
-    entered = 0;
+    entered = -1;
 
     xValue = 465;
     yValue[0] = 185;
@@ -67,13 +67,13 @@ void StartMenu::PollMenu(RenderWindow &window, GameState &state){
             }
             // FIXME: Connect to load functionality
             else if(pressed == Keyboard::Return){
-                // TODO: Check "selected" variable and set position for entered box
-                if(selected == 4){
+                if(selected == 4 && entered != -1){
                     state.SetState(GameState::LVL1);
                     state.SetPlaying(true);
                 }
                 else{
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
+                    entered = selected;
                 }
             }
         }
@@ -83,14 +83,14 @@ void StartMenu::PollMenu(RenderWindow &window, GameState &state){
 void StartMenu::Draw(RenderWindow &window){
     window.draw(backgroundSprite);
     window.draw(menuSprite);
-    window.draw(selectedBoxSprite);
 
     if(selected == 4){
         window.draw(startButtonSprite);
         // Draws off screen. The else condition can't prevent it from still drawing at selected = 3
-        selectedBoxSprite.setPosition(2000, 2000);
+        //selectedBoxSprite.setPosition(2000, 2000);
     }
     else{
+        window.draw(selectedBoxSprite);
         selectedBoxSprite.setPosition(xValue, yValue[selected]);
     }
     window.draw(enteredBoxSprite);
