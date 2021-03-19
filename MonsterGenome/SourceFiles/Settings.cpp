@@ -147,10 +147,12 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 if (pressed == controlMapping["Pause"] && state.IsPlaying()) {
                     Save();
                     state.SetState(GameState::PAUSE);
+                    Reset();
                 }
                 if (pressed == controlMapping["Pause"] && !state.IsPlaying()) {
                     Save();
                     state.SetState(GameState::MENU);
+                    Reset();
                 }
                 if (pressed == controlMapping["Jump"]) { MoveUp(); }
                 if (pressed == controlMapping["Crouch"]) { MoveDown(); }
@@ -268,4 +270,12 @@ void Settings::ResetControls() {
         control[i] = defaults[i];
         //UserControls[i].setString(control[i]);
     }
+}
+
+void Settings::Reset() {
+    UserControls[selected].setFillColor(Color::Yellow);
+    UserControls[selected].setStyle(Text::Regular);
+    selected = 0;
+    UserControls[selected].setFillColor(Color::Red);
+    UserControls[selected].setStyle(Text::Underlined);
 }

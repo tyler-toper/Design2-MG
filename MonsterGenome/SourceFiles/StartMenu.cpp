@@ -64,12 +64,21 @@ void StartMenu::PollMenu(RenderWindow &window, GameState &state){
 
             if(pressed == controls["Pause"]){
                 state.SetState(GameState::MENU);
+                Reset();
             }
             // FIXME: Connect to load functionality
             else if(pressed == Keyboard::Return){
-                if(selected == 4 && entered != -1){
-                    state.SetState(GameState::LVL1);
-                    state.SetPlaying(true);
+                if(selected == 4){
+                    if(entered != -1){
+                        state.SetState(GameState::LVL1);
+                        state.SetPlaying(true);
+                        Reset();
+                    }
+                    else{
+                        // TODO: Create a pop up error
+                        cout << "No save slot selected" << endl;
+                    }
+
                 }
                 else{
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
@@ -86,8 +95,6 @@ void StartMenu::Draw(RenderWindow &window){
 
     if(selected == 4){
         window.draw(startButtonSprite);
-        // Draws off screen. The else condition can't prevent it from still drawing at selected = 3
-        //selectedBoxSprite.setPosition(2000, 2000);
     }
     else{
         window.draw(selectedBoxSprite);
@@ -114,4 +121,10 @@ void StartMenu::MoveDown(){
     else{
         errorSound.play();
     }
+}
+
+void StartMenu::Reset() {
+    selected = 0;
+    entered = -1;
+    enteredBoxSprite.setPosition(2000, 2000);
 }

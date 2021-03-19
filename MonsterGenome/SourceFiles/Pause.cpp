@@ -62,6 +62,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
             if(pressed == controls["Pause"]){
                 state.SetState(GameState::LVL1);
                 state.Resume();
+                Reset();
             }
             if (pressed == controls["Jump"]) {
                 MoveUp();
@@ -129,4 +130,12 @@ void Pause::MoveUp(){
     else{
         errorSound.play();
     }
+}
+
+void Pause::Reset(){
+    text[selected].setFillColor(Color::Yellow);
+    text[selected].setStyle(Text::Regular);
+    selected = 0;
+    text[selected].setFillColor(Color::Red);
+    text[selected].setStyle(Text::Underlined);
 }

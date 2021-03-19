@@ -47,6 +47,5 @@ public:
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
-
-
+    void Reset();
 };

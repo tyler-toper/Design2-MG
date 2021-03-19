@@ -63,6 +63,7 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state){
                 else{
                     state.SetState(GameState::PAUSE);
                 }
+                Reset();
             }
             if(pressed == controls["Jump"]){
                 MoveUp();
@@ -76,13 +77,27 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state){
             if(pressed == controls["Move Left"]){
                 MoveLeft();
             }
-            // FIXME: Connect to load functionality. Stay on screen or return to pause screen?
+            // TODO: Connect to load functionality. Stay on screen or return to pause screen?
+            // TODO: Create a prompt that says successfully saved
+            // TODO: Create error pop up for invalid stuff
             else if(pressed == Keyboard::Return){
-                if(selected == 4 && entered != -1){
-                    cout << "Save" << endl;
+                if(selected == 4){
+                    if(entered != -1){
+                        cout << "No save slot selected" << endl;
+                    }
+                    else{
+                        cout << "Save" << endl;
+                    }
+
                 }
-                else if(selected == 5 && entered != -1){
-                    cout << "Load" << endl;
+                else if(selected == 5){
+                    if(entered != -1){
+                        cout << "No save slot selected" << endl;
+                    }
+                    else{
+                        cout << "Load" << endl;
+                    }
+
                 }
                 else{
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
@@ -154,4 +169,10 @@ void SaveLoadMenu::MoveLeft() {
     else{
         errorSound.play();
     }
+}
+
+void SaveLoadMenu::Reset() {
+    selected = 0;
+    entered = -1;
+    enteredBoxSprite.setPosition(2000, 2000);
 }

@@ -35,6 +35,6 @@ public:
     void MoveDown();
 
     void PollMenu(RenderWindow &window, GameState &state);
-
+    void Reset();
 };
 
