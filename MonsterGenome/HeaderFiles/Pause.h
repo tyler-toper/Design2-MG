@@ -10,7 +10,7 @@ using namespace std;
 using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
-#define PauseOptions 5
+#define PauseOptions 4
 
 class Pause {
 private:

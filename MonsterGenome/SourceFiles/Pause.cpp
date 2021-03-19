@@ -16,10 +16,9 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
     title.setPosition((width / 2) - titleOffset, 0);
 
     text[0].setString("Resume");
-    text[1].setString("Save");
-    text[2].setString("Load");
-    text[3].setString("Settings");
-    text[4].setString("Quit to Main Menu");
+    text[1].setString("Save / Load");
+    text[2].setString("Settings");
+    text[3].setString("Quit to Main Menu");
 
     for(int i = 0; i < PauseOptions; i++){
         text[i].setFont(font);
@@ -77,15 +76,12 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
                     state.Resume();
                 }
                 else if(selected == 1){
-                    state.SetState(GameState::SAVE);
+                    state.SetState(GameState::SAVELOAD);
                 }
                 else if(selected == 2){
-                    state.SetState(GameState::LOAD);
-                }
-                else if(selected == 3){
                     state.SetState(GameState::SETTINGS);
                 }
-                else if(selected == 4){
+                else if(selected == 3){
                     state.SetState(GameState::MENU);
                 }
             }

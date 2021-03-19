@@ -51,7 +51,7 @@ void AudioHandler::playMusic(){
             playSound.pause();
         }
 
-        if((state == GameState::PAUSE || state == GameState::SETTINGS || state == GameState::SAVE || state == GameState::LOAD) && prev != GameState::MENU){
+        if((state == GameState::PAUSE || state == GameState::SETTINGS || state == GameState::START || state == GameState::SAVELOAD) && prev != GameState::MENU){
             if(settingsSound.getStatus() != Sound::Status::Playing){
                 settingsSound.play();
             }

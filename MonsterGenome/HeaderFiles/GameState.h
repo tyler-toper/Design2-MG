@@ -5,7 +5,7 @@ private:
     bool playing;
     bool paused;
 public:
-    enum State {MENU, SETTINGS, PAUSE, SAVE, LOAD, LVL1};
+    enum State {MENU, SETTINGS, PAUSE, START, SAVELOAD, LVL1};
     State state;
 
     GameState();

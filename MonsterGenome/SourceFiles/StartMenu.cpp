@@ -1,10 +1,11 @@
-#include "../HeaderFiles/LoadMenu.h"
+#include "../HeaderFiles/StartMenu.h"
 
-loadMenu::loadMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping){
+
+StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping){
     this->controlMapping = controlMapping;
     selected = 0;
 
-    menu.loadFromFile("../../Assets/Backgrounds/SaveMenu.png");
+    menu.loadFromFile("../../Assets/Backgrounds/StartScreen/StartMenu.png");
     menuSprite.setTexture(menu);
 
     background.loadFromFile("../../Assets/Backgrounds/Temp Background.png");
@@ -24,7 +25,7 @@ loadMenu::loadMenu(float width, float height, std::map<std::string, sf::Keyboard
 
 }
 
-void loadMenu::PollMenu(RenderWindow &window, GameState &state){
+void StartMenu::PollMenu(RenderWindow &window, GameState &state){
     Event event;
     while(window.pollEvent(event)){
         if(event.type == Event::Closed){
@@ -35,31 +36,26 @@ void loadMenu::PollMenu(RenderWindow &window, GameState &state){
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
-                if(GameState::GetPrev() == GameState::MENU){
-                    state.SetState(GameState::MENU);
-                }
-                else{
-                    state.SetState(GameState::PAUSE);
-                }
+                state.SetState(GameState::MENU);
             }
             // FIXME: Connect to load functionality
             else if(pressed == Keyboard::Return){
                 state.SetState(GameState::LVL1);
-                state.SetPlaying(true);
+                //state.SetPlaying(true);
             }
         }
     }
 }
 
-void loadMenu::Draw(RenderWindow &window){
+void StartMenu::Draw(RenderWindow &window){
     window.draw(backgroundSprite);
     window.draw(menuSprite);
 }
 
-void loadMenu::MoveUp(){
+void StartMenu::MoveUp(){
 
 }
 
-void loadMenu::MoveDown(){
+void StartMenu::MoveDown(){
 
 }

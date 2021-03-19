@@ -10,8 +10,8 @@
 #include "HeaderFiles/Settings.h"
 #include "HeaderFiles/GameState.h"
 #include "HeaderFiles/AudioHandler.h"
-#include "HeaderFiles/SaveMenu.h"
-#include "HeaderFiles/LoadMenu.h"
+#include "HeaderFiles/StartMenu.h"
+#include "HeaderFiles/SaveLoadMenu.h"
 
 #define windowWidth 1024
 #define windowHeight 768
@@ -36,8 +36,8 @@ void openWindow(RenderWindow &window){
     // Add Settings Controls Pointer/Reference
     Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
     AudioHandler audioHandler;
-    SaveMenu saveMenu(windowWidth, windowHeight, settings.GetControlMapping());
-    loadMenu loadMenu(windowWidth, windowHeight, settings.GetControlMapping());
+    StartMenu startMenu(windowWidth, windowHeight, settings.GetControlMapping());
+    SaveLoadMenu SLMenu(windowWidth, windowHeight, settings.GetControlMapping());
 
 
     // Main game loop. While the window is open
@@ -70,13 +70,13 @@ void openWindow(RenderWindow &window){
             settings.PollMenu(window, state);
             settings.Draw(window);
         }
-        else if(state.GetState() == GameState::SAVE){
-            saveMenu.PollMenu(window, state);
-            saveMenu.Draw(window);
+        else if(state.GetState() == GameState::START){
+            startMenu.PollMenu(window, state);
+            startMenu.Draw(window);
         }
-        else if(state.GetState() == GameState::LOAD){
-            loadMenu.PollMenu(window, state);
-            loadMenu.Draw(window);
+        else if(state.GetState() == GameState::SAVELOAD){
+            SLMenu.PollMenu(window, state);
+            SLMenu.Draw(window);
         }
     
         window.display();

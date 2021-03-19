@@ -13,9 +13,8 @@ using namespace sf;
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
 #define MenuOptions 3
 
-/// DO NOT CHANGE "loadMenu" to "LoadMenu". It is a keyword in C++
 
-class loadMenu{
+class SaveLoadMenu{
 private:
     int selected;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
@@ -35,7 +34,7 @@ private:
 
 public:
 
-    loadMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
+    SaveLoadMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
     void PollMenu(RenderWindow &window, GameState &state);
     void Draw(RenderWindow &window);
     void MoveUp();
