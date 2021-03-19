@@ -46,7 +46,6 @@ protected:
     float jumpHeight = 0.f;
 
     // Private Functions
-    int aboveBelow(Sprite& first, Sprite& second);
     int rightLeft(Sprite& first, Sprite& second);
     bool isAnyKeyPressed(std::map<std::string, sf::Keyboard::Key>* controlMapping);
 public:
@@ -57,7 +56,13 @@ public:
     bool getAttack();
     bool getEnemy();
     int getHealth();
+    vector<Platforms*>* getBorders();
+    int aboveBelow(Sprite& first, Sprite& second);
+    float getHorizontalVel();
+    bool isFaceright();
+    float getJumpVel();
     // Setters
+    void setFaceright(bool newFaceright);
     // Mutators
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);

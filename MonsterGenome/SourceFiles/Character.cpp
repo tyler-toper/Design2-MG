@@ -3,28 +3,6 @@ using namespace std;
 using namespace sf;
     /// Character Functions
     // Private Functions
-    int Character::aboveBelow(Sprite& first, Sprite& second){
-        float fypos = first.getPosition().y;
-        float fxpos = first.getPosition().x;
-        int fheight = first.getTextureRect().height;
-        int fwidth = first.getTextureRect().width;
-
-        float sypos = second.getPosition().y;
-        float sxpos = second.getPosition().x;
-        int sheight = second.getTextureRect().height;
-        int swidth = second.getTextureRect().width;
-
-        if(((fxpos + fwidth/2) > sxpos) && ((fxpos - fwidth/2) < (sxpos + swidth))){
-            if(fypos + fheight < sypos + sheight){
-                return 1;
-            }
-            else if(fypos > sypos){
-                return -1;
-            }
-        }
-        return 0;
-    }
-
     int Character::rightLeft(Sprite& first, Sprite& second){
         float fxpos = first.getPosition().x;
         int fwidth = first.getTextureRect().width;
@@ -114,6 +92,49 @@ using namespace sf;
 
     int Character::getHealth(){
         return this->health;
+    }
+
+    vector<Platforms*>* Character::getBorders() {
+        return this->borders;
+    }
+
+    int Character::aboveBelow(Sprite& first, Sprite& second){
+        float fypos = first.getPosition().y;
+        float fxpos = first.getPosition().x;
+        int fheight = first.getTextureRect().height;
+        int fwidth = first.getTextureRect().width;
+
+        float sypos = second.getPosition().y;
+        float sxpos = second.getPosition().x;
+        int sheight = second.getTextureRect().height;
+        int swidth = second.getTextureRect().width;
+
+        if(((fxpos + fwidth/2) > sxpos) && ((fxpos - fwidth/2) < (sxpos + swidth))){
+            if(fypos + fheight < sypos + sheight){
+                return 1;
+            }
+            else if(fypos > sypos){
+                return -1;
+            }
+        }
+        return 0;
+    }
+
+    float Character::getHorizontalVel() {
+        return horizontalvel;
+    }
+
+    bool Character::isFaceright() {
+        return faceright;
+    }
+
+    float Character::getJumpVel() {
+        return jumpvel;
+    }
+
+    // Setters
+    void Character::setFaceright(bool newFaceright) {
+        faceright = newFaceright;
     }
 
     // Mutators

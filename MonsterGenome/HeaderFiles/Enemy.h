@@ -14,31 +14,35 @@ protected:
     float actionstime = 0;
     vector<int> actions{0,0,0,0,0,0};
 
-    class EnemyState {
-    public:
+    struct EnemyState {
         virtual ~EnemyState() {};
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) {};
-        virtual void update(Enemy& ene) {};
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) = 0;
+        virtual void update(Enemy& ene) = 0;
     };
 
-    class StandingState : public EnemyState {
-    public:
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        virtual void update(Enemy& ene);
+    struct StandingState : public EnemyState {
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) = 0;
+        virtual void update(Enemy& ene) = 0;
     };
 
-    class JumpingState : public EnemyState {
-    public:
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
-        virtual void update(Enemy& ene);
+    struct JumpingState : public EnemyState {
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) = 0;
+        virtual void update(Enemy& ene) = 0;
     };
     EnemyState* state_;
 public:
-
+    // Constructors
     Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
-    void checkMeleeHit();
+    // Getters
+    EnemyState* getState();
+    vector<int> getActions();
+    // Setters
+    void setState(EnemyState* newState);
     virtual void setAnimation(string animation) = 0;
-    virtual void updatePosition(Time& time, RenderWindow& window, View &playerView);
+    virtual void setActions(float time) = 0;
+    // Mutators
+    void checkMeleeHit();
+    void updatePosition(Time& time, RenderWindow& window, View &playerView);
 };
 
 /// Fighter
@@ -46,4 +50,15 @@ class Fighter : public Enemy {
 public:
     Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
     void setAnimation(string animation);
+    void setActions(float time);
+    struct StandingState : public Enemy::StandingState {
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void update(Enemy& ene);
+    };
+
+    struct JumpingState : public Enemy::JumpingState {
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void update(Enemy& ene);
+    };
+
 };
