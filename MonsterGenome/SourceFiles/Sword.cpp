@@ -30,7 +30,7 @@ void Sword::renderRight(RenderWindow& window, View &playerView){
     if(first==0){
         first++;
     }
-
+    window.setView(playerView);
     window.draw(weapSprite);
 }
 
@@ -41,7 +41,8 @@ void Sword::renderLeft(RenderWindow& window, View &playerView){
         weapSprite.scale(-1.f, 1.f);
     }
     flipped = true;
-
+    
+    window.setView(playerView);
     window.draw(weapSprite);
 }
 
