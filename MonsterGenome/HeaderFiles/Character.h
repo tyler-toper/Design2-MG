@@ -27,6 +27,7 @@ protected:
     float jumpvel;
     float vertadd = 0.f;
     float horizadd = 0.f;
+    Texture text;
     Sprite sprite;
     int experience;
     vector<Platforms*>* borders;

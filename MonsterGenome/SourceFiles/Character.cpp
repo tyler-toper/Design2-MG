@@ -281,7 +281,7 @@ void Character::equipWeapon(RenderWindow& window, View &playerView){
 
 void Character::animWeapon(RenderWindow &window, View &playerView) {
     if(equipPis){
-        if(Keyboard::isKeyPressed(Keyboard::C)){
+        if(Mouse::isButtonPressed(Mouse::Left)){
             pistol->attackAnim(window, playerView);
         }
         else{

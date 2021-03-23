@@ -29,6 +29,7 @@ void Pistol::renderRight(RenderWindow& window, View &playerView){
         first++;
     }
 
+    window.setView(playerView);
     window.draw(weapSprite);
 
 }
@@ -41,6 +42,7 @@ void Pistol::renderLeft(RenderWindow& window, View &playerView){
     }
     flipped = true;
 
+    window.setView(playerView);
     window.draw(weapSprite);
 }
 
