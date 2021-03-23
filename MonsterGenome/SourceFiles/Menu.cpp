@@ -70,8 +70,7 @@ void Menu::PollMenu(RenderWindow &window, GameState &state) {
             if (pressed == Keyboard::Return) {
                 confirmSound.play();
                 if (selected == 0) {
-                    state.SetState(GameState::PLAY);
-                    state.SetPlaying(true);
+                    state.SetState(GameState::START);
                 }
                 else if (selected == 1) {
                     state.SetState(GameState::SETTINGS);

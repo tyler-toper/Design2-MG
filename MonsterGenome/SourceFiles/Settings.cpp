@@ -79,26 +79,119 @@ std::string Settings::ConvertControls(sf::Keyboard::Key key) {
     // Using the char values plus the key values to find keys
     // Alphabet
     if (key < 26) {
-        return std::string(1, key + 65);
+        return std::string(1,key + 65);
     }
     // Numbers
     else if (key < 36) {
-        return std::string(1, key - 26 + 48);
+        return std::to_string(key - 26);
     }
     // Special Keys
-    else if (key == 37) {
+    else if (key == 36) {
         return "Escape";
     }
-    else if (key == 38) {
+    else if (key == 37) {
         return "Left Control";
     }
-    else if (key == 39) {
+    else if (key == 38) {
         return "Left Shift";
     }
-    else if (key == 40) {
+    else if (key == 39) {
         return "Left Alt";
     }
-
+    else if (key == 40) {
+        return "Left System";
+    }
+    else if (key == 41) {
+        return "Right Control";
+    }
+    else if (key == 42) {
+        return "Right Shift";
+    }
+    else if (key == 43) {
+        return "Right Alt";
+    }
+    else if (key == 44) {
+        return "Right System";
+    }
+    else if (key == 45) {
+        return "Menu";
+    }
+    // Special Characters
+    else if (key == 46) {
+        return "[";
+    }
+    else if (key == 47) {
+        return "]";
+    }
+    else if (key == 48) {
+        return ";";
+    }
+    else if (key == 49) {
+        return ",";
+    }
+    else if (key == 50) {
+        return ".";
+    }
+    else if (key == 51) {
+        return "'";
+    }
+    else if (key == 52) {
+        return "/";
+    }
+    else if (key == 53) {
+        return "\\";
+    }
+    else if (key == 54) {
+        return "~";
+    }
+    else if (key == 55) {
+        return "=";
+    }
+    else if (key == 56) {
+        return "-";
+    }
+    else if (key == 57) {
+        return "Space";
+    }
+    else if (key == 58) {
+        return "Enter";
+    }
+    else if (key == 59) {
+        return "Backspace";
+    }
+    else if (key == 60) {
+        return "Tab";
+    }
+    else if (key == 61) {
+        return "Page Up";
+    }
+    else if (key == 62) {
+        return "Page Down";
+    }
+    else if (key == 63) {
+        return "End";
+    }
+    else if (key == 64) {
+        return "Home";
+    }
+    else if (key == 65) {
+        return "Insert";
+    }
+    else if (key == 66) {
+        return "Delete";
+    }
+    else if (key == 67) {
+        return "+";
+    }
+    else if (key == 68) {
+        return "-";
+    }
+    else if (key == 69) {
+        return "*";
+    }
+    else if (key == 70) {
+        return "/";
+    }
     // Arrow Keys
     else if (key == 71) {
         return "Left Arrow";
@@ -112,9 +205,27 @@ std::string Settings::ConvertControls(sf::Keyboard::Key key) {
     else if (key == 74) {
         return "Down Arrow";
     }
+    // Numpad
+    else if (key < 85) {
+        return "Numpad " + std::to_string(key - 75);
+    }
+    // F Keys
+    else if(key < 100) {
+        return "F" + std::to_string(key - 84);
+    }
+    else if(key == 100) {
+        return "Pause";
+    }
+    // All else fails, return the key number
     return std::to_string(key);
 }
 
+// Override existing controls with new controls
+void Settings::UpdateControls() {
+    for (int i = 0; i < control.size(); i++) {
+        controlMapping[function[i]] = control[i];
+    }
+}
 
 void Settings::PollMenu(RenderWindow &window, GameState &state){
     Event event;
@@ -131,7 +242,6 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
                 auto pressed = event.key.code;
                 // Saves the enum value
                 control[selected] = pressed;
-                controlMapping[function[selected]] = pressed;
                 // Print the corresponding key for the enum
                 UserControls[selected].setString(ConvertControls(pressed));
                 UserControls[selected].setFillColor(Color::Red);
@@ -145,12 +255,16 @@ void Settings::PollMenu(RenderWindow &window, GameState &state){
             if (event.type == Event::KeyPressed) {
                 auto pressed = event.key.code;
                 if (pressed == controlMapping["Pause"] && state.IsPlaying()) {
+                    UpdateControls();
                     Save();
                     state.SetState(GameState::PAUSE);
+                    Reset();
                 }
                 if (pressed == controlMapping["Pause"] && !state.IsPlaying()) {
+                    UpdateControls();
                     Save();
                     state.SetState(GameState::MENU);
+                    Reset();
                 }
                 if (pressed == controlMapping["Jump"]) { MoveUp(); }
                 if (pressed == controlMapping["Crouch"]) { MoveDown(); }
@@ -266,6 +380,14 @@ void Settings::ResetControls() {
     for(int i = 0; i < SettingsOptions; i++){
         // TODO: FIX THIS TO WORK WITH ENUM
         control[i] = defaults[i];
-        //UserControls[i].setString(control[i]);
+        UserControls[i].setString(ConvertControls(control[i]));
     }
+}
+
+void Settings::Reset() {
+    UserControls[selected].setFillColor(Color::Yellow);
+    UserControls[selected].setStyle(Text::Regular);
+    selected = 0;
+    UserControls[selected].setFillColor(Color::Red);
+    UserControls[selected].setStyle(Text::Underlined);
 }

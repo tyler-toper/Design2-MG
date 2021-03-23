@@ -10,13 +10,11 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     LoadLevel(lvl);
 }
 
-void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View & playerView) {
+void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
-            cout << "Test 1" << endl; //Program never gets here.
             LoadLevel(this->lvl);
-            cout << "Test 2" << endl;
         }
     }
     else{
@@ -42,10 +40,8 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View & p
             borders[i]->update(time);
         }
         for(int i = 0; i < players.size(); i++){
-            players[i]->updatePosition(borders, projs, players, time, window);
-
+            players[i]->updatePosition(time, window, playerView);
         }
-
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
                 delete players[i];
@@ -79,9 +75,6 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
             window.draw(players[i]->getSprite());
         }
 
-        players[0]->equipWeapon(window, playerView);
-        players[0]->animWeapon(window, playerView);
-
         mapView.setCenter(players[0]->getSprite().getPosition().x, players[0]->getSprite().getPosition().y - 200);
         mapView.setSize(window.getSize().x * .25f, window.getSize().y * 0.25f);
         mapView.zoom(6);
@@ -101,10 +94,16 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         for(int i = 0; i < players.size(); i++){
             window.draw(players[i]->getSprite());
         }
+
+
+
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
+            window.setView(window.getDefaultView());
         }
+        players[0]->equipWeapon(window, playerView);
+        players[0]->animWeapon(window, playerView);
     }
 }
 
@@ -125,11 +124,12 @@ void Game::LoadLevel(int lvl){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    Character* tempChar = new Hero(controlMapping, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    // TODO: Fix this constructor
+                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character *tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){

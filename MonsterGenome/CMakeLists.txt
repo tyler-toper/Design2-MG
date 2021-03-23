@@ -38,6 +38,12 @@ add_executable(MonsterGenome main.cpp
         HeaderFiles/AudioHandler.h
         SourceFiles/HeroMod.cpp
         HeaderFiles/HeroMod.h
+        SourceFiles/Enemy.cpp
+        HeaderFiles/Enemy.h
+        SourceFiles/StartMenu.cpp
+        HeaderFiles/StartMenu.h
+        SourceFiles/SaveLoadMenu.cpp
+        HeaderFiles/SaveLoadMenu.h
         SourceFiles/Items.cpp
         HeaderFiles/Items.h
         SourceFiles/Weapons.cpp
@@ -53,9 +59,11 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/Inventory.cpp
         HeaderFiles/Inventory.h)
 
-include_directories(headers /usr/include c:/SFML-2.5.1/include)
+# SFML
+include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
+  
+set(SFML_ROOT "../Dependencies/SFML-2.5.1")
 
-set(SFML_ROOT "c:/SFML-2.5.1")
 
 if(POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)

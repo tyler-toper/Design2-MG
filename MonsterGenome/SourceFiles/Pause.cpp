@@ -16,10 +16,9 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
     title.setPosition((width / 2) - titleOffset, 0);
 
     text[0].setString("Resume");
-    text[1].setString("Save");
-    text[2].setString("Load");
-    text[3].setString("Settings");
-    text[4].setString("Quit to Main Menu");
+    text[1].setString("Save / Load");
+    text[2].setString("Settings");
+    text[3].setString("Quit to Main Menu");
 
     for(int i = 0; i < PauseOptions; i++){
         text[i].setFont(font);
@@ -61,8 +60,9 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
-                state.SetState(GameState::PLAY);
+                state.SetState(GameState::LVL1);
                 state.Resume();
+                Reset();
             }
             if (pressed == controls["Jump"]) {
                 MoveUp();
@@ -73,20 +73,16 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
             if(pressed == Keyboard::Return){
                 confirmSound.play();
                 if(selected == 0){
-                    state.SetState(GameState::PLAY);
+                    state.SetState(GameState::LVL1);
                     state.Resume();
                 }
                 else if(selected == 1){
-                    // TODO: Connect save system
+                    state.SetState(GameState::SAVELOAD);
                 }
                 else if(selected == 2){
-                    // TODO: Connect load system
-                }
-                else if(selected == 3){
                     state.SetState(GameState::SETTINGS);
                 }
-                else if(selected == 4){
-                    state.SetPlaying(false);
+                else if(selected == 3){
                     state.SetState(GameState::MENU);
                 }
             }
@@ -134,4 +130,12 @@ void Pause::MoveUp(){
     else{
         errorSound.play();
     }
+}
+
+void Pause::Reset(){
+    text[selected].setFillColor(Color::Yellow);
+    text[selected].setStyle(Text::Regular);
+    selected = 0;
+    text[selected].setFillColor(Color::Red);
+    text[selected].setStyle(Text::Underlined);
 }
