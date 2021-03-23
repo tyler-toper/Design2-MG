@@ -28,7 +28,7 @@ using namespace sf;
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
         this->inventory = new Inventory(10);
         this->sword = new Sword(0, "../../Assets/WeaponTextures/sword.png");
-        this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol.png");
+        this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
 
         //inv testing
         cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
@@ -36,10 +36,10 @@ using namespace sf;
         this->inventory->add(this->pistol);
         //this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
 
-        cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+/*        cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
         this->inventory->remove(0);
         this->inventory->remove(0);
-        cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+        cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";*/
 
 
     }
@@ -276,67 +276,19 @@ using namespace sf;
 
     void Character::equipWeapon(RenderWindow& window, View &playerView){
         //Sword
-        //first time equipping
-        /*if(!equipSw && !swToggle){*/
-            if (Keyboard::isKeyPressed(Keyboard::C) || equipSw) {
-                //cout << faceright << endl;
-                equipSw = true;
-                //swToggle = 1;
-                }
-           // }
-
-        /*//keep rendering while equipped
-        else if(equipSw && swToggle){
-            //cout << faceright << endl;
-
-            if (faceright) {
-                sword->renderRight(window, playerView);
-            } else if (!faceright) {
-                sword->renderLeft(window, playerView);
-            }
-
-            if(Keyboard::isKeyPressed(Keyboard::C)){
-                swToggle = 0;
-            }
+        if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+            equipSw = true;
         }
-
-        //unequip
-        else if(equipSw && !swToggle){
-            //cout << faceright << endl;
-            equipSw = false;
-        }*/
 
         //Pistol
-        /*if(!equipPis && !pisToggle){*/
-            if (Keyboard::isKeyPressed(Keyboard::V) || equipPis) {
-                //cout << faceright << endl;
-                equipPis = true;
-                //pisToggle = 1;
-            }
-        //}
-
-        /*else if(equipPis && pisToggle){
-            //cout << faceright << endl;
-
-            if (faceright) {
-                pistol->renderRight(window, playerView);
-            } else if (!faceright) {
-                pistol->renderLeft(window, playerView);
-            }
-
-            if(Keyboard::isKeyPressed(Keyboard::V)){
-                pisToggle = 0;
-            }
+        if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+            equipPis = true;
         }
 
-        else if(equipPis && !pisToggle){
+        if (Keyboard::isKeyPressed(Keyboard::G)) {
             equipPis = false;
-        }*/
-
-        if (Keyboard::isKeyPressed(Keyboard::X)) {
-                equipPis = false;
-                equipSw = false;
-            }
+            equipSw = false;
+        }
         
         if(equipSw){
             if (faceright) {
@@ -356,7 +308,14 @@ using namespace sf;
     }
 
     void Character::animWeapon(RenderWindow &window, View &playerView) {
-
+        if(equipPis){
+            if(Keyboard::isKeyPressed(Keyboard::C)){
+                pistol->attackAnim(window, playerView);
+            }
+            else{
+                pistol->resetAnim(window, playerView);
+            }
+        }
     }
 
 

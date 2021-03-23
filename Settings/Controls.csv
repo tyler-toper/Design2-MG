@@ -5,3 +5,6 @@ Crouch,18,74
 Attack,59,59
 Reload,17,17
 Pause,15,36
+Sword,,
+Pistol,,
+Unequip,,

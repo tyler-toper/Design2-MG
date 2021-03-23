@@ -32,7 +32,6 @@ void Sword::renderRight(RenderWindow& window, View &playerView){
     }
 
     window.draw(weapSprite);
-    //cout << "renderRight flipped : " << flipped << endl;
 }
 
 void Sword::renderLeft(RenderWindow& window, View &playerView){
@@ -44,8 +43,6 @@ void Sword::renderLeft(RenderWindow& window, View &playerView){
     flipped = true;
 
     window.draw(weapSprite);
-    //cout << "renderLeft flipped : " << flipped << endl;
-
 }
 
 

@@ -34,7 +34,6 @@ class Character{
         int swToggle = 0;
         bool equipPis = false;
         int pisToggle = 0;
-        Texture testerText;
 
 
         Inventory* inventory;
@@ -79,6 +78,7 @@ public:
 
     void setAnimation();
     void updatePosition(vector<Platforms*>& borders, vector<Projectile*>& proj, vector<Character*>& players, Time& timein, RenderWindow& window);
+
 };
 
 class Enemy : public Character{
