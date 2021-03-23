@@ -4,6 +4,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "../HeaderFiles/Projectile.h"
+#include "../HeaderFiles/Items.h"
+#include "../HeaderFiles/Inventory.h"
+#include "../HeaderFiles/Sword.h"
+#include "../HeaderFiles/Pistol.h"
 using namespace sf;
 
 const float GRAV = 1100.f;
@@ -23,7 +27,6 @@ protected:
     float jumpvel;
     float vertadd = 0.f;
     float horizadd = 0.f;
-    Texture text;
     Sprite sprite;
     int experience;
     vector<Platforms*>* borders;
@@ -44,10 +47,22 @@ protected:
     // Jumping
     float baseJumpHeight = 0.f;
     float jumpHeight = 0.f;
+  
+    //weapons
+    Inventory* inventory;
+    Sword* sword;
+    Pistol* pistol;
+  
+    bool equipSw = false;
+    int swToggle = 0;
+    bool equipPis = false;
+    int pisToggle = 0;
 
     // Private Functions
     int rightLeft(Sprite& first, Sprite& second);
     bool isAnyKeyPressed(std::map<std::string, sf::Keyboard::Key>* controlMapping);
+    
+
 public:
     // Constructors
     Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene);
@@ -77,6 +92,8 @@ public:
     void mAnimation();
     void setAdditions(float v, float h);
     virtual void jump();
+    void equipWeapon(RenderWindow& window, View &playerView);
+    void animWeapon(RenderWindow& window, View& playerView);
 };
 
 class Hero : public Character {

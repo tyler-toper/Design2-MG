@@ -94,11 +94,16 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         for(int i = 0; i < players.size(); i++){
             window.draw(players[i]->getSprite());
         }
+
+
+
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
             window.setView(window.getDefaultView());
         }
+        players[0]->equipWeapon(window, playerView);
+        players[0]->animWeapon(window, playerView);
     }
 }
 

@@ -5,3 +5,6 @@ Crouch,18,18
 Run,0,42
 Attack,59,59
 Pause,15,36
+Sword,,
+Pistol,,
+Unequip,,

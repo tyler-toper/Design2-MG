@@ -43,12 +43,27 @@ add_executable(MonsterGenome main.cpp
         SourceFiles/StartMenu.cpp
         HeaderFiles/StartMenu.h
         SourceFiles/SaveLoadMenu.cpp
-        HeaderFiles/SaveLoadMenu.h)
+        HeaderFiles/SaveLoadMenu.h
+        SourceFiles/Items.cpp
+        HeaderFiles/Items.h
+        SourceFiles/Weapons.cpp
+        HeaderFiles/Weapons.h
+        SourceFiles/MeleeWeapon.cpp
+        HeaderFiles/MeleeWeapon.h
+        SourceFiles/RangedWeapon.cpp
+        HeaderFiles/RangedWeapon.h
+        SourceFiles/Sword.cpp
+        HeaderFiles/Sword.h
+        SourceFiles/Pistol.cpp
+        HeaderFiles/Pistol.h
+        SourceFiles/Inventory.cpp
+        HeaderFiles/Inventory.h)
 
 # SFML
 include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
   
 set(SFML_ROOT "../Dependencies/SFML-2.5.1")
+
 
 if(POLICY CMP0074)
     cmake_policy(SET CMP0074 NEW)

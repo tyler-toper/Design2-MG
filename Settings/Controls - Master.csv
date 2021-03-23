@@ -5,3 +5,6 @@ Crouch,S,S
 Attack,Space,Space
 Reload,R,R
 Pause,P,P
+Sword,Num1,Num1
+Pistol,Num2,Num2
+Unequip,G,G

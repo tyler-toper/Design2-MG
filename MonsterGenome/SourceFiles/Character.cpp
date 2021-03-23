@@ -50,7 +50,7 @@ using namespace sf;
         health = 100;
         jumping = false;
         jumpvel = 0;
-        text.loadFromFile("../Images/animation.png");
+        text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
@@ -246,6 +246,50 @@ using namespace sf;
         jumpvel = -jumpHeight;
     }
 
+void Character::equipWeapon(RenderWindow& window, View &playerView){
+    //Sword
+    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+        equipSw = true;
+    }
+
+    //Pistol
+    if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+        equipPis = true;
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::G)) {
+        equipPis = false;
+        equipSw = false;
+    }
+
+    if(equipSw){
+        if (faceright) {
+            sword->renderRight(window, playerView);
+        } else if (!faceright) {
+            sword->renderLeft(window, playerView);
+        }
+    }
+    else if(equipPis){
+        if (faceright) {
+            pistol->renderRight(window, playerView);
+        } else if (!faceright) {
+            pistol->renderLeft(window, playerView);
+        }
+    }
+
+}
+
+void Character::animWeapon(RenderWindow &window, View &playerView) {
+    if(equipPis){
+        if(Keyboard::isKeyPressed(Keyboard::C)){
+            pistol->attackAnim(window, playerView);
+        }
+        else{
+            pistol->resetAnim(window, playerView);
+        }
+    }
+}
+
     /// Hero Functions
     // Constructor
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
@@ -256,6 +300,21 @@ using namespace sf;
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(spawnX, spawnY));
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
+
+        this->inventory = new Inventory(10);
+        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword.png");
+        this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
+
+        //inv testing
+        cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+        this->inventory->add(this->sword);
+        this->inventory->add(this->pistol);
+        //this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
+
+/*        cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+        this->inventory->remove(0);
+        this->inventory->remove(0);
+        cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";*/
 
     }
 
