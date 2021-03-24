@@ -191,7 +191,7 @@ using namespace sf;
 
     void Character::checkProjectile(){
         for(int i=0; i < proj[0].size(); i++){
-            if((proj[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
+            if(sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
                 delete proj[0][i];
                 proj[0].erase(proj[0].begin() + i--);
                 damageCharacter(10);
@@ -199,12 +199,10 @@ using namespace sf;
         }
     }
 
-    void Character::checkMeleeHit(){
+    void Character::checkMelee() {
         for(int i=1; i < actors[0].size(); i++){
-            if((actors[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
-                if(actors[0][i]->getAttack()){
-                    damageCharacter(10);
-                }
+            if(sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
+                damageCharacter(10);
             }
         }
     }
@@ -300,7 +298,11 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
 }
 
 void Character::damageCharacter(int damageTaken) {
-    health -= damageTaken;
+    if (invultimer == 0) {
+        health -= damageTaken;
+        invultimer = maxInvulTime;
+    }
+    cout << health << endl;
 }
 
 void Character::healCharacter(int damageHealed) {
@@ -312,6 +314,11 @@ void Character::healCharacter(int damageHealed) {
     }
 }
 
+    void Character::reduceTimers() {
+        if (invultimer > 0) {
+            invultimer -= 1;
+        }
+    }
 
     /// Hero Functions
     // Constructor
@@ -377,10 +384,6 @@ void Character::healCharacter(int damageHealed) {
         flip(sprite);
     }
     // Getters
-    bool Hero::isDead() {
-        return health > 0;
-    }
-
     // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
         float time = timein.asSeconds();
@@ -397,7 +400,7 @@ void Character::healCharacter(int damageHealed) {
         sprite.move(Vector2f(vertadd * time, horizadd * time));
         checkCollison();
         checkProjectile();
-        checkMeleeHit();
+        checkMelee();
     }
 
     void Hero::run(bool isRunning) {

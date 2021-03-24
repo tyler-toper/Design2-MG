@@ -40,17 +40,23 @@ protected:
     bool ene;
     //should be in weapons firerate
     float weapontimer = 0.f;
+
+    // Damage Invulerablity
+    int invultimer = 0;
+    int maxInvulTime = 600;
+
     /// Movement
     // Walking and Running
     float horizontalvel;
     float baseHorizontalvel;
     float maxHorizontalvel;
     float horizontalAcc;
+
     // Jumping
     float baseJumpHeight = 0.f;
     float jumpHeight = 0.f;
-  
-    //weapons
+
+    // Weapons
     Inventory* inventory;
     Sword* sword;
     Pistol* pistol;
@@ -78,6 +84,7 @@ public:
     float getHorizontalVel();
     bool isFaceright();
     float getJumpVel();
+
     // Setters
     void setFaceright(bool newFaceright);
     void setHealth(int newHealth);
@@ -87,7 +94,7 @@ public:
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
-    virtual void checkMeleeHit();
+    virtual void checkMelee();
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
     void attack(vector<Projectile*>* borders, Vector2f loc);
     virtual void setAnimation(string animation) = 0;
@@ -100,7 +107,7 @@ public:
     void animWeapon(RenderWindow& window, View& playerView);
     void damageCharacter(int damageTaken);
     void healCharacter(int damageHealed);
-
+    void reduceTimers();
 };
 
 class Hero : public Character {
@@ -140,10 +147,7 @@ public:
     void setAnimation(string animation);
 
     // Getters
-    bool isDead();
-
     // Mutators
     void updatePosition(Time &timein, RenderWindow &window, View &playerView);
-
     void run(bool isRunning);
 };
