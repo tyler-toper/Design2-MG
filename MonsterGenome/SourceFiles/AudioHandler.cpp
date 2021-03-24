@@ -32,7 +32,7 @@ void AudioHandler::setState(GameState::State newState){
 void AudioHandler::playMusic(){
     if(stateChanged){
         stateChanged = false;
-        if(state == GameState::MENU || (prev == GameState::MENU && state == GameState::SETTINGS)){
+        if(state == GameState::MENU || prev == GameState::MENU){
             if(theme.getStatus() != Sound::Status::Playing){
                 theme.play();
             }
@@ -41,7 +41,7 @@ void AudioHandler::playMusic(){
             theme.stop();
         }
         
-        if(state == GameState::PLAY){
+        if(state == GameState::LVL1){
             playSound.play();
         }
         else if(state == GameState::MENU){
@@ -51,7 +51,7 @@ void AudioHandler::playMusic(){
             playSound.pause();
         }
 
-        if((state == GameState::PAUSE || state == GameState::SETTINGS) && prev != GameState::MENU){
+        if((state == GameState::PAUSE || state == GameState::SETTINGS || state == GameState::START || state == GameState::SAVELOAD) && prev != GameState::MENU){
             if(settingsSound.getStatus() != Sound::Status::Playing){
                 settingsSound.play();
             }

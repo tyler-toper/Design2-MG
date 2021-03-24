@@ -5,11 +5,12 @@ private:
     bool playing;
     bool paused;
 public:
-    enum State {PLAY, SETTINGS, MENU, PAUSE};
+    enum State {MENU, SETTINGS, PAUSE, START, SAVELOAD, LVL1};
     State state;
 
     GameState();
-    State GetState();
+    State GetState() const;
+    static State GetPrev();
     void SetState(State NewState);
     bool IsPlaying() const;
     void SetPlaying(bool cond);

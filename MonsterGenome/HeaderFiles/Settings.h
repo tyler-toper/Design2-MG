@@ -48,6 +48,7 @@ private:
     void Save();
     void ResetControls();
     std::string ConvertControls(sf::Keyboard::Key key);
+    void UpdateControls();
 
     SoundBuffer moveBuffer;
     Sound moveSound;
@@ -67,5 +68,6 @@ public:
     // HandleInput
     // Takes in the raw keyboard input and converts it to relevant game text, like jump or left
     void PollMenu(RenderWindow &window, GameState &state);
+    void Reset();
 };
 

@@ -12,9 +12,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
-            cout << "Test 1" << endl; //Program never gets here.
             LoadLevel(this->lvl);
-            cout << "Test 2" << endl;
         }
     }
     else{
@@ -94,11 +92,16 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         for(int i = 0; i < players.size(); i++){
             window.draw(players[i]->getSprite());
         }
+
+
+
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
             window.setView(window.getDefaultView());
         }
+        players[0]->equipWeapon(window, playerView);
+        players[0]->animWeapon(window, playerView);
     }
 }
 
@@ -128,7 +131,7 @@ void Game::LoadLevel(int lvl){
                     }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Enemy(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    Character *tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){

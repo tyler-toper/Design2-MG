@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include "../HeaderFiles/Character.h"
+#include "../HeaderFiles/Enemy.h"
 #include "../HeaderFiles/HeroMod.h"
 #include "../HeaderFiles/Platforms.h"
 #include "../HeaderFiles/GameState.h"

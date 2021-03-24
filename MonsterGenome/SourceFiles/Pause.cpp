@@ -18,10 +18,9 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
     title.setPosition((width / 2) - titleOffset, 0);
 
     text[0].setString("Resume");
-    text[1].setString("Save");
-    text[2].setString("Load");
-    text[3].setString("Settings");
-    text[4].setString("Quit to Main Menu");
+    text[1].setString("Save / Load");
+    text[2].setString("Settings");
+    text[3].setString("Quit to Main Menu");
 
     for(int i = 0; i < PauseOptions; i++){
         text[i].setFont(font);
@@ -62,8 +61,9 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
-                state.SetState(GameState::PLAY);
+                state.SetState(GameState::LVL1);
                 state.Resume();
+                Reset();
             }
             if (pressed == controls["Jump"]) {
                 MoveUp();
@@ -74,22 +74,17 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
             if(pressed == Keyboard::Return){
                 confirmSound.play();
                 if(selected == 0){
-                    state.SetState(GameState::PLAY);
+                    state.SetState(GameState::LVL1);
                     state.Resume();
                 }
                 else if(selected == 1){
-                    // TODO: Connect save system
-                    SaveGame(game, 1);
+
+                    state.SetState(GameState::SAVELOAD);
                 }
                 else if(selected == 2){
-                    // TODO: Connect load system
-                    LoadGame(game, 1);
-                }
-                else if(selected == 3){
                     state.SetState(GameState::SETTINGS);
                 }
-                else if(selected == 4){
-                    state.SetPlaying(false);
+                else if(selected == 3){
                     state.SetState(GameState::MENU);
                 }
             }
@@ -153,7 +148,7 @@ void Pause::SaveGame(Game &game, int slot){
     saveFile.close();
 }
 
-void Pause::LoadGame(Game &game, int slot){
+void Pause::LoadGame(Game &game, int slot) {
     irr::io::IrrXMLReader *saveFile;
     bool fileNotEmpty = false;
     std::string saveSlot = "../../Saves/Slot " + to_string(slot) + "/save.xml";
@@ -166,22 +161,24 @@ void Pause::LoadGame(Game &game, int slot){
     game.players.clear();
     game.borders.clear();
 
-    while (saveFile && saveFile->read()){
+    while (saveFile && saveFile->read()) {
         fileNotEmpty = true;
-        switch (saveFile->getNodeType()){
+        switch (saveFile->getNodeType()) {
             case irr::io::EXN_ELEMENT:
-                if (!strcmp("save", saveFile->getNodeName())){
+                if (!strcmp("save", saveFile->getNodeName())) {
                     level = saveFile->getAttributeValueAsInt("level");
                 }
-                if (!strcmp("coords", saveFile->getNodeName())){
-                    Character* hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players, saveFile->getAttributeValueAsFloat("x"), saveFile->getAttributeValueAsFloat("y"));
+                if (!strcmp("coords", saveFile->getNodeName())) {
+                    Character *hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players,
+                                               saveFile->getAttributeValueAsFloat("x"),
+                                               saveFile->getAttributeValueAsFloat("y"));
                     game.players.push_back(hero);
                 }
                 if (!strcmp("attrs", saveFile->getNodeName())) {
-                    game.players[0]->name =  saveFile->getAttributeValue("name");
+                    game.players[0]->name = saveFile->getAttributeValue("name");
                     game.players[0]->health = saveFile->getAttributeValueAsInt("health");
-                    game.players[0]->level =  saveFile->getAttributeValueAsInt("level");
-                    game.players[0]->armor =  saveFile->getAttributeValueAsInt("armor");
+                    game.players[0]->level = saveFile->getAttributeValueAsInt("level");
+                    game.players[0]->armor = saveFile->getAttributeValueAsInt("armor");
                     game.players[0]->strength = saveFile->getAttributeValueAsInt("strength");
                     game.players[0]->vitality = saveFile->getAttributeValueAsInt("vitality");
                     game.players[0]->experience = saveFile->getAttributeValueAsInt("exp");
@@ -191,7 +188,7 @@ void Pause::LoadGame(Game &game, int slot){
                 break;
         }
     }
-    if (!fileNotEmpty){
+    if (!fileNotEmpty) {
         std::cerr << "Can't read level file " << saveSlot << std::endl;
     }
     delete saveFile;
@@ -199,4 +196,12 @@ void Pause::LoadGame(Game &game, int slot){
     game.LFS = true;
 
     game.LoadLevel(level);
+}
+
+void Pause::Reset(){
+    text[selected].setFillColor(Color::Yellow);
+    text[selected].setStyle(Text::Regular);
+    selected = 0;
+    text[selected].setFillColor(Color::Red);
+    text[selected].setStyle(Text::Underlined);
 }

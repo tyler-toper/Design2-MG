@@ -1,28 +1,37 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
-#include <stack>
-#include <fstream>
+#include <vector>
 #include "GameState.h"
-#include "Game.h"
-#include "../irrXML/irrXML.h"
 using namespace std;
 using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
-#define PauseOptions 4
+#define StartMenuOptions 5
 
-class Pause {
+class StartMenu{
 private:
     int selected;
-    Font font;
-    Text text[PauseOptions];
-    Text title;
+    int entered;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
+    int xValue;
+    int yValue[StartMenuOptions - 1];
+
+    Texture menu;
+    Sprite menuSprite;
+    Texture background;
+    Sprite backgroundSprite;
+    Texture startButton;
+    Sprite startButtonSprite;
+    Texture enteredBox;
+    Sprite enteredBoxSprite;
+    Texture selectedBox;
+    Sprite selectedBoxSprite;
 
     SoundBuffer moveBuffer;
     Sound moveSound;
@@ -32,13 +41,11 @@ private:
     Sound confirmSound;
 
 public:
-    Pause(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
+
+    StartMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
+    void PollMenu(RenderWindow &window, GameState &state);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
-    void SaveGame(Game &game, int slot);
-    void LoadGame(Game &game, int slot);
-    void PollMenu(RenderWindow &window, GameState &state, Game &game);
     void Reset();
 };
-
