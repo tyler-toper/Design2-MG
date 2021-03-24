@@ -71,11 +71,11 @@ void openWindow(RenderWindow &window){
             settings.Draw(window);
         }
         else if(state.GetState() == GameState::START){
-            startMenu.PollMenu(window, state);
+            startMenu.PollMenu(window, state, game);
             startMenu.Draw(window);
         }
         else if(state.GetState() == GameState::SAVELOAD){
-            SLMenu.PollMenu(window, state);
+            SLMenu.PollMenu(window, state, game);
             SLMenu.Draw(window);
         }
     

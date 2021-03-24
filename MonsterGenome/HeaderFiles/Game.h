@@ -22,7 +22,8 @@ private:
     bool LFS;
     bool modify = false;
 
-    friend class Pause;
+    friend class StartMenu;
+    friend class SaveLoadMenu;
 
 public:
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);

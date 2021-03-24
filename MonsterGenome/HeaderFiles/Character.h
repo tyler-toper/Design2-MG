@@ -33,7 +33,8 @@ protected:
     vector<Platforms*>* borders;
     vector<Projectile*>* proj;
     vector<Character*>* actors;
-    friend class Pause;
+    friend class StartMenu;
+    friend class SaveLoadMenu;
 
 public:
     float timepass = .5f;

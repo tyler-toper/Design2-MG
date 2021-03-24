@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 #include "GameState.h"
+#include "Game.h"
+#include "../irrXML/irrXML.h"
 using namespace std;
 using namespace sf;
 
@@ -46,7 +48,9 @@ private:
 public:
 
     SaveLoadMenu(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
-    void PollMenu(RenderWindow &window, GameState &state);
+    void SaveGame(Game &game, int slot);
+    void LoadGame(Game &game, int slot);
+    void PollMenu(RenderWindow &window, GameState &state, Game &game);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();

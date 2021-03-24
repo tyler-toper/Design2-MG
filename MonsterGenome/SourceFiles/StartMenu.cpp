@@ -44,7 +44,7 @@ StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboa
 
 }
 
-void StartMenu::PollMenu(RenderWindow &window, GameState &state){
+void StartMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
     Event event;
     while(window.pollEvent(event)){
         if(event.type == Event::Closed){
@@ -70,6 +70,8 @@ void StartMenu::PollMenu(RenderWindow &window, GameState &state){
             else if(pressed == Keyboard::Return){
                 if(selected == 4){
                     if(entered != -1){
+                        LoadGame(game, entered);
+
                         state.SetState(GameState::LVL1);
                         state.SetPlaying(true);
                         Reset();
@@ -127,4 +129,54 @@ void StartMenu::Reset() {
     selected = 0;
     entered = -1;
     enteredBoxSprite.setPosition(2000, 2000);
+}
+
+void StartMenu::LoadGame(Game &game, int slot) {
+    irr::io::IrrXMLReader *saveFile;
+    bool fileNotEmpty = false;
+    std::string saveSlot = "../../Saves/Slot " + to_string(slot) + "/save.xml";
+    saveFile = irr::io::createIrrXMLReader(saveSlot.c_str());
+    std::string name;
+    int level;
+    game.mod = new HeroMod(game.controlMapping);
+
+    game.projs.clear();
+    game.players.clear();
+    game.borders.clear();
+
+    while (saveFile && saveFile->read()) {
+        fileNotEmpty = true;
+        switch (saveFile->getNodeType()) {
+            case irr::io::EXN_ELEMENT:
+                if (!strcmp("save", saveFile->getNodeName())) {
+                    level = saveFile->getAttributeValueAsInt("level");
+                }
+                if (!strcmp("coords", saveFile->getNodeName())) {
+                    Character *hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players,
+                                               saveFile->getAttributeValueAsFloat("x"),
+                                               saveFile->getAttributeValueAsFloat("y"));
+                    game.players.push_back(hero);
+                }
+                if (!strcmp("attrs", saveFile->getNodeName())) {
+                    game.players[0]->name = saveFile->getAttributeValue("name");
+                    game.players[0]->health = saveFile->getAttributeValueAsInt("health");
+                    game.players[0]->level = saveFile->getAttributeValueAsInt("level");
+                    game.players[0]->armor = saveFile->getAttributeValueAsInt("armor");
+                    game.players[0]->strength = saveFile->getAttributeValueAsInt("strength");
+                    game.players[0]->vitality = saveFile->getAttributeValueAsInt("vitality");
+                    game.players[0]->experience = saveFile->getAttributeValueAsInt("exp");
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    if (!fileNotEmpty) {
+        std::cerr << "Can't read save file " << saveSlot << std::endl;
+    }
+    delete saveFile;
+    saveFile = NULL;
+    game.LFS = true;
+
+    game.LoadLevel(level);
 }
