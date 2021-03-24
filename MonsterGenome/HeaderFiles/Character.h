@@ -17,6 +17,7 @@ protected:
     string name;
     int level;
     int health;
+    int maxHealth;
     int armor;
     int strength;
     int vitality;
@@ -79,6 +80,8 @@ public:
     float getJumpVel();
     // Setters
     void setFaceright(bool newFaceright);
+    void setHealth(int newHealth);
+    void setMaxHealth(int newMaxHealth);
 
     // Mutators
     void checkCollison();
@@ -129,4 +132,7 @@ public:
     // Mutators
     void updatePosition(Time& timein, RenderWindow& window, View &playerView);
     void run(bool isRunning);
+    void damagePlayer(int damageTaken);
+    void healPlayer(int damageHealed);
+    void killPlayer();
 };

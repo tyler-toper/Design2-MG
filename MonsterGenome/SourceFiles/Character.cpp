@@ -48,6 +48,7 @@ using namespace sf;
         vitality = 0;
         strength = 0;
         health = 100;
+        maxHealth = 100;
         jumping = false;
         jumpvel = 0;
         text.loadFromFile("../Images/animation2.png");
@@ -136,6 +137,14 @@ using namespace sf;
     // Setters
     void Character::setFaceright(bool newFaceright) {
         faceright = newFaceright;
+    }
+
+    void Character::setHealth(int newHealth) {
+        health = newHealth;
+    }
+
+    void Character::setMaxHealth(int newMaxHealth) {
+        maxHealth = newMaxHealth;
     }
 
     // Mutators
@@ -318,6 +327,9 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
 
     }
 
+    // Getters
+
+    // Setters
     void Hero::setAnimation(string animation){
         // Needs to dereference controlMapping in order to read map
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
@@ -338,11 +350,11 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
                 }
                 //Unfinsihed, will be ducking or something
                 if(animation == "crouch"){
-                   
+
                 }
                 //Attacking
                 if(animation == "ranged"){
-                   
+
                 }
             }
 
@@ -354,7 +366,6 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         flip(sprite);
     }
 
-    // Getters
     // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
         float time = timein.asSeconds();
@@ -373,6 +384,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         checkProjectile();
         checkMeleeHit();
     }
+
     void Hero::run(bool isRunning) {
         if(isRunning) {
             if(horizontalvel < maxHorizontalvel) { horizontalvel += horizontalAcc; }
@@ -382,6 +394,27 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
             if (horizontalvel > baseHorizontalvel) { horizontalvel -= 2 * horizontalAcc; }
             else { horizontalvel = baseHorizontalvel; }
         }
+    }
+
+    void Hero::damagePlayer(int damageTaken) {
+        health -= damageTaken;
+        if(health <= 0) {
+            killPlayer();
+        }
+    }
+
+    void Hero::healPlayer(int damageHealed) {
+        if(health + damageHealed < maxHealth) {
+            health += damageHealed;
+        }
+        else {
+            health = maxHealth;
+        }
+    }
+
+    void Hero::killPlayer() {
+        // Reset location
+
     }
 
     // Hero States
