@@ -94,7 +94,7 @@ public:
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
-    virtual void checkMelee();
+    virtual void checkMelee() = 0;
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
     void attack(vector<Projectile*>* borders, Vector2f loc);
     virtual void setAnimation(string animation) = 0;
@@ -150,4 +150,5 @@ public:
     // Mutators
     void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);
+    void checkMelee();
 };
