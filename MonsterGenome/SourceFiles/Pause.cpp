@@ -140,8 +140,6 @@ void Pause::MoveUp(){
 }
 
 void Pause::SaveGame(Game &game, int slot){
-    int temp1, temp2;
-    float temp3, temp4;
     string saveSlot = "../../Saves/Slot " + to_string(slot) + "/save.xml";
     std::ofstream saveFile;
     saveFile.open(saveSlot);
@@ -161,7 +159,6 @@ void Pause::LoadGame(Game &game, int slot){
     std::string saveSlot = "../../Saves/Slot " + to_string(slot) + "/save.xml";
     saveFile = irr::io::createIrrXMLReader(saveSlot.c_str());
     std::string name;
-    float col, row, col2, row2, speed, xCoord, yCoord;
     int level;
     game.mod = new HeroMod(game.controlMapping);
 
