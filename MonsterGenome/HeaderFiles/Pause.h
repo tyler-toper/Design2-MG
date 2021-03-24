@@ -8,6 +8,7 @@
 #include <fstream>
 #include "GameState.h"
 #include "Game.h"
+#include "../irrXML/irrXML.h"
 using namespace std;
 using namespace sf;
 

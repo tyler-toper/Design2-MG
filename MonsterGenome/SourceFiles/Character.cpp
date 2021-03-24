@@ -53,7 +53,7 @@ using namespace sf;
     // Constructor
     Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* players, bool ene){
 
-        int armor = 100;
+        armor = 100;
         name = "player";
         level = 0;
         experience = 0;
@@ -221,36 +221,6 @@ using namespace sf;
         sprite.setPosition(Vector2f(spawnX, spawnY));
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
-    }
-
-
-    template<class Archive> void Hero::serialize(Archive & ar, const unsigned int version){
-        ar & this->name;
-        ar & this->level;
-        ar & this->health;
-        ar & this->armor;
-        ar & this->strength;
-        ar & this->vitality;
-        ar & this->jumping;
-        ar & this->punch;
-        ar & this->atk;
-        ar & this->faceright;
-        ar & this->jumpvel;
-        ar & this->horizontalvel;
-        ar & this->vertadd;
-        ar & this->horizadd;
-        ar & this->text;
-        ar & this->sprite;
-        ar & this->experience;
-        ar & this->borders;
-        ar & this->proj;
-        ar & this->players;
-
-        ar & this->timepass;
-        ar & this->ene;
-        ar & this->weapontimer;
-        ar & this->controlMapping;
-        ar & this->state_;
     }
 
     void Hero::setAnimation(){

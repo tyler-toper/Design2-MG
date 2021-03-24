@@ -1,7 +1,5 @@
 #include "../HeaderFiles/Game.h"
 #include "../irrXML/irrXML.h"
-using namespace irr;
-using namespace io;
 
 Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     this->controlMapping = controlMapping;
@@ -13,7 +11,10 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         if(mod->PollMenu(window, state, modify, players[0])){
-
+            this->modify = false;
+            cout << "Test 1" << endl; //Program never gets here.
+            LoadLevel(this->lvl);
+            cout << "Test 2" << endl;
         }
     }
     else{
@@ -105,7 +106,7 @@ void Game::LoadLevel(int lvl){
     irr::io::IrrXMLReader *lvlFile;
     bool fileNotEmpty = false;
     std::string lvlFullName = "../../Assets/Levels/lvl" + std::to_string(lvl) + ".xml";
-    lvlFile = createIrrXMLReader(lvlFullName.c_str());
+    lvlFile = irr::io::createIrrXMLReader(lvlFullName.c_str());
     std::string textPath;
     float col, row, col2, row2, speed, xCoord, yCoord;
     mod = new HeroMod(controlMapping);
@@ -113,19 +114,17 @@ void Game::LoadLevel(int lvl){
     while (lvlFile && lvlFile->read()){
         fileNotEmpty = true;
         switch (lvlFile->getNodeType()){
-            case EXN_ELEMENT:
+            case irr::io::EXN_ELEMENT:
                 if (!strcmp("level", lvlFile->getNodeName())){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    if(this->LFS){
-                        //LFS = Load From Save. Should simply update the player position rather than create a new hero.
-                        xCoord = lvlFile->getAttributeValueAsFloat("x");
-                        yCoord = lvlFile->getAttributeValueAsFloat("y");
-                    }
-                    else{
+                    if(!this->LFS && lvl == 1){
                         Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                         players.push_back(tempChar);
+                    }
+                    else if(!this->LFS && lvl > 1){
+                        players[0]->getSprite().setPosition(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {

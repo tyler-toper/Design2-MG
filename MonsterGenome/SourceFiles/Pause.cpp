@@ -84,7 +84,6 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
                 else if(selected == 2){
                     // TODO: Connect load system
                     LoadGame(game, 1);
-                    game.LoadLevel(2);
                 }
                 else if(selected == 3){
                     state.SetState(GameState::SETTINGS);
@@ -141,16 +140,66 @@ void Pause::MoveUp(){
 }
 
 void Pause::SaveGame(Game &game, int slot){
-    string saveSlot = "../../Saves/Slot " + to_string(slot) + "/hero.info";
-    std::ofstream outfs(saveSlot);
-    boost::archive::text_oarchive out(outfs);
-    out << game.players[0];
-    outfs.close();
+    int temp1, temp2;
+    float temp3, temp4;
+    string saveSlot = "../../Saves/Slot " + to_string(slot) + "/save.xml";
+    std::ofstream saveFile;
+    saveFile.open(saveSlot);
+    saveFile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
+    saveFile << "<save level=\"" + to_string(game.lvl) + "\">" << std::endl;
+
+    saveFile << "\t<coords x=\"" + to_string(game.players[0]->sprite.getPosition().x) + "\" y=\"" + to_string(game.players[0]->sprite.getPosition().y) + "\"/>" << std::endl;
+    saveFile << "\t<attrs name=\"" + game.players[0]->name + "\" health=\"" + to_string(game.players[0]->getHealth()) + "\" level=\"" + to_string(game.players[0]->level) + "\" armor=\"" + to_string(game.players[0]->armor) + "\" strength=\"" + to_string(game.players[0]->strength) + "\" vitality=\"" + to_string(game.players[0]->vitality) + "\" exp=\"" + to_string(game.players[0]->experience) + "\"/>" << std::endl;
+
+    saveFile << "</save>" << std::endl;
+    saveFile.close();
 }
 
 void Pause::LoadGame(Game &game, int slot){
-    string saveSlot = "../../Saves/Slot " + to_string(slot) + "/hero.info";
-    ifstream infs(saveSlot);
-    //boost::archive::text_iarchive in(infs);
-    //in >> game.players[0];
+    irr::io::IrrXMLReader *saveFile;
+    bool fileNotEmpty = false;
+    std::string saveSlot = "../../Saves/Slot " + to_string(slot) + "/save.xml";
+    saveFile = irr::io::createIrrXMLReader(saveSlot.c_str());
+    std::string name;
+    float col, row, col2, row2, speed, xCoord, yCoord;
+    int level;
+    game.mod = new HeroMod(game.controlMapping);
+
+    game.projs.clear();
+    game.players.clear();
+    game.borders.clear();
+
+    while (saveFile && saveFile->read()){
+        fileNotEmpty = true;
+        switch (saveFile->getNodeType()){
+            case irr::io::EXN_ELEMENT:
+                if (!strcmp("save", saveFile->getNodeName())){
+                    level = saveFile->getAttributeValueAsInt("level");
+                }
+                if (!strcmp("coords", saveFile->getNodeName())){
+                    Character* hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players, saveFile->getAttributeValueAsFloat("x"), saveFile->getAttributeValueAsFloat("y"));
+                    game.players.push_back(hero);
+                }
+                if (!strcmp("attrs", saveFile->getNodeName())) {
+                    game.players[0]->name =  saveFile->getAttributeValue("name");
+                    game.players[0]->health = saveFile->getAttributeValueAsInt("health");
+                    game.players[0]->level =  saveFile->getAttributeValueAsInt("level");
+                    game.players[0]->armor =  saveFile->getAttributeValueAsInt("armor");
+                    game.players[0]->strength = saveFile->getAttributeValueAsInt("strength");
+                    game.players[0]->vitality = saveFile->getAttributeValueAsInt("vitality");
+                    game.players[0]->experience = saveFile->getAttributeValueAsInt("exp");
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    if (!fileNotEmpty){
+        std::cerr << "Can't read level file " << saveSlot << std::endl;
+    }
+    delete saveFile;
+    saveFile = NULL;
+    game.LFS = true;
+
+    game.LoadLevel(level);
 }

@@ -3,9 +3,6 @@
 #include <iostream>
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include <fstream>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include "../HeaderFiles/Projectile.h"
 using namespace sf;
 
@@ -63,9 +60,6 @@ class Character{
 
 class Hero : public Character {
 private:
-
-    friend class boost::serialization::access;
-    template<class Archive> void serialize(Archive & ar, const unsigned int version);
 
     class HeroState {
     public:
