@@ -77,14 +77,13 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             if(pressed == controls["Move Left"]){
                 MoveLeft();
             }
-            // TODO: Connect to load functionality. Stay on screen or return to pause screen?
-            // TODO: Create a prompt that says successfully saved
             // TODO: Create error pop up for invalid stuff
             else if(pressed == Keyboard::Return){
                 if(selected == 4){
                     if(entered != -1){
                         SaveGame(game, entered);
-                        cout << "Save" << endl;
+                        state.SetState(GameState::PAUSE);
+                        Reset();
                     }
                     else{
                         cout << "No save slot selected" << endl;
@@ -94,7 +93,8 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
                 else if(selected == 5){
                     if(entered != -1){
                         LoadGame(game, entered);
-                        cout << "Load" << endl;
+                        state.SetState(GameState::LVL1);
+                        Reset();
                     }
                     else{
                         cout << "No save slot selected" << endl;
