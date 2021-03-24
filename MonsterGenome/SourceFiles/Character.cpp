@@ -250,11 +250,13 @@ void Character::equipWeapon(RenderWindow& window, View &playerView){
     //Sword
     if (Keyboard::isKeyPressed(Keyboard::Num1)) {
         equipSw = true;
+        equipPis = false;
     }
 
     //Pistol
     if (Keyboard::isKeyPressed(Keyboard::Num2)) {
         equipPis = true;
+        equipSw = false;
     }
 
     if (Keyboard::isKeyPressed(Keyboard::G)) {
