@@ -98,6 +98,9 @@ public:
     virtual void jump();
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
+    void damageCharacter(int damageTaken);
+    void healCharacter(int damageHealed);
+
 };
 
 class Hero : public Character {
@@ -105,34 +108,42 @@ private:
     class HeroState {
     public:
         virtual ~HeroState() {};
-        virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {};
-        virtual void update(Hero& Hero) {};
+
+        virtual void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView) {};
+
+        virtual void update(Hero &Hero) {};
     };
 
     class StandingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
+        void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
+
+        void update(Hero &hero);
     };
 
     class JumpingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
+        void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
+
+        void update(Hero &hero);
     };
-    std::map<std::string, sf::Keyboard::Key>* controlMapping;
-    HeroState* state_;
+
+    std::map<std::string, sf::Keyboard::Key> *controlMapping;
+    HeroState *state_;
 
 public:
     // Constructor
-    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
+    Hero(std::map<std::string, sf::Keyboard::Key> *controlMapping, vector<Platforms *> *borders,
+         vector<Projectile *> *proj, vector<Character *> *actors, float spawnX, float spawnY);
+
     // Setters
     void setAnimation(string animation);
+
     // Getters
+    bool isDead();
+
     // Mutators
-    void updatePosition(Time& timein, RenderWindow& window, View &playerView);
+    void updatePosition(Time &timein, RenderWindow &window, View &playerView);
+
     void run(bool isRunning);
-    void damagePlayer(int damageTaken);
-    void healPlayer(int damageHealed);
-    void killPlayer();
 };

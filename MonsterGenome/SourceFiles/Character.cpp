@@ -194,7 +194,7 @@ using namespace sf;
             if((proj[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
                 delete proj[0][i];
                 proj[0].erase(proj[0].begin() + i--);
-                health -= 10;
+                damageCharacter(10);
             }
         }
     }
@@ -203,7 +203,7 @@ using namespace sf;
         for(int i=1; i < actors[0].size(); i++){
             if((actors[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
                 if(actors[0][i]->getAttack()){
-                    this->health -= 10;
+                    damageCharacter(10);
                 }
             }
         }
@@ -299,6 +299,20 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
     }
 }
 
+void Character::damageCharacter(int damageTaken) {
+    health -= damageTaken;
+}
+
+void Character::healCharacter(int damageHealed) {
+    if(health + damageHealed < maxHealth) {
+        health += damageHealed;
+    }
+    else {
+        health = maxHealth;
+    }
+}
+
+
     /// Hero Functions
     // Constructor
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
@@ -326,9 +340,6 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";*/
 
     }
-
-    // Getters
-
     // Setters
     void Hero::setAnimation(string animation){
         // Needs to dereference controlMapping in order to read map
@@ -365,6 +376,10 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         }
         flip(sprite);
     }
+    // Getters
+    bool Hero::isDead() {
+        return health > 0;
+    }
 
     // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
@@ -394,27 +409,6 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
             if (horizontalvel > baseHorizontalvel) { horizontalvel -= 2 * horizontalAcc; }
             else { horizontalvel = baseHorizontalvel; }
         }
-    }
-
-    void Hero::damagePlayer(int damageTaken) {
-        health -= damageTaken;
-        if(health <= 0) {
-            killPlayer();
-        }
-    }
-
-    void Hero::healPlayer(int damageHealed) {
-        if(health + damageHealed < maxHealth) {
-            health += damageHealed;
-        }
-        else {
-            health = maxHealth;
-        }
-    }
-
-    void Hero::killPlayer() {
-        // Reset location
-
     }
 
     // Hero States
