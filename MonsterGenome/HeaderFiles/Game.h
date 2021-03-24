@@ -13,7 +13,7 @@ using namespace sf;
 
 class Game {
 private:
-    vector<Character*> players;
+    vector<Character*> actors;
     vector<Platforms*> borders;
     vector<Projectile*> projs;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;

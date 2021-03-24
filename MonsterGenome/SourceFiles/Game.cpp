@@ -12,7 +12,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
-        if(mod->PollMenu(window, state, modify, players[0])){
+        if(mod->PollMenu(window, state, modify, actors[0])){
             this->modify = false;
             LoadLevel(this->lvl);
         }
@@ -39,13 +39,13 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         for(int i = 0; i < borders.size(); i++){
             borders[i]->update(time);
         }
-        for(int i = 0; i < players.size(); i++){
-            players[i]->updatePosition(time, window, playerView);
+        for(int i = 0; i < actors.size(); i++){
+            actors[i]->updatePosition(time, window, playerView);
         }
-        for(int i = 1; i < players.size(); i++){
-            if(players[i]->getHealth() <= 0){
-                delete players[i];
-                players.erase(players.begin() + i--);
+        for(int i = 1; i < actors.size(); i++){
+            if(actors[i]->getHealth() <= 0){
+                delete actors[i];
+                actors.erase(actors.begin() + i--);
             }
         }
     }
@@ -57,7 +57,7 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         mod->Draw(window);
     }
     else {
-        playerView.setCenter(players[0]->getSprite().getPosition());
+        playerView.setCenter(actors[0]->getSprite().getPosition());
         playerView.setSize(window.getSize().x, window.getSize().y);
         window.setView(playerView);
         for (int i = 0; i < projs.size(); i++) {
@@ -71,11 +71,11 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         for (int i = 0; i < borders.size(); i++) {
             window.draw(borders[i]->getSprite());
         }
-        for (int i = 0; i < players.size(); i++) {
-            window.draw(players[i]->getSprite());
+        for (int i = 0; i < actors.size(); i++) {
+            window.draw(actors[i]->getSprite());
         }
 
-        mapView.setCenter(players[0]->getSprite().getPosition().x, players[0]->getSprite().getPosition().y - 200);
+        mapView.setCenter(actors[0]->getSprite().getPosition().x, actors[0]->getSprite().getPosition().y - 200);
         mapView.setSize(window.getSize().x * .25f, window.getSize().y * 0.25f);
         mapView.zoom(6);
         mapView.setViewport(sf::FloatRect(0.01f, 0.01f, 0.2f, 0.2f));
@@ -91,19 +91,19 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         for(int i = 0; i < borders.size(); i++){
             window.draw(borders[i]->getSprite());
         }
-        for(int i = 0; i < players.size(); i++){
-            window.draw(players[i]->getSprite());
+        for(int i = 0; i < actors.size(); i++){
+            window.draw(actors[i]->getSprite());
         }
 
 
 
-        if (players.size() == 1) {
+        if (actors.size() == 1) {
             modify = true;
             mod->randomize();
             window.setView(window.getDefaultView());
         }
-        players[0]->equipWeapon(window, playerView);
-        players[0]->animWeapon(window, playerView);
+        actors[0]->equipWeapon(window, playerView);
+        actors[0]->animWeapon(window, playerView);
     }
 }
 
@@ -125,12 +125,12 @@ void Game::LoadLevel(int lvl){
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
                     // TODO: Fix this constructor
-                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
-                    players.push_back(tempChar);
+                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &actors, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    actors.push_back(tempChar);
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    Character *tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
-                    players.push_back(tempChar);
+                    Character *tempChar = new Fighter(&borders, &projs, &actors, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    actors.push_back(tempChar);
                 }
                 if (!strcmp("boundary", lvlFile->getNodeName())){
                     col = lvlFile->getAttributeValueAsFloat("x1");
