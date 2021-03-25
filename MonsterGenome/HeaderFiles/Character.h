@@ -42,8 +42,8 @@ protected:
     float weapontimer = 0.f;
 
     // Damage Invulerablity
-    int invultimer = 0;
-    int maxInvulTime = 600;
+    float invultimer = 0;
+    float maxInvulTime = .5;
 
     /// Movement
     // Walking and Running

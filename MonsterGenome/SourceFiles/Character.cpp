@@ -75,8 +75,15 @@ using namespace sf;
 
     // Setters
     void Character::setAdditions(float v, float h){
-        this->vertadd = v;
-        this->horizadd = h;
+        if(v == 0 && h == 0){
+            this->vertadd = v;
+            this->horizadd = h;
+        }
+        else{
+            this->vertadd += v;
+            this->horizadd += h;
+        }
+        
     }
 
     // Getters
@@ -149,7 +156,6 @@ using namespace sf;
 
     // Mutators
     void Character::checkCollison(){
-        setAdditions(0.f, 0.f);
         for(int i=0; i < borders[0].size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
@@ -202,10 +208,10 @@ using namespace sf;
     void Hero::checkMelee() {
         for(int i=1; i < actors[0].size(); i++){
             if(sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
-                if (invultimer == 0) {
+                if (invultimer <= 0) {
                     if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
                         // Getting hit on right side
-                        // horizadd = 500;
+                        setAdditions(5000, -5000);
                     } else {
                         // Getting hit on left side
                         // horizadd = -500;
@@ -308,11 +314,11 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
 
 // TODO: Remove comment
 void Character::damageCharacter(int damageTaken) {
-    if (invultimer == 0) {
+    if (invultimer <= 0) {
         health -= damageTaken;
         invultimer = maxInvulTime;
+        cout << invultimer << endl;
     }
-    cout << invultimer << endl;
 }
 
 void Character::healCharacter(int damageHealed) {
@@ -396,10 +402,12 @@ void Character::healCharacter(int damageHealed) {
     // Getters
     // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+        setAdditions(0.f, 0.f);
         float time = timein.asSeconds();
         this->atk = false;
        //Gravity and collision when jumpin
         weapontimer = weapontimer - time;
+        invultimer = invultimer - time;
         timepass = timepass - time;
         jumpvel += GRAV * time; // Vertical Acceleration
 
@@ -407,10 +415,10 @@ void Character::healCharacter(int damageHealed) {
         state_->handleInput(*this, timein, window, playerView);
         state_->update(*this);
 
-        sprite.move(Vector2f(vertadd * time, horizadd * time));
         checkCollison();
         checkProjectile();
         checkMelee();
+        sprite.move(Vector2f(vertadd * time, horizadd * time));
     }
 
     void Hero::run(bool isRunning) {
