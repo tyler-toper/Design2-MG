@@ -41,7 +41,7 @@ public:
     virtual void setAnimation(string animation) = 0;
     virtual void setActions(float time) = 0;
     // Mutators
-    void checkMeleeHit();
+    void checkMelee();
     void updatePosition(Time& time, RenderWindow& window, View &playerView);
 };
 

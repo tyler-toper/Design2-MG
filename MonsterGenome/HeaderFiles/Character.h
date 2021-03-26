@@ -17,6 +17,7 @@ protected:
     string name;
     int level;
     int health;
+    int maxHealth;
     int armor;
     int strength;
     int vitality;
@@ -42,17 +43,23 @@ public:
     bool ene;
     //should be in weapons firerate
     float weapontimer = 0.f;
+
+    // Damage Invulerablity
+    float invultimer = 0;
+    float maxInvulTime = 1.0;
+
     /// Movement
     // Walking and Running
     float horizontalvel;
     float baseHorizontalvel;
     float maxHorizontalvel;
     float horizontalAcc;
+
     // Jumping
     float baseJumpHeight = 0.f;
     float jumpHeight = 0.f;
-  
-    //weapons
+
+    // Weapons
     Inventory* inventory;
     Sword* sword;
     Pistol* pistol;
@@ -79,16 +86,19 @@ public:
     float getHorizontalVel();
     bool isFaceright();
     float getJumpVel();
+
     // Setters
     void setFaceright(bool newFaceright);
+    void setHealth(int newHealth);
+    void setMaxHealth(int newMaxHealth);
 
     // Mutators
     void checkCollison();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
-    virtual void checkMeleeHit();
+    virtual void checkMelee() = 0;
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
-    void attack(vector<Projectile*>* borders, Vector2f loc);
+    void attack(vector<Projectile*>* borders);
     virtual void setAnimation(string animation) = 0;
     void flip(Sprite& sprite);
     void hAnimation();
@@ -99,6 +109,8 @@ public:
     void weaponToggles(string key);
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
+    void damageCharacter(int damageTaken);
+    void healCharacter(int damageHealed);
 };
 
 class Hero : public Character {
@@ -106,31 +118,40 @@ private:
     class HeroState {
     public:
         virtual ~HeroState() {};
-        virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {};
-        virtual void update(Hero& Hero) {};
+
+        virtual void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView) {};
+
+        virtual void update(Hero &Hero) {};
     };
 
     class StandingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
+        void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
+
+        void update(Hero &hero);
     };
 
     class JumpingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
+        void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
+
+        void update(Hero &hero);
     };
-    std::map<std::string, sf::Keyboard::Key>* controlMapping;
-    HeroState* state_;
+
+    std::map<std::string, sf::Keyboard::Key> *controlMapping;
+    HeroState *state_;
 
 public:
     // Constructor
-    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
+    Hero(std::map<std::string, sf::Keyboard::Key> *controlMapping, vector<Platforms *> *borders,
+         vector<Projectile *> *proj, vector<Character *> *actors, float spawnX, float spawnY);
+
     // Setters
     void setAnimation(string animation);
+
     // Getters
     // Mutators
-    void updatePosition(Time& timein, RenderWindow& window, View &playerView);
+    void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);
+    void checkMelee();
 };

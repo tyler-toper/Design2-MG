@@ -30,17 +30,17 @@ void Enemy::setState(Enemy::EnemyState* newState) {
 }
 
 // Mutators
-// TODO: Add param to change health lost
-void Enemy::checkMeleeHit(){
+void Enemy::checkMelee(){
     if((actors[0][0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][0]->getSprite().getGlobalBounds())){
         if(actors[0][0]->getAttack()){
-            this->health -= 10;
+            damageCharacter(10);
         }
     }
 }
 
 void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     float time = timein.asSeconds();
+    setAdditions(0.f, 0.f);
     setActions(time);
     //Gravity and collision when jumpin
     weapontimer = weapontimer - time;
@@ -54,7 +54,7 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     sprite.move(Vector2f(vertadd * time, horizadd * time));
     checkCollison();
     checkProjectile();
-    checkMeleeHit();
+    checkMelee();
 }
 
 /// Fighter
