@@ -96,6 +96,7 @@ public:
     void setAdditions(float v, float h);
     string getName();
     virtual void jump();
+    void weaponToggles(string key);
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
 };

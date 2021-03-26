@@ -6,6 +6,7 @@ using namespace sf;
 using namespace std;
 
 Sword::Sword(unsigned level, string textureFile):MeleeWeapon(level, textureFile){
+    this->weapSprite.setTextureRect(IntRect (0,0,recWidth,recHeight));
     this->weapSprite.setOrigin(this->weapSprite.getGlobalBounds().width/2.f,
                                this->weapSprite.getGlobalBounds().height);
 }
@@ -44,6 +45,21 @@ void Sword::renderLeft(RenderWindow& window, View &playerView){
     
     window.setView(playerView);
     window.draw(weapSprite);
+}
+
+void Sword::attackAnim(RenderWindow &window, View &playerView) {
+    if(rectLeft < 288){
+        rectLeft += 48;
+        this->weapSprite.setTextureRect(IntRect(rectLeft,0,recWidth, recHeight));
+    }
+    else if(rectLeft >= 288){
+        rectLeft = 48;
+        this->weapSprite.setTextureRect(IntRect(rectLeft,0,recWidth, recHeight));
+    }
+}
+
+void Sword::resetAnim(RenderWindow &window, View &playerView) {
+    this->weapSprite.setTextureRect(IntRect (0,0,recWidth,recHeight));
 }
 
 

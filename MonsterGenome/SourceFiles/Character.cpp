@@ -246,35 +246,48 @@ using namespace sf;
         jumpvel = -jumpHeight;
     }
 
-void Character::equipWeapon(RenderWindow& window, View &playerView){
-    //Sword
-    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+void Character::weaponToggles(string key){
+    if(key == "sword"){
         equipSw = true;
         equipPis = false;
     }
-
-    //Pistol
-    if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+    else if(key == "pistol"){
         equipPis = true;
         equipSw = false;
     }
-
-    if (Keyboard::isKeyPressed(Keyboard::G)) {
+    else if(key == "all"){
         equipPis = false;
         equipSw = false;
+    }
+}
+
+
+void Character::equipWeapon(RenderWindow& window, View &playerView){
+    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+        weaponToggles("sword");
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+        weaponToggles("pistol");
+    }
+
+    if (Keyboard::isKeyPressed(Keyboard::G)) {
+        weaponToggles("all");
     }
 
     if(equipSw){
         if (faceright) {
             sword->renderRight(window, playerView);
-        } else if (!faceright) {
+        }
+        else if (!faceright) {
             sword->renderLeft(window, playerView);
         }
     }
     else if(equipPis){
         if (faceright) {
             pistol->renderRight(window, playerView);
-        } else if (!faceright) {
+        }
+        else if (!faceright) {
             pistol->renderLeft(window, playerView);
         }
     }
@@ -288,6 +301,15 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         }
         else{
             pistol->resetAnim(window, playerView);
+        }
+    }
+
+    else if(equipSw){
+        if(Mouse::isButtonPressed(Mouse::Left)){
+            sword->attackAnim(window, playerView);
+        }
+        else{
+            sword->resetAnim(window, playerView);
         }
     }
 }
@@ -304,7 +326,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
         this->inventory = new Inventory(10);
-        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword.png");
+        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword_anim.png");
         this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
 
         //inv testing
