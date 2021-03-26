@@ -330,12 +330,6 @@ void Character::healCharacter(int damageHealed) {
     }
 }
 
-    void Character::reduceTimers() {
-        if (invultimer > 0) {
-            invultimer -= 1;
-        }
-    }
-
     /// Hero Functions
     // Constructor
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){

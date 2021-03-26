@@ -20,7 +20,6 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         }
     }
     else{
-
         window.setKeyRepeatEnabled(false);
         Event event;
         while(window.pollEvent(event)) {

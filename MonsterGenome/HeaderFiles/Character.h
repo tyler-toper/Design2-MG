@@ -107,7 +107,6 @@ public:
     void animWeapon(RenderWindow& window, View& playerView);
     void damageCharacter(int damageTaken);
     void healCharacter(int damageHealed);
-    void reduceTimers();
 };
 
 class Hero : public Character {
