@@ -22,7 +22,11 @@ private:
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
     int xValue;
-    int yValue[StartMenuOptions - 1];
+    int yValue[4];
+
+    bool errorFlag;
+    Font font;
+    Text error;
 
     Texture menu;
     Sprite menuSprite;
@@ -30,6 +34,8 @@ private:
     Sprite backgroundSprite;
     Texture startButton;
     Sprite startButtonSprite;
+    Texture newButton;
+    Sprite newButtonSprite;
     Texture enteredBox;
     Sprite enteredBoxSprite;
     Texture selectedBox;
@@ -50,5 +56,7 @@ public:
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
+    void MoveRight();
+    void MoveLeft();
     void Reset();
 };

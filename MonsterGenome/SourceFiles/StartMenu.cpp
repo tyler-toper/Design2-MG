@@ -6,6 +6,16 @@ StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboa
     selected = 0;
     entered = -1;
 
+    font.loadFromFile("../../Assets/Fonts/PixelFont.ttf");
+    error.setString("Error: No save slot selected!");
+    error.setFont(font);
+    error.setFillColor(Color::Red);
+    error.setCharacterSize(45);
+    FloatRect errorBox = error.getGlobalBounds();
+    float errorOffset = errorBox.width / 2;
+    error.setPosition((1024 / 2) - errorOffset, 668);
+    errorFlag = false;
+
     xValue = 465;
     yValue[0] = 185;
     yValue[1] = 261;
@@ -15,9 +25,13 @@ StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboa
     menu.loadFromFile("../../Assets/Backgrounds/StartScreen/StartMenu.png");
     menuSprite.setTexture(menu);
 
+    newButton.loadFromFile("../../Assets/Backgrounds/StartScreen/NewGameButtonSelected.png");
+    newButtonSprite.setTexture(newButton);
+    newButtonSprite.setPosition(254, 542);
+
     startButton.loadFromFile("../../Assets/Backgrounds/StartScreen/StartButtonSelected.png");
     startButtonSprite.setTexture(startButton);
-    startButtonSprite.setPosition(414, 586);
+    startButtonSprite.setPosition(585, 542);
 
     enteredBox.loadFromFile("../../Assets/Backgrounds/SaveBoxEntered.png");
     enteredBoxSprite.setTexture(enteredBox);
@@ -62,29 +76,38 @@ void StartMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
                 MoveDown();
             }
 
+            if(pressed == controls["Move Right"]){
+                MoveRight();
+            }
+            if(pressed == controls["Move Left"]){
+                MoveLeft();
+            }
             if(pressed == controls["Pause"]){
                 state.SetState(GameState::MENU);
                 Reset();
             }
-            // FIXME: Connect to load functionality
             else if(pressed == Keyboard::Return){
                 if(selected == 4){
+                    LoadGame(game, selected);
+                    state.SetState(GameState::LVL1);
+                    Reset();
+                }
+                else if(selected == 5){
                     if(entered != -1){
                         LoadGame(game, entered);
-
                         state.SetState(GameState::LVL1);
                         state.SetPlaying(true);
                         Reset();
                     }
                     else{
-                        // TODO: Create a pop up error
-                        cout << "No save slot selected" << endl;
+                        errorFlag = true;
                     }
-
                 }
+
                 else{
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
                     entered = selected;
+                    errorFlag = false;
                 }
             }
         }
@@ -96,6 +119,9 @@ void StartMenu::Draw(RenderWindow &window){
     window.draw(menuSprite);
 
     if(selected == 4){
+        window.draw(newButtonSprite);
+    }
+    else if(selected == 5){
         window.draw(startButtonSprite);
     }
     else{
@@ -103,10 +129,18 @@ void StartMenu::Draw(RenderWindow &window){
         selectedBoxSprite.setPosition(xValue, yValue[selected]);
     }
     window.draw(enteredBoxSprite);
+
+    if(errorFlag){
+        window.draw(error);
+    }
 }
 
 void StartMenu::MoveUp(){
-    if(selected - 1 >= 0){
+    if(selected == 5){
+        moveSound.play();
+        selected = 3;
+    }
+    else if(selected - 1 >= 0){
         moveSound.play();
         selected--;
     }
@@ -116,7 +150,27 @@ void StartMenu::MoveUp(){
 }
 
 void StartMenu::MoveDown(){
-    if(selected + 1 < StartMenuOptions){
+    if(selected + 1 <= 4){
+        moveSound.play();
+        selected++;
+    }
+    else{
+        errorSound.play();
+    }
+}
+
+void StartMenu::MoveLeft() {
+    if(selected == 5){
+        moveSound.play();
+        selected--;
+    }
+    else{
+        errorSound.play();
+    }
+}
+
+void StartMenu::MoveRight() {
+    if(selected == 4){
         moveSound.play();
         selected++;
     }

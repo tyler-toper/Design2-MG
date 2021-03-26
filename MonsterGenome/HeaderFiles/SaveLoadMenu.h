@@ -25,6 +25,10 @@ private:
     int xValue;
     int yValue[4];
 
+    bool errorFlag;
+    Font font;
+    Text error;
+
     Texture menu;
     Sprite menuSprite;
     Texture background;

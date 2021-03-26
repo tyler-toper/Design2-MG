@@ -5,6 +5,16 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
     selected = 0;
     entered = -1;
 
+    font.loadFromFile("../../Assets/Fonts/PixelFont.ttf");
+    error.setString("Error: No save slot selected!");
+    error.setFont(font);
+    error.setFillColor(Color::Red);
+    error.setCharacterSize(45);
+    FloatRect errorBox = error.getGlobalBounds();
+    float errorOffset = errorBox.width / 2;
+    error.setPosition((1024 / 2) - errorOffset, 668);
+    errorFlag = false;
+
     xValue = 465;
     yValue[0] = 185;
     yValue[1] = 261;
@@ -77,8 +87,7 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             if(pressed == controls["Move Left"]){
                 MoveLeft();
             }
-            // TODO: Create error pop up for invalid stuff
-            else if(pressed == Keyboard::Return){
+            if(pressed == Keyboard::Return){
                 if(selected == 4){
                     if(entered != -1){
                         SaveGame(game, entered);
@@ -86,7 +95,7 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
                         Reset();
                     }
                     else{
-                        cout << "No save slot selected" << endl;
+                        errorFlag = true;
                     }
 
                 }
@@ -97,13 +106,14 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
                         Reset();
                     }
                     else{
-                        cout << "No save slot selected" << endl;
+                        errorFlag = true;
                     }
 
                 }
                 else{
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
                     entered = selected;
+                    errorFlag = false;
                 }
             }
         }
@@ -126,6 +136,10 @@ void SaveLoadMenu::Draw(RenderWindow &window){
     }
 
     window.draw(enteredBoxSprite);
+
+    if(errorFlag){
+        window.draw(error);
+    }
 
 }
 
