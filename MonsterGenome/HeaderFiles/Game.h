@@ -19,7 +19,11 @@ private:
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroMod* mod;
     int lvl;
+    bool LFS;
     bool modify = false;
+
+    friend class StartMenu;
+    friend class SaveLoadMenu;
 
 public:
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);

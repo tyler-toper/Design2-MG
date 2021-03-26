@@ -34,7 +34,10 @@ protected:
     vector<Platforms*>* borders;
     vector<Projectile*>* proj;
     vector<Character*>* actors;
+    friend class StartMenu;
+    friend class SaveLoadMenu;
 
+public:
     float timepass = .5f;
     //make enemy
     bool ene;
@@ -69,7 +72,6 @@ protected:
     // Private Functions
     int rightLeft(Sprite& first, Sprite& second);
     bool isAnyKeyPressed(std::map<std::string, sf::Keyboard::Key>* controlMapping);
-    
 
 public:
     // Constructors
@@ -102,7 +104,9 @@ public:
     void hAnimation();
     void mAnimation();
     void setAdditions(float v, float h);
+    string getName();
     virtual void jump();
+    void weaponToggles(string key);
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
     void damageCharacter(int damageTaken);

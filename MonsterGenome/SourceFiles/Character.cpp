@@ -41,7 +41,7 @@ using namespace sf;
     // Constructor
     Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene){
 
-        int armor = 100;
+        armor = 100;
         name = "player";
         level = 0;
         experience = 0;
@@ -270,33 +270,48 @@ using namespace sf;
         jumpvel = -jumpHeight;
     }
 
-void Character::equipWeapon(RenderWindow& window, View &playerView){
-    //Sword
-    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+void Character::weaponToggles(string key){
+    if(key == "sword"){
         equipSw = true;
+        equipPis = false;
+    }
+    else if(key == "pistol"){
+        equipPis = true;
+        equipSw = false;
+    }
+    else if(key == "all"){
+        equipPis = false;
+        equipSw = false;
+    }
+}
+
+
+void Character::equipWeapon(RenderWindow& window, View &playerView){
+    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+        weaponToggles("sword");
     }
 
-    //Pistol
     if (Keyboard::isKeyPressed(Keyboard::Num2)) {
-        equipPis = true;
+        weaponToggles("pistol");
     }
 
     if (Keyboard::isKeyPressed(Keyboard::G)) {
-        equipPis = false;
-        equipSw = false;
+        weaponToggles("all");
     }
 
     if(equipSw){
         if (faceright) {
             sword->renderRight(window, playerView);
-        } else if (!faceright) {
+        }
+        else if (!faceright) {
             sword->renderLeft(window, playerView);
         }
     }
     else if(equipPis){
         if (faceright) {
             pistol->renderRight(window, playerView);
-        } else if (!faceright) {
+        }
+        else if (!faceright) {
             pistol->renderLeft(window, playerView);
         }
     }
@@ -310,6 +325,15 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         }
         else{
             pistol->resetAnim(window, playerView);
+        }
+    }
+
+    else if(equipSw){
+        if(Mouse::isButtonPressed(Mouse::Left)){
+            sword->attackAnim(window, playerView);
+        }
+        else{
+            sword->resetAnim(window, playerView);
         }
     }
 }
@@ -342,7 +366,7 @@ void Character::healCharacter(int damageHealed) {
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
         this->inventory = new Inventory(10);
-        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword.png");
+        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword_anim.png");
         this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
 
         //inv testing

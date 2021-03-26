@@ -60,9 +60,9 @@ add_executable(MonsterGenome main.cpp
         HeaderFiles/Inventory.h)
 
 # SFML
-include_directories(headers /usr/include ../Dependencies/SFML-2.5.1/include)
-  
-set(SFML_ROOT "../Dependencies/SFML-2.5.1")
+include_directories(headers /usr/include C:/SFML-2.5.1/include)
+
+set(SFML_ROOT "C:/SFML-2.5.1")
 
 
 if(POLICY CMP0074)

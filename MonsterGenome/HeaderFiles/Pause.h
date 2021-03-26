@@ -5,7 +5,10 @@
 #include <string>
 #include <iostream>
 #include <stack>
+#include <fstream>
 #include "GameState.h"
+#include "Game.h"
+#include "../irrXML/irrXML.h"
 using namespace std;
 using namespace sf;
 
@@ -33,8 +36,9 @@ public:
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
-
-    void PollMenu(RenderWindow &window, GameState &state);
+    void SaveGame(Game &game, int slot);
+    void LoadGame(Game &game, int slot);
+    void PollMenu(RenderWindow &window, GameState &state, Game &game);
     void Reset();
 };
 

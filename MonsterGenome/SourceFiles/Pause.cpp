@@ -1,4 +1,6 @@
 #include "../HeaderFiles/Pause.h"
+#include "../HeaderFiles/Character.h"
+#include <fstream>
 
 
 Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key>* controlMapping) {
@@ -28,7 +30,6 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
         FloatRect box = text[i].getGlobalBounds();
         float offset = box.width / 2;
         text[i].setPosition((width / 2) - offset, (height / (PauseOptions + 1) * (i + 1)));
-
     }
 
     text[selected].setFillColor(Color::Red);
@@ -48,7 +49,7 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
 }
 
 
-void Pause::PollMenu(RenderWindow &window, GameState &state) {
+void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
     Event event;
     while(window.pollEvent(event)){
         if(event.type == Event::Closed){
@@ -77,6 +78,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state) {
                     state.Resume();
                 }
                 else if(selected == 1){
+
                     state.SetState(GameState::SAVELOAD);
                 }
                 else if(selected == 2){

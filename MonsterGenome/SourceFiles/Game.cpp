@@ -1,7 +1,5 @@
 #include "../HeaderFiles/Game.h"
 #include "../irrXML/irrXML.h"
-using namespace irr;
-using namespace io;
 
 Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     this->controlMapping = controlMapping;
@@ -117,22 +115,26 @@ void Game::LoadLevel(int lvl){
     irr::io::IrrXMLReader *lvlFile;
     bool fileNotEmpty = false;
     std::string lvlFullName = "../../Assets/Levels/lvl" + std::to_string(lvl) + ".xml";
-    lvlFile = createIrrXMLReader(lvlFullName.c_str());
+    lvlFile = irr::io::createIrrXMLReader(lvlFullName.c_str());
     std::string textPath;
-    float col, row, col2, row2, speed;
+    float col, row, col2, row2, speed, xCoord, yCoord;
     mod = new HeroMod(controlMapping);
 
     while (lvlFile && lvlFile->read()){
         fileNotEmpty = true;
         switch (lvlFile->getNodeType()){
-            case EXN_ELEMENT:
+            case irr::io::EXN_ELEMENT:
                 if (!strcmp("level", lvlFile->getNodeName())){
                     std::string background = lvlFile->getAttributeValue("background");
                 }
                 if (!strcmp("hero", lvlFile->getNodeName())){
-                    // TODO: Fix this constructor
-                    Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
-                    players.push_back(tempChar);
+                    if(!this->LFS && lvl == 1){
+                        Character* tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                        players.push_back(tempChar);
+                    }
+                    else if(!this->LFS && lvl > 1){
+                        players[0]->getSprite().setPosition(lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
                     Character *tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
