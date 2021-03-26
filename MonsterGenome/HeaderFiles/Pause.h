@@ -30,14 +30,14 @@ private:
     Sound errorSound;
     SoundBuffer confirmBuffer;
     Sound confirmSound;
+    SoundBuffer backBuffer;
+    Sound backSound;
 
 public:
     Pause(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
-    void SaveGame(Game &game, int slot);
-    void LoadGame(Game &game, int slot);
     void PollMenu(RenderWindow &window, GameState &state, Game &game);
     void Reset();
 };

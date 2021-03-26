@@ -37,16 +37,15 @@ Menu::Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* 
 
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
-    moveSound.setVolume(35);
+    moveSound.setVolume(40);
 
     errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
     errorSound.setBuffer(errorBuffer);
-    errorSound.setVolume(40);
+    errorSound.setVolume(45);
 
     confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
     confirmSound.setBuffer(confirmBuffer);
     confirmSound.setVolume(70);
-
 }
 
 void Menu::PollMenu(RenderWindow &window, GameState &state) {

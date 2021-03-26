@@ -46,15 +46,19 @@ StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboa
 
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
-    moveSound.setVolume(35);
+    moveSound.setVolume(40);
 
     errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
     errorSound.setBuffer(errorBuffer);
-    errorSound.setVolume(40);
+    errorSound.setVolume(45);
 
     confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
     confirmSound.setBuffer(confirmBuffer);
     confirmSound.setVolume(70);
+
+    backBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/close_001.ogg");
+    backSound.setBuffer(backBuffer);
+    backSound.setVolume(25);
 
 }
 
@@ -83,28 +87,33 @@ void StartMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
                 MoveLeft();
             }
             if(pressed == controls["Pause"]){
+                backSound.play();
                 state.SetState(GameState::MENU);
                 Reset();
             }
             else if(pressed == Keyboard::Return){
                 if(selected == 4){
+                    confirmSound.play();
                     LoadGame(game, selected);
                     state.SetState(GameState::LVL1);
                     Reset();
                 }
                 else if(selected == 5){
                     if(entered != -1){
+                        confirmSound.play();
                         LoadGame(game, entered);
                         state.SetState(GameState::LVL1);
                         state.SetPlaying(true);
                         Reset();
                     }
                     else{
+                        errorSound.play();
                         errorFlag = true;
                     }
                 }
 
                 else{
+                    confirmSound.play();
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
                     entered = selected;
                     errorFlag = false;

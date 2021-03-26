@@ -37,15 +37,19 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
 
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
-    moveSound.setVolume(35);
+    moveSound.setVolume(40);
 
     errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
     errorSound.setBuffer(errorBuffer);
-    errorSound.setVolume(40);
+    errorSound.setVolume(45);
 
     confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
     confirmSound.setBuffer(confirmBuffer);
     confirmSound.setVolume(70);
+
+    backBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/close_001.ogg");
+    backSound.setBuffer(backBuffer);
+    backSound.setVolume(25);
 }
 
 
@@ -61,6 +65,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
+                backSound.play();
                 state.SetState(GameState::LVL1);
                 state.Resume();
                 Reset();
@@ -78,7 +83,6 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
                     state.Resume();
                 }
                 else if(selected == 1){
-
                     state.SetState(GameState::SAVELOAD);
                 }
                 else if(selected == 2){

@@ -56,6 +56,8 @@ private:
     Sound errorSound;
     SoundBuffer confirmBuffer;
     Sound confirmSound;
+    SoundBuffer backBuffer;
+    Sound backSound;
 
 public:
     Settings(float width, float height);

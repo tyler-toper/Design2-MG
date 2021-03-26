@@ -44,15 +44,19 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
 
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
-    moveSound.setVolume(35);
+    moveSound.setVolume(40);
 
     errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
     errorSound.setBuffer(errorBuffer);
-    errorSound.setVolume(40);
+    errorSound.setVolume(45);
 
     confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
     confirmSound.setBuffer(confirmBuffer);
     confirmSound.setVolume(70);
+
+    backBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/close_001.ogg");
+    backSound.setBuffer(backBuffer);
+    backSound.setVolume(25);
 
 }
 
@@ -67,6 +71,7 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
+                backSound.play();
                 if(GameState::GetPrev() == GameState::MENU){
                     state.SetState(GameState::MENU);
                 }
@@ -90,16 +95,19 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             if(pressed == Keyboard::Return){
                 if(selected == 4){
                     if(entered != -1){
+                        confirmSound.play();
                         SaveGame(game, entered);
                         state.SetState(GameState::PAUSE);
                         Reset();
                     }
                     else{
                         errorFlag = true;
+                        errorSound.play();
                     }
 
                 }
                 else if(selected == 5){
+                    confirmSound.play();
                     if(entered != -1){
                         LoadGame(game, entered);
                         state.SetState(GameState::LVL1);
@@ -107,10 +115,12 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
                     }
                     else{
                         errorFlag = true;
+                        errorSound.play();
                     }
 
                 }
                 else{
+                    confirmSound.play();
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
                     entered = selected;
                     errorFlag = false;
