@@ -40,6 +40,7 @@ void Enemy::checkMelee(){
 
 void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     float time = timein.asSeconds();
+    setAdditions(0.f, 0.f);
     setActions(time);
     //Gravity and collision when jumpin
     weapontimer = weapontimer - time;

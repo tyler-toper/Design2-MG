@@ -215,7 +215,6 @@ using namespace sf;
                         setAdditions(5000, 0);
                     } else {
                         // Getting hit on left side
-                        // horizadd = -500;
                         setAdditions(-5000, 0);
                     }
                     damageCharacter(10);
@@ -418,9 +417,10 @@ void Character::healCharacter(int damageHealed) {
         state_->handleInput(*this, timein, window, playerView);
         state_->update(*this);
 
-        checkCollison();
         checkProjectile();
         checkMelee();
+        checkCollison();
+        // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
         sprite.move(Vector2f(vertadd * time, horizadd * time));
     }
 
