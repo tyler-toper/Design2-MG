@@ -204,6 +204,7 @@ using namespace sf;
             }
         }
     }
+
     // TODO: Move this to Hero and make the Character function virtual
     void Hero::checkMelee() {
         for(int i=1; i < actors[0].size(); i++){
@@ -211,10 +212,11 @@ using namespace sf;
                 if (invultimer <= 0) {
                     if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
                         // Getting hit on right side
-                        setAdditions(5000, -5000);
+                        setAdditions(5000, 0);
                     } else {
                         // Getting hit on left side
                         // horizadd = -500;
+                        setAdditions(-5000, 0);
                     }
                     damageCharacter(10);
                 }
@@ -316,6 +318,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
 void Character::damageCharacter(int damageTaken) {
     if (invultimer <= 0) {
         health -= damageTaken;
+        cout << invultimer << ", ";
         invultimer = maxInvulTime;
         cout << invultimer << endl;
     }
