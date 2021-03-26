@@ -96,7 +96,7 @@ public:
     void checkProjectile();
     virtual void checkMelee() = 0;
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
-    void attack(vector<Projectile*>* borders, Vector2f loc);
+    void attack(vector<Projectile*>* borders);
     virtual void setAnimation(string animation) = 0;
     void flip(Sprite& sprite);
     void hAnimation();

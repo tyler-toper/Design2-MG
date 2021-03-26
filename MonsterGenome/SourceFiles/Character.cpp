@@ -198,9 +198,9 @@ using namespace sf;
     void Character::checkProjectile(){
         for(int i=0; i < proj[0].size(); i++){
             if((proj[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
+                damageCharacter(proj[0][i]->getDamage());
                 delete proj[0][i];
                 proj[0].erase(proj[0].begin() + i--);
-                damageCharacter(10);
             }
         }
     }
@@ -250,7 +250,7 @@ using namespace sf;
         }
     }
 
-    void Character::attack(vector<Projectile*>* proj, Vector2f loc){
+    void Character::attack(vector<Projectile*>* proj){
         if(weapontimer <= 0.f){
             string path;
             if(ene){
@@ -260,7 +260,7 @@ using namespace sf;
             {
                 path = "../Images/shot.png";
             }
-            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y, this->ene));
+            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10));
             weapontimer = 1.f;
         }
     }
@@ -471,7 +471,7 @@ void Character::healCharacter(int damageHealed) {
         }
         //Attacking
         if (Keyboard::isKeyPressed(controls["Attack"])) {
-            hero.attack(hero.proj, window.mapPixelToCoords(Mouse::getPosition(window), playerView));
+            hero.attack(hero.proj);
             hero.setAnimation("still"); //CHange when we have animation
         }
         if(!hero.isAnyKeyPressed(hero.controlMapping)){
