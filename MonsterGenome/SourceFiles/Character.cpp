@@ -49,7 +49,6 @@ using namespace sf;
         strength = 0;
         health = 100;
         maxHealth = 100;
-        jumping = false;
         jumpvel = 0;
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
@@ -210,6 +209,7 @@ using namespace sf;
         for(int i=1; i < actors[0].size(); i++){
             if(sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
                 if (invultimer <= 0) {
+                    // TODO: Fix this knockback issue
                     if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
                         // Getting hit on right side
                         setAdditions(5000, 0);
@@ -252,6 +252,7 @@ using namespace sf;
 
     void Character::attack(vector<Projectile*>* proj){
         if(weapontimer <= 0.f){
+            // TODO: The path should be derived from the weapon the character is holding
             string path;
             if(ene){
                 path = "../Images/shot1.png";
@@ -406,7 +407,11 @@ void Character::healCharacter(int damageHealed) {
         this->atk = false;
        //Gravity and collision when jumpin
         weapontimer = weapontimer - time;
-        invultimer = invultimer - time;
+        if(invultimer > 0) {
+            invultimer = invultimer - time;
+        } else {
+            invultimer = 0;
+        }
         timepass = timepass - time;
         jumpvel += GRAV * time; // Vertical Acceleration
 

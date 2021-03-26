@@ -46,7 +46,6 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         // Update Players and Enemies
         for(int i = 0; i < players.size(); i++){
             players[i]->updatePosition(time, window, playerView);
-            players[i]->reduceTimers();
         }
 
         // Delete Enemies if dead
