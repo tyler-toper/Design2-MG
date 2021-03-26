@@ -313,13 +313,10 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
     }
 }
 
-// TODO: Remove comment
 void Character::damageCharacter(int damageTaken) {
     if (invultimer <= 0) {
         health -= damageTaken;
-        cout << invultimer << ", ";
         invultimer = maxInvulTime;
-        cout << invultimer << endl;
     }
 }
 
