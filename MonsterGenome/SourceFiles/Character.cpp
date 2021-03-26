@@ -197,7 +197,7 @@ using namespace sf;
 
     void Character::checkProjectile(){
         for(int i=0; i < proj[0].size(); i++){
-            if(sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
+            if((proj[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
                 delete proj[0][i];
                 proj[0].erase(proj[0].begin() + i--);
                 damageCharacter(10);
