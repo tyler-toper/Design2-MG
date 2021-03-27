@@ -204,25 +204,6 @@ using namespace sf;
         }
     }
 
-    // TODO: Move this to Hero and make the Character function virtual
-    void Hero::checkMelee() {
-        for(int i=1; i < actors[0].size(); i++){
-            if(sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
-                if (invultimer <= 0) {
-                    // TODO: Fix this knockback issue
-                    if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
-                        // Getting hit on right side
-                        setAdditions(5000, 0);
-                    } else {
-                        // Getting hit on left side
-                        setAdditions(-5000, 0);
-                    }
-                    damageCharacter(10);
-                }
-            }
-        }
-    }
-
     void Character::flip(Sprite& sprite){
         sprite.setOrigin({ sprite.getGlobalBounds().width/2.0f, 0});
         sprite.setScale(pow(-1, !faceright), 1);
@@ -359,7 +340,8 @@ void Character::healCharacter(int damageHealed) {
     Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
         this->controlMapping = controlMapping;
         state_ = new StandingState();
-        
+        // TODO: Create respawn point variable (vector or coords)
+
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(spawnX, spawnY));
@@ -440,6 +422,7 @@ void Character::healCharacter(int damageHealed) {
         checkProjectile();
         checkMelee();
         checkCollison();
+        // TODO: Change this to be velocity based
         // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
         sprite.move(Vector2f(vertadd * time, horizadd * time));
     }
@@ -454,6 +437,26 @@ void Character::healCharacter(int damageHealed) {
             else { horizontalvel = baseHorizontalvel; }
         }
     }
+
+    // TODO: Move this to Hero and make the Character function virtual
+    void Hero::checkMelee() {
+        for(int i=1; i < actors[0].size(); i++){
+            if(sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
+                if (invultimer <= 0) {
+                    // TODO: Fix this knockback issue
+                    if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
+                        // Getting hit on right side
+                        setAdditions(5000, 0);
+                    } else {
+                        // Getting hit on left side
+                        setAdditions(-5000, 0);
+                    }
+                    damageCharacter(10);
+                }
+            }
+        }
+    }
+
 
     // Hero States
     // Standing

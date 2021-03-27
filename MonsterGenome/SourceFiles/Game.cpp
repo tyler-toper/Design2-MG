@@ -44,12 +44,15 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         for(int i = 0; i < players.size(); i++){
             players[i]->updatePosition(time, window, playerView);
         }
-
-        // Killing the player
-        // Check if the player has fallen off the map
-        if(players[0]->getSprite().getPosition().y > 500 || players[0]->getHealth() <= 0) {
-            cout << "Help, I'm dead" << endl;
-        }
+// TODO: Remove comment code
+//        // Killing the player
+//        // Check if the player has fallen off the map
+//        if(players[0]->getSprite().getPosition().y > 500 || players[0]->getHealth() <= 0) {
+//            // Death Animation (?)
+//            // Reset Position
+//            // players[0]->getSprite().setPosition(1422, 0);
+//            // Reset Player Attributes
+//        }
 
         // Delete Enemies if dead
         for(int i = 1; i < players.size(); i++){
@@ -107,7 +110,6 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         }
 
 
-        // TODO: Or if player is dead
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
