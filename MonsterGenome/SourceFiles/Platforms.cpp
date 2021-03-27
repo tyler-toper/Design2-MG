@@ -80,7 +80,12 @@ Vector2f Checkpoint::getLocation(){
 
 void Checkpoint::setActivation(){
     this->activated = true;
-    sprite.setColor(sf::Color::Blue);
+    text.loadFromFile("../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation.png");
+    sprite.setTexture(text, true);
+    sprite.move(Vector2f(0, -72));
+    /*Image img;
+    img.loadFromFile("../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation.png");
+    text.update(img);*/
 }
 
 bool Checkpoint::getActivation(){

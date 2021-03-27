@@ -186,7 +186,7 @@ void Game::LoadLevel(int lvl){
     lvlFile = NULL;
 
     //TODO : SHOULD BE IN XML
-    Platforms* temp = new Checkpoint("../Images/checkpoint.png", 1600, 475);
+    Platforms* temp = new Checkpoint("../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation copie.png", 1600, 485);
     this->borders.push_back(temp);
 
 }

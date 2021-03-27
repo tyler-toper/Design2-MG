@@ -176,8 +176,8 @@ using namespace sf;
         for(int i=0; i < borders[0].size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
-                removeCollision(borders[0][i], intersection);
                 if(borders[0][i]->getName() == "M"){
+                    removeCollision(borders[0][i], intersection);
                     MovePlatform *d = static_cast<MovePlatform *>(borders[0][i]);
                     if(aboveBelow(sprite, d->getSprite()) == -1 && (d->getYspeed() > 0)){
                         d->reverse();
@@ -186,13 +186,16 @@ using namespace sf;
                         setAdditions(d->getXspeed(), abs(d->getYspeed()));
                     }
                 }
-                if(borders[0][i]->getName() == "C" && !this->ene){
+                else if(borders[0][i]->getName() == "C" && !this->ene){
                     Checkpoint *d = static_cast<Checkpoint *>(borders[0][i]);
                     if(!d->getActivation()){
                         d->setActivation();
                         this->resetPoint = Vector2f(d->getLocation().x, d->getLocation().y - this->getSprite().getTextureRect().height);
                         this->checkpoint = true;
                     }
+                }
+                else{
+                    removeCollision(borders[0][i], intersection);
                 }
             }
         }
