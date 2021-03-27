@@ -50,9 +50,11 @@ using namespace sf;
         health = 100;
         maxHealth = 100;
         jumpvel = 0;
+        this->checkpoint = false;
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
+        this->resetPoint = Vector2f(400.f, 300.f);
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
         this->borders = borders;
         this->proj = proj;
@@ -85,6 +87,10 @@ using namespace sf;
         
     }
 
+    void Character::resetCheck(){
+        this->checkpoint = false;
+    }
+
     // Getters
     Sprite& Character::getSprite(){
         return this->sprite;
@@ -98,12 +104,24 @@ using namespace sf;
         return this->ene;
     }
 
+    bool Character::getCheckPoint(){
+        return this->checkpoint;
+    }
+
     int Character::getHealth(){
         return this->health;
     }
 
+    int Character::getMaxHealth(){
+        return this->maxHealth;
+    }
+
     vector<Platforms*>* Character::getBorders() {
         return this->borders;
+    }
+
+    Vector2f Character::getReset(){
+        return this->resetPoint;
     }
 
     int Character::aboveBelow(Sprite& first, Sprite& second){
@@ -166,6 +184,14 @@ using namespace sf;
                     }
                     else if(aboveBelow(sprite, d->getSprite()) == 1){
                         setAdditions(d->getXspeed(), abs(d->getYspeed()));
+                    }
+                }
+                if(borders[0][i]->getName() == "C" && !this->ene){
+                    Checkpoint *d = static_cast<Checkpoint *>(borders[0][i]);
+                    if(!d->getActivation()){
+                        d->setActivation();
+                        this->resetPoint = Vector2f(d->getLocation().x, d->getLocation().y - this->getSprite().getTextureRect().height);
+                        this->checkpoint = true;
                     }
                 }
             }
