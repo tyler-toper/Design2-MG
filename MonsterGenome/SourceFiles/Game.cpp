@@ -12,9 +12,16 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
     if(this->modify){
         /// TODO: Check which condition was meet
         // All enemies are dead
-        if(mod->PollMenu(window, state, modify, players[0])){
+        if(players[0]->getCheckPoint()){
+            if(mod->PollMenu(window, state, modify, players[0])){
+                players[0]->resetCheck();
+                this->modify = false;
+            }
+        }
+        else{
+            players[0]->setHealth(players[0]->getMaxHealth());
+            players[0]->getSprite().setPosition(players[0]->getReset());
             this->modify = false;
-            LoadLevel(this->lvl);
         }
     }
     else{
@@ -101,10 +108,12 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
 
 
         // TODO: Or if player is dead
-        if (players.size() == 1) {
+        if (players[0]->getHealth() <= 0 || players[0]->getCheckPoint()) {
             modify = true;
-            mod->randomize();
-            window.setView(window.getDefaultView());
+            if(players[0]->getCheckPoint()){
+                mod->randomize();
+                window.setView(window.getDefaultView());
+            }
         }
         players[0]->equipWeapon(window, playerView);
         players[0]->animWeapon(window, playerView);
@@ -175,4 +184,9 @@ void Game::LoadLevel(int lvl){
     }
     delete lvlFile;
     lvlFile = NULL;
+
+    //TODO : SHOULD BE IN XML
+    Platforms* temp = new Checkpoint("../Images/checkpoint.png", 1600, 475);
+    this->borders.push_back(temp);
+
 }
