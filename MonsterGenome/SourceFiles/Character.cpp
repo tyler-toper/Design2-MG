@@ -563,7 +563,8 @@ void Character::healCharacter(int damageHealed) {
     void Hero::JumpingState::update(Hero& hero) {
         for(int i=0; i < hero.borders->size(); i++){
             if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
-                if(hero.borders[0][i]->getName() == "nogo" || hero.borders[0][i]->getName() == "M"){
+                String name = hero.borders[0][i]->getName();
+                if(name == "nogo" || name == "M" || name == "C"){
                    if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
                        Hero::HeroState *temp = hero.state_;
                        hero.state_ = new StandingState();
