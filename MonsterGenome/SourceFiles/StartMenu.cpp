@@ -16,11 +16,21 @@ StartMenu::StartMenu(float width, float height, std::map<std::string, sf::Keyboa
     error.setPosition((1024 / 2) - errorOffset, 668);
     errorFlag = false;
 
+
     xValue = 465;
     yValue[0] = 185;
     yValue[1] = 261;
     yValue[2] = 337;
     yValue[3] = 413;
+
+    GetSaveTimes();
+
+    for(int i = 0; i < 4; i++){
+        text[i].setFont(font);
+        text[i].setFillColor(Color::Black);
+        text[i].setCharacterSize(35);
+        text[i].setPosition(xValue + 15, yValue[i]);
+    }
 
     menu.loadFromFile("../../Assets/Backgrounds/StartScreen/StartMenu.png");
     menuSprite.setTexture(menu);
@@ -139,6 +149,11 @@ void StartMenu::Draw(RenderWindow &window){
     }
     window.draw(enteredBoxSprite);
 
+    GetSaveTimes();
+    for(int i = 0; i < 4; i++){
+        window.draw(text[i]);
+    }
+
     if(errorFlag){
         window.draw(error);
     }
@@ -242,4 +257,19 @@ void StartMenu::LoadGame(Game &game, int slot) {
     game.LFS = true;
 
     game.LoadLevel(level);
+}
+
+void StartMenu::GetSaveTimes() {
+    for(int i = 0; i < 4; i++){
+        std::string TimeSave = "../../Saves/Slot " + to_string(i) + "/time.txt";
+        ifstream file(TimeSave);
+        if(file.fail()){
+            text[i].setString("Empty Slot");
+        }
+        else{
+            time_t time;
+            file >> time;
+            text[i].setString(ctime(&time));
+        }
+    }
 }

@@ -81,6 +81,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
                 if(selected == 0){
                     state.SetState(GameState::LVL1);
                     state.Resume();
+                    Reset();
                 }
                 else if(selected == 1){
                     state.SetState(GameState::SAVELOAD);
@@ -90,6 +91,7 @@ void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
                 }
                 else if(selected == 3){
                     state.SetState(GameState::MENU);
+                    Reset();
                 }
             }
         }

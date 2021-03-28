@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <ctime>
 #include "GameState.h"
 #include "Game.h"
 #include "../irrXML/irrXML.h"
@@ -27,6 +29,7 @@ private:
     bool errorFlag;
     Font font;
     Text error;
+    Text text[4];
 
     Texture menu;
     Sprite menuSprite;
@@ -61,4 +64,5 @@ public:
     void MoveRight();
     void MoveLeft();
     void Reset();
+    void GetSaveTimes();
 };

@@ -21,6 +21,15 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
     yValue[2] = 337;
     yValue[3] = 413;
 
+
+    GetSaveTimes();
+    for(int i = 0; i < 4; i++){
+        text[i].setFont(font);
+        text[i].setFillColor(Color::Black);
+        text[i].setCharacterSize(35);
+        text[i].setPosition(xValue + 15, yValue[i]);
+    }
+
     menu.loadFromFile("../../Assets/Backgrounds/SaveLoad/LoadMenu.png");
     menuSprite.setTexture(menu);
 
@@ -147,6 +156,11 @@ void SaveLoadMenu::Draw(RenderWindow &window){
 
     window.draw(enteredBoxSprite);
 
+    GetSaveTimes();
+    for(int i = 0; i < 4; i++){
+        window.draw(text[i]);
+    }
+
     if(errorFlag){
         window.draw(error);
     }
@@ -215,6 +229,15 @@ void SaveLoadMenu::SaveGame(Game &game, int slot){
 
     saveFile << "</save>" << std::endl;
     saveFile.close();
+
+
+    // Saves the time of the save file into a text file
+    auto currentTime = chrono::system_clock::now();
+    time_t time = chrono::system_clock::to_time_t(currentTime);
+    string TimeSave = "../../Saves/Slot " + to_string(slot) + "/time.txt";
+    saveFile.open(TimeSave);
+    saveFile << time;
+    saveFile.close();
 }
 
 void SaveLoadMenu::LoadGame(Game &game, int slot) {
@@ -265,4 +288,19 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
     game.LFS = true;
 
     game.LoadLevel(level);
+}
+
+void SaveLoadMenu::GetSaveTimes() {
+    for(int i = 0; i < 4; i++){
+        std::string TimeSave = "../../Saves/Slot " + to_string(i) + "/time.txt";
+        ifstream file(TimeSave);
+        if(file.fail()){
+            text[i].setString("Empty Slot");
+        }
+        else{
+            time_t time;
+            file >> time;
+            text[i].setString(ctime(&time));
+        }
+    }
 }
