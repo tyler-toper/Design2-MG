@@ -78,6 +78,8 @@ public:
     void setAnimation(string animation);
     // Mutators
     void setActions(float time);
+    //Special Functions
+    void updateFaceright();
     // States
     struct StandingState : public Enemy::StandingState {
         void handleInput(Enemy& ene, Time& timein, RenderWindow& window);

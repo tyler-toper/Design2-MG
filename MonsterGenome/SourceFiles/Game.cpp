@@ -148,7 +148,10 @@ void Game::LoadLevel(int lvl){
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
                     Character *tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
                     players.push_back(tempChar);
-                }
+                    //SHOULD BE IN XML
+                    tempChar = new Wanderer(&borders, &projs, &players, 10, 10);
+                    players.push_back(tempChar)
+;                }
                 if (!strcmp("boundary", lvlFile->getNodeName())){
                     col = lvlFile->getAttributeValueAsFloat("x1");
                     col2 = lvlFile->getAttributeValueAsFloat("x2");

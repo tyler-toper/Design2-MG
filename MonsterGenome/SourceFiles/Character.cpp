@@ -186,12 +186,14 @@ using namespace sf;
                         setAdditions(d->getXspeed(), abs(d->getYspeed()));
                     }
                 }
-                else if(borders[0][i]->getName() == "C" && !this->ene){
-                    Checkpoint *d = static_cast<Checkpoint *>(borders[0][i]);
-                    if(!d->getActivation()){
-                        d->setActivation();
-                        this->resetPoint = Vector2f(d->getLocation().x, d->getLocation().y - this->getSprite().getTextureRect().height);
-                        this->checkpoint = true;
+                else if(borders[0][i]->getName() == "C"){
+                    if(!this->ene){
+                        Checkpoint *d = static_cast<Checkpoint *>(borders[0][i]);
+                        if(!d->getActivation()){
+                            d->setActivation();
+                            this->resetPoint = Vector2f(d->getLocation().x, d->getLocation().y - this->getSprite().getTextureRect().height);
+                            this->checkpoint = true;
+                        }
                     }
                 }
                 else{
@@ -567,7 +569,7 @@ void Character::healCharacter(int damageHealed) {
         for(int i=0; i < hero.borders->size(); i++){
             if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
                 String name = hero.borders[0][i]->getName();
-                if(name == "nogo" || name == "M" || name == "C"){
+                if(name == "nogo" || name == "M" ){
                    if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
                        Hero::HeroState *temp = hero.state_;
                        hero.state_ = new StandingState();
