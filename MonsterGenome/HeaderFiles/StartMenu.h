@@ -27,8 +27,10 @@ private:
     int yValue[4];
 
     bool errorFlag;
+    bool emptyErrorFlag;
     Font font;
     Text error;
+    Text emptyError;
     Text text[4];
 
     Texture menu;

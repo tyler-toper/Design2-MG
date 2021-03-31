@@ -15,6 +15,15 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
     error.setPosition((1024 / 2) - errorOffset, 668);
     errorFlag = false;
 
+    emptyError.setString("Error: Empty save slot selected!");
+    emptyError.setFont(font);
+    emptyError.setFillColor(Color::Red);
+    emptyError.setCharacterSize(45);
+    FloatRect emptyErrorBox = emptyError.getGlobalBounds();
+    float emptyErrorOffset = emptyErrorBox.width / 2;
+    emptyError.setPosition((1024 / 2) - emptyErrorOffset, 668);
+    emptyErrorFlag = false;
+
     xValue = 465;
     yValue[0] = 185;
     yValue[1] = 261;
@@ -103,36 +112,39 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             }
             if(pressed == Keyboard::Return){
                 if(selected == 4){
-                    if(entered != -1){
+                    if(entered == -1){
+                        errorFlag = true;
+                        errorSound.play();
+                    }
+                    else{
                         confirmSound.play();
                         SaveGame(game, entered);
                         state.SetState(GameState::PAUSE);
                         Reset();
                     }
-                    else{
+                }
+                else if(selected == 5){
+                    if(entered == -1){
                         errorFlag = true;
                         errorSound.play();
                     }
-
-                }
-                else if(selected == 5){
-                    confirmSound.play();
-                    if(entered != -1){
+                    else if(text[entered].getString() == "Empty Slot"){
+                        errorSound.play();
+                        emptyErrorFlag = true;
+                    }
+                    else{
+                        confirmSound.play();
                         LoadGame(game, entered);
                         state.SetState(GameState::LVL1);
                         Reset();
                     }
-                    else{
-                        errorFlag = true;
-                        errorSound.play();
-                    }
-
                 }
                 else{
                     confirmSound.play();
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
                     entered = selected;
                     errorFlag = false;
+                    emptyErrorFlag = false;
                 }
             }
         }
@@ -163,6 +175,9 @@ void SaveLoadMenu::Draw(RenderWindow &window){
 
     if(errorFlag){
         window.draw(error);
+    }
+    if(emptyErrorFlag){
+        window.draw(emptyError);
     }
 
 }
