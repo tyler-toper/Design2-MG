@@ -5,11 +5,39 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
     selected = 0;
     entered = -1;
 
+    font.loadFromFile("../../Assets/Fonts/PixelFont.ttf");
+    error.setString("Error: No save slot selected!");
+    error.setFont(font);
+    error.setFillColor(Color::Red);
+    error.setCharacterSize(45);
+    FloatRect errorBox = error.getGlobalBounds();
+    float errorOffset = errorBox.width / 2;
+    error.setPosition((1024 / 2) - errorOffset, 668);
+    errorFlag = false;
+
+    emptyError.setString("Error: Empty save slot selected!");
+    emptyError.setFont(font);
+    emptyError.setFillColor(Color::Red);
+    emptyError.setCharacterSize(45);
+    FloatRect emptyErrorBox = emptyError.getGlobalBounds();
+    float emptyErrorOffset = emptyErrorBox.width / 2;
+    emptyError.setPosition((1024 / 2) - emptyErrorOffset, 668);
+    emptyErrorFlag = false;
+
     xValue = 465;
     yValue[0] = 185;
     yValue[1] = 261;
     yValue[2] = 337;
     yValue[3] = 413;
+
+
+    GetSaveTimes();
+    for(int i = 0; i < 4; i++){
+        text[i].setFont(font);
+        text[i].setFillColor(Color::Black);
+        text[i].setCharacterSize(35);
+        text[i].setPosition(xValue + 15, yValue[i]);
+    }
 
     menu.loadFromFile("../../Assets/Backgrounds/SaveLoad/LoadMenu.png");
     menuSprite.setTexture(menu);
@@ -34,15 +62,19 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
 
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
-    moveSound.setVolume(35);
+    moveSound.setVolume(40);
 
     errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
     errorSound.setBuffer(errorBuffer);
-    errorSound.setVolume(40);
+    errorSound.setVolume(45);
 
     confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
     confirmSound.setBuffer(confirmBuffer);
     confirmSound.setVolume(70);
+
+    backBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/close_001.ogg");
+    backSound.setBuffer(backBuffer);
+    backSound.setVolume(25);
 
 }
 
@@ -57,6 +89,7 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
             if(pressed == controls["Pause"]){
+                backSound.play();
                 if(GameState::GetPrev() == GameState::MENU){
                     state.SetState(GameState::MENU);
                 }
@@ -77,33 +110,41 @@ void SaveLoadMenu::PollMenu(RenderWindow &window, GameState &state, Game &game){
             if(pressed == controls["Move Left"]){
                 MoveLeft();
             }
-            // TODO: Connect to load functionality. Stay on screen or return to pause screen?
-            // TODO: Create a prompt that says successfully saved
-            // TODO: Create error pop up for invalid stuff
-            else if(pressed == Keyboard::Return){
+            if(pressed == Keyboard::Return){
                 if(selected == 4){
-                    if(entered != -1){
-                        SaveGame(game, entered);
-                        cout << "Save" << endl;
+                    if(entered == -1){
+                        errorFlag = true;
+                        errorSound.play();
                     }
                     else{
-                        cout << "No save slot selected" << endl;
+                        confirmSound.play();
+                        SaveGame(game, entered);
+                        state.SetState(GameState::PAUSE);
+                        Reset();
                     }
-
                 }
                 else if(selected == 5){
-                    if(entered != -1){
-                        LoadGame(game, entered);
-                        cout << "Load" << endl;
+                    if(entered == -1){
+                        errorFlag = true;
+                        errorSound.play();
+                    }
+                    else if(text[entered].getString() == "Empty Slot"){
+                        errorSound.play();
+                        emptyErrorFlag = true;
                     }
                     else{
-                        cout << "No save slot selected" << endl;
+                        confirmSound.play();
+                        LoadGame(game, entered);
+                        state.SetState(GameState::LVL1);
+                        Reset();
                     }
-
                 }
                 else{
+                    confirmSound.play();
                     enteredBoxSprite.setPosition(xValue, yValue[selected]);
                     entered = selected;
+                    errorFlag = false;
+                    emptyErrorFlag = false;
                 }
             }
         }
@@ -126,6 +167,18 @@ void SaveLoadMenu::Draw(RenderWindow &window){
     }
 
     window.draw(enteredBoxSprite);
+
+    GetSaveTimes();
+    for(int i = 0; i < 4; i++){
+        window.draw(text[i]);
+    }
+
+    if(errorFlag){
+        window.draw(error);
+    }
+    if(emptyErrorFlag){
+        window.draw(emptyError);
+    }
 
 }
 
@@ -191,6 +244,15 @@ void SaveLoadMenu::SaveGame(Game &game, int slot){
 
     saveFile << "</save>" << std::endl;
     saveFile.close();
+
+
+    // Saves the time of the save file into a text file
+    auto currentTime = chrono::system_clock::now();
+    time_t time = chrono::system_clock::to_time_t(currentTime);
+    string TimeSave = "../../Saves/Slot " + to_string(slot) + "/time.txt";
+    saveFile.open(TimeSave);
+    saveFile << time;
+    saveFile.close();
 }
 
 void SaveLoadMenu::LoadGame(Game &game, int slot) {
@@ -240,4 +302,19 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
     saveFile = NULL;
 
     game.LoadLevel(level, 2);
+}
+
+void SaveLoadMenu::GetSaveTimes() {
+    for(int i = 0; i < 4; i++){
+        std::string TimeSave = "../../Saves/Slot " + to_string(i) + "/time.txt";
+        ifstream file(TimeSave);
+        if(file.fail()){
+            text[i].setString("Empty Slot");
+        }
+        else{
+            time_t time;
+            file >> time;
+            text[i].setString(ctime(&time));
+        }
+    }
 }

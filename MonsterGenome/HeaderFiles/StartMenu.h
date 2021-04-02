@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <chrono>
+#include <ctime>
 #include "GameState.h"
 #include "Game.h"
 #include "../irrXML/irrXML.h"
@@ -22,7 +24,14 @@ private:
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
     int xValue;
-    int yValue[StartMenuOptions - 1];
+    int yValue[4];
+
+    bool errorFlag;
+    bool emptyErrorFlag;
+    Font font;
+    Text error;
+    Text emptyError;
+    Text text[4];
 
     Texture menu;
     Sprite menuSprite;
@@ -30,6 +39,8 @@ private:
     Sprite backgroundSprite;
     Texture startButton;
     Sprite startButtonSprite;
+    Texture newButton;
+    Sprite newButtonSprite;
     Texture enteredBox;
     Sprite enteredBoxSprite;
     Texture selectedBox;
@@ -41,6 +52,8 @@ private:
     Sound errorSound;
     SoundBuffer confirmBuffer;
     Sound confirmSound;
+    SoundBuffer backBuffer;
+    Sound backSound;
 
 public:
 
@@ -50,5 +63,8 @@ public:
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
+    void MoveRight();
+    void MoveLeft();
     void Reset();
+    void GetSaveTimes();
 };

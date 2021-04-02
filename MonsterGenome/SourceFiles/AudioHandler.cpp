@@ -42,6 +42,9 @@ void AudioHandler::playMusic(){
         }
         
         if(state == GameState::LVL1){
+            if(prev == GameState::SAVELOAD){
+                playSound.stop();
+            }
             playSound.play();
         }
         else if(state == GameState::MENU){
