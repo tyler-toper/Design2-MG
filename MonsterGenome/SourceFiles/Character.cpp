@@ -175,7 +175,7 @@ using namespace sf;
     }
 
     // Mutators
-    void Character::checkCollison(){
+    void Character::checkCollision(){
         for(int i=0; i < borders[0].size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
@@ -511,7 +511,7 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
 
     checkProjectile();
     checkMelee();
-    checkCollison();
+    checkCollision();
     // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
     sprite.move(Vector2f(vertadd * time, horizadd * time));
 }

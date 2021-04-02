@@ -57,7 +57,7 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     state_->update(*this);
 
     sprite.move(Vector2f(vertadd * time, horizadd * time));
-    checkCollison();
+    checkCollision();
     checkProjectile();
     checkMelee();
 }

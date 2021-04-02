@@ -100,7 +100,7 @@ public:
     void resetCheck();
 
     // Mutators
-    void checkCollison();
+    void checkCollision();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
     virtual void checkMelee() = 0;
