@@ -52,8 +52,6 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     } else {
         invultimer = 0;
     }
-
-
     sprite.move(Vector2f(0, jumpvel * time));
     state_->handleInput(*this, timein, window);
     state_->update(*this);

@@ -342,7 +342,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
 
 void Character::damageCharacter(int damageTaken) {
     if(ene && invultimer > 0) {
-        cout << "Hit registered, but enemy invul. Wait for" << invultimer << endl;
+        cout << "Hit registered, but enemy invul. Wait for " << invultimer << " seconds." <<endl;
     }
     if (invultimer <= 0) {
         if(ene) {
@@ -371,12 +371,13 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
 
     // Jumping
     jumpCount = 0;
+    jumpingHeld = false;
     // TODO: Load this variable from player file or start on one if new file
     jumpCountMax = 5;
-    jumpingHeld = false;
 
     // Firerate
-    reloadMod = 0.5f;
+    // TODO: Load this variable from player file or start on one if new file
+    reloadMod = 0.2f;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
@@ -504,7 +505,7 @@ void Hero::refreshJumps() {
 }
 
 bool Hero::improveJumpCount() {
-    // TODO: Decide if a canImprove function is needed
+    // TODO: Decide if a canImprove function is needed (to tell game to not give this as an option)
     if(jumpCountMax < jumpCountAbsMax) {
         jumpCountMax++;
         return true;
@@ -582,7 +583,7 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
 void Hero::StandingState::update(Hero& hero) {
     std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
     // State transitions
-    // TODO: Needs to detect when the player is no longer standing on edge
+    // TODO: Needs to detect when the player is no longer standing on platform
     if (hero.getJumpCount() > 0 && !hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
         Hero::HeroState *temp = hero.state_;
         hero.state_ = new JumpingState();
@@ -621,6 +622,14 @@ void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& win
     else{
         hero.setAnimation("still");
     }
+
+    //Attacking
+    if (Keyboard::isKeyPressed(controls["Attack"])) {
+        hero.attack(hero.proj);
+        hero.setAnimation("still"); //CHange when we have animation
+    }
+
+
     if (!hero.isJumpingHeld() &&  Keyboard::isKeyPressed(controls["Jump"])) {
         hero.jump();
     }
