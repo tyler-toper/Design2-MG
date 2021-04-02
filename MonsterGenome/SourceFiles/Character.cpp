@@ -70,6 +70,9 @@ using namespace sf;
         // Jumping
         jumpHeight = 400.0f;
 
+        // Weapons
+        reloadTime = 1.0f;
+        reloadMod = 1.0f;
     }
 
     // Setters
@@ -253,15 +256,15 @@ using namespace sf;
         if(weapontimer <= 0.f){
             // TODO: The path should be derived from the weapon the character is holding
             string path;
-            if(ene){
+            if(ene) {
                 path = "../Images/shot1.png";
             }
-            else
-            {
+            else {
                 path = "../Images/shot.png";
             }
             proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10));
-            weapontimer = 1.f;
+            // TODO: Load the weapons reload time instead of reloadTime variable
+            weapontimer = reloadTime * reloadMod;
         }
     }
 
@@ -338,7 +341,14 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
 }
 
 void Character::damageCharacter(int damageTaken) {
+    if(ene && invultimer > 0) {
+        cout << "Hit registered, but enemy invul. Wait for" << invultimer << endl;
+    }
     if (invultimer <= 0) {
+        if(ene) {
+            cout << "Taking " << damageTaken << " damage!" << endl;
+            cout << health << " health remaining." << endl;
+        }
         health -= damageTaken;
         invultimer = maxInvulTime;
     }
@@ -362,8 +372,11 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     // Jumping
     jumpCount = 0;
     // TODO: Load this variable from player file or start on one if new file
-    jumpCountMax = 2;
+    jumpCountMax = 5;
     jumpingHeld = false;
+
+    // Firerate
+    reloadMod = 0.5f;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
@@ -427,6 +440,7 @@ void Hero::setJumpingHeld(bool state) {
     jumpingHeld = state;
 }
 
+
 // Getters
 int Hero::getJumpCount() const {
     return jumpCount;
@@ -442,7 +456,12 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     float time = timein.asSeconds();
     this->atk = false;
    //Gravity and collision when jumpin
-    weapontimer = weapontimer - time;
+    if(weapontimer > 0) {
+        weapontimer = weapontimer - time;
+    } else {
+        weapontimer = 0;
+    }
+
     if(invultimer > 0) {
         invultimer = invultimer - time;
     } else {
@@ -484,6 +503,31 @@ void Hero::refreshJumps() {
     jumpCount = jumpCountMax;
 }
 
+bool Hero::improveJumpCount() {
+    // TODO: Decide if a canImprove function is needed
+    if(jumpCountMax < jumpCountAbsMax) {
+        jumpCountMax++;
+        return true;
+    }
+    return false;
+}
+
+void Hero::modifyReloadMod(float change) {
+    // The bounded range for the modifier is [0.5, 1.5]
+    float min = 0.5f;
+    float max = 1.5f;
+    if(reloadMod + change >= min && reloadMod + change <= max) {
+        reloadMod += change;
+    }
+    else if(reloadMod + change < min) {
+        reloadMod = min;
+    }
+    else {
+        reloadMod = max;
+    }
+    // As an aside, the firerate doesn't increase linearly. Going from 1.0 to 0.9 is not the same as going from 0.9 to 0.8
+}
+
 // Hero States
 // Standing
 void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
@@ -497,11 +541,13 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
 
         if (Keyboard::isKeyPressed(controls["Move Left"])) {
             hero.faceright = false;
+            // TODO: Move this to one spite.move function
             hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
             hero.setAnimation("left");
         }
         if (Keyboard::isKeyPressed(controls["Move Right"])) {
             hero.faceright = true;
+            // TODO: Move this to one spite.move function
             hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
             hero.setAnimation("right");
         }
@@ -548,6 +594,7 @@ void Hero::StandingState::update(Hero& hero) {
     }
 
     // Handling held keys
+    // TODO: Move this to updatePosition?
     hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
 
 }
@@ -596,6 +643,6 @@ void Hero::JumpingState::update(Hero& hero) {
     }
 
     // Handling held keys
+    // TODO: Move this to updatePosition?
     hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
-
 }

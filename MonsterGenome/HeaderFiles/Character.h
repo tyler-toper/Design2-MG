@@ -62,7 +62,9 @@ public:
     Inventory* inventory;
     Sword* sword;
     Pistol* pistol;
-  
+    float reloadTime;
+    float reloadMod;
+
     bool equipSw = false;
     int swToggle = 0;
     bool equipPis = false;
@@ -118,32 +120,30 @@ private:
     class HeroState {
     public:
         virtual ~HeroState() {};
-
         virtual void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView) {};
-
         virtual void update(Hero &Hero) {};
     };
 
     class StandingState : public HeroState {
     public:
         void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
-
         void update(Hero &hero);
     };
 
     class JumpingState : public HeroState {
     public:
         void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
-
         void update(Hero &hero);
     };
 
     // Variables
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroState *state_;
+
     // Jumping
     int jumpCount;
     int jumpCountMax;
+    const int jumpCountAbsMax = 5;
     bool jumpingHeld;
 
 public:
@@ -162,5 +162,8 @@ public:
     void run(bool isRunning);
     void jump();
     void refreshJumps();
+    // TODO: Attach these functions to level up screen
+    bool improveJumpCount();
+    void modifyReloadMod(float change);
     void checkMelee();
 };

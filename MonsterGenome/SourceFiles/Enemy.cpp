@@ -47,6 +47,13 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
 
+    if(invultimer > 0) {
+        invultimer = invultimer - time;
+    } else {
+        invultimer = 0;
+    }
+
+
     sprite.move(Vector2f(0, jumpvel * time));
     state_->handleInput(*this, timein, window);
     state_->update(*this);
