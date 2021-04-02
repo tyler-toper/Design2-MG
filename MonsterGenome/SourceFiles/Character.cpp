@@ -255,11 +255,11 @@ using namespace sf;
             // TODO: The path should be derived from the weapon the character is holding
             string path;
             if(ene){
-                path = "../Images/shot1.png";
+                path = "../../Assets/Custom/Fireball1.png";
             }
             else
             {
-                path = "../Images/shot.png";
+                path = "../../Assets/Custom/Fireball2.png";
             }
             proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10));
             weapontimer = 1.f;
