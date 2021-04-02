@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level background="Custom/Level1.png">
-	<hero x="400" y="40"/>
-	<enemy x="400" y="40"/>
+	<hero x="100" y="40"/>
+	<enemy x="500" y="40"/>
+	<enemy x="1000" y="40"/>
+	<enemy x="2500" y="40"/>
 
 	<vBoundary x1="10" y1="132" x2="-10" y2="0"/>
 	<vBoundary x1="10" y1="132" x2="3072" y2="0"/>
 
+	<checkpoint path="../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation copie.png" x="2419" y="100"/>
 
 	<hBoundary x1="500" y1="20" x2="0" y2="-20"/>
 	<hBoundary x1="500" y1="20" x2="500" y2="-20"/>

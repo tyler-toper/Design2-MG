@@ -212,6 +212,13 @@ void Game::LoadLevel(int lvl, int LoadCase){
                     tempPlat = new MovePlatform(textPath, col, row, col2, row2, speed);
                     this->borders.push_back(tempPlat);
                 }
+                if (!strcmp("checkpoint", lvlFile->getNodeName())){
+                    col = lvlFile->getAttributeValueAsFloat("x");
+                    row = lvlFile->getAttributeValueAsFloat("y");
+                    textPath = lvlFile->getAttributeValue("path");
+                    tempPlat = new Checkpoint(textPath, col, row);
+                    this->borders.push_back(tempPlat);
+                }
                 break;
             default:
                 break;
@@ -222,9 +229,4 @@ void Game::LoadLevel(int lvl, int LoadCase){
     }
     delete lvlFile;
     lvlFile = NULL;
-
-    //TODO : SHOULD BE IN XML
-    Platforms* temp = new Checkpoint("../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation copie.png", 1600, 485);
-    this->borders.push_back(temp);
-
 }
