@@ -13,7 +13,7 @@ using namespace std;
 using namespace sf;
 
 #define pixelFont "../../Assets/Fonts/PixelFont.ttf"
-#define SettingsOptions 7
+#define SettingsOptions 10
 #define controls "../../Settings/Controls.csv"
 
 class Settings {

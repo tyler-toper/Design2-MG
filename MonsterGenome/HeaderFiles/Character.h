@@ -23,6 +23,7 @@ protected:
     int vitality;
     bool punch = false;
     bool atk = false;
+    bool checkpoint = false;
     bool faceright = true;
     float jumpvel;
     float vertadd = 0.f;
@@ -33,6 +34,7 @@ protected:
     vector<Platforms*>* borders;
     vector<Projectile*>* proj;
     vector<Character*>* actors;
+    Vector2f resetPoint;
     friend class StartMenu;
     friend class SaveLoadMenu;
 
@@ -81,8 +83,11 @@ public:
     Sprite& getSprite();
     bool getAttack();
     bool getEnemy();
+    bool getCheckPoint();
     int getHealth();
+    int getMaxHealth();
     vector<Platforms*>* getBorders();
+    Vector2f getReset();
     int aboveBelow(Sprite& first, Sprite& second);
     float getHorizontalVel();
     bool isFaceright();
@@ -92,6 +97,7 @@ public:
     void setFaceright(bool newFaceright);
     void setHealth(int newHealth);
     void setMaxHealth(int newMaxHealth);
+    void resetCheck();
 
     // Mutators
     void checkCollison();
@@ -107,9 +113,6 @@ public:
     void setAdditions(float v, float h);
     string getName();
     virtual void jump();
-    void weaponToggles(string key);
-    void equipWeapon(RenderWindow& window, View &playerView);
-    void animWeapon(RenderWindow& window, View& playerView);
     void damageCharacter(int damageTaken);
     void healCharacter(int damageHealed);
 };
@@ -166,4 +169,7 @@ public:
     bool improveJumpCount();
     void modifyReloadMod(float change);
     void checkMelee();
+    void weaponToggles(string key);
+    void equipWeapon(RenderWindow& window, View &playerView);
+    void animWeapon(RenderWindow& window, View& playerView);
 };

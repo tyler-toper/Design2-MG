@@ -10,15 +10,14 @@ using namespace sf;
 // Create Boundries and such
 class Platforms{
 protected:
-    string name;
-private:    
+    string name;    
     Texture text;
     Sprite sprite;
 
 
 public:
     Platforms(String path, float col, float row);
-    Platforms(float col, float row, float col2, float row2);
+    Platforms(float col, float row, float col2, float row2, bool horiz);
     virtual void update(Time& timein);
     Sprite& getSprite();
     string getName();
@@ -38,4 +37,16 @@ class MovePlatform : public Platforms{
     void reverse();
     float getXspeed();
     float getYspeed();
+};
+
+class Checkpoint : public Platforms{
+    private:
+    bool activated;
+    Vector2f resetLocation;
+
+    public:
+    Checkpoint(String path, float col, float row);
+    Vector2f getLocation();
+    void setActivation();
+    bool getActivation();
 };

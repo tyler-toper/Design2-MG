@@ -7,14 +7,16 @@ Projectile::Projectile(String path, float col, float row, bool faceright, bool e
     this->ene = ene;
     text.loadFromFile(path);
     sprite.setTexture(text);
-    sprite.setPosition(Vector2f(col, row));
+    sprite.setPosition(Vector2f(col, row + 15));
     this->damage = damage;
     // TODO: Make velocity mutable
     if(faceright) {
         xvel = 250;
+        sprite.setScale(2,2);
     }
     else {
         xvel = -250;
+        sprite.setScale(-2,2);
     }
     yvel = 0;
 }
