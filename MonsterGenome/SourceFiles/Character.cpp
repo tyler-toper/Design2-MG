@@ -181,7 +181,6 @@ using namespace sf;
             }
             else if(relative == 1){
                 sprite.move(0, intersection.height * -1.f);
-                jumping = false;
                 jumpvel = 0;
             }
             else{
@@ -359,9 +358,12 @@ void Character::healCharacter(int damageHealed) {
 Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
     this->controlMapping = controlMapping;
     state_ = new StandingState();
+
+    // Jumping
     jumpCount = 0;
     // TODO: Load this variable from player file or start on one if new file
     jumpCountMax = 2;
+    jumpingHeld = false;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
@@ -420,10 +422,19 @@ void Hero::setAnimation(string animation){
     }
     flip(sprite);
 }
+
+void Hero::setJumpingHeld(bool state) {
+    jumpingHeld = state;
+}
+
 // Getters
 int Hero::getJumpCount() const {
-        return jumpCount;
-    }
+    return jumpCount;
+}
+
+bool Hero::isJumpingHeld() const {
+    return jumpingHeld;
+}
 
 // Mutators
 void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
@@ -463,16 +474,9 @@ void Hero::run(bool isRunning) {
 }
 
 void Hero::jump() {
-//    if(jumpCount == jumpCountMax) {
-//        jumpvel = -jumpHeight;
-//    }
-//    else {
-//        jumpvel = -jumpHeight*0.5;
-//    }
     if (jumpCount > 0) {
         jumpvel = -jumpHeight;
         jumpCount--;
-        cout << "Jumping! " << jumpCount << " remaining." << endl;
     }
 }
 
@@ -506,12 +510,14 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
         // No movement, clear run speed
         hero.run(false);
     }
-    if (Keyboard::isKeyPressed(controls["Jump"])) {
+    if (!hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
         hero.jump();
-        hero.sprite.move(Vector2f(0, hero.jumpvel * time));
-        hero.setAnimation("still"); //CHange when we have animation
 
+        // TODO: Move this to one spite.move function
+        hero.sprite.move(Vector2f(0, hero.jumpvel * time));
+        hero.setAnimation("still"); //CHange when we have animation}
     }
+
     //Unfinished, will be ducking or something
     if (Keyboard::isKeyPressed(controls["Crouch"])) {
         hero.setAnimation("still"); //CHange when we have animation
@@ -529,19 +535,21 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
 
 void Hero::StandingState::update(Hero& hero) {
     std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-    
     // State transitions
     // TODO: Needs to detect when the player is no longer standing on edge
-    if (Keyboard::isKeyPressed(controls["Jump"])) {
+    if (hero.getJumpCount() > 0 && !hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
         Hero::HeroState *temp = hero.state_;
         hero.state_ = new JumpingState();
-        cout << "Entering Jump State" << endl;
         delete temp;
     }
     else {
         // Refresh jumps
         hero.refreshJumps();
     }
+
+    // Handling held keys
+    hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
+
 }
 
 // Jumping
@@ -563,20 +571,22 @@ void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& win
 
         }
     }
-    else if (hero.getJumpCount() > 0 && Keyboard::isKeyPressed(controls["Jump"])) {
-        hero.jump();
-    }
     else{
         hero.setAnimation("still");
     }
+    if (!hero.isJumpingHeld() &&  Keyboard::isKeyPressed(controls["Jump"])) {
+        hero.jump();
+    }
+
 }
 
 void Hero::JumpingState::update(Hero& hero) {
+    std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+
     for(int i=0; i < hero.borders->size(); i++){
         if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
             if(hero.borders[0][i]->getName() == "nogo" || hero.borders[0][i]->getName() == "M"){
                if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
-                   cout << "Entering Standing State" << endl;
                    Hero::HeroState *temp = hero.state_;
                    hero.state_ = new StandingState();
                    delete temp;
@@ -584,4 +594,8 @@ void Hero::JumpingState::update(Hero& hero) {
             }
         }
     }
+
+    // Handling held keys
+    hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
+
 }

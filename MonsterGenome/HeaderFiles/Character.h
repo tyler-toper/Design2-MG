@@ -21,7 +21,6 @@ protected:
     int armor;
     int strength;
     int vitality;
-    bool jumping;
     bool punch = false;
     bool atk = false;
     bool faceright = true;
@@ -142,8 +141,11 @@ private:
     // Variables
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroState *state_;
+    // Jumping
     int jumpCount;
     int jumpCountMax;
+    bool jumpingHeld;
+
 public:
     // Constructor
     Hero(std::map<std::string, sf::Keyboard::Key> *controlMapping, vector<Platforms *> *borders,
@@ -151,9 +153,10 @@ public:
 
     // Setters
     void setAnimation(string animation);
-
+    void setJumpingHeld(bool state);
     // Getters
     int getJumpCount() const;
+    bool isJumpingHeld() const;
     // Mutators
     void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);
