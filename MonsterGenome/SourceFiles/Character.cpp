@@ -354,196 +354,234 @@ void Character::healCharacter(int damageHealed) {
     }
 }
 
-    /// Hero Functions
-    // Constructor
-    Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
-        this->controlMapping = controlMapping;
-        state_ = new StandingState();
-        
-        text.loadFromFile("../Images/animation2.png");
-        sprite.setTexture(text);
-        sprite.setPosition(Vector2f(spawnX, spawnY));
-        sprite.setTextureRect(IntRect(57, 11, 50, 60));
+/// Hero Functions
+// Constructor
+Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
+    this->controlMapping = controlMapping;
+    state_ = new StandingState();
+    jumpCount = 0;
+    // TODO: Load this variable from player file or start on one if new file
+    jumpCountMax = 2;
 
-        this->inventory = new Inventory(10);
-        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword_anim.png");
-        this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
+    text.loadFromFile("../Images/animation2.png");
+    sprite.setTexture(text);
+    sprite.setPosition(Vector2f(spawnX, spawnY));
+    sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
-        //inv testing
-        cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
-        this->inventory->add(this->sword);
-        this->inventory->add(this->pistol);
-        //this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
+    this->inventory = new Inventory(10);
+    this->sword = new Sword(0, "../../Assets/WeaponTextures/sword_anim.png");
+    this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
 
-/*        cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
-        this->inventory->remove(0);
-        this->inventory->remove(0);
-        cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";*/
+    //inv testing
+    cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+    this->inventory->add(this->sword);
+    this->inventory->add(this->pistol);
+    //this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
 
-    }
-    // Setters
-    void Hero::setAnimation(string animation){
-        // Needs to dereference controlMapping in order to read map
-        std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+//    cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+//    this->inventory->remove(0);
+//    this->inventory->remove(0);
+//    cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+
+}
+// Setters
+void Hero::setAnimation(string animation){
+    // Needs to dereference controlMapping in order to read map
+    std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
 
 
-        if(timepass <= 0){
-            // TODO: Add Control binding?
-            if(animation == "melee"){
-                this->punch = true;
-                mAnimation();
-            }
-            else{
-                if(animation == "left" || animation == "right"){
-                    hAnimation();
-                }
-                if(animation == "jump"){
-
-                }
-                //Unfinsihed, will be ducking or something
-                if(animation == "crouch"){
-
-                }
-                //Attacking
-                if(animation == "ranged"){
-
-                }
-            }
-
-            timepass = .1;
-            if(animation == "still"){
-                sprite.setTextureRect(IntRect(57, 11, 50, 60));
-            }
-        }
-        flip(sprite);
-    }
-    // Getters
-    // Mutators
-    void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
-        setAdditions(0.f, 0.f);
-        float time = timein.asSeconds();
-        this->atk = false;
-       //Gravity and collision when jumpin
-        weapontimer = weapontimer - time;
-        if(invultimer > 0) {
-            invultimer = invultimer - time;
-        } else {
-            invultimer = 0;
-        }
-        timepass = timepass - time;
-        jumpvel += GRAV * time; // Vertical Acceleration
-
-        sprite.move(Vector2f(0, jumpvel * time));
-        state_->handleInput(*this, timein, window, playerView);
-        state_->update(*this);
-
-        checkProjectile();
-        checkMelee();
-        checkCollison();
-        // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
-        sprite.move(Vector2f(vertadd * time, horizadd * time));
-    }
-
-    void Hero::run(bool isRunning) {
-        if(isRunning) {
-            if(horizontalvel < maxHorizontalvel) { horizontalvel += horizontalAcc; }
-            else if (horizontalvel > maxHorizontalvel) { horizontalvel -= horizontalAcc; }
-        }
-        else {
-            if (horizontalvel > baseHorizontalvel) { horizontalvel -= 2 * horizontalAcc; }
-            else { horizontalvel = baseHorizontalvel; }
-        }
-    }
-
-    // Hero States
-    // Standing
-    void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
-        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-        float time = timein.asSeconds();
-
-        // If the player is pressing left or right, but not at the same time, handle movement
-        if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
-
-            hero.run(Keyboard::isKeyPressed(controls["Run"]));
-
-            if (Keyboard::isKeyPressed(controls["Move Left"])) {
-                hero.faceright = false;
-                hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
-                hero.setAnimation("left");
-            }
-            if (Keyboard::isKeyPressed(controls["Move Right"])) {
-                hero.faceright = true;
-                hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
-                hero.setAnimation("right");
-            }
-        }
-        else {
-            // No movement, clear run speed
-            hero.run(false);
-        }
-        if (Keyboard::isKeyPressed(controls["Jump"])) {
-            hero.jump();
-            hero.sprite.move(Vector2f(0, hero.jumpvel * time));
-            hero.setAnimation("still"); //CHange when we have animation
-
-        }
-        //Unfinished, will be ducking or something
-        if (Keyboard::isKeyPressed(controls["Crouch"])) {
-            hero.setAnimation("still"); //CHange when we have animation
-
-        }
-        //Attacking
-        if (Keyboard::isKeyPressed(controls["Attack"])) {
-            hero.attack(hero.proj);
-            hero.setAnimation("still"); //CHange when we have animation
-        }
-        if(!hero.isAnyKeyPressed(hero.controlMapping)){
-            hero.setAnimation("still");
-        }
-    }
-
-    void Hero::StandingState::update(Hero& hero) {
-        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-        if (Keyboard::isKeyPressed(controls["Jump"])) {
-            Hero::HeroState *temp = hero.state_;
-            hero.state_ = new JumpingState();
-            delete temp;
-        }
-    }
-    // Jumping
-    void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
-        std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
-        float time = timein.asSeconds();
-
-        // If the player is pressing left or right, but not at the same time, handle movement
-        if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
-            if (Keyboard::isKeyPressed(controls["Move Left"])) {
-                hero.faceright = false;
-                hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
-                hero.setAnimation("left");
-            }
-            if (Keyboard::isKeyPressed(controls["Move Right"])) {
-                hero.faceright = true;
-                hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
-                hero.setAnimation("right");
-
-            }
+    if(timepass <= 0){
+        // TODO: Add Control binding?
+        if(animation == "melee"){
+            this->punch = true;
+            mAnimation();
         }
         else{
-            hero.setAnimation("still");
-        }   
+            if(animation == "left" || animation == "right"){
+                hAnimation();
+            }
+            if(animation == "jump"){
+
+            }
+            //Unfinsihed, will be ducking or something
+            if(animation == "crouch"){
+
+            }
+            //Attacking
+            if(animation == "ranged"){
+
+            }
+        }
+
+        timepass = .1;
+        if(animation == "still"){
+            sprite.setTextureRect(IntRect(57, 11, 50, 60));
+        }
+    }
+    flip(sprite);
+}
+// Getters
+int Hero::getJumpCount() const {
+        return jumpCount;
     }
 
-    void Hero::JumpingState::update(Hero& hero) {
-        for(int i=0; i < hero.borders->size(); i++){
-            if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
-                if(hero.borders[0][i]->getName() == "nogo" || hero.borders[0][i]->getName() == "M"){
-                   if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
-                       Hero::HeroState *temp = hero.state_;
-                       hero.state_ = new StandingState();
-                       delete temp;
-                   }
-                }
+// Mutators
+void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+    setAdditions(0.f, 0.f);
+    float time = timein.asSeconds();
+    this->atk = false;
+   //Gravity and collision when jumpin
+    weapontimer = weapontimer - time;
+    if(invultimer > 0) {
+        invultimer = invultimer - time;
+    } else {
+        invultimer = 0;
+    }
+    timepass = timepass - time;
+    jumpvel += GRAV * time; // Vertical Acceleration
+
+    sprite.move(Vector2f(0, jumpvel * time));
+    state_->handleInput(*this, timein, window, playerView);
+    state_->update(*this);
+
+    checkProjectile();
+    checkMelee();
+    checkCollison();
+    // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
+    sprite.move(Vector2f(vertadd * time, horizadd * time));
+}
+
+void Hero::run(bool isRunning) {
+    if(isRunning) {
+        if(horizontalvel < maxHorizontalvel) { horizontalvel += horizontalAcc; }
+        else if (horizontalvel > maxHorizontalvel) { horizontalvel -= horizontalAcc; }
+    }
+    else {
+        if (horizontalvel > baseHorizontalvel) { horizontalvel -= 2 * horizontalAcc; }
+        else { horizontalvel = baseHorizontalvel; }
+    }
+}
+
+void Hero::jump() {
+//    if(jumpCount == jumpCountMax) {
+//        jumpvel = -jumpHeight;
+//    }
+//    else {
+//        jumpvel = -jumpHeight*0.5;
+//    }
+    if (jumpCount > 0) {
+        jumpvel = -jumpHeight;
+        jumpCount--;
+        cout << "Jumping! " << jumpCount << " remaining." << endl;
+    }
+}
+
+void Hero::refreshJumps() {
+    jumpCount = jumpCountMax;
+}
+
+// Hero States
+// Standing
+void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
+    std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+    float time = timein.asSeconds();
+
+    // If the player is pressing left or right, but not at the same time, handle movement
+    if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
+
+        hero.run(Keyboard::isKeyPressed(controls["Run"]));
+
+        if (Keyboard::isKeyPressed(controls["Move Left"])) {
+            hero.faceright = false;
+            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            hero.setAnimation("left");
+        }
+        if (Keyboard::isKeyPressed(controls["Move Right"])) {
+            hero.faceright = true;
+            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            hero.setAnimation("right");
+        }
+    }
+    else {
+        // No movement, clear run speed
+        hero.run(false);
+    }
+    if (Keyboard::isKeyPressed(controls["Jump"])) {
+        hero.jump();
+        hero.sprite.move(Vector2f(0, hero.jumpvel * time));
+        hero.setAnimation("still"); //CHange when we have animation
+
+    }
+    //Unfinished, will be ducking or something
+    if (Keyboard::isKeyPressed(controls["Crouch"])) {
+        hero.setAnimation("still"); //CHange when we have animation
+
+    }
+    //Attacking
+    if (Keyboard::isKeyPressed(controls["Attack"])) {
+        hero.attack(hero.proj);
+        hero.setAnimation("still"); //CHange when we have animation
+    }
+    if(!hero.isAnyKeyPressed(hero.controlMapping)){
+        hero.setAnimation("still");
+    }
+}
+
+void Hero::StandingState::update(Hero& hero) {
+    std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+    
+    // State transitions
+    // TODO: Needs to detect when the player is no longer standing on edge
+    if (Keyboard::isKeyPressed(controls["Jump"])) {
+        Hero::HeroState *temp = hero.state_;
+        hero.state_ = new JumpingState();
+        cout << "Entering Jump State" << endl;
+        delete temp;
+    }
+    else {
+        // Refresh jumps
+        hero.refreshJumps();
+    }
+}
+
+// Jumping
+void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {
+    std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+    float time = timein.asSeconds();
+
+    // If the player is pressing left or right, but not at the same time, handle movement
+    if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
+        if (Keyboard::isKeyPressed(controls["Move Left"])) {
+            hero.faceright = false;
+            hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
+            hero.setAnimation("left");
+        }
+        if (Keyboard::isKeyPressed(controls["Move Right"])) {
+            hero.faceright = true;
+            hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
+            hero.setAnimation("right");
+
+        }
+    }
+    else if (hero.getJumpCount() > 0 && Keyboard::isKeyPressed(controls["Jump"])) {
+        hero.jump();
+    }
+    else{
+        hero.setAnimation("still");
+    }
+}
+
+void Hero::JumpingState::update(Hero& hero) {
+    for(int i=0; i < hero.borders->size(); i++){
+        if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
+            if(hero.borders[0][i]->getName() == "nogo" || hero.borders[0][i]->getName() == "M"){
+               if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
+                   cout << "Entering Standing State" << endl;
+                   Hero::HeroState *temp = hero.state_;
+                   hero.state_ = new StandingState();
+                   delete temp;
+               }
             }
         }
     }
+}

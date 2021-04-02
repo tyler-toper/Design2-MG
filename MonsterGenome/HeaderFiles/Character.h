@@ -115,6 +115,7 @@ public:
 
 class Hero : public Character {
 private:
+    // States
     class HeroState {
     public:
         virtual ~HeroState() {};
@@ -138,9 +139,11 @@ private:
         void update(Hero &hero);
     };
 
+    // Variables
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroState *state_;
-
+    int jumpCount;
+    int jumpCountMax;
 public:
     // Constructor
     Hero(std::map<std::string, sf::Keyboard::Key> *controlMapping, vector<Platforms *> *borders,
@@ -150,8 +153,11 @@ public:
     void setAnimation(string animation);
 
     // Getters
+    int getJumpCount() const;
     // Mutators
     void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);
+    void jump();
+    void refreshJumps();
     void checkMelee();
 };
