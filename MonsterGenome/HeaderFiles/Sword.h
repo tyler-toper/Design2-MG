@@ -9,6 +9,10 @@ class Sword:public MeleeWeapon {
 private:
     bool flipped = false;
     int first = 0;
+    int recWidth = 48;
+    int recHeight = 48;
+    int rectLeft = 0;
+
 public:
     Sword(unsigned level, string textureFile);
     virtual ~Sword();
@@ -18,6 +22,8 @@ public:
     virtual void update(RenderWindow& window, View& playerView);
     virtual void renderRight(RenderWindow& window, View &playerView);
     virtual void renderLeft(RenderWindow& window, View &playerView);
+    void attackAnim(RenderWindow& window, View &playerView);
+    void resetAnim(RenderWindow& window, View &playerView);
 };
 
 

@@ -10,6 +10,8 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
+        /// TODO: Check which condition was meet
+        // All enemies are dead
         if(mod->PollMenu(window, state, modify, players[0])){
             this->modify = false;
         }
@@ -32,12 +34,17 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
             }
         }
 
+        // Update Platform Positions
         for(int i = 0; i < borders.size(); i++){
             borders[i]->update(time);
         }
+
+        // Update Players and Enemies
         for(int i = 0; i < players.size(); i++){
             players[i]->updatePosition(time, window, playerView);
         }
+
+        // Delete Enemies if dead
         for(int i = 1; i < players.size(); i++){
             if(players[i]->getHealth() <= 0){
                 delete players[i];
@@ -94,13 +101,14 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
             window.draw(players[i]->getSprite());
         }
 
+        // TODO: Or if player is dead
         if (players.size() == 1) {
             modify = true;
             mod->randomize();
             window.setView(window.getDefaultView());
         }
-        players[0]->equipWeapon(window, playerView);
-        players[0]->animWeapon(window, playerView);
+        dynamic_cast<Hero *>(players[0])->equipWeapon(window, playerView);
+        dynamic_cast<Hero *>(players[0])->animWeapon(window, playerView);
     }
 }
 

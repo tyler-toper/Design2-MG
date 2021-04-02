@@ -48,7 +48,7 @@ using namespace sf;
         vitality = 0;
         strength = 0;
         health = 100;
-        jumping = false;
+        maxHealth = 100;
         jumpvel = 0;
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
@@ -74,8 +74,15 @@ using namespace sf;
 
     // Setters
     void Character::setAdditions(float v, float h){
-        this->vertadd = v;
-        this->horizadd = h;
+        if(v == 0 && h == 0){
+            this->vertadd = v;
+            this->horizadd = h;
+        }
+        else{
+            this->vertadd += v;
+            this->horizadd += h;
+        }
+        
     }
 
     // Getters
@@ -138,9 +145,16 @@ using namespace sf;
         faceright = newFaceright;
     }
 
+    void Character::setHealth(int newHealth) {
+        health = newHealth;
+    }
+
+    void Character::setMaxHealth(int newMaxHealth) {
+        maxHealth = newMaxHealth;
+    }
+
     // Mutators
     void Character::checkCollison(){
-        setAdditions(0.f, 0.f);
         for(int i=0; i < borders[0].size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
@@ -183,18 +197,27 @@ using namespace sf;
     void Character::checkProjectile(){
         for(int i=0; i < proj[0].size(); i++){
             if((proj[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(proj[0][i]->getSprite().getGlobalBounds())){
+                damageCharacter(proj[0][i]->getDamage());
                 delete proj[0][i];
                 proj[0].erase(proj[0].begin() + i--);
-                health -= 10;
             }
         }
     }
 
-    void Character::checkMeleeHit(){
+    // TODO: Move this to Hero and make the Character function virtual
+    void Hero::checkMelee() {
         for(int i=1; i < actors[0].size(); i++){
-            if((actors[0][i]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
-                if(actors[0][i]->getAttack()){
-                    this->health -= 10;
+            if(sprite.getGlobalBounds().intersects(actors[0][i]->getSprite().getGlobalBounds())){
+                if (invultimer <= 0) {
+                    // TODO: Fix this knockback issue
+                    if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
+                        // Getting hit on right side
+                        setAdditions(5000, 0);
+                    } else {
+                        // Getting hit on left side
+                        setAdditions(-5000, 0);
+                    }
+                    damageCharacter(10);
                 }
             }
         }
@@ -227,8 +250,9 @@ using namespace sf;
         }
     }
 
-    void Character::attack(vector<Projectile*>* proj, Vector2f loc){
+    void Character::attack(vector<Projectile*>* proj){
         if(weapontimer <= 0.f){
+            // TODO: The path should be derived from the weapon the character is holding
             string path;
             if(ene){
                 path = "../Images/shot1.png";
@@ -237,7 +261,7 @@ using namespace sf;
             {
                 path = "../Images/shot.png";
             }
-            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, (float)loc.x, (float)loc.y, this->ene));
+            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10));
             weapontimer = 1.f;
         }
     }
@@ -246,42 +270,57 @@ using namespace sf;
         jumpvel = -jumpHeight;
     }
 
-void Character::equipWeapon(RenderWindow& window, View &playerView){
-    //Sword
-    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+void Hero::weaponToggles(string key){
+    if(key == "sword"){
         equipSw = true;
         equipPis = false;
     }
-
-    //Pistol
-    if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+    else if(key == "pistol"){
         equipPis = true;
         equipSw = false;
     }
-
-    if (Keyboard::isKeyPressed(Keyboard::G)) {
+    else if(key == "all"){
         equipPis = false;
         equipSw = false;
+    }
+}
+
+
+void Hero::equipWeapon(RenderWindow& window, View &playerView){
+    std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
+    if (Keyboard::isKeyPressed(controls["Sword"])) {
+        weaponToggles("sword");
+    }
+
+    if (Keyboard::isKeyPressed(controls["Pistol"])) {
+        weaponToggles("pistol");
+    }
+
+    if (Keyboard::isKeyPressed(controls["Unequip"])) {
+        weaponToggles("all");
     }
 
     if(equipSw){
         if (faceright) {
             sword->renderRight(window, playerView);
-        } else if (!faceright) {
+        }
+        else if (!faceright) {
             sword->renderLeft(window, playerView);
         }
     }
     else if(equipPis){
         if (faceright) {
             pistol->renderRight(window, playerView);
-        } else if (!faceright) {
+        }
+        else if (!faceright) {
             pistol->renderLeft(window, playerView);
         }
     }
 
 }
 
-void Character::animWeapon(RenderWindow &window, View &playerView) {
+void Hero::animWeapon(RenderWindow &window, View &playerView) {
     if(equipPis){
         if(Mouse::isButtonPressed(Mouse::Left)){
             pistol->attackAnim(window, playerView);
@@ -289,6 +328,31 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         else{
             pistol->resetAnim(window, playerView);
         }
+    }
+
+    else if(equipSw){
+        if(Mouse::isButtonPressed(Mouse::Left)){
+            sword->attackAnim(window, playerView);
+        }
+        else{
+            sword->resetAnim(window, playerView);
+        }
+    }
+}
+
+void Character::damageCharacter(int damageTaken) {
+    if (invultimer <= 0) {
+        health -= damageTaken;
+        invultimer = maxInvulTime;
+    }
+}
+
+void Character::healCharacter(int damageHealed) {
+    if(health + damageHealed < maxHealth) {
+        health += damageHealed;
+    }
+    else {
+        health = maxHealth;
     }
 }
 
@@ -304,7 +368,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
 
         this->inventory = new Inventory(10);
-        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword.png");
+        this->sword = new Sword(0, "../../Assets/WeaponTextures/sword_anim.png");
         this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
 
         //inv testing
@@ -319,7 +383,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";*/
 
     }
-
+    // Setters
     void Hero::setAnimation(string animation){
         // Needs to dereference controlMapping in order to read map
         std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
@@ -340,11 +404,11 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
                 }
                 //Unfinsihed, will be ducking or something
                 if(animation == "crouch"){
-                   
+
                 }
                 //Attacking
                 if(animation == "ranged"){
-                   
+
                 }
             }
 
@@ -355,14 +419,19 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         }
         flip(sprite);
     }
-
     // Getters
     // Mutators
     void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+        setAdditions(0.f, 0.f);
         float time = timein.asSeconds();
         this->atk = false;
        //Gravity and collision when jumpin
         weapontimer = weapontimer - time;
+        if(invultimer > 0) {
+            invultimer = invultimer - time;
+        } else {
+            invultimer = 0;
+        }
         timepass = timepass - time;
         jumpvel += GRAV * time; // Vertical Acceleration
 
@@ -370,11 +439,13 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         state_->handleInput(*this, timein, window, playerView);
         state_->update(*this);
 
-        sprite.move(Vector2f(vertadd * time, horizadd * time));
-        checkCollison();
         checkProjectile();
-        checkMeleeHit();
+        checkMelee();
+        checkCollison();
+        // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
+        sprite.move(Vector2f(vertadd * time, horizadd * time));
     }
+
     void Hero::run(bool isRunning) {
         if(isRunning) {
             if(horizontalvel < maxHorizontalvel) { horizontalvel += horizontalAcc; }
@@ -425,7 +496,7 @@ void Character::animWeapon(RenderWindow &window, View &playerView) {
         }
         //Attacking
         if (Keyboard::isKeyPressed(controls["Attack"])) {
-            hero.attack(hero.proj, window.mapPixelToCoords(Mouse::getPosition(window), playerView));
+            hero.attack(hero.proj);
             hero.setAnimation("still"); //CHange when we have animation
         }
         if(!hero.isAnyKeyPressed(hero.controlMapping)){
