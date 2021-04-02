@@ -18,7 +18,7 @@ private:
 
 public:
     Platforms(String path, float col, float row);
-    Platforms(float col, float row, float col2, float row2);
+    Platforms(float col, float row, float col2, float row2, bool horiz);
     virtual void update(Time& timein);
     Sprite& getSprite();
     string getName();

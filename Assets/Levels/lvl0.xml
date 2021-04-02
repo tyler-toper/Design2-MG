@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level background="sky">
+    <hero x="400" y="300"/>
+    <enemy x="400" y="300"/>
+    <platform x="-800" y="500" sprite="../Images/platform.png"/>
+    <platform x="0" y="500" sprite="../Images/platform.png"/>
+    <platform x="800" y="500" sprite="../Images/platform.png"/>
+    <platform x="1600" y="500" sprite="../Images/platform.png"/>
+    <platform x="250" y="375" sprite="../Images/platform2.png"/>
+    <platform x="650" y="100" sprite="../Images/platform2.png"/>
+    <platform x="950" y="300" sprite="../Images/platform2.png"/>
+    <moveplatform x1="1200" y1="300" x2="2200" y2="300" speed="100" sprite="../Images/platform2.png"/>
+    <moveplatform x1="400" y1="100" x2="500" y2="500" speed="100" sprite="../Images/platform2.png"/>
+    <moveplatform x1="0" y1="500" x2="0" y2="100" speed="100" sprite="../Images/platform2.png"/>
+</level>

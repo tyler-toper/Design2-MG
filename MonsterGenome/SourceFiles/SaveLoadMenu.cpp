@@ -238,7 +238,6 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
     }
     delete saveFile;
     saveFile = NULL;
-    game.LFS = true;
 
-    game.LoadLevel(level);
+    game.LoadLevel(level, 2);
 }
