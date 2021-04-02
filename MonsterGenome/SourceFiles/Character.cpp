@@ -50,9 +50,11 @@ using namespace sf;
         health = 100;
         maxHealth = 100;
         jumpvel = 0;
+        this->checkpoint = false;
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
+        this->resetPoint = Vector2f(400.f, 300.f);
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
         this->borders = borders;
         this->proj = proj;
@@ -85,6 +87,10 @@ using namespace sf;
         
     }
 
+    void Character::resetCheck(){
+        this->checkpoint = false;
+    }
+
     // Getters
     Sprite& Character::getSprite(){
         return this->sprite;
@@ -98,12 +104,24 @@ using namespace sf;
         return this->ene;
     }
 
+    bool Character::getCheckPoint(){
+        return this->checkpoint;
+    }
+
     int Character::getHealth(){
         return this->health;
     }
 
+    int Character::getMaxHealth(){
+        return this->maxHealth;
+    }
+
     vector<Platforms*>* Character::getBorders() {
         return this->borders;
+    }
+
+    Vector2f Character::getReset(){
+        return this->resetPoint;
     }
 
     int Character::aboveBelow(Sprite& first, Sprite& second){
@@ -158,8 +176,8 @@ using namespace sf;
         for(int i=0; i < borders[0].size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
-                removeCollision(borders[0][i], intersection);
                 if(borders[0][i]->getName() == "M"){
+                    removeCollision(borders[0][i], intersection);
                     MovePlatform *d = static_cast<MovePlatform *>(borders[0][i]);
                     if(aboveBelow(sprite, d->getSprite()) == -1 && (d->getYspeed() > 0)){
                         d->reverse();
@@ -167,6 +185,19 @@ using namespace sf;
                     else if(aboveBelow(sprite, d->getSprite()) == 1){
                         setAdditions(d->getXspeed(), abs(d->getYspeed()));
                     }
+                }
+                else if(borders[0][i]->getName() == "C"){
+                    if(!this->ene){
+                        Checkpoint *d = static_cast<Checkpoint *>(borders[0][i]);
+                        if(!d->getActivation()){
+                            d->setActivation();
+                            this->resetPoint = Vector2f(d->getLocation().x, d->getLocation().y - this->getSprite().getTextureRect().height);
+                            this->checkpoint = true;
+                        }
+                    }
+                }
+                else{
+                    removeCollision(borders[0][i], intersection);
                 }
             }
         }
@@ -539,7 +570,8 @@ void Character::healCharacter(int damageHealed) {
     void Hero::JumpingState::update(Hero& hero) {
         for(int i=0; i < hero.borders->size(); i++){
             if(hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())){
-                if(hero.borders[0][i]->getName() == "nogo" || hero.borders[0][i]->getName() == "M"){
+                String name = hero.borders[0][i]->getName();
+                if(name == "nogo" || name == "M" ){
                    if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
                        Hero::HeroState *temp = hero.state_;
                        hero.state_ = new StandingState();

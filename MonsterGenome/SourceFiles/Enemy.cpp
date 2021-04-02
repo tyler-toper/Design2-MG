@@ -236,6 +236,7 @@ void Wanderer::setAnimation(string animation){
 
 void Wanderer::setActions(float time) {
     // TODO: Make hitting a wall change direction!
+    updateFaceright();
     if(faceright) {
         actions[0] = 0;
         actions[1] = 1;
@@ -243,6 +244,28 @@ void Wanderer::setActions(float time) {
     else {
         actions[0] = 1;
         actions[1] = 0;
+    }
+}
+
+//Special Functions
+void Wanderer::updateFaceright(){
+    for(int i=0; i < getBorders()->size(); i++){
+        if(getSprite().getGlobalBounds().intersects(getBorders()[0][i]->getSprite().getGlobalBounds())){
+            if(getBorders()[0][i]->getName() != "C"){
+                if(aboveBelow(getSprite(), getBorders()[0][i]->getSprite()) == 0 || getBorders()[0][i]->getName() == "N"){
+                    cout << "hi" << endl;
+                    int temp = rightLeft(getSprite(), getBorders()[0][i]->getSprite()); 
+                    if(temp == 1){
+                        cout << "hi1" << endl;
+                        setFaceright(true);
+                    }
+                    else if(temp == -1){
+                        cout << "hi2" << endl;
+                        setFaceright(false);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -258,10 +281,11 @@ void Wanderer::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow
         ene.setAnimation("left");
     }
     else if(actions[1]){
-        ene.setFaceright(true);
+        //ene.setFaceright(true);
         ene.getSprite().move(Vector2f(ene.getHorizontalVel() * time, 0));
         ene.setAnimation("right");
     }
+    ene.setActions(time);
 }
 
 void Wanderer::StandingState::update(Enemy& ene) {
