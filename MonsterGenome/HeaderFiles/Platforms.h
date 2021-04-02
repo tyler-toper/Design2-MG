@@ -10,8 +10,7 @@ using namespace sf;
 // Create Boundries and such
 class Platforms{
 protected:
-    string name;
-private:    
+    string name;    
     Texture text;
     Sprite sprite;
 
@@ -38,4 +37,16 @@ class MovePlatform : public Platforms{
     void reverse();
     float getXspeed();
     float getYspeed();
+};
+
+class Checkpoint : public Platforms{
+    private:
+    bool activated;
+    Vector2f resetLocation;
+
+    public:
+    Checkpoint(String path, float col, float row);
+    Vector2f getLocation();
+    void setActivation();
+    bool getActivation();
 };

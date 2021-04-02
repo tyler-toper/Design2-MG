@@ -76,3 +76,28 @@ void MovePlatform::reverse(){
     this->yspeed *= -1.f;
     this->fliptime = (totaldist/speed - fliptime);
 }
+
+Checkpoint::Checkpoint(String path, float col, float row) : Platforms(path, col, row){
+    name = "C";
+    activated = false;
+    this->resetLocation.x = col;
+    this->resetLocation.y = row;
+}
+
+Vector2f Checkpoint::getLocation(){
+    return this->resetLocation;
+}
+
+void Checkpoint::setActivation(){
+    this->activated = true;
+    text.loadFromFile("../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation.png");
+    sprite.setTexture(text, true);
+    sprite.move(Vector2f(0, -72));
+    /*Image img;
+    img.loadFromFile("../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation.png");
+    text.update(img);*/
+}
+
+bool Checkpoint::getActivation(){
+    return this->activated;
+}
