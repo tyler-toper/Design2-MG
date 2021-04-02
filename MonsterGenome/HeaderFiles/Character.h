@@ -106,9 +106,6 @@ public:
     void setAdditions(float v, float h);
     string getName();
     virtual void jump();
-    void weaponToggles(string key);
-    void equipWeapon(RenderWindow& window, View &playerView);
-    void animWeapon(RenderWindow& window, View& playerView);
     void damageCharacter(int damageTaken);
     void healCharacter(int damageHealed);
 };
@@ -154,4 +151,7 @@ public:
     void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);
     void checkMelee();
+    void weaponToggles(string key);
+    void equipWeapon(RenderWindow& window, View &playerView);
+    void animWeapon(RenderWindow& window, View& playerView);
 };

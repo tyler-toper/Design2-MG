@@ -270,7 +270,7 @@ using namespace sf;
         jumpvel = -jumpHeight;
     }
 
-void Character::weaponToggles(string key){
+void Hero::weaponToggles(string key){
     if(key == "sword"){
         equipSw = true;
         equipPis = false;
@@ -286,16 +286,18 @@ void Character::weaponToggles(string key){
 }
 
 
-void Character::equipWeapon(RenderWindow& window, View &playerView){
-    if (Keyboard::isKeyPressed(Keyboard::Num1)) {
+void Hero::equipWeapon(RenderWindow& window, View &playerView){
+    std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+
+    if (Keyboard::isKeyPressed(controls["Sword"])) {
         weaponToggles("sword");
     }
 
-    if (Keyboard::isKeyPressed(Keyboard::Num2)) {
+    if (Keyboard::isKeyPressed(controls["Pistol"])) {
         weaponToggles("pistol");
     }
 
-    if (Keyboard::isKeyPressed(Keyboard::G)) {
+    if (Keyboard::isKeyPressed(controls["Unequip"])) {
         weaponToggles("all");
     }
 
@@ -318,7 +320,7 @@ void Character::equipWeapon(RenderWindow& window, View &playerView){
 
 }
 
-void Character::animWeapon(RenderWindow &window, View &playerView) {
+void Hero::animWeapon(RenderWindow &window, View &playerView) {
     if(equipPis){
         if(Mouse::isButtonPressed(Mouse::Left)){
             pistol->attackAnim(window, playerView);

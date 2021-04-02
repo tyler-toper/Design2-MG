@@ -106,8 +106,8 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
             mod->randomize();
             window.setView(window.getDefaultView());
         }
-        players[0]->equipWeapon(window, playerView);
-        players[0]->animWeapon(window, playerView);
+        dynamic_cast<Hero *>(players[0])->equipWeapon(window, playerView);
+        dynamic_cast<Hero *>(players[0])->animWeapon(window, playerView);
     }
 }
 
