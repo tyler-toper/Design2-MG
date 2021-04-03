@@ -6,6 +6,9 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     this->lvl = lvl;
     mod = new HeroMod(controlMapping);
     LoadLevel(lvl);
+
+    HUD.loadFromFile("../../Assets/Backgrounds/HUD.png");
+    HUDSprite.setTexture(HUD);
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
@@ -103,6 +106,8 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         players[0]->equipWeapon(window, playerView);
         players[0]->animWeapon(window, playerView);
     }
+
+    window.draw(HUDSprite);
 }
 
 void Game::LoadLevel(int lvl){

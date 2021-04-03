@@ -25,6 +25,9 @@ private:
     friend class StartMenu;
     friend class SaveLoadMenu;
 
+    Texture HUD;
+    Sprite HUDSprite;
+
 public:
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);
 
