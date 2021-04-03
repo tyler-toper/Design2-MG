@@ -17,12 +17,13 @@ protected:
     string name;
     int level;
     int health;
+    int maxHealth;
     int armor;
     int strength;
     int vitality;
-    bool jumping;
     bool punch = false;
     bool atk = false;
+    bool checkpoint = false;
     bool faceright = true;
     float jumpvel;
     float vertadd = 0.f;
@@ -33,6 +34,7 @@ protected:
     vector<Platforms*>* borders;
     vector<Projectile*>* proj;
     vector<Character*>* actors;
+    Vector2f resetPoint;
     friend class StartMenu;
     friend class SaveLoadMenu;
 
@@ -42,21 +44,29 @@ public:
     bool ene;
     //should be in weapons firerate
     float weapontimer = 0.f;
+
+    // Damage Invulerablity
+    float invultimer = 0;
+    float maxInvulTime = 1.0;
+
     /// Movement
     // Walking and Running
     float horizontalvel;
     float baseHorizontalvel;
     float maxHorizontalvel;
     float horizontalAcc;
+
     // Jumping
     float baseJumpHeight = 0.f;
     float jumpHeight = 0.f;
-  
-    //weapons
+
+    // Weapons
     Inventory* inventory;
     Sword* sword;
     Pistol* pistol;
-  
+    float reloadTime;
+    float reloadMod;
+
     bool equipSw = false;
     int swToggle = 0;
     bool equipPis = false;
@@ -73,22 +83,29 @@ public:
     Sprite& getSprite();
     bool getAttack();
     bool getEnemy();
+    bool getCheckPoint();
     int getHealth();
+    int getMaxHealth();
     vector<Platforms*>* getBorders();
+    Vector2f getReset();
     int aboveBelow(Sprite& first, Sprite& second);
     float getHorizontalVel();
     bool isFaceright();
     float getJumpVel();
+
     // Setters
     void setFaceright(bool newFaceright);
+    void setHealth(int newHealth);
+    void setMaxHealth(int newMaxHealth);
+    void resetCheck();
 
     // Mutators
-    void checkCollison();
+    void checkCollision();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
-    virtual void checkMeleeHit();
+    virtual void checkMelee() = 0;
     virtual void updatePosition(Time& time, RenderWindow& window, View &playerView) = 0;
-    void attack(vector<Projectile*>* borders, Vector2f loc);
+    void attack(vector<Projectile*>* borders);
     virtual void setAnimation(string animation) = 0;
     void flip(Sprite& sprite);
     void hAnimation();
@@ -96,40 +113,63 @@ public:
     void setAdditions(float v, float h);
     string getName();
     virtual void jump();
-    void equipWeapon(RenderWindow& window, View &playerView);
-    void animWeapon(RenderWindow& window, View& playerView);
+    void damageCharacter(int damageTaken);
+    void healCharacter(int damageHealed);
 };
 
 class Hero : public Character {
 private:
+    // States
     class HeroState {
     public:
         virtual ~HeroState() {};
-        virtual void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView) {};
-        virtual void update(Hero& Hero) {};
+        virtual void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView) {};
+        virtual void update(Hero &Hero) {};
     };
 
     class StandingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
+        void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
+        void update(Hero &hero);
     };
 
     class JumpingState : public HeroState {
     public:
-        void handleInput(Hero& hero, Time& timein, RenderWindow& window, View &playerView);
-        void update(Hero& hero);
+        void handleInput(Hero &hero, Time &timein, RenderWindow &window, View &playerView);
+        void update(Hero &hero);
     };
-    std::map<std::string, sf::Keyboard::Key>* controlMapping;
-    HeroState* state_;
+
+    // Variables
+    std::map<std::string, sf::Keyboard::Key> *controlMapping;
+    HeroState *state_;
+
+    // Jumping
+    int jumpCount;
+    int jumpCountMax;
+    const int jumpCountAbsMax = 5;
+    bool jumpingHeld;
 
 public:
     // Constructor
-    Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
+    Hero(std::map<std::string, sf::Keyboard::Key> *controlMapping, vector<Platforms *> *borders,
+         vector<Projectile *> *proj, vector<Character *> *actors, float spawnX, float spawnY);
+
     // Setters
     void setAnimation(string animation);
+    void setJumpingHeld(bool state);
     // Getters
+    int getJumpCount() const;
+    bool isJumpingHeld() const;
     // Mutators
-    void updatePosition(Time& timein, RenderWindow& window, View &playerView);
+    void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);
+    void jump();
+    void refreshJumps();
+    // TODO: Attach these functions to level up screen
+    bool improveJumpCount();
+    void modifyReloadMod(float change);
+    void checkMelee();
+    void weaponToggles(string key);
+    void equipWeapon(RenderWindow& window, View &playerView);
+    void animWeapon(RenderWindow& window, View& playerView);
 };

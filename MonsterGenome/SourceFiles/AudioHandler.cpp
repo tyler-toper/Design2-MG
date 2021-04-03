@@ -9,10 +9,10 @@ AudioHandler::AudioHandler(){
     theme.setLoop(true);
     theme.setVolume(25);
 
-    playBuffer.loadFromFile("../../Assets/Audio/Soundtracks/Brave Worm.wav");
+    playBuffer.loadFromFile("../../Assets/Audio/Soundtracks/The Blacklist.wav");
     playSound.setBuffer(playBuffer);
     playSound.setLoop(true);
-    playSound.setVolume(25);
+    playSound.setVolume(35);
 
     settingsBuffer.loadFromFile("../../Assets/Audio/Soundtracks/Gapman.wav");
     settingsSound.setBuffer(settingsBuffer);

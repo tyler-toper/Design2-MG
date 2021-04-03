@@ -19,8 +19,9 @@ private:
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroMod* mod;
     int lvl;
-    bool LFS;
     bool modify = false;
+    Texture backgroundT;
+    Sprite backgroundS;
 
     friend class StartMenu;
     friend class SaveLoadMenu;
@@ -33,5 +34,5 @@ public:
 
     void PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
-    void LoadLevel(int lvl);
+    void LoadLevel(int lvl, int LoadCase);
 };

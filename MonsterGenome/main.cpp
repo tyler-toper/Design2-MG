@@ -42,7 +42,7 @@ void openWindow(RenderWindow &window){
 
     // Main game loop. While the window is open
     while(window.isOpen()){
-        window.clear(Color::White);
+        window.clear(Color::Black);
         time = clock.restart();
         audioHandler.setState(state.GetState());
         audioHandler.playMusic();

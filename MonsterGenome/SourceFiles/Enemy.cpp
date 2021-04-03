@@ -30,31 +30,36 @@ void Enemy::setState(Enemy::EnemyState* newState) {
 }
 
 // Mutators
-// TODO: Add param to change health lost
-void Enemy::checkMeleeHit(){
+void Enemy::checkMelee(){
     if((actors[0][0]->getEnemy() != this->ene) && sprite.getGlobalBounds().intersects(actors[0][0]->getSprite().getGlobalBounds())){
         if(actors[0][0]->getAttack()){
-            this->health -= 10;
+            damageCharacter(10);
         }
     }
 }
 
 void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     float time = timein.asSeconds();
+    setAdditions(0.f, 0.f);
     setActions(time);
     //Gravity and collision when jumpin
     weapontimer = weapontimer - time;
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
 
+    if(invultimer > 0) {
+        invultimer = invultimer - time;
+    } else {
+        invultimer = 0;
+    }
     sprite.move(Vector2f(0, jumpvel * time));
     state_->handleInput(*this, timein, window);
     state_->update(*this);
 
     sprite.move(Vector2f(vertadd * time, horizadd * time));
-    checkCollison();
+    checkCollision();
     checkProjectile();
-    checkMeleeHit();
+    checkMelee();
 }
 
 /// Fighter
@@ -236,6 +241,7 @@ void Wanderer::setAnimation(string animation){
 
 void Wanderer::setActions(float time) {
     // TODO: Make hitting a wall change direction!
+    updateFaceright();
     if(faceright) {
         actions[0] = 0;
         actions[1] = 1;
@@ -243,6 +249,28 @@ void Wanderer::setActions(float time) {
     else {
         actions[0] = 1;
         actions[1] = 0;
+    }
+}
+
+//Special Functions
+void Wanderer::updateFaceright(){
+    for(int i=0; i < getBorders()->size(); i++){
+        if(getSprite().getGlobalBounds().intersects(getBorders()[0][i]->getSprite().getGlobalBounds())){
+            if(getBorders()[0][i]->getName() != "C"){
+                if(aboveBelow(getSprite(), getBorders()[0][i]->getSprite()) == 0 || getBorders()[0][i]->getName() == "N"){
+                    cout << "hi" << endl;
+                    int temp = rightLeft(getSprite(), getBorders()[0][i]->getSprite()); 
+                    if(temp == 1){
+                        cout << "hi1" << endl;
+                        setFaceright(true);
+                    }
+                    else if(temp == -1){
+                        cout << "hi2" << endl;
+                        setFaceright(false);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -258,10 +286,11 @@ void Wanderer::StandingState::handleInput(Enemy& ene, Time& timein, RenderWindow
         ene.setAnimation("left");
     }
     else if(actions[1]){
-        ene.setFaceright(true);
+        //ene.setFaceright(true);
         ene.getSprite().move(Vector2f(ene.getHorizontalVel() * time, 0));
         ene.setAnimation("right");
     }
+    ene.setActions(time);
 }
 
 void Wanderer::StandingState::update(Enemy& ene) {
