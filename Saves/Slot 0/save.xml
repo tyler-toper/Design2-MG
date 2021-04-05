@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <save level="1">
-	<coords x="763.215332" y="59.999996"/>
-	<attrs name="Hero" health="80" level="0" armor="100" strength="0" vitality="0" exp="0"/>
+	<coords x="69.467262" y="59.999996"/>
+	<attrs name="Hero" health="70" level="0" armor="100" strength="0" vitality="0" exp="0"/>
 </save>

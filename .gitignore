@@ -41,3 +41,6 @@ cmake*
 
 # Libraries
 **/Dependencies
+
+# Save Files
+**/Saves

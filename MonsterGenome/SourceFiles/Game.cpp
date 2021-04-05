@@ -9,6 +9,9 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
 
     HUD.loadFromFile("../../Assets/Backgrounds/HUD.png");
     HUDSprite.setTexture(HUD);
+
+    healthBar.setPosition(95, 735);
+    healthBar.setFillColor(Color::Red);
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
@@ -62,6 +65,12 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
                 players.erase(players.begin() + i--);
             }
         }
+
+        // Update player health bar
+        // Health bar's max size is 218 pixels
+        int maxHealth = players[0]->getMaxHealth();
+        int currentHealth = players[0]->getHealth();
+        healthBar.setSize(Vector2f((218.0 / maxHealth) * currentHealth, 11));
     }
 }
 
@@ -122,9 +131,13 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         }
         dynamic_cast<Hero *>(players[0])->equipWeapon(window, playerView);
         dynamic_cast<Hero *>(players[0])->animWeapon(window, playerView);
+
+        window.setView(window.getDefaultView());
+        window.draw(HUDSprite);
+        window.draw(healthBar);
     }
 
-    window.draw(HUDSprite);
+
 }
 
 void Game::LoadLevel(int lvl, int LoadCase){
