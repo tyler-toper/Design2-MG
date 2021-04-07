@@ -42,8 +42,6 @@ public:
     float timepass = .5f;
     //make enemy
     bool ene;
-    //should be in weapons firerate
-    float weapontimer = 0.f;
 
     // Damage Invulerablity
     float invultimer = 0;
@@ -64,8 +62,14 @@ public:
     Inventory* inventory;
     Sword* sword;
     Pistol* pistol;
+    float weapontimer = 0.f;
+    // Weapon Reload Time
     float reloadTime;
-    float reloadMod;
+    // Character Reload Modifier
+    float minCharReloadMod;
+    float maxCharReloadMod;
+    float charReloadMod;
+    int charDamageMod;
 
     bool equipSw = false;
     int swToggle = 0;
@@ -165,11 +169,13 @@ public:
     void run(bool isRunning);
     void jump();
     void refreshJumps();
-    // TODO: Attach these functions to level up screen
-    bool improveJumpCount();
-    void modifyReloadMod(float change);
     void checkMelee();
     void weaponToggles(string key);
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
+
+    // TODO: Attach these functions to level up screen
+    bool improveJumpCount();
+    void modifyCharReloadMod(float change);
+    void modifyCharDamageMod(int change);
 };

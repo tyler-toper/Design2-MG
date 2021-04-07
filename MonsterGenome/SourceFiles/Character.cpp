@@ -69,12 +69,16 @@ using namespace sf;
         baseHorizontalvel = 200.f;
         maxHorizontalvel = 400.f;
         horizontalAcc = 1.f;
+
         // Jumping
         jumpHeight = 400.0f;
 
         // Weapons
         reloadTime = 1.0f;
-        reloadMod = 1.0f;
+        charReloadMod = 1.0f;
+        minCharReloadMod = 0.1f;
+        maxCharReloadMod = 1.5f;
+        charDamageMod = 0;
     }
 
     // Setters
@@ -294,9 +298,9 @@ using namespace sf;
             {
                 path = "../../Assets/Custom/Fireball2.png";
             }
-            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10));
+            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10 + charDamageMod));
             // TODO: Load the weapons reload time instead of reloadTime variable
-            weapontimer = reloadTime * reloadMod;
+            weapontimer = reloadTime * charReloadMod;
         }
     }
 
@@ -375,9 +379,6 @@ void Hero::animWeapon(RenderWindow &window, View &playerView) {
 }
 
 void Character::damageCharacter(int damageTaken) {
-    if(ene && invultimer > 0) {
-        cout << "Hit registered, but enemy invul. Wait for " << invultimer << " seconds." <<endl;
-    }
     if (invultimer <= 0) {
         if(ene) {
             cout << "Taking " << damageTaken << " damage!" << endl;
@@ -407,11 +408,15 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     jumpCount = 0;
     jumpingHeld = false;
     // TODO: Load this variable from player file or start on one if new file
-    jumpCountMax = 1;
+    jumpCountMax = 2;
 
-    // Firerate
     // TODO: Load this variable from player file or start on one if new file
-    reloadMod = 0.2f;
+    // Weapons Modification
+    reloadTime = 1.0f;
+    charReloadMod = 1.0f;
+    minCharReloadMod = 0.1f;
+    maxCharReloadMod = 1.5f;
+    charDamageMod = 0;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
@@ -487,21 +492,25 @@ bool Hero::isJumpingHeld() const {
 
 // Mutators
 void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+    // Clear additions from previous frame update
     setAdditions(0.f, 0.f);
     float time = timein.asSeconds();
     this->atk = false;
-   //Gravity and collision when jumpin
+
+    // Weapon control timer
     if(weapontimer > 0) {
         weapontimer = weapontimer - time;
     } else {
         weapontimer = 0;
     }
 
+    // Invincibility timer
     if(invultimer > 0) {
         invultimer = invultimer - time;
     } else {
         invultimer = 0;
     }
+
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
 
@@ -509,10 +518,21 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     state_->handleInput(*this, timein, window, playerView);
     state_->update(*this);
 
+    // Test commands
+//    if (Keyboard::isKeyPressed(sf::Keyboard::Num8)) {
+//        improveJumpCount();
+//        modifyCharReloadMod(-0.1f);
+//        cout << charDamageMod << endl;
+//        modifyCharDamageMod(1);
+//        cout << charDamageMod << endl;
+//    }
+
     checkProjectile();
     checkMelee();
+    //Gravity and collision when jumping
     checkCollision();
     // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
+    // This could be a clean up spire.move and the above move is the one using velocity?
     sprite.move(Vector2f(vertadd * time, horizadd * time));
 }
 
@@ -528,12 +548,12 @@ void Hero::run(bool isRunning) {
 }
 
 void Hero::jump() {
-    cout << jumpCount << " jumps available." << endl;
     if (jumpCount > 0) {
         jumpvel = -jumpHeight;
         jumpCount--;
     }
     cout << jumpvel << endl;
+    cout << jumpCount << " jumps available." << endl;
 }
 
 void Hero::refreshJumps() {
@@ -549,21 +569,31 @@ bool Hero::improveJumpCount() {
     return false;
 }
 
-void Hero::modifyReloadMod(float change) {
-    // The bounded range for the modifier is [0.5, 1.5]
-    float min = 0.5f;
-    float max = 1.5f;
-    if(reloadMod + change >= min && reloadMod + change <= max) {
-        reloadMod += change;
+void Hero::modifyCharReloadMod(float change) {
+    float min = minCharReloadMod;
+    float max = maxCharReloadMod;
+    if(charReloadMod + change >= min && charReloadMod + change <= max) {
+        charReloadMod += change;
     }
-    else if(reloadMod + change < min) {
-        reloadMod = min;
+    else if(charReloadMod + change < min) {
+        charReloadMod = min;
     }
     else {
-        reloadMod = max;
+        charReloadMod = max;
     }
     // As an aside, the firerate doesn't increase linearly. Going from 1.0 to 0.9 is not the same as going from 0.9 to 0.8
 }
+
+void Hero::modifyCharDamageMod(int change) {
+    int min = 0;
+    if(charDamageMod + change >= min) {
+        charDamageMod += change;
+    }
+    else {
+        charDamageMod = min;
+    }
+}
+
 
 // Hero States
 // Standing

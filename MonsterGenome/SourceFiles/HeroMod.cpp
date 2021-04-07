@@ -36,22 +36,27 @@ HeroMod::HeroMod(std::map<std::string, sf::Keyboard::Key>* controlMapping, float
     text[selected].setStyle(Text::Underlined);
 }
 // Add new modifications here
-void HeroMod::modification(Character* hero, int select){
+void HeroMod::modification(Hero* hero, int select){
     switch(select){
         case 0 :
             hero->getSprite().setColor(Color::Red);
+            hero->improveJumpCount();
             break;
         case 1 :
             hero->getSprite().setColor(Color::Green);
+            hero->modifyCharReloadMod(-0.1f);
             break;
         case 2 :
             hero->getSprite().setColor(Color::Blue);
             break;
         case 3 :
             hero->getSprite().setColor(Color::Yellow);
+            hero->setMaxHealth(hero->getMaxHealth() + 25);
+            hero->healCharacter(hero->getMaxHealth());
             break;
         case 4 :
             hero->getSprite().setColor(Color::Magenta);
+            hero->modifyCharDamageMod(10);
             break;
         case 5 :
             hero->getSprite().setColor(Color::Cyan);
@@ -122,7 +127,7 @@ bool HeroMod::PollMenu(RenderWindow &window, GameState &state, bool& modify, Cha
             }
             // TODO: Define general controls for this command
             if (pressed == Keyboard::Return) {
-                modification(hero, funct[selected]);
+                modification(static_cast<Hero *>(hero), funct[selected]);
                 return true;
             }
         }
