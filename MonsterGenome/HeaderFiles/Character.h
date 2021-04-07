@@ -47,7 +47,7 @@ public:
 
     // Damage Invulerablity
     float invultimer = 0;
-    float maxInvulTime = 1.0;
+    float maxInvulTime = 1.0f;
 
     /// Movement
     // Walking and Running

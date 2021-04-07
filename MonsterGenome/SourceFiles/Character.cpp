@@ -407,7 +407,7 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     jumpCount = 0;
     jumpingHeld = false;
     // TODO: Load this variable from player file or start on one if new file
-    jumpCountMax = 5;
+    jumpCountMax = 1;
 
     // Firerate
     // TODO: Load this variable from player file or start on one if new file
@@ -528,10 +528,12 @@ void Hero::run(bool isRunning) {
 }
 
 void Hero::jump() {
+    cout << jumpCount << " jumps available." << endl;
     if (jumpCount > 0) {
         jumpvel = -jumpHeight;
         jumpCount--;
     }
+    cout << jumpvel << endl;
 }
 
 void Hero::refreshJumps() {
@@ -592,6 +594,7 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
         hero.run(false);
     }
     if (!hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
+        cout << "Jumping" << endl;
         hero.jump();
 
         // TODO: Move this to one spite.move function
@@ -616,11 +619,27 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
 
 void Hero::StandingState::update(Hero& hero) {
     std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+
+    // Checking for ground
+    bool isGrounded = false;
+    for(int i=0; i < hero.borders->size(); i++) {
+        if (hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())) {
+            String name = hero.borders[0][i]->getName();
+            if (name == "nogo" || name == "M") {
+                if (hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1) {
+                    isGrounded = true;
+                }
+            }
+        }
+    }
+
+
     // State transitions
     // TODO: Needs to detect when the player is no longer standing on platform
-    if (hero.getJumpCount() > 0 && !hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
+    if (!isGrounded) {
         Hero::HeroState *temp = hero.state_;
         hero.state_ = new JumpingState();
+        cout << "Going to Jumping State" << endl;
         delete temp;
     }
     else {
@@ -643,11 +662,13 @@ void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& win
     if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
         if (Keyboard::isKeyPressed(controls["Move Left"])) {
             hero.faceright = false;
+            // TODO: Move this to one spite.move function
             hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
             hero.setAnimation("left");
         }
         if (Keyboard::isKeyPressed(controls["Move Right"])) {
             hero.faceright = true;
+            // TODO: Move this to one spite.move function
             hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
             hero.setAnimation("right");
 
@@ -679,6 +700,7 @@ void Hero::JumpingState::update(Hero& hero) {
             if(name == "nogo" || name == "M" ){
                 if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
                     Hero::HeroState *temp = hero.state_;
+                    cout << "Going to Standing State" << endl;
                     hero.state_ = new StandingState();
                     delete temp;
                 }
