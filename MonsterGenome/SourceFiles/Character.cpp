@@ -54,7 +54,6 @@ using namespace sf;
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
-        this->resetPoint = Vector2f(400.f, 300.f);
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
         this->borders = borders;
         this->proj = proj;
@@ -88,6 +87,26 @@ using namespace sf;
             this->horizadd += h;
         }
         
+    }
+
+    void Character::setAdditionsKnock(float v, float h){       
+        this->vertaddKnock = v;
+        this->horzaddKnock = h;
+
+        //horzAccel Not used right now
+        if(h > 0){
+            this->horzAcel = abs(this->horzAcel) * -1;
+        }
+        else{
+            this->horzAcel = abs(this->horzAcel);
+        }
+    }
+
+    void Character::setKnockFrame(){
+        if(this->vertaddKnock >= 0){
+            this->horzaddKnock = 0;
+            this->vertaddKnock = 0;
+        }
     }
 
     void Character::resetCheck(){
@@ -220,6 +239,7 @@ using namespace sf;
             else{
                 sprite.move(0, intersection.height);
                 jumpvel = 0;
+                vertaddKnock = 0;
             }
         }
         else{
@@ -245,10 +265,10 @@ using namespace sf;
                     // TODO: Fix this knockback issue
                     if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
                         // Getting hit on right side
-                        setAdditions(5000, 0);
+                        setAdditionsKnock(-350, 400);
                     } else {
                         // Getting hit on left side
-                        setAdditions(-5000, 0);
+                        setAdditionsKnock(-350, -400);
                     }
                     damageCharacter(10);
                 }
@@ -400,6 +420,7 @@ void Character::healCharacter(int damageHealed) {
 /// Hero Functions
 // Constructor
 Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
+    this->resetPoint = Vector2f(spawnX, spawnY);
     this->controlMapping = controlMapping;
     state_ = new StandingState();
 
@@ -505,7 +526,12 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
 
+    vertaddKnock += GRAV * time;
+    setKnockFrame();
+
     sprite.move(Vector2f(0, jumpvel * time));
+
+    sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock ) * time ));
     state_->handleInput(*this, timein, window, playerView);
     state_->update(*this);
 
@@ -690,3 +716,4 @@ void Hero::JumpingState::update(Hero& hero) {
     // TODO: Move this to updatePosition?
     hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
 }
+

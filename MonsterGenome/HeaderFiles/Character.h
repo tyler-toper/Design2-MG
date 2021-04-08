@@ -28,6 +28,12 @@ protected:
     float jumpvel;
     float vertadd = 0.f;
     float horizadd = 0.f;
+
+    float vertaddKnock = 0.f;
+    float horzaddKnock = 0.f;
+    float horzAcel = 1100.f;
+    int knockFrames = 5;
+
     Texture text;
     Sprite sprite;
     int experience;
@@ -111,6 +117,8 @@ public:
     void hAnimation();
     void mAnimation();
     void setAdditions(float v, float h);
+    void setAdditionsKnock(float v, float h);
+    void setKnockFrame();
     string getName();
     virtual void jump();
     void damageCharacter(int damageTaken);
