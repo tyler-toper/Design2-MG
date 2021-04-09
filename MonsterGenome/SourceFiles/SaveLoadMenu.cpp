@@ -240,7 +240,7 @@ void SaveLoadMenu::SaveGame(Game &game, int slot){
     saveFile << "<save level=\"" + to_string(game.lvl) + "\">" << std::endl;
 
     saveFile << "\t<coords x=\"" + to_string(game.players[0]->sprite.getPosition().x) + "\" y=\"" + to_string(game.players[0]->sprite.getPosition().y) + "\"/>" << std::endl;
-    saveFile << "\t<attrs name=\"" + game.players[0]->name + "\" health=\"" + to_string(game.players[0]->getHealth()) + "\" level=\"" + to_string(game.players[0]->level) + "\" armor=\"" + to_string(game.players[0]->armor) + "\" strength=\"" + to_string(game.players[0]->strength) + "\" vitality=\"" + to_string(game.players[0]->vitality) + "\" exp=\"" + to_string(game.players[0]->experience) + "\" jump_count=\"" + to_string(game.players[0]->jumpCount) + "\" reload_mod=\"" + to_string(game.players[0]->charReloadMod) + "\" damage_mod=\"" + to_string(game.players[0]->charDamageMod) + "\" jump_mod=\"" + to_string(game.players[0]->jumpHeight) + "\" walk_speed=\"" + to_string(game.players[0]->baseHorizontalvel) + "\" run_speed=\"" + to_string(game.players[0]->maxHorizontalvel) + "\"/>" << std::endl;
+    saveFile << "\t<attrs name=\"" + game.players[0]->name + "\" health=\"" + to_string(game.players[0]->getHealth()) + "\" max_health=\"" + to_string(game.players[0]->getMaxHealth()) + "\" level=\"" + to_string(game.players[0]->level) + "\" armor=\"" + to_string(game.players[0]->armor) + "\" strength=\"" + to_string(game.players[0]->strength) + "\" vitality=\"" + to_string(game.players[0]->vitality) + "\" exp=\"" + to_string(game.players[0]->experience) + "\" jump_count=\"" + to_string(game.players[0]->jumpCount) + "\" reload_mod=\"" + to_string(game.players[0]->charReloadMod) + "\" damage_mod=\"" + to_string(game.players[0]->charDamageMod) + "\" jump_mod=\"" + to_string(game.players[0]->jumpHeight) + "\" walk_speed=\"" + to_string(game.players[0]->baseHorizontalvel) + "\" run_speed=\"" + to_string(game.players[0]->maxHorizontalvel) + "\"/>" << std::endl;
 
     saveFile << "</save>" << std::endl;
     saveFile.close();
@@ -284,6 +284,7 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
                 if (!strcmp("attrs", saveFile->getNodeName())) {
                     game.players[0]->name = saveFile->getAttributeValue("name");
                     game.players[0]->health = saveFile->getAttributeValueAsInt("health");
+                    game.players[0]->maxHealth = saveFile->getAttributeValueAsInt("max_health");
                     game.players[0]->level = saveFile->getAttributeValueAsInt("level");
                     game.players[0]->armor = saveFile->getAttributeValueAsInt("armor");
                     game.players[0]->strength = saveFile->getAttributeValueAsInt("strength");
