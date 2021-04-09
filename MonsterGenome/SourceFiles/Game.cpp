@@ -177,7 +177,7 @@ void Game::LoadLevel(int lvl, int LoadCase){
                 if (!strcmp("hero", lvlFile->getNodeName())){
                     switch(LoadCase){
                         case 1:
-                            tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                            tempChar = new Hero(controlMapping, &borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y") - 10);
                             this->players.push_back(tempChar);
                             break;
                         case 2:
