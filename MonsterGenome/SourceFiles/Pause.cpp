@@ -29,7 +29,7 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
 
         FloatRect box = text[i].getGlobalBounds();
         float offset = box.width / 2;
-        text[i].setPosition((width / 2) - offset, (height / (PauseOptions + 1) * (i + 1)));
+        text[i].setPosition(100, (height / (PauseOptions + 1) * (i + 1)));
     }
 
     text[selected].setFillColor(Color::Red);

@@ -248,3 +248,4 @@ void Game::LoadLevel(int lvl, int LoadCase){
     delete lvlFile;
     lvlFile = NULL;
 }
+
