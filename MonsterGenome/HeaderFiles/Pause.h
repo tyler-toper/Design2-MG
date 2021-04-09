@@ -8,6 +8,7 @@
 #include <fstream>
 #include "GameState.h"
 #include "Game.h"
+#include "Character.h"
 #include "../irrXML/irrXML.h"
 using namespace std;
 using namespace sf;
@@ -23,6 +24,9 @@ private:
     Text title;
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
 
+    Text stats[6];
+    Text statTitle;
+
 
     SoundBuffer moveBuffer;
     Sound moveSound;
@@ -34,12 +38,12 @@ private:
     Sound backSound;
 
 public:
-    Pause(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping);
+    Pause(float width, float height, std::map<std::string, sf::Keyboard::Key>* controlMapping, Game &game);
     void Draw(RenderWindow &window);
     void MoveUp();
     void MoveDown();
     void PollMenu(RenderWindow &window, GameState &state, Game &game);
     void Reset();
-    void GetStats();
+    void GetStats(Game &game);
 };
 

@@ -3,7 +3,7 @@
 #include <fstream>
 
 
-Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key>* controlMapping) {
+Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key>* controlMapping, Game &game) {
     this->controlMapping = controlMapping;
 
     font.loadFromFile(pixelFont);
@@ -22,6 +22,7 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
     text[2].setString("Settings");
     text[3].setString("Quit to Main Menu");
 
+
     for(int i = 0; i < PauseOptions; i++){
         text[i].setFont(font);
         text[i].setFillColor(Color::Yellow);
@@ -34,6 +35,22 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
 
     text[selected].setFillColor(Color::Red);
     text[selected].setStyle(Text::Underlined);
+
+
+    statTitle.setString("Player Stats");
+    statTitle.setFont(font);
+    statTitle.setFillColor(Color::Yellow);
+    statTitle.setCharacterSize(40);
+    statTitle.setStyle(Text::Underlined);
+    statTitle.setPosition(650, 200);
+
+    GetStats(game);
+    for(int i = 0; i < 6; i++){
+        stats[i].setFont(font);
+        stats[i].setFillColor(Color::Yellow);
+        stats[i].setCharacterSize(30);
+        stats[i].setPosition(600, (height / 15) * (i+5));
+    }
 
     moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
     moveSound.setBuffer(moveBuffer);
@@ -55,6 +72,7 @@ Pause::Pause(float width, float height,  std::map<std::string, sf::Keyboard::Key
 
 void Pause::PollMenu(RenderWindow &window, GameState &state, Game &game) {
     Event event;
+    GetStats(game);
     while(window.pollEvent(event)){
         if(event.type == Event::Closed){
             window.close();
@@ -110,6 +128,12 @@ void Pause::Draw(RenderWindow &window){
     for(int i = 0; i < PauseOptions; i++){
         window.draw(text[i]);
     }
+
+    for(int i = 0; i < 6; i++){
+        window.draw(stats[i]);
+    }
+
+    window.draw(statTitle);
 }
 
 void Pause::MoveDown(){
@@ -146,4 +170,13 @@ void Pause::Reset(){
     selected = 0;
     text[selected].setFillColor(Color::Red);
     text[selected].setStyle(Text::Underlined);
+}
+
+void Pause::GetStats(Game &game) {
+    stats[0].setString("Max Health: " + to_string(game.getPlayer()->getMaxHealth()));
+    stats[1].setString("Damage: " + to_string(game.getPlayer()->getDamageMod()));
+    stats[2].setString("Fire Rate: " + to_string(roundf(game.getPlayer()->getCharReloadMod() * 100) / 100));
+    stats[3].setString("Movement Speed: " + to_string(roundf(game.getPlayer()->getMoveSpeed() * 100) / 100));
+    stats[4].setString("Number of Jumps: " + to_string(game.getPlayer()->getJumpCountMax()));
+    stats[5].setString("Jump Height: " + to_string(roundf(game.getPlayer()->getJumpHeight() * 100) / 100));
 }

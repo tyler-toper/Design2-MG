@@ -106,6 +106,12 @@ public:
     bool isFaceright();
     float getJumpVel();
 
+    int getDamageMod();
+    float getCharReloadMod();
+    int getJumpCountMax();
+    float getJumpHeight();
+    float getMoveSpeed();
+
     // Setters
     void setFaceright(bool newFaceright);
     void setHealth(int newHealth);
@@ -187,4 +193,8 @@ public:
     void modifyCharDamageMod(int change);
     void modifyMoveSpeed(float change);
     void modifyJumpHeight(float change);
+
+
+
+
 };

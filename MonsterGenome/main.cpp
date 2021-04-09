@@ -2,8 +2,6 @@
 #include <vector>
 
 #include "HeaderFiles/Weapon.h"
-#include "HeaderFiles/Armor.h"
-#include "HeaderFiles/LoadAssets.h"
 #include "HeaderFiles/Menu.h"
 #include "HeaderFiles/Game.h"
 #include "HeaderFiles/Pause.h"
@@ -15,10 +13,6 @@
 
 #define windowWidth 1024
 #define windowHeight 768
-// To get a proper window size, maybe we can have an initial window to prompt the user to choose a resolution
-
-vector<Weapon> Weapons;
-vector<Armor> Armors;
 
 
 void openWindow(RenderWindow &window){
@@ -34,7 +28,7 @@ void openWindow(RenderWindow &window){
     Time time;
     GameState state;
     // Add Settings Controls Pointer/Reference
-    Pause pause(windowWidth, windowHeight, settings.GetControlMapping());
+    Pause pause(windowWidth, windowHeight, settings.GetControlMapping(), game);
     AudioHandler audioHandler;
     StartMenu startMenu(windowWidth, windowHeight, settings.GetControlMapping());
     SaveLoadMenu SLMenu(windowWidth, windowHeight, settings.GetControlMapping());
@@ -85,9 +79,6 @@ void openWindow(RenderWindow &window){
 
 int main() {
     RenderWindow window(VideoMode(windowWidth, windowHeight), "The Monster Genome");
-    LoadAssets loader;
-    loader.LoadWeapons(Weapons);
-    loader.LoadArmor(Armors);
     openWindow(window);
     return 0;
 }

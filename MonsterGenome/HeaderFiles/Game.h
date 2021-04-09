@@ -37,4 +37,5 @@ public:
     void PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
     void LoadLevel(int lvl, int LoadCase);
+    Character* getPlayer();
 };

@@ -249,3 +249,6 @@ void Game::LoadLevel(int lvl, int LoadCase){
     lvlFile = NULL;
 }
 
+Character* Game::getPlayer() {
+    return players[0];
+}
