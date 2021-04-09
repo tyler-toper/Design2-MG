@@ -19,7 +19,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         /// TODO: Check which condition was meet
-        // All enemies are dead
+        // Checkpoint
         if(players[0]->getCheckPoint()){
             if(mod->PollMenu(window, state, modify, players[0])){
                 players[0]->resetCheck();

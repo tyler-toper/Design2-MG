@@ -548,14 +548,16 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     vertaddKnock += GRAV * time;
     setKnockFrame();
 
-    sprite.move(Vector2f(0, jumpvel * time));
+    if(!respawning) {
+        sprite.move(Vector2f(0, jumpvel * time));
 
-    sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock ) * time ));
-    state_->handleInput(*this, timein, window, playerView);
-    state_->update(*this);
+        sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock) * time));
+        state_->handleInput(*this, timein, window, playerView);
+        state_->update(*this);
+        checkProjectile();
+        checkMelee();
+    }
 
-    checkProjectile();
-    checkMelee();
     //Gravity and collision when jumping
     checkCollision();
     // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
