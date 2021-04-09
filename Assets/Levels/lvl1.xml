@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level background="Custom/Level1.png">
-	<hero x="100" y="40"/>
-	<enemy type="Wanderer" x="500" y="40"/>
-	<enemy type="Wanderer" x="1000" y="40"/>
-	<enemy type="Fighter" x="2500" y="40"/>
+	<hero x="100" y="250"/>
+	<enemy type="Wanderer" x="500" y="250"/>
+	<enemy type="Wanderer" x="1000" y="250"/>
+	<enemy type="Fighter" x="2500" y="250"/>
 
-	<vBoundary x1="10" y1="132" x2="-10" y2="0"/>
-	<vBoundary x1="10" y1="132" x2="3072" y2="0"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3136" y="158"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3200" y="158"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3264" y="158"/>
 
-	<checkpoint path="../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation copie.png" x="2419" y="100"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3454" y="282"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3518" y="282"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3582" y="282"/>
 
-	<hBoundary x1="3072" y1="20" x2="0" y2="-20"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3698" y="212"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3762" y="212"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3826" y="212"/>
 
-	<hBoundary x1="3072" y1="40" x2="0" y2="120"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3942" y="142"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4006" y="142"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4070" y="142"/>
+
+	<checkpoint path="../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation copie.png" x="2452" y="323"/>
+
+	<vBoundary width="10" len="132" posX="-10" posY="214"/>
+	<vBoundary width="10" len="132" posX="9216" posY="214"/>
+	<vBoundary width="10" len="213" posX="3039" posY="0"/>
+	<vBoundary width="10" len="213" posX="6122" posY="0"/>
+
+	<hBoundary width="3049" len="20" posX="0" posY="200"/>
+	<hBoundary width="3049" len="20" posX="6122" posY="200"/>
+	<hBoundary width="3071" len="20" posX="3050" posY="-10"/>
+	<hBoundary width="9216" len="100" posX="0" posY="340"/>
 </level>
