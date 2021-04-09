@@ -238,9 +238,8 @@ void SaveLoadMenu::SaveGame(Game &game, int slot){
     saveFile.open(saveSlot);
     saveFile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
     saveFile << "<save level=\"" + to_string(game.lvl) + "\">" << std::endl;
-
-    saveFile << "\t<coords x=\"" + to_string(game.players[0]->sprite.getPosition().x) + "\" y=\"" + to_string(game.players[0]->sprite.getPosition().y) + "\"/>" << std::endl;
-    saveFile << "\t<attrs name=\"" + game.players[0]->name + "\" health=\"" + to_string(game.players[0]->getHealth()) + "\" level=\"" + to_string(game.players[0]->level) + "\" armor=\"" + to_string(game.players[0]->armor) + "\" strength=\"" + to_string(game.players[0]->strength) + "\" vitality=\"" + to_string(game.players[0]->vitality) + "\" exp=\"" + to_string(game.players[0]->experience) + "\"/>" << std::endl;
+    saveFile << "\t<coords x=\"" + to_string(game.players[0]->sprite.getPosition().x) + "\" y=\"" + to_string(game.players[0]->sprite.getPosition().y - 70) + "\"/>" << std::endl;
+    saveFile << "\t<attrs name=\"" + game.players[0]->name + "\" health=\"" + to_string(game.players[0]->getHealth()) + "\" max_health=\"" + to_string(game.players[0]->getMaxHealth()) + "\" level=\"" + to_string(game.players[0]->level) + "\" armor=\"" + to_string(game.players[0]->armor) + "\" strength=\"" + to_string(game.players[0]->strength) + "\" vitality=\"" + to_string(game.players[0]->vitality) + "\" exp=\"" + to_string(game.players[0]->experience) + "\" jump_count=\"" + to_string(game.players[0]->jumpCount) + "\" reload_mod=\"" + to_string(game.players[0]->charReloadMod) + "\" damage_mod=\"" + to_string(game.players[0]->charDamageMod) + "\" jump_mod=\"" + to_string(game.players[0]->jumpHeight) + "\" walk_speed=\"" + to_string(game.players[0]->baseHorizontalvel) + "\" run_speed=\"" + to_string(game.players[0]->maxHorizontalvel) + "\"/>" << std::endl;
 
     saveFile << "</save>" << std::endl;
     saveFile.close();

@@ -5,7 +5,12 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     this->controlMapping = controlMapping;
     this->lvl = lvl;
     mod = new HeroMod(controlMapping);
-    LoadLevel(lvl, 1);
+
+    HUD.loadFromFile("../../Assets/Backgrounds/HUD.png");
+    HUDSprite.setTexture(HUD);
+
+    healthBar.setPosition(95, 735);
+    healthBar.setFillColor(Color::Red);
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
@@ -180,18 +185,18 @@ void Game::LoadLevel(int lvl, int LoadCase){
                     this->players.push_back(tempChar);
                 }
                 if (!strcmp("hBoundary", lvlFile->getNodeName())){
-                    col = lvlFile->getAttributeValueAsFloat("x1");
-                    col2 = lvlFile->getAttributeValueAsFloat("x2");
-                    row = lvlFile->getAttributeValueAsFloat("y1");
-                    row2 = lvlFile->getAttributeValueAsFloat("y2");
+                    col = lvlFile->getAttributeValueAsFloat("width");
+                    col2 = lvlFile->getAttributeValueAsFloat("posX");
+                    row = lvlFile->getAttributeValueAsFloat("len");
+                    row2 = lvlFile->getAttributeValueAsFloat("posY");
                     tempPlat = new Platforms(col, row, col2, row2, true);
                     this->borders.push_back(tempPlat);
                 }
                 if (!strcmp("vBoundary", lvlFile->getNodeName())){
-                    col = lvlFile->getAttributeValueAsFloat("x1");
-                    col2 = lvlFile->getAttributeValueAsFloat("x2");
-                    row = lvlFile->getAttributeValueAsFloat("y1");
-                    row2 = lvlFile->getAttributeValueAsFloat("y2");
+                    col = lvlFile->getAttributeValueAsFloat("width");
+                    col2 = lvlFile->getAttributeValueAsFloat("posX");
+                    row = lvlFile->getAttributeValueAsFloat("len");
+                    row2 = lvlFile->getAttributeValueAsFloat("posY");
                     tempPlat = new Platforms(col, row, col2, row2, false);
                     this->borders.push_back(tempPlat);
                 }
