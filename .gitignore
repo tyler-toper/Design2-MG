@@ -43,4 +43,7 @@ cmake*
 **/Dependencies
 
 # Save Files
-**/Saves
+**/Slot 0
+**/Slot 1
+**/Slot 2
+**/Slot 3
