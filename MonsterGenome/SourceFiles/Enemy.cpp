@@ -7,8 +7,8 @@ using namespace sf;
 Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, true) {
     int ID = 0;
     int xpDrop = 100;
-    maxInvulTime = 0.5f;
-
+    maxInvulTime = 0.3f;
+    faceright = false;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);

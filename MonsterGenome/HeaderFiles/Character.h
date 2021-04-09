@@ -163,6 +163,8 @@ private:
     // Variables
     std::map<std::string, sf::Keyboard::Key> *controlMapping;
     HeroState *state_;
+    bool respawning;
+    float respawntimer;
 
     // Jumping
     bool jumpingHeld;
@@ -175,9 +177,11 @@ public:
     // Setters
     void setAnimation(string animation);
     void setJumpingHeld(bool state);
+    void setRespawnTimer(float time);
     // Getters
     int getJumpCount() const;
     bool isJumpingHeld() const;
+    bool isRespawning() const;
     // Mutators
     void updatePosition(Time &timein, RenderWindow &window, View &playerView);
     void run(bool isRunning);

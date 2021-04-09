@@ -7,6 +7,8 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     mod = new HeroMod(controlMapping);
     LoadLevel(lvl, 1);
 
+
+
     HUD.loadFromFile("../../Assets/Backgrounds/HUD.png");
     HUDSprite.setTexture(HUD);
 
@@ -121,12 +123,14 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
             window.draw(players[i]->getSprite());
         }
 
-        // TODO: Or if player is dead
         if (players[0]->getHealth() <= 0 || players[0]->getCheckPoint()) {
             modify = true;
             if(players[0]->getCheckPoint()){
                 mod->randomize();
                 window.setView(window.getDefaultView());
+            }
+            else if(players[0]->getHealth() <= 0) {
+                dynamic_cast<Hero *>(players[0])->setRespawnTimer(2.f);
             }
         }
         dynamic_cast<Hero *>(players[0])->equipWeapon(window, playerView);
@@ -135,6 +139,18 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         window.setView(window.getDefaultView());
         window.draw(HUDSprite);
         window.draw(healthBar);
+
+        if(dynamic_cast<Hero *>(players[0])->isRespawning()) {
+            Font font;
+            font.loadFromFile("../../Assets/Fonts/PixelFont.ttf");
+            Text message;
+            message.setString("You Died!");
+            message.setFont(font);
+            message.setFillColor(Color::Red);
+            message.setCharacterSize(90);
+            message.setPosition(350, 300);
+            window.draw(message);
+        }
     }
 
 
@@ -194,7 +210,16 @@ void Game::LoadLevel(int lvl, int LoadCase){
                     }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    string type = lvlFile->getAttributeValue("type");
+                    if(type == "Fighter") {
+                        tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"),
+                                               lvlFile->getAttributeValueAsFloat("y"));
+                    }
+                    if(type == "Wanderer") {
+                        tempChar = new Wanderer(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"),
+                                               lvlFile->getAttributeValueAsFloat("y"));
+                    }
+
                     this->players.push_back(tempChar);
                 }
                 if (!strcmp("hBoundary", lvlFile->getNodeName())){

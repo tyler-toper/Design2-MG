@@ -495,6 +495,9 @@ void Hero::setJumpingHeld(bool state) {
     jumpingHeld = state;
 }
 
+void Hero::setRespawnTimer(float time) {
+    respawntimer = time;
+}
 
 // Getters
 int Hero::getJumpCount() const {
@@ -505,8 +508,13 @@ bool Hero::isJumpingHeld() const {
     return jumpingHeld;
 }
 
+bool Hero::isRespawning() const {
+    return respawning;
+}
+
 // Mutators
 void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+    respawning = (respawntimer != 0.f);
     // Clear additions from previous frame update
     setAdditions(0.f, 0.f);
     float time = timein.asSeconds();
@@ -525,6 +533,14 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     } else {
         invultimer = 0;
     }
+
+    // Respawn timer
+    if(respawntimer > 0) {
+        respawntimer = respawntimer - time;
+    } else {
+        respawntimer = 0.f;
+    }
+
 
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
