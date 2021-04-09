@@ -194,7 +194,16 @@ void Game::LoadLevel(int lvl, int LoadCase){
                     }
                 }
                 if (!strcmp("enemy", lvlFile->getNodeName())) {
-                    tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"), lvlFile->getAttributeValueAsFloat("y"));
+                    string type = lvlFile->getAttributeValue("type");
+                    if(type == "Fighter") {
+                        tempChar = new Fighter(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"),
+                                               lvlFile->getAttributeValueAsFloat("y"));
+                    }
+                    if(type == "Wanderer") {
+                        tempChar = new Wanderer(&borders, &projs, &players, lvlFile->getAttributeValueAsFloat("x"),
+                                               lvlFile->getAttributeValueAsFloat("y"));
+                    }
+
                     this->players.push_back(tempChar);
                 }
                 if (!strcmp("hBoundary", lvlFile->getNodeName())){

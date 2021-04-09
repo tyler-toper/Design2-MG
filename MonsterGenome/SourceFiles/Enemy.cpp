@@ -8,7 +8,7 @@ Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Char
     int ID = 0;
     int xpDrop = 100;
     maxInvulTime = 0.3f;
-
+    faceright = false;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
