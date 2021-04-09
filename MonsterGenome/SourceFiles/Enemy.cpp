@@ -7,6 +7,8 @@ using namespace sf;
 Enemy::Enemy(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, true) {
     int ID = 0;
     int xpDrop = 100;
+    maxInvulTime = 0.3f;
+    faceright = false;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
@@ -57,7 +59,7 @@ void Enemy::updatePosition(Time& timein, RenderWindow& window, View &playerView)
     state_->update(*this);
 
     sprite.move(Vector2f(vertadd * time, horizadd * time));
-    checkCollison();
+    checkCollision();
     checkProjectile();
     checkMelee();
 }

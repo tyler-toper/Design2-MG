@@ -238,7 +238,8 @@ void SaveLoadMenu::SaveGame(Game &game, int slot){
     saveFile.open(saveSlot);
     saveFile << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << std::endl;
     saveFile << "<save level=\"" + to_string(game.lvl) + "\">" << std::endl;
-    saveFile << "\t<coords x=\"" + to_string(game.players[0]->sprite.getPosition().x) + "\" y=\"" + to_string(game.players[0]->sprite.getPosition().y - 70) + "\"/>" << std::endl;
+
+    saveFile << "\t<coords x=\"" + to_string(game.players[0]->sprite.getPosition().x) + "\" y=\"" + to_string(game.players[0]->sprite.getPosition().y) + "\"/>" << std::endl;
     saveFile << "\t<attrs name=\"" + game.players[0]->name + "\" health=\"" + to_string(game.players[0]->getHealth()) + "\" max_health=\"" + to_string(game.players[0]->getMaxHealth()) + "\" level=\"" + to_string(game.players[0]->level) + "\" armor=\"" + to_string(game.players[0]->armor) + "\" strength=\"" + to_string(game.players[0]->strength) + "\" vitality=\"" + to_string(game.players[0]->vitality) + "\" exp=\"" + to_string(game.players[0]->experience) + "\" jump_count=\"" + to_string(game.players[0]->jumpCount) + "\" reload_mod=\"" + to_string(game.players[0]->charReloadMod) + "\" damage_mod=\"" + to_string(game.players[0]->charDamageMod) + "\" jump_mod=\"" + to_string(game.players[0]->jumpHeight) + "\" walk_speed=\"" + to_string(game.players[0]->baseHorizontalvel) + "\" run_speed=\"" + to_string(game.players[0]->maxHorizontalvel) + "\"/>" << std::endl;
 
     saveFile << "</save>" << std::endl;
@@ -277,17 +278,25 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
                 if (!strcmp("coords", saveFile->getNodeName())) {
                     Character *hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players,
                                                saveFile->getAttributeValueAsFloat("x"),
-                                               saveFile->getAttributeValueAsFloat("y"));
+                                               saveFile->getAttributeValueAsFloat("y") - 10);
                     game.players.push_back(hero);
                 }
                 if (!strcmp("attrs", saveFile->getNodeName())) {
                     game.players[0]->name = saveFile->getAttributeValue("name");
                     game.players[0]->health = saveFile->getAttributeValueAsInt("health");
+                    game.players[0]->maxHealth = saveFile->getAttributeValueAsInt("max_health");
                     game.players[0]->level = saveFile->getAttributeValueAsInt("level");
                     game.players[0]->armor = saveFile->getAttributeValueAsInt("armor");
                     game.players[0]->strength = saveFile->getAttributeValueAsInt("strength");
                     game.players[0]->vitality = saveFile->getAttributeValueAsInt("vitality");
                     game.players[0]->experience = saveFile->getAttributeValueAsInt("exp");
+                    game.players[0]->jumpCountMax = saveFile->getAttributeValueAsInt("jump_count");
+                    game.players[0]->charReloadMod = saveFile->getAttributeValueAsFloat("reload_mod");
+                    game.players[0]->charDamageMod = saveFile->getAttributeValueAsInt("damage_mod");
+                    game.players[0]->jumpHeight = saveFile->getAttributeValueAsFloat("jump_mod");
+                    game.players[0]->baseHorizontalvel = saveFile->getAttributeValueAsFloat("walk_speed");
+                    game.players[0]->maxHorizontalvel = saveFile->getAttributeValueAsFloat("run_speed");
+                    cout << game.players[0]->jumpCountMax << "\n" << game.players[0]->charReloadMod << "\n" << game.players[0]->charDamageMod << endl;
                 }
                 break;
             default:

@@ -36,25 +36,32 @@ HeroMod::HeroMod(std::map<std::string, sf::Keyboard::Key>* controlMapping, float
     text[selected].setStyle(Text::Underlined);
 }
 // Add new modifications here
-void HeroMod::modification(Character* hero, int select){
+void HeroMod::modification(Hero* hero, int select){
     switch(select){
         case 0 :
             hero->getSprite().setColor(Color::Red);
+            hero->improveJumpCount();
             break;
         case 1 :
             hero->getSprite().setColor(Color::Green);
+            hero->modifyCharReloadMod(-0.5f);
             break;
         case 2 :
             hero->getSprite().setColor(Color::Blue);
+            hero->modifyMoveSpeed(20.0f);
             break;
         case 3 :
             hero->getSprite().setColor(Color::Yellow);
+            hero->setMaxHealth(hero->getMaxHealth() + 25);
+            hero->healCharacter(hero->getMaxHealth());
             break;
         case 4 :
             hero->getSprite().setColor(Color::Magenta);
+            hero->modifyCharDamageMod(15);
             break;
         case 5 :
             hero->getSprite().setColor(Color::Cyan);
+            hero->modifyJumpHeight(10.0f);
             break;
     }
 }
@@ -62,17 +69,17 @@ void HeroMod::modification(Character* hero, int select){
 string HeroMod::modificationString(int select){
     switch(select){
         case 0 :
-            return "Red";
+            return "Multijump";
         case 1 :
-            return "Green";
+            return "Fire Rate";
         case 2 :
-            return "Blue";
+            return "Speed";
         case 3 :
-            return "Yellow";
+            return "Health";
         case 4 :
-            return "Magenta";
+            return "Damage";
         case 5 :
-            return "Cyan";
+            return "Jump Height";
         default:
             return "Wrong";
     }
@@ -122,7 +129,7 @@ bool HeroMod::PollMenu(RenderWindow &window, GameState &state, bool& modify, Cha
             }
             // TODO: Define general controls for this command
             if (pressed == Keyboard::Return) {
-                modification(hero, funct[selected]);
+                modification(static_cast<Hero *>(hero), funct[selected]);
                 return true;
             }
         }

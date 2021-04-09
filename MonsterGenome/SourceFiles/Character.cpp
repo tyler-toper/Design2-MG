@@ -54,7 +54,6 @@ using namespace sf;
         text.loadFromFile("../Images/animation2.png");
         sprite.setTexture(text);
         sprite.setPosition(Vector2f(400.f, 300.f));
-        this->resetPoint = Vector2f(400.f, 300.f);
         sprite.setTextureRect(IntRect(57, 11, 50, 60));
         this->borders = borders;
         this->proj = proj;
@@ -69,12 +68,16 @@ using namespace sf;
         baseHorizontalvel = 200.f;
         maxHorizontalvel = 400.f;
         horizontalAcc = 1.f;
+
         // Jumping
         jumpHeight = 400.0f;
 
         // Weapons
         reloadTime = 1.0f;
-        reloadMod = 1.0f;
+        charReloadMod = 1.0f;
+        minCharReloadMod = 0.1f;
+        maxCharReloadMod = 1.5f;
+        charDamageMod = 0;
     }
 
     // Setters
@@ -88,6 +91,26 @@ using namespace sf;
             this->horizadd += h;
         }
         
+    }
+
+    void Character::setAdditionsKnock(float v, float h){       
+        this->vertaddKnock = v;
+        this->horzaddKnock = h;
+
+        //horzAccel Not used right now
+        if(h > 0){
+            this->horzAcel = abs(this->horzAcel) * -1;
+        }
+        else{
+            this->horzAcel = abs(this->horzAcel);
+        }
+    }
+
+    void Character::setKnockFrame(){
+        if(this->vertaddKnock >= 0){
+            this->horzaddKnock = 0;
+            this->vertaddKnock = 0;
+        }
     }
 
     void Character::resetCheck(){
@@ -175,7 +198,7 @@ using namespace sf;
     }
 
     // Mutators
-    void Character::checkCollison(){
+    void Character::checkCollision(){
         for(int i=0; i < borders[0].size(); i++){
             FloatRect intersection;
             if(sprite.getGlobalBounds().intersects(borders[0][i]->getSprite().getGlobalBounds(), intersection)){
@@ -220,6 +243,7 @@ using namespace sf;
             else{
                 sprite.move(0, intersection.height);
                 jumpvel = 0;
+                vertaddKnock = 0;
             }
         }
         else{
@@ -245,10 +269,10 @@ using namespace sf;
                     // TODO: Fix this knockback issue
                     if (sprite.getPosition().x - actors[0][i]->getSprite().getPosition().x > 0) {
                         // Getting hit on right side
-                        setAdditions(5000, 0);
+                        setAdditionsKnock(-350, 400);
                     } else {
                         // Getting hit on left side
-                        setAdditions(-5000, 0);
+                        setAdditionsKnock(-350, -400);
                     }
                     damageCharacter(10);
                 }
@@ -294,9 +318,9 @@ using namespace sf;
             {
                 path = "../../Assets/Custom/Fireball2.png";
             }
-            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10));
+            proj[0].push_back(new Projectile(path, sprite.getPosition().x, sprite.getPosition().y, this->faceright, this->ene, 10 + charDamageMod));
             // TODO: Load the weapons reload time instead of reloadTime variable
-            weapontimer = reloadTime * reloadMod;
+            weapontimer = reloadTime * charReloadMod;
         }
     }
 
@@ -375,14 +399,7 @@ void Hero::animWeapon(RenderWindow &window, View &playerView) {
 }
 
 void Character::damageCharacter(int damageTaken) {
-    if(ene && invultimer > 0) {
-        cout << "Hit registered, but enemy invul. Wait for " << invultimer << " seconds." <<endl;
-    }
     if (invultimer <= 0) {
-        if(ene) {
-            cout << "Taking " << damageTaken << " damage!" << endl;
-            cout << health << " health remaining." << endl;
-        }
         health -= damageTaken;
         invultimer = maxInvulTime;
     }
@@ -400,18 +417,21 @@ void Character::healCharacter(int damageHealed) {
 /// Hero Functions
 // Constructor
 Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY) : Character(borders, proj, actors, false){
+    this->resetPoint = Vector2f(spawnX, spawnY);
     this->controlMapping = controlMapping;
     state_ = new StandingState();
 
     // Jumping
     jumpCount = 0;
     jumpingHeld = false;
-    // TODO: Load this variable from player file or start on one if new file
-    jumpCountMax = 5;
+    jumpCountMax = 1;
 
-    // Firerate
-    // TODO: Load this variable from player file or start on one if new file
-    reloadMod = 0.2f;
+    // Weapons Modification
+    reloadTime = 1.0f;
+    charReloadMod = 1.0f;
+    minCharReloadMod = 0.1f;
+    maxCharReloadMod = 1.5f;
+    charDamageMod = 0;
 
     text.loadFromFile("../Images/animation2.png");
     sprite.setTexture(text);
@@ -487,32 +507,43 @@ bool Hero::isJumpingHeld() const {
 
 // Mutators
 void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
+    // Clear additions from previous frame update
     setAdditions(0.f, 0.f);
     float time = timein.asSeconds();
     this->atk = false;
-   //Gravity and collision when jumpin
+
+    // Weapon control timer
     if(weapontimer > 0) {
         weapontimer = weapontimer - time;
     } else {
         weapontimer = 0;
     }
 
+    // Invincibility timer
     if(invultimer > 0) {
         invultimer = invultimer - time;
     } else {
         invultimer = 0;
     }
+
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
 
+    vertaddKnock += GRAV * time;
+    setKnockFrame();
+
     sprite.move(Vector2f(0, jumpvel * time));
+
+    sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock ) * time ));
     state_->handleInput(*this, timein, window, playerView);
     state_->update(*this);
 
     checkProjectile();
     checkMelee();
-    checkCollison();
+    //Gravity and collision when jumping
+    checkCollision();
     // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
+    // This could be a clean up spire.move and the above move is the one using velocity?
     sprite.move(Vector2f(vertadd * time, horizadd * time));
 }
 
@@ -547,20 +578,38 @@ bool Hero::improveJumpCount() {
     return false;
 }
 
-void Hero::modifyReloadMod(float change) {
-    // The bounded range for the modifier is [0.5, 1.5]
-    float min = 0.5f;
-    float max = 1.5f;
-    if(reloadMod + change >= min && reloadMod + change <= max) {
-        reloadMod += change;
+void Hero::modifyCharReloadMod(float change) {
+    float min = minCharReloadMod;
+    float max = maxCharReloadMod;
+    if(charReloadMod + change >= min && charReloadMod + change <= max) {
+        charReloadMod += change;
     }
-    else if(reloadMod + change < min) {
-        reloadMod = min;
+    else if(charReloadMod + change < min) {
+        charReloadMod = min;
     }
     else {
-        reloadMod = max;
+        charReloadMod = max;
     }
     // As an aside, the firerate doesn't increase linearly. Going from 1.0 to 0.9 is not the same as going from 0.9 to 0.8
+}
+
+void Hero::modifyCharDamageMod(int change) {
+    int min = 0;
+    if(charDamageMod + change >= min) {
+        charDamageMod += change;
+    }
+    else {
+        charDamageMod = min;
+    }
+}
+
+void Hero::modifyMoveSpeed(float change) {
+    baseHorizontalvel += change;
+    maxHorizontalvel += change;
+}
+
+void Hero::modifyJumpHeight(float change) {
+    jumpHeight += change;
 }
 
 // Hero States
@@ -616,9 +665,24 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
 
 void Hero::StandingState::update(Hero& hero) {
     std::map<std::string, sf::Keyboard::Key> controls = *hero.controlMapping;
+
+    // Checking for ground
+    bool isGrounded = false;
+    for(int i=0; i < hero.borders->size(); i++) {
+        if (hero.sprite.getGlobalBounds().intersects(hero.borders[0][i]->getSprite().getGlobalBounds())) {
+            String name = hero.borders[0][i]->getName();
+            if (name == "nogo" || name == "M") {
+                if (hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1) {
+                    isGrounded = true;
+                }
+            }
+        }
+    }
+
+
     // State transitions
     // TODO: Needs to detect when the player is no longer standing on platform
-    if (hero.getJumpCount() > 0 && !hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
+    if (!isGrounded) {
         Hero::HeroState *temp = hero.state_;
         hero.state_ = new JumpingState();
         delete temp;
@@ -643,11 +707,13 @@ void Hero::JumpingState::handleInput(Hero& hero, Time& timein, RenderWindow& win
     if (Keyboard::isKeyPressed(controls["Move Left"]) ^ Keyboard::isKeyPressed(controls["Move Right"])) {
         if (Keyboard::isKeyPressed(controls["Move Left"])) {
             hero.faceright = false;
+            // TODO: Move this to one spite.move function
             hero.sprite.move(Vector2f(-1.f * hero.horizontalvel * time, 0));
             hero.setAnimation("left");
         }
         if (Keyboard::isKeyPressed(controls["Move Right"])) {
             hero.faceright = true;
+            // TODO: Move this to one spite.move function
             hero.sprite.move(Vector2f(hero.horizontalvel * time, 0));
             hero.setAnimation("right");
 
@@ -690,3 +756,4 @@ void Hero::JumpingState::update(Hero& hero) {
     // TODO: Move this to updatePosition?
     hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
 }
+

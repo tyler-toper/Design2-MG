@@ -18,7 +18,7 @@ class HeroMod{
     bool PollMenu(RenderWindow &window, GameState &state, bool& modify, Character* hero);
     void MoveUp();
     void MoveDown();
-    void modification(Character* hero, int select);
+    void modification(Hero* hero, int select);
     string modificationString(int select);
     void randomize();
 };

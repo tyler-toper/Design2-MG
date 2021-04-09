@@ -28,6 +28,12 @@ protected:
     float jumpvel;
     float vertadd = 0.f;
     float horizadd = 0.f;
+
+    float vertaddKnock = 0.f;
+    float horzaddKnock = 0.f;
+    float horzAcel = 1100.f;
+    int knockFrames = 5;
+
     Texture text;
     Sprite sprite;
     int experience;
@@ -42,12 +48,10 @@ public:
     float timepass = .5f;
     //make enemy
     bool ene;
-    //should be in weapons firerate
-    float weapontimer = 0.f;
 
     // Damage Invulerablity
     float invultimer = 0;
-    float maxInvulTime = 1.0;
+    float maxInvulTime = 1.0f;
 
     /// Movement
     // Walking and Running
@@ -59,13 +63,22 @@ public:
     // Jumping
     float baseJumpHeight = 0.f;
     float jumpHeight = 0.f;
+    int jumpCount;
+    int jumpCountMax;
+    const int jumpCountAbsMax = 5;
 
     // Weapons
     Inventory* inventory;
     Sword* sword;
     Pistol* pistol;
+    float weapontimer = 0.f;
+    // Weapon Reload Time
     float reloadTime;
-    float reloadMod;
+    // Character Reload Modifier
+    float minCharReloadMod;
+    float maxCharReloadMod;
+    float charReloadMod;
+    int charDamageMod;
 
     bool equipSw = false;
     int swToggle = 0;
@@ -100,7 +113,7 @@ public:
     void resetCheck();
 
     // Mutators
-    void checkCollison();
+    void checkCollision();
     void removeCollision(Platforms* borders, FloatRect& intersection);
     void checkProjectile();
     virtual void checkMelee() = 0;
@@ -111,6 +124,8 @@ public:
     void hAnimation();
     void mAnimation();
     void setAdditions(float v, float h);
+    void setAdditionsKnock(float v, float h);
+    void setKnockFrame();
     string getName();
     virtual void jump();
     void damageCharacter(int damageTaken);
@@ -144,9 +159,6 @@ private:
     HeroState *state_;
 
     // Jumping
-    int jumpCount;
-    int jumpCountMax;
-    const int jumpCountAbsMax = 5;
     bool jumpingHeld;
 
 public:
@@ -165,11 +177,14 @@ public:
     void run(bool isRunning);
     void jump();
     void refreshJumps();
-    // TODO: Attach these functions to level up screen
-    bool improveJumpCount();
-    void modifyReloadMod(float change);
     void checkMelee();
     void weaponToggles(string key);
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
+
+    bool improveJumpCount();
+    void modifyCharReloadMod(float change);
+    void modifyCharDamageMod(int change);
+    void modifyMoveSpeed(float change);
+    void modifyJumpHeight(float change);
 };
