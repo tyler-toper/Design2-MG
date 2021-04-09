@@ -427,7 +427,7 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     jumpCountMax = 1;
 
     // Weapons Modification
-    reloadTime = 1.0f;
+    reloadTime = 0.5f;
     charReloadMod = 1.0f;
     minCharReloadMod = 0.1f;
     maxCharReloadMod = 1.5f;
