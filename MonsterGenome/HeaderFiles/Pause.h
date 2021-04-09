@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stack>
 #include <fstream>
+#include <math.h>
 #include "GameState.h"
 #include "Game.h"
 #include "Character.h"

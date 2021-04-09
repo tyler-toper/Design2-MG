@@ -106,11 +106,11 @@ public:
     bool isFaceright();
     float getJumpVel();
 
-    int getDamageMod();
-    float getCharReloadMod();
-    int getJumpCountMax();
-    float getJumpHeight();
-    float getMoveSpeed();
+    int getDamageMod() const;
+    int getCharReloadMod() const;
+    int getJumpCountMax() const;
+    int getJumpHeight() const;
+    int getMoveSpeed() const;
 
     // Setters
     void setFaceright(bool newFaceright);

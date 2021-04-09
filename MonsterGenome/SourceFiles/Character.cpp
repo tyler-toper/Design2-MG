@@ -773,23 +773,23 @@ void Hero::JumpingState::update(Hero& hero) {
     hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
 }
 
-int Character::getDamageMod() {
+int Character::getDamageMod() const {
         return charDamageMod + 10;
     }
 
-float Character::getCharReloadMod() {
-        return charReloadMod;
+int Character::getCharReloadMod() const {
+        return int(charReloadMod);
     }
 
-int Character::getJumpCountMax() {
+int Character::getJumpCountMax() const {
         return jumpCountMax;
     }
 
-float Character::getJumpHeight() {
-    return jumpHeight;
+int Character::getJumpHeight() const {
+    return int(jumpHeight);
     }
 
-float Character::getMoveSpeed() {
-        return baseHorizontalvel;
+int Character::getMoveSpeed() const {
+        return int(baseHorizontalvel);
     }
 

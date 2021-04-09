@@ -175,8 +175,8 @@ void Pause::Reset(){
 void Pause::GetStats(Game &game) {
     stats[0].setString("Max Health: " + to_string(game.getPlayer()->getMaxHealth()));
     stats[1].setString("Damage: " + to_string(game.getPlayer()->getDamageMod()));
-    stats[2].setString("Fire Rate: " + to_string(roundf(game.getPlayer()->getCharReloadMod() * 100) / 100));
-    stats[3].setString("Movement Speed: " + to_string(roundf(game.getPlayer()->getMoveSpeed() * 100) / 100));
+    stats[2].setString("Fire Rate: " + to_string(game.getPlayer()->getCharReloadMod()));
+    stats[3].setString("Movement Speed: " + to_string(game.getPlayer()->getMoveSpeed()));
     stats[4].setString("Number of Jumps: " + to_string(game.getPlayer()->getJumpCountMax()));
-    stats[5].setString("Jump Height: " + to_string(roundf(game.getPlayer()->getJumpHeight() * 100) / 100));
+    stats[5].setString("Jump Height: " + to_string(game.getPlayer()->getJumpHeight()));
 }
