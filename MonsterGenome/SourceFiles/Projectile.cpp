@@ -29,7 +29,8 @@ bool Projectile::update(vector<Platforms*>& borders, Time& timein){
 
 bool Projectile::checkCollision(vector<Platforms*>& borders){
     for(int i=0; i < borders.size(); i++){
-        if(sprite.getGlobalBounds().intersects(borders[i]->getSprite().getGlobalBounds())){
+        String name = borders[i]->getName();
+        if(sprite.getGlobalBounds().intersects(borders[i]->getSprite().getGlobalBounds()) && name != "C"){
             return true;
         }
     }

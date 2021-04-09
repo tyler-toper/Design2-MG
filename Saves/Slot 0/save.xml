@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <save level="1">
-	<coords x="2269.743164" y="60.000004"/>
-	<attrs name="Hero" health="80" level="0" armor="100" strength="0" vitality="0" exp="0" jump_count="2" reload_mod="1.000000" damage_mod="0" jump_mod="400.000000" walk_speed="200.000000" run_speed="400.000000"/>
+	<coords x="355.351868" y="60.000000"/>
+	<attrs name="Hero" health="30" max_health="100" level="0" armor="100" strength="0" vitality="0" exp="0" jump_count="1" reload_mod="1.000000" damage_mod="0" jump_mod="400.000000" walk_speed="200.000000" run_speed="400.000000"/>
 </save>
