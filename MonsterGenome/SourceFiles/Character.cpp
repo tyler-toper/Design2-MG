@@ -380,10 +380,6 @@ void Hero::animWeapon(RenderWindow &window, View &playerView) {
 
 void Character::damageCharacter(int damageTaken) {
     if (invultimer <= 0) {
-        if(ene) {
-            cout << "Taking " << damageTaken << " damage!" << endl;
-            cout << health << " health remaining." << endl;
-        }
         health -= damageTaken;
         invultimer = maxInvulTime;
     }
@@ -407,10 +403,8 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     // Jumping
     jumpCount = 0;
     jumpingHeld = false;
-    // TODO: Load this variable from player file or start on one if new file
-    jumpCountMax = 2;
+    jumpCountMax = 1;
 
-    // TODO: Load this variable from player file or start on one if new file
     // Weapons Modification
     reloadTime = 1.0f;
     charReloadMod = 1.0f;
@@ -518,15 +512,6 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
     state_->handleInput(*this, timein, window, playerView);
     state_->update(*this);
 
-    // Test commands
-//    if (Keyboard::isKeyPressed(sf::Keyboard::Num8)) {
-//        improveJumpCount();
-//        modifyCharReloadMod(-0.1f);
-//        cout << charDamageMod << endl;
-//        modifyCharDamageMod(1);
-//        cout << charDamageMod << endl;
-//    }
-
     checkProjectile();
     checkMelee();
     //Gravity and collision when jumping
@@ -552,8 +537,6 @@ void Hero::jump() {
         jumpvel = -jumpHeight;
         jumpCount--;
     }
-    cout << jumpvel << endl;
-    cout << jumpCount << " jumps available." << endl;
 }
 
 void Hero::refreshJumps() {
@@ -594,6 +577,14 @@ void Hero::modifyCharDamageMod(int change) {
     }
 }
 
+void Hero::modifyMoveSpeed(float change) {
+    baseHorizontalvel += change;
+    maxHorizontalvel += change;
+}
+
+void Hero::modifyJumpHeight(float change) {
+    jumpHeight += change;
+}
 
 // Hero States
 // Standing
@@ -624,7 +615,6 @@ void Hero::StandingState::handleInput(Hero& hero, Time& timein, RenderWindow& wi
         hero.run(false);
     }
     if (!hero.isJumpingHeld() && Keyboard::isKeyPressed(controls["Jump"])) {
-        cout << "Jumping" << endl;
         hero.jump();
 
         // TODO: Move this to one spite.move function
@@ -669,7 +659,6 @@ void Hero::StandingState::update(Hero& hero) {
     if (!isGrounded) {
         Hero::HeroState *temp = hero.state_;
         hero.state_ = new JumpingState();
-        cout << "Going to Jumping State" << endl;
         delete temp;
     }
     else {
@@ -730,7 +719,6 @@ void Hero::JumpingState::update(Hero& hero) {
             if(name == "nogo" || name == "M" ){
                 if(hero.aboveBelow(hero.sprite, hero.borders[0][i]->getSprite()) == 1){
                     Hero::HeroState *temp = hero.state_;
-                    cout << "Going to Standing State" << endl;
                     hero.state_ = new StandingState();
                     delete temp;
                 }

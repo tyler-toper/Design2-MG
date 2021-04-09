@@ -57,6 +57,9 @@ public:
     // Jumping
     float baseJumpHeight = 0.f;
     float jumpHeight = 0.f;
+    int jumpCount;
+    int jumpCountMax;
+    const int jumpCountAbsMax = 5;
 
     // Weapons
     Inventory* inventory;
@@ -148,9 +151,6 @@ private:
     HeroState *state_;
 
     // Jumping
-    int jumpCount;
-    int jumpCountMax;
-    const int jumpCountAbsMax = 5;
     bool jumpingHeld;
 
 public:
@@ -174,8 +174,9 @@ public:
     void equipWeapon(RenderWindow& window, View &playerView);
     void animWeapon(RenderWindow& window, View& playerView);
 
-    // TODO: Attach these functions to level up screen
     bool improveJumpCount();
     void modifyCharReloadMod(float change);
     void modifyCharDamageMod(int change);
+    void modifyMoveSpeed(float change);
+    void modifyJumpHeight(float change);
 };

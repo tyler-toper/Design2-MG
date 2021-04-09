@@ -48,6 +48,7 @@ void HeroMod::modification(Hero* hero, int select){
             break;
         case 2 :
             hero->getSprite().setColor(Color::Blue);
+            hero->modifyMoveSpeed(10.0f);
             break;
         case 3 :
             hero->getSprite().setColor(Color::Yellow);
@@ -60,6 +61,7 @@ void HeroMod::modification(Hero* hero, int select){
             break;
         case 5 :
             hero->getSprite().setColor(Color::Cyan);
+            hero->modifyJumpHeight(5.0f);
             break;
     }
 }
