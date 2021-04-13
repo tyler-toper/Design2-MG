@@ -54,6 +54,8 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         else{
             players[0]->setHealth(players[0]->getMaxHealth());
             players[0]->getSprite().setPosition(players[0]->getReset());
+            players[0]->setAdditions(0,0);
+            players[0]->setAdditionsKnock(0,0);
             this->modify = false;
         }
     }
@@ -94,6 +96,9 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         }
 
         // Update player health bar
+        if(players[0]->getHealth() <= 0) {
+            state.SetState(GameState::DEAD);
+        }
         // Health bar's max size is 220 pixels
         int maxHealth = players[0]->getMaxHealth();
         int currentHealth = players[0]->getHealth();
@@ -154,9 +159,6 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
                 mod->randomize();
                 window.setView(window.getDefaultView());
             }
-            else if(players[0]->getHealth() <= 0) {
-                dynamic_cast<Hero *>(players[0])->setRespawnTimer(2.f);
-            }
         }
         dynamic_cast<Hero *>(players[0])->equipWeapon(window, playerView);
         dynamic_cast<Hero *>(players[0])->animWeapon(window, playerView);
@@ -164,18 +166,6 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         window.setView(window.getDefaultView());
         window.draw(healthBar);
         window.draw(HUDSprite);
-
-        if(dynamic_cast<Hero *>(players[0])->isRespawning()) {
-            Font font;
-            font.loadFromFile("../../Assets/Fonts/PixelFont.ttf");
-            Text message;
-            message.setString("You Died!");
-            message.setFont(font);
-            message.setFillColor(Color::Red);
-            message.setCharacterSize(90);
-            message.setPosition(350, 300);
-            window.draw(message);
-        }
     }
 
 
