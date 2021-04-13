@@ -44,7 +44,6 @@ void openWindow(RenderWindow &window){
         if(state.GetState() == GameState::LVL1){
             game.PollGame(window, time, state, playerView);
             game.Draw(window, time, playerView, mapView);
-
         }
         else if(state.GetState() == GameState::MENU){
             state.SetPlaying(false);
@@ -58,7 +57,6 @@ void openWindow(RenderWindow &window){
             window.setView(playerView);
             pause.PollMenu(window, state, game);
             pause.Draw(window);
-
         }
         else if(state.GetState() == GameState::SETTINGS){
             settings.PollMenu(window, state);
@@ -71,6 +69,10 @@ void openWindow(RenderWindow &window){
         else if(state.GetState() == GameState::SAVELOAD){
             SLMenu.PollMenu(window, state, game);
             SLMenu.Draw(window);
+        }
+        else if(state.GetState() == GameState::DEAD){
+            game.PollDeath(window, state);
+            game.DrawDeath(window);
         }
     
         window.display();
