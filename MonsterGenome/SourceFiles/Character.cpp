@@ -40,7 +40,6 @@ using namespace sf;
     /// Character Functions
     // Constructor
     Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene){
-
         armor = 100;
         name = "player";
         level = 0;
@@ -420,6 +419,9 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     this->resetPoint = Vector2f(spawnX, spawnY);
     this->controlMapping = controlMapping;
     state_ = new StandingState();
+
+    // Safe spawning measures
+    invultimer = 1.0f;
 
     // Jumping
     jumpCount = 0;
