@@ -80,7 +80,7 @@ void openWindow(RenderWindow &window){
 }
 
 int main() {
-    RenderWindow window(VideoMode(windowWidth, windowHeight), "The Monster Genome");
+    RenderWindow window(VideoMode(windowWidth, windowHeight), "The Monster Genome", Style::Titlebar | Style::Close);
     openWindow(window);
     return 0;
 }
