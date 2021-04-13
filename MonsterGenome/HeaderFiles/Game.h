@@ -30,6 +30,11 @@ private:
     Sprite HUDSprite;
     RectangleShape healthBar;
 
+    Font font;
+    Text deathPrompt[3];
+
+    bool quit;
+
 
 public:
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);
@@ -37,4 +42,11 @@ public:
     void PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
     void LoadLevel(int lvl, int LoadCase);
+    Character* getPlayer();
+
+    void PollDeath(RenderWindow &window, GameState &state);
+    void DrawDeath(RenderWindow &window);
+
+    void MoveLeft();
+    void MoveRight();
 };

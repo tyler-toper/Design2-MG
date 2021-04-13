@@ -7,13 +7,38 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     mod = new HeroMod(controlMapping);
     LoadLevel(lvl, 1);
 
-
-
     HUD.loadFromFile("../../Assets/Backgrounds/HUD.png");
     HUDSprite.setTexture(HUD);
 
-    healthBar.setPosition(95, 735);
+    healthBar.setPosition(93, 735);
     healthBar.setFillColor(Color::Red);
+
+    quit = false;
+
+    font.loadFromFile(pixelFont);
+
+    deathPrompt[0].setString("YOU DIED!");
+    deathPrompt[1].setString("Reload From Last Checkpoint");
+    deathPrompt[2].setString("Quit to Main Menu");
+
+    deathPrompt[0].setCharacterSize(50);
+    deathPrompt[1].setCharacterSize(30);
+    deathPrompt[2].setCharacterSize(30);
+
+    FloatRect box = deathPrompt[0].getGlobalBounds();
+    float offset = box.width / 2;
+    deathPrompt[0].setPosition(425, 334);
+    deathPrompt[1].setPosition(100, 450);
+    deathPrompt[2].setPosition(600, 450);
+
+    for(int i = 0; i < 3; i++){
+        deathPrompt[i].setFont(font);
+    }
+    deathPrompt[0].setFillColor(Color::Red);
+    deathPrompt[1].setFillColor(Color::Red);
+    deathPrompt[1].setStyle(Text::Underlined);
+    deathPrompt[2].setFillColor(Color::Yellow);
+
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
@@ -69,10 +94,10 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         }
 
         // Update player health bar
-        // Health bar's max size is 218 pixels
+        // Health bar's max size is 220 pixels
         int maxHealth = players[0]->getMaxHealth();
         int currentHealth = players[0]->getHealth();
-        healthBar.setSize(Vector2f((218.0 / maxHealth) * currentHealth, 11));
+        healthBar.setSize(Vector2f((220.0 / maxHealth) * currentHealth, 11));
     }
 }
 
@@ -137,8 +162,8 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         dynamic_cast<Hero *>(players[0])->animWeapon(window, playerView);
 
         window.setView(window.getDefaultView());
-        window.draw(HUDSprite);
         window.draw(healthBar);
+        window.draw(HUDSprite);
 
         if(dynamic_cast<Hero *>(players[0])->isRespawning()) {
             Font font;
@@ -274,3 +299,60 @@ void Game::LoadLevel(int lvl, int LoadCase){
     lvlFile = NULL;
 }
 
+Character* Game::getPlayer() {
+    return players[0];
+}
+
+void Game::PollDeath(RenderWindow &window, GameState &state){
+    Event event;
+    while(window.pollEvent(event)){
+        if(event.type == Event::Closed){
+            window.close();
+        }
+        if(event.type == Event::KeyPressed){
+            auto pressed = event.key.code;
+            std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
+            if(pressed == controls["Move Right"]){
+                MoveRight();
+            }
+            if(pressed == controls["Move Left"]){
+                MoveLeft();
+            }
+            if(pressed == Keyboard::Return){
+                if(quit){
+                    state.SetState(GameState::MENU);
+                }
+                else{
+                    state.SetState(GameState::LVL1);
+                }
+            }
+        }
+    }
+}
+
+void Game::DrawDeath(RenderWindow &window){
+    window.setView(window.getDefaultView());
+    for(int i = 0; i < 3; i++){
+        window.draw(deathPrompt[i]);
+    }
+}
+
+void Game::MoveLeft(){
+    if(quit){
+        quit = false;
+        deathPrompt[2].setFillColor(Color::Yellow);
+        deathPrompt[2].setStyle(Text::Regular);
+        deathPrompt[1].setFillColor(Color::Red);
+        deathPrompt[1].setStyle(Text::Underlined);
+    }
+}
+
+void Game::MoveRight(){
+    if(!quit){
+        quit = true;
+        deathPrompt[1].setFillColor(Color::Yellow);
+        deathPrompt[1].setStyle(Text::Regular);
+        deathPrompt[2].setFillColor(Color::Red);
+        deathPrompt[2].setStyle(Text::Underlined);
+    }
+}
