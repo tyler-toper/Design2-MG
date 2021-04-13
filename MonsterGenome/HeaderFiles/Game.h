@@ -2,6 +2,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include "../HeaderFiles/Character.h"
 #include "../HeaderFiles/Enemy.h"
 #include "../HeaderFiles/HeroMod.h"
@@ -32,8 +33,14 @@ private:
 
     Font font;
     Text deathPrompt[3];
-
     bool quit;
+
+    SoundBuffer moveBuffer;
+    Sound moveSound;
+    SoundBuffer errorBuffer;
+    Sound errorSound;
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
 
 
 public:

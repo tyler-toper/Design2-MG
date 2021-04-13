@@ -18,7 +18,7 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     font.loadFromFile(pixelFont);
 
     deathPrompt[0].setString("YOU DIED!");
-    deathPrompt[1].setString("Reload From Last Checkpoint");
+    deathPrompt[1].setString("Reload Last Checkpoint");
     deathPrompt[2].setString("Quit to Main Menu");
 
     deathPrompt[0].setCharacterSize(50);
@@ -38,6 +38,19 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     deathPrompt[1].setFillColor(Color::Red);
     deathPrompt[1].setStyle(Text::Underlined);
     deathPrompt[2].setFillColor(Color::Yellow);
+
+
+    moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
+    moveSound.setBuffer(moveBuffer);
+    moveSound.setVolume(40);
+
+    errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
+    errorSound.setBuffer(errorBuffer);
+    errorSound.setVolume(45);
+
+    confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
+    confirmSound.setBuffer(confirmBuffer);
+    confirmSound.setVolume(70);
 
 }
 
@@ -103,6 +116,10 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         int maxHealth = players[0]->getMaxHealth();
         int currentHealth = players[0]->getHealth();
         healthBar.setSize(Vector2f((220.0 / maxHealth) * currentHealth, 11));
+
+        if(currentHealth <= 0){
+            state.SetState(GameState::DEAD);
+        }
     }
 }
 
@@ -309,6 +326,7 @@ void Game::PollDeath(RenderWindow &window, GameState &state){
                 MoveLeft();
             }
             if(pressed == Keyboard::Return){
+                confirmSound.play();
                 if(quit){
                     state.SetState(GameState::MENU);
                 }
@@ -329,20 +347,28 @@ void Game::DrawDeath(RenderWindow &window){
 
 void Game::MoveLeft(){
     if(quit){
+        moveSound.play();
         quit = false;
         deathPrompt[2].setFillColor(Color::Yellow);
         deathPrompt[2].setStyle(Text::Regular);
         deathPrompt[1].setFillColor(Color::Red);
         deathPrompt[1].setStyle(Text::Underlined);
     }
+    else{
+        errorSound.play();
+    }
 }
 
 void Game::MoveRight(){
     if(!quit){
+        moveSound.play();
         quit = true;
         deathPrompt[1].setFillColor(Color::Yellow);
         deathPrompt[1].setStyle(Text::Regular);
         deathPrompt[2].setFillColor(Color::Red);
         deathPrompt[2].setStyle(Text::Underlined);
+    }
+    else{
+        errorSound.play();
     }
 }
