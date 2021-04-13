@@ -495,10 +495,6 @@ void Hero::setJumpingHeld(bool state) {
     jumpingHeld = state;
 }
 
-void Hero::setRespawnTimer(float time) {
-    respawntimer = time;
-}
-
 // Getters
 int Hero::getJumpCount() const {
     return jumpCount;
@@ -508,13 +504,8 @@ bool Hero::isJumpingHeld() const {
     return jumpingHeld;
 }
 
-bool Hero::isRespawning() const {
-    return respawning;
-}
-
 // Mutators
 void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
-    respawning = (respawntimer != 0.f);
     // Clear additions from previous frame update
     setAdditions(0.f, 0.f);
     float time = timein.asSeconds();
@@ -534,29 +525,19 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
         invultimer = 0;
     }
 
-    // Respawn timer
-    if(respawntimer > 0) {
-        respawntimer = respawntimer - time;
-    } else {
-        respawntimer = 0.f;
-    }
-
-
     timepass = timepass - time;
     jumpvel += GRAV * time; // Vertical Acceleration
 
     vertaddKnock += GRAV * time;
     setKnockFrame();
 
-    if(!respawning) {
-        sprite.move(Vector2f(0, jumpvel * time));
+    sprite.move(Vector2f(0, jumpvel * time));
 
-        sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock) * time));
-        state_->handleInput(*this, timein, window, playerView);
-        state_->update(*this);
-        checkProjectile();
-        checkMelee();
-    }
+    sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock) * time));
+    state_->handleInput(*this, timein, window, playerView);
+    state_->update(*this);
+    checkProjectile();
+    checkMelee();
 
     //Gravity and collision when jumping
     checkCollision();
