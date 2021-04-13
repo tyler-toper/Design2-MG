@@ -32,13 +32,8 @@ private:
     RectangleShape healthBar;
 
     Font font;
-    Text deathPrompt[3];
-    bool quit;
+    Text deathPrompt[2];
 
-    SoundBuffer moveBuffer;
-    Sound moveSound;
-    SoundBuffer errorBuffer;
-    Sound errorSound;
     SoundBuffer confirmBuffer;
     Sound confirmSound;
 
@@ -54,6 +49,4 @@ public:
     void PollDeath(RenderWindow &window, GameState &state);
     void DrawDeath(RenderWindow &window);
 
-    void MoveLeft();
-    void MoveRight();
 };

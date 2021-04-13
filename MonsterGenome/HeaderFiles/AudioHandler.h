@@ -15,6 +15,8 @@ private:
     Sound settingsSound;
     SoundBuffer playBuffer;
     Sound playSound;
+    SoundBuffer deathBuffer;
+    Sound deathSound;
     bool stateChanged;
 
 public:

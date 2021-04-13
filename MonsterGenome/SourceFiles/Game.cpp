@@ -13,40 +13,32 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     healthBar.setPosition(93, 735);
     healthBar.setFillColor(Color::Red);
 
-    quit = false;
 
     font.loadFromFile(pixelFont);
 
     deathPrompt[0].setString("YOU DIED!");
-    deathPrompt[1].setString("Reload Last Checkpoint");
-    deathPrompt[2].setString("Quit to Main Menu");
+    deathPrompt[1].setString("Press any key to continue");
 
-    deathPrompt[0].setCharacterSize(50);
-    deathPrompt[1].setCharacterSize(30);
-    deathPrompt[2].setCharacterSize(30);
+    deathPrompt[0].setFont(font);
+    deathPrompt[1].setFont(font);
 
-    FloatRect box = deathPrompt[0].getGlobalBounds();
-    float offset = box.width / 2;
-    deathPrompt[0].setPosition(425, 334);
-    deathPrompt[1].setPosition(100, 450);
-    deathPrompt[2].setPosition(600, 450);
+    deathPrompt[0].setCharacterSize(70);
+    deathPrompt[1].setCharacterSize(40);
 
-    for(int i = 0; i < 3; i++){
-        deathPrompt[i].setFont(font);
-    }
     deathPrompt[0].setFillColor(Color::Red);
-    deathPrompt[1].setFillColor(Color::Red);
-    deathPrompt[1].setStyle(Text::Underlined);
-    deathPrompt[2].setFillColor(Color::Yellow);
+    deathPrompt[1].setFillColor(Color::Yellow);
 
 
-    moveBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/bong_001.ogg");
-    moveSound.setBuffer(moveBuffer);
-    moveSound.setVolume(40);
 
-    errorBuffer.loadFromFile("../../Assets/Audio/SFX/Interface Sounds/Audio/error_008.ogg");
-    errorSound.setBuffer(errorBuffer);
-    errorSound.setVolume(45);
+    FloatRect box0 = deathPrompt[0].getGlobalBounds();
+    float offset0 = box0.width / 2;
+    deathPrompt[0].setPosition(512 - offset0, 250);
+
+    FloatRect box1 = deathPrompt[1].getGlobalBounds();
+    float offset1 = box1.width / 2;
+    deathPrompt[1].setPosition(512 - offset1, 450);
+
+
 
     confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
     confirmSound.setBuffer(confirmBuffer);
@@ -117,9 +109,7 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         int currentHealth = players[0]->getHealth();
         healthBar.setSize(Vector2f((220.0 / maxHealth) * currentHealth, 11));
 
-        if(currentHealth <= 0){
-            state.SetState(GameState::DEAD);
-        }
+
     }
 }
 
@@ -317,58 +307,16 @@ void Game::PollDeath(RenderWindow &window, GameState &state){
             window.close();
         }
         if(event.type == Event::KeyPressed){
-            auto pressed = event.key.code;
-            std::map<std::string, sf::Keyboard::Key> controls = *controlMapping;
-            if(pressed == controls["Move Right"]){
-                MoveRight();
-            }
-            if(pressed == controls["Move Left"]){
-                MoveLeft();
-            }
-            if(pressed == Keyboard::Return){
-                confirmSound.play();
-                if(quit){
-                    state.SetState(GameState::MENU);
-                }
-                else{
-                    state.SetState(GameState::LVL1);
-                }
-            }
+            confirmSound.play();
+            state.SetState(GameState::LVL1);
+
+
         }
     }
 }
 
 void Game::DrawDeath(RenderWindow &window){
     window.setView(window.getDefaultView());
-    for(int i = 0; i < 3; i++){
-        window.draw(deathPrompt[i]);
-    }
-}
-
-void Game::MoveLeft(){
-    if(quit){
-        moveSound.play();
-        quit = false;
-        deathPrompt[2].setFillColor(Color::Yellow);
-        deathPrompt[2].setStyle(Text::Regular);
-        deathPrompt[1].setFillColor(Color::Red);
-        deathPrompt[1].setStyle(Text::Underlined);
-    }
-    else{
-        errorSound.play();
-    }
-}
-
-void Game::MoveRight(){
-    if(!quit){
-        moveSound.play();
-        quit = true;
-        deathPrompt[1].setFillColor(Color::Yellow);
-        deathPrompt[1].setStyle(Text::Regular);
-        deathPrompt[2].setFillColor(Color::Red);
-        deathPrompt[2].setStyle(Text::Underlined);
-    }
-    else{
-        errorSound.play();
-    }
+    window.draw(deathPrompt[0]);
+    window.draw(deathPrompt[1]);
 }
