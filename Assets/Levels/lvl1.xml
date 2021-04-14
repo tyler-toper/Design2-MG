@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level background="Custom/Level1.png">
 	<hero x="100" y="40"/>
+
 	<enemy type="Wanderer" x="500" y="40"/>
 	<enemy type="Wanderer" x="1000" y="40"/>
 	<enemy type="Fighter" x="2500" y="40"/>
