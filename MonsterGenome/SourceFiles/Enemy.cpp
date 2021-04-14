@@ -79,7 +79,7 @@ Fighter::Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<
 
     // TODO: Determine what is necessary
     state_ = new StandingState();
-    text.loadFromFile("../../Assets/Copyright Free Textures/Dark Knight/testing_sizing.png");
+    text.loadFromFile("../../Assets/Copyright Free Textures/Dark Knight/darkknight_all.png");
     sprite.setTexture(text);
     sprite.setPosition(Vector2f(spawnX, spawnY));
     sprite.setTextureRect(IntRect(0, 0, rectWidthDef, rectHeightDef));
