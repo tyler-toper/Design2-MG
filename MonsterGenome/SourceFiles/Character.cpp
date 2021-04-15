@@ -40,7 +40,6 @@ using namespace sf;
     /// Character Functions
     // Constructor
     Character::Character(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, bool ene){
-
         armor = 100;
         name = "player";
         level = 0;
@@ -421,13 +420,16 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     this->controlMapping = controlMapping;
     state_ = new StandingState();
 
+    // Safe spawning measures
+    invultimer = 1.0f;
+
     // Jumping
     jumpCount = 0;
     jumpingHeld = false;
     jumpCountMax = 1;
 
     // Weapons Modification
-    reloadTime = 1.0f;
+    reloadTime = 0.5f;
     charReloadMod = 1.0f;
     minCharReloadMod = 0.1f;
     maxCharReloadMod = 1.5f;
@@ -495,7 +497,6 @@ void Hero::setJumpingHeld(bool state) {
     jumpingHeld = state;
 }
 
-
 // Getters
 int Hero::getJumpCount() const {
     return jumpCount;
@@ -534,12 +535,12 @@ void Hero::updatePosition(Time& timein, RenderWindow& window, View &playerView){
 
     sprite.move(Vector2f(0, jumpvel * time));
 
-    sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock ) * time ));
+    sprite.move(Vector2f(horzaddKnock * time, (vertaddKnock) * time));
     state_->handleInput(*this, timein, window, playerView);
     state_->update(*this);
-
     checkProjectile();
     checkMelee();
+
     //Gravity and collision when jumping
     checkCollision();
     // TODO: This is a one time setter to position, knockback in checkMelee() assumes that these are velocities that are saved
@@ -756,4 +757,24 @@ void Hero::JumpingState::update(Hero& hero) {
     // TODO: Move this to updatePosition?
     hero.setJumpingHeld(Keyboard::isKeyPressed(controls["Jump"]));
 }
+
+int Character::getDamageMod() const {
+        return charDamageMod + 10;
+    }
+
+int Character::getCharReloadMod() const {
+        return int(charReloadMod);
+    }
+
+int Character::getJumpCountMax() const {
+        return jumpCountMax;
+    }
+
+int Character::getJumpHeight() const {
+    return int(jumpHeight);
+    }
+
+int Character::getMoveSpeed() const {
+        return int(baseHorizontalvel);
+    }
 

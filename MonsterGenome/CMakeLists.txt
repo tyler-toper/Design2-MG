@@ -6,12 +6,8 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(MonsterGenome main.cpp
         SourceFiles/Weapon.cpp
         HeaderFiles/Weapon.h
-        SourceFiles/Armor.cpp
-        HeaderFiles/Armor.h
         SourceFiles/Menu.cpp
         HeaderFiles/Menu.h
-        SourceFiles/LoadAssets.cpp
-        HeaderFiles/LoadAssets.h
         SourceFiles/Platforms.cpp
         HeaderFiles/Platforms.h
         SourceFiles/Game.cpp

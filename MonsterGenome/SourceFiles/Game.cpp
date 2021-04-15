@@ -10,14 +10,46 @@ Game::Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl) {
     HUD.loadFromFile("../../Assets/Backgrounds/HUD.png");
     HUDSprite.setTexture(HUD);
 
-    healthBar.setPosition(95, 735);
+    healthBar.setPosition(93, 735);
     healthBar.setFillColor(Color::Red);
+
+
+    font.loadFromFile(pixelFont);
+
+    deathPrompt[0].setString("YOU DIED!");
+    deathPrompt[1].setString("Press any key to continue");
+
+    deathPrompt[0].setFont(font);
+    deathPrompt[1].setFont(font);
+
+    deathPrompt[0].setCharacterSize(70);
+    deathPrompt[1].setCharacterSize(40);
+
+    deathPrompt[0].setFillColor(Color::Red);
+    deathPrompt[1].setFillColor(Color::Yellow);
+
+
+
+    FloatRect box0 = deathPrompt[0].getGlobalBounds();
+    float offset0 = box0.width / 2;
+    deathPrompt[0].setPosition(512 - offset0, 250);
+
+    FloatRect box1 = deathPrompt[1].getGlobalBounds();
+    float offset1 = box1.width / 2;
+    deathPrompt[1].setPosition(512 - offset1, 450);
+
+
+
+    confirmBuffer.loadFromFile("../../Assets/Audio/SFX/UI Audio/Audio/click2.ogg");
+    confirmSound.setBuffer(confirmBuffer);
+    confirmSound.setVolume(70);
+
 }
 
 void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView) {
     if(this->modify){
         /// TODO: Check which condition was meet
-        // All enemies are dead
+        // Checkpoint
         if(players[0]->getCheckPoint()){
             if(mod->PollMenu(window, state, modify, players[0])){
                 players[0]->resetCheck();
@@ -27,6 +59,8 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         else{
             players[0]->setHealth(players[0]->getMaxHealth());
             players[0]->getSprite().setPosition(players[0]->getReset());
+            players[0]->setAdditions(0,0);
+            players[0]->setAdditionsKnock(0,0);
             this->modify = false;
         }
     }
@@ -67,10 +101,15 @@ void Game::PollGame(RenderWindow &window, Time& time, GameState &state, View &pl
         }
 
         // Update player health bar
-        // Health bar's max size is 218 pixels
+        if(players[0]->getHealth() <= 0) {
+            state.SetState(GameState::DEAD);
+        }
+        // Health bar's max size is 220 pixels
         int maxHealth = players[0]->getMaxHealth();
         int currentHealth = players[0]->getHealth();
-        healthBar.setSize(Vector2f((218.0 / maxHealth) * currentHealth, 11));
+        healthBar.setSize(Vector2f((220.0 / maxHealth) * currentHealth, 11));
+
+
     }
 }
 
@@ -121,7 +160,6 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
             window.draw(players[i]->getSprite());
         }
 
-        // TODO: Or if player is dead
         if (players[0]->getHealth() <= 0 || players[0]->getCheckPoint()) {
             modify = true;
             if(players[0]->getCheckPoint()){
@@ -133,8 +171,8 @@ void Game::Draw(RenderWindow &window, Time& time, View &playerView, View &mapVie
         dynamic_cast<Hero *>(players[0])->animWeapon(window, playerView);
 
         window.setView(window.getDefaultView());
-        window.draw(HUDSprite);
         window.draw(healthBar);
+        window.draw(HUDSprite);
     }
 
 
@@ -258,3 +296,27 @@ void Game::LoadLevel(int lvl, int LoadCase){
     lvlFile = NULL;
 }
 
+Character* Game::getPlayer() {
+    return players[0];
+}
+
+void Game::PollDeath(RenderWindow &window, GameState &state){
+    Event event;
+    while(window.pollEvent(event)){
+        if(event.type == Event::Closed){
+            window.close();
+        }
+        if(event.type == Event::KeyPressed){
+            confirmSound.play();
+            state.SetState(GameState::LVL1);
+
+
+        }
+    }
+}
+
+void Game::DrawDeath(RenderWindow &window){
+    window.setView(window.getDefaultView());
+    window.draw(deathPrompt[0]);
+    window.draw(deathPrompt[1]);
+}

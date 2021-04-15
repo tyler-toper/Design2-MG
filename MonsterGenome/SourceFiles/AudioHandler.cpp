@@ -9,7 +9,7 @@ AudioHandler::AudioHandler(){
     theme.setLoop(true);
     theme.setVolume(25);
 
-    playBuffer.loadFromFile("../../Assets/Audio/Soundtracks/The Blacklist.wav");
+    playBuffer.loadFromFile("../../Assets/Audio/Soundtracks/Deep Sea Abyss.wav");
     playSound.setBuffer(playBuffer);
     playSound.setLoop(true);
     playSound.setVolume(35);
@@ -18,6 +18,11 @@ AudioHandler::AudioHandler(){
     settingsSound.setBuffer(settingsBuffer);
     settingsSound.setLoop(true);
     settingsSound.setVolume(25);
+
+    deathBuffer.loadFromFile("../../Assets/Audio/Soundtracks/Sad Story.wav");
+    deathSound.setBuffer(deathBuffer);
+    deathSound.setLoop(true);
+    deathSound.setVolume(30);
 
 }
 
@@ -42,7 +47,7 @@ void AudioHandler::playMusic(){
         }
         
         if(state == GameState::LVL1){
-            if(prev == GameState::SAVELOAD){
+            if(prev == GameState::SAVELOAD || prev == GameState::DEAD) {
                 playSound.stop();
             }
             playSound.play();
@@ -61,6 +66,13 @@ void AudioHandler::playMusic(){
         }
         else{
             settingsSound.stop();
+        }
+
+        if(state == GameState::DEAD){
+            deathSound.play();
+        }
+        else{
+            deathSound.stop();
         }
     }
 }

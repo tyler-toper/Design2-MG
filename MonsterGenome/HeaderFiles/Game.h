@@ -2,6 +2,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
+#include <SFML/Audio.hpp>
 #include "../HeaderFiles/Character.h"
 #include "../HeaderFiles/Enemy.h"
 #include "../HeaderFiles/HeroMod.h"
@@ -30,6 +31,12 @@ private:
     Sprite HUDSprite;
     RectangleShape healthBar;
 
+    Font font;
+    Text deathPrompt[2];
+
+    SoundBuffer confirmBuffer;
+    Sound confirmSound;
+
 
 public:
     explicit Game(std::map<std::string, sf::Keyboard::Key>* controlMapping, int lvl);
@@ -37,4 +44,9 @@ public:
     void PollGame(RenderWindow &window, Time& time, GameState &state, View &playerView);
     void Draw(RenderWindow &window, Time& time, View &playerView, View &mapView);
     void LoadLevel(int lvl, int LoadCase);
+    Character* getPlayer();
+
+    void PollDeath(RenderWindow &window, GameState &state);
+    void DrawDeath(RenderWindow &window);
+
 };
