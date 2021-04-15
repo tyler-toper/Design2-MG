@@ -268,10 +268,10 @@ void Game::LoadLevel(int lvl, int LoadCase){
                     this->borders.push_back(tempPlat);
                 }
                 if (!strcmp("moveplatform", lvlFile->getNodeName())){
-                    col = lvlFile->getAttributeValueAsFloat("x1");
-                    col2 = lvlFile->getAttributeValueAsFloat("x2");
-                    row = lvlFile->getAttributeValueAsFloat("y1");
-                    row2 = lvlFile->getAttributeValueAsFloat("y2");
+                    col = lvlFile->getAttributeValueAsFloat("startX");
+                    col2 = lvlFile->getAttributeValueAsFloat("endX");
+                    row = lvlFile->getAttributeValueAsFloat("startY");
+                    row2 = lvlFile->getAttributeValueAsFloat("endY");
                     speed = lvlFile->getAttributeValueAsFloat("speed");
                     textPath = lvlFile->getAttributeValue("sprite");
                     tempPlat = new MovePlatform(textPath, col, row, col2, row2, speed);

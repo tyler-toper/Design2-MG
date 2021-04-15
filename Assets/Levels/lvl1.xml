@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level background="Custom/Level1.png">
-	<hero x="100" y="250"/>
-	<enemy type="Wanderer" x="500" y="250"/>
-	<enemy type="Wanderer" x="1000" y="250"/>
-	<enemy type="Fighter" x="2500" y="250"/>
+	<hero x="100" y="200"/>
+	<enemy type="Wanderer" x="3176" y="150"/>
+	<enemy type="Wanderer" x="4900" y="150"/>
+	<enemy type="Fighter" x="3900" y="150"/>
+	<enemy type="Wanderer" x="3650" y="100"/>
+	<enemy type="Fighter" x="5500" y="150"/>
 
 	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3136" y="158"/>
 	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="3200" y="158"/>
@@ -21,15 +23,52 @@
 	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4006" y="142"/>
 	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4070" y="142"/>
 
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4070" y="282"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4186" y="212"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4418" y="212"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4482" y="212"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4546" y="212"/>
+
+	<moveplatform startX="4662" startY="212" endX="4662" endY="100" speed="100" sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4762" y="100"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4826" y="100"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4890" y="100"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="4954" y="282"/>
+
+	<moveplatform startX="5070" startY="212" endX="5320" endY="100" speed="100" sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5390" y="100"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5454" y="100"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5518" y="100"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5210" y="212"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5326" y="282"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5442" y="212"/>
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5506" y="212"/>
+
+	<moveplatform startX="5634" startY="282" endX="6000" endY="282" speed="100" sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5785" y="212"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="5901" y="142"/>
+
+	<platform sprite="../../Assets/Copyright Free Textures/Space Texture Pack/Floor 6.png" x="6058" y="100"/>
+
 	<checkpoint path="../../Assets/Copyright Free Textures/Space Texture Pack/Teleportation copie.png" x="2452" y="323"/>
 
-	<vBoundary width="10" len="132" posX="-10" posY="214"/>
-	<vBoundary width="10" len="132" posX="9216" posY="214"/>
+	<vBoundary width="210" len="232" posX="-210" posY="214"/>
+	<vBoundary width="200" len="232" posX="9216" posY="214"/>
 	<vBoundary width="10" len="213" posX="3039" posY="0"/>
 	<vBoundary width="10" len="213" posX="6122" posY="0"/>
 
 	<hBoundary width="3049" len="20" posX="0" posY="200"/>
 	<hBoundary width="3049" len="20" posX="6122" posY="200"/>
 	<hBoundary width="3071" len="20" posX="3050" posY="-10"/>
-	<hBoundary width="9216" len="100" posX="0" posY="340"/>
+	<hBoundary width="9216" len="200" posX="0" posY="340"/>
 </level>
