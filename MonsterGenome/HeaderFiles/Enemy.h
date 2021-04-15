@@ -16,17 +16,17 @@ protected:
 
     struct EnemyState {
         virtual ~EnemyState() {};
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) = 0;
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView) = 0;
         virtual void update(Enemy& ene) = 0;
     };
 
     struct StandingState : public EnemyState {
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) = 0;
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView) = 0;
         virtual void update(Enemy& ene) = 0;
     };
 
     struct JumpingState : public EnemyState {
-        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window) = 0;
+        virtual void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView) = 0;
         virtual void update(Enemy& ene) = 0;
     };
     EnemyState* state_;
@@ -48,23 +48,40 @@ public:
 /// Fighter
 // Shoots at player and runs around
 class Fighter : public Enemy {
+protected:
+    int rectWidthDef;
+    int rectHeightDef;
+    int rectLeftA;
+    int rectLeftW;
+    int rectLeftI;
+    static int kb;
+
+    Clock clock;
+    int offset;
+    Time animTime;
+    int frameTime;
+
 public:
     // Constructors
     Fighter(vector<Platforms*>* borders, vector<Projectile*>* proj, vector<Character*>* actors, float spawnX, float spawnY);
     // Setters
     void setAnimation(string animation);
+    void setAttackAnim();
+    void setResumeAttack();
+    void setWalkAnim();
+    void setIdleAnim();
     // Mutators
     void setActions(float time);
 
     // States
     struct StandingState : public Enemy::StandingState {
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView);
         void update(Enemy& ene);
     };
-    struct JumpingState : public Enemy::JumpingState {
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+/*    struct JumpingState : public Enemy::JumpingState {
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView);
         void update(Enemy& ene);
-    };
+    };*/
 
 };
 
@@ -82,11 +99,11 @@ public:
     void updateFaceright();
     // States
     struct StandingState : public Enemy::StandingState {
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView);
         void update(Enemy& ene);
     };
     struct JumpingState : public Enemy::JumpingState {
-        void handleInput(Enemy& ene, Time& timein, RenderWindow& window);
+        void handleInput(Enemy& ene, Time& timein, RenderWindow& window, View &playerView);
         void update(Enemy& ene);
     };
 
