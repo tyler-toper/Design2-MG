@@ -159,7 +159,7 @@ void Fighter::setWalkAnim() {
 }
 
 void Fighter::setAttackAnim() {
-    int rectWidth = 90;
+    int rectWidth = 57; //90
     int rectHeight = 81;
     int top = 136;
 
@@ -167,9 +167,14 @@ void Fighter::setAttackAnim() {
         sprite.setTextureRect(IntRect(0,top,rectWidth,rectHeight));
     }
     else{
-        if(rectLeftA < 1522) {
-            rectLeftA += 92;
+        if(rectLeftA < 92*7) {
+            rectLeftA += 92; 
             sprite.setTextureRect(IntRect(rectLeftA,top,rectWidth,rectHeight));
+        }
+
+        if(rectLeftA >= 92*7) {
+            rectLeftA += 92; 
+            sprite.setTextureRect(IntRect(rectLeftA,top,90,rectHeight));
         }
 
         if(rectLeftA >= 1522){
