@@ -278,7 +278,7 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
                 if (!strcmp("coords", saveFile->getNodeName())) {
                     Character *hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players,
                                                saveFile->getAttributeValueAsFloat("x"),
-                                               saveFile->getAttributeValueAsFloat("y") - 150);
+                                               saveFile->getAttributeValueAsFloat("y") - 80);
                     game.players.push_back(hero);
                 }
                 if (!strcmp("attrs", saveFile->getNodeName())) {
@@ -296,7 +296,6 @@ void SaveLoadMenu::LoadGame(Game &game, int slot) {
                     game.players[0]->jumpHeight = saveFile->getAttributeValueAsFloat("jump_mod");
                     game.players[0]->baseHorizontalvel = saveFile->getAttributeValueAsFloat("walk_speed");
                     game.players[0]->maxHorizontalvel = saveFile->getAttributeValueAsFloat("run_speed");
-                    cout << game.players[0]->jumpCountMax << "\n" << game.players[0]->charReloadMod << "\n" << game.players[0]->charDamageMod << endl;
                 }
                 break;
             default:

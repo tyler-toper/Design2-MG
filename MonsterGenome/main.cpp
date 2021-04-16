@@ -16,7 +16,6 @@
 
 
 void openWindow(RenderWindow &window){
-    // TODO: Scale everything when changing window size
     // Create objects
     Settings settings(windowWidth, windowHeight);
     Menu menu(windowWidth, windowHeight, settings.GetControlMapping());
@@ -84,7 +83,3 @@ int main() {
     openWindow(window);
     return 0;
 }
-
-
-// NOTE: The OpenGL glFlush() fail in Texture.cpp(98) occurs when allocating Texture objects without having
-// a RenderWindow in the same scope. Everything still works fine with the error.

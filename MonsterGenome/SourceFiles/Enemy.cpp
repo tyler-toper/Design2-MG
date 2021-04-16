@@ -334,14 +334,14 @@ void Wanderer::updateFaceright(){
         if(getSprite().getGlobalBounds().intersects(getBorders()[0][i]->getSprite().getGlobalBounds())){
             if(getBorders()[0][i]->getName() != "C"){
                 if(aboveBelow(getSprite(), getBorders()[0][i]->getSprite()) == 0 || getBorders()[0][i]->getName() == "N"){
-                    cout << "hi" << endl;
+                    //cout << "hi" << endl;
                     int temp = rightLeft(getSprite(), getBorders()[0][i]->getSprite()); 
                     if(temp == 1){
-                        cout << "hi1" << endl;
+                        //cout << "hi1" << endl;
                         setFaceright(true);
                     }
                     else if(temp == -1){
-                        cout << "hi2" << endl;
+                        //cout << "hi2" << endl;
                         setFaceright(false);
                     }
                 }

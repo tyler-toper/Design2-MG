@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level background="sky">
-    <hero x="400" y="300"/>
+    <hero x="400" y="280"/>
     <enemy x="400" y="300"/>
     <platform x="-800" y="500" sprite="../Images/platform.png"/>
     <platform x="0" y="500" sprite="../Images/platform.png"/>

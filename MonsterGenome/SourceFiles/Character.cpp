@@ -445,15 +445,15 @@ Hero::Hero(std::map<std::string, sf::Keyboard::Key>* controlMapping, vector<Plat
     this->pistol = new Pistol(0, "../../Assets/WeaponTextures/pistol_anim.png");
 
     //inv testing
-    cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+    //cout << "Inv before add: " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
     this->inventory->add(this->sword);
     this->inventory->add(this->pistol);
     //this->inventory->saveFile("../../Assets/WeaponStats/inventory.csv");
 
-//    cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
-//    this->inventory->remove(0);
-//    this->inventory->remove(0);
-//    cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+    //    cout << "Inv after add:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
+    //    this->inventory->remove(0);
+    //    this->inventory->remove(0);
+    //    cout << "Inv after removal:  " << this->inventory->getCap() << " " << this->inventory->getSize() << "\n";
 
 }
 // Setters

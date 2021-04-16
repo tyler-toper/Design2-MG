@@ -248,7 +248,7 @@ void StartMenu::LoadGame(Game &game, int slot) {
                 if (!strcmp("coords", saveFile->getNodeName())) {
                     Character *hero = new Hero(controlMapping, &game.borders, &game.projs, &game.players,
                                                saveFile->getAttributeValueAsFloat("x"),
-                                               saveFile->getAttributeValueAsFloat("y"));
+                                               saveFile->getAttributeValueAsFloat("y") - 80);
                     game.players.push_back(hero);
                 }
                 if (!strcmp("attrs", saveFile->getNodeName())) {
