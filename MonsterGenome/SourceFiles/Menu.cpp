@@ -9,7 +9,7 @@ Menu::Menu(float width, float height, std::map<std::string, sf::Keyboard::Key>* 
     // TODO: Make game logo
     title.setString("The Monster Genome");
     title.setFont(font);
-    title.setFillColor(Color::Blue);
+    title.setFillColor(Color::Cyan);
     title.setCharacterSize(100);
     FloatRect titleBox = title.getGlobalBounds();
     float titleOffset = titleBox.width / 2;

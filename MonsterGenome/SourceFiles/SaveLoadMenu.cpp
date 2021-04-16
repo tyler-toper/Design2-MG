@@ -44,11 +44,11 @@ SaveLoadMenu::SaveLoadMenu(float width, float height, std::map<std::string, sf::
 
     saveButton.loadFromFile("../../Assets/Backgrounds/SaveLoad/SaveButtonSelected.png");
     saveButtonSprite.setTexture(saveButton);
-    saveButtonSprite.setPosition(266, 543);
+    saveButtonSprite.setPosition(266, 542);
 
     loadButton.loadFromFile("../../Assets/Backgrounds/SaveLoad/LoadButtonSelected.png");
     loadButtonSprite.setTexture(loadButton);
-    loadButtonSprite.setPosition(593, 543);
+    loadButtonSprite.setPosition(593, 542);
 
     enteredBox.loadFromFile("../../Assets/Backgrounds/SaveBoxEntered.png");
     enteredBoxSprite.setTexture(enteredBox);
